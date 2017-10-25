@@ -1,2 +1,3 @@
 # my_blog
-my blog by maven and spring boot
+构建：maven多模块
+框架：spring-boot
