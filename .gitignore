@@ -1,1 +1,5 @@
 .idea/
+blog-common/target/
+blog-index-web/target/
+blog-manage-web/target/
+blog_pojo/target/
