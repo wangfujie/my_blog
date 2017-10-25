@@ -1,5 +1,9 @@
 .idea/
 blog-common/target/
+blog-common/blog-common.iml
 blog-index-web/target/
+blog-index-web/blog-index-web.iml
 blog-manage-web/target/
+blog-manage-web/blog-manage-web.iml
 blog-pojo/target/
+blog-pojo/blog-pojo.iml
