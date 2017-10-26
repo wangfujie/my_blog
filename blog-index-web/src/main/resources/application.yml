@@ -1,0 +1,8 @@
+#server:
+#  error:
+#  path: /error/404.html
+
+# 环境 dev|test|pro
+spring:
+  profiles:
+    active: dev
