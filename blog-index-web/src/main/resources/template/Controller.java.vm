@@ -1,18 +1,18 @@
 package ${package.Controller};
-    #if(${superControllerClassPackage})
-    import ${superControllerClassPackage};
-    #end
-    #if(${superControllerClassPackage})
-    import ${superControllerClassPackage};
-    #end
 
+#if(${superControllerClassPackage})
+import ${superControllerClassPackage};
+#end
+#if(${superControllerClassPackage})
+import ${superControllerClassPackage};
+#end
 import ${package.Entity}.${entity};
 import ${package.Service}.${table.serviceName};
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.chinawiserv.platform.common.utils.MessageSourceUtil;
-import com.chinawiserv.platform.common.utils.R;
-import com.chinawiserv.platform.common.vo.BaseQuery;
+import com.blog.common.query.BaseQuery;
+import com.blog.common.utils.MessageSourceUtil;
+import com.blog.common.result.R;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -35,24 +35,24 @@ public class ${table.controllerName} extends ${superControllerClass} {
 public class ${table.controllerName} {
 #end
 
-#foreach($field in ${table.fields})
-    #if(${field.keyFlag})
-        #set($keyPropertyName=${field.propertyName})
-        #set($keyPropertyAttr=${field.propertyType})
+    #foreach($field in ${table.fields})
+        #if(${field.keyFlag})
+            #set($keyPropertyName=${field.propertyName})
+            #set($keyPropertyAttr=${field.propertyType})
+        #end
     #end
-#end
 
-#set ($servicePropertyName = $table.serviceName.substring(0,1).toLowerCase() + $table.serviceName.substring(1,$table.serviceName.length()))
-#set ($classname = $entity.substring(0,1).toLowerCase() + $entity.substring(1,$entity.length()))
-@Autowired
-private ${table.serviceName} ${servicePropertyName};
+    #set ($servicePropertyName = $table.serviceName.substring(0,1).toLowerCase() + $table.serviceName.substring(1,$table.serviceName.length()))
+    #set ($classname = $entity.substring(0,1).toLowerCase() + $entity.substring(1,$entity.length()))
+    @Autowired
+    private ${table.serviceName} ${servicePropertyName};
 
     /**
      * 列表
      */
     @GetMapping("/list" )
     @RequiresPermissions("#if(${package.ModuleName})#end${table.entityPath}:list" )
-    @ApiOperation(value = "${table.comment}", notes = "获取${table.comment}列表" )
+    @ApiOperation(value = "${table.comment}", notes = "获取${table.comment}分页列表" )
     @ApiImplicitParams({
             @ApiImplicitParam(name = "currentPage", value = "当前页码", paramType = "query" ),
             @ApiImplicitParam(name = "pageSize", value = "每页条数", paramType = "query" )
@@ -91,7 +91,7 @@ private ${table.serviceName} ${servicePropertyName};
     public R save(@RequestBody ${entity} ${classname}){
         boolean retFlag = ${servicePropertyName}.insert(${classname});
         if (!retFlag) {
-            return R.error(MessageSourceUtil.getMesage("500"));
+            return R.error(MessageSourceUtil.getMessage("500"));
         }
         return R.ok();
     }
@@ -105,7 +105,7 @@ private ${table.serviceName} ${servicePropertyName};
     public R update(@RequestBody ${entity} ${classname}){
         boolean retFlag = ${servicePropertyName}.updateById(${classname});
         if (!retFlag) {
-            return R.error(MessageSourceUtil.getMesage("500"));
+            return R.error(MessageSourceUtil.getMessage("500"));
         }
         return R.ok();
     }
@@ -119,7 +119,7 @@ private ${table.serviceName} ${servicePropertyName};
     public R delete(@PathVariable("${keyPropertyName}" ) ${keyPropertyAttr} ${keyPropertyName}){
         boolean retFlag = ${servicePropertyName}.deleteById(${keyPropertyName});
         if (!retFlag) {
-            return R.error(MessageSourceUtil.getMesage("500"));
+            return R.error(MessageSourceUtil.getMessage("500"));
         }
         return R.ok();
     }
