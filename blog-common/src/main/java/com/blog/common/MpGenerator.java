@@ -1,4 +1,4 @@
-package com.blog.index;
+package com.blog.common;
 
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
@@ -11,9 +11,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * <p>
  * MyBatis-plus 代码生成器演示
- * </p>
+ * @author wangfj
  */
 public class MpGenerator {
 
@@ -30,9 +29,12 @@ public class MpGenerator {
         gc.setOutputDir("E:/code");
         gc.setFileOverride(true);
         gc.setActiveRecord(true);
-        gc.setEnableCache(false);// XML 二级缓存
-        gc.setBaseResultMap(true);// XML ResultMap
-        gc.setBaseColumnList(false);// XML columList
+        // XML 二级缓存
+        gc.setEnableCache(false);
+        // XML ResultMap
+        gc.setBaseResultMap(true);
+        // XML columList
+        gc.setBaseColumnList(false);
         gc.setAuthor("wangfj");
 
         // 自定义文件命名，注意 %s 会自动填充表实体属性！
@@ -63,11 +65,16 @@ public class MpGenerator {
 
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
-        // strategy.setCapitalMode(true);// 全局大写命名 ORACLE 注意
-//        strategy.setTablePrefix(new String[]{"tlog_", "tsys_"});// 此处可以修改为您的表前缀
-        strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
-        strategy.setInclude(new String[]{"blog_user"}); // 需要生成的表
-        // strategy.setExclude(new String[]{"test"}); // 排除生成的表
+        // 全局大写命名 ORACLE 注意
+        // strategy.setCapitalMode(true);
+        // 此处可以修改为您的表前缀
+        // strategy.setTablePrefix(new String[]{"tlog_", "tsys_"});
+        // 表名生成策略，下划线->驼峰值
+        strategy.setNaming(NamingStrategy.underline_to_camel);
+        // 需要生成的表
+        strategy.setInclude(new String[]{"blog_user"});
+        // 排除生成的表
+        // strategy.setExclude(new String[]{"test"});
         // 自定义实体父类
         // strategy.setSuperEntityClass("com.baomidou.demo.TestEntity");
         // 自定义实体，公共字段
@@ -96,7 +103,7 @@ public class MpGenerator {
         pc.setServiceImpl("index.modules.user.service.impl");
         pc.setMapper("index.modules.user.mapper");
         pc.setEntity("pojo.entity");
-//        pc.setModuleName("demo");
+        pc.setModuleName("user");
         mpg.setPackageInfo(pc);
 
         // 注入自定义配置，可以在 VM 中使用 cfg.abc 【可无】
