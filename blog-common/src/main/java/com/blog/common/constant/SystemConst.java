@@ -19,7 +19,7 @@ public final class SystemConst {
     /**
      * 当前登录用户信息 session Key
      */
-    public static final String ME = "me";
+    public static final String ME = "about";
     public static final String RES = "res";
     public static final String CUR = "cur";
     public static final String REGION = "regionCode";

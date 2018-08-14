@@ -1,266 +1,137 @@
 <!doctype html>
 <html>
 <head>
-<meta charset="gb2312">
-<title>���˲���</title>
-<meta name="keywords" content="" />
-<meta name="description" content="" />
-<link href="public/css/base.css" rel="stylesheet">
-<link href="public/css/index.css" rel="stylesheet">
-<script type="text/javascript" src="public/js/jquery.min.js"></script>
-<script type="text/javascript" src="public/js/sliders.js"></script>
-<!--[if lt IE 9]>
-  <script src="public/js/modernizr.js"></script>
-  <![endif]-->
+<meta charset="utf-8">
+<title>Mr · 王</title>
+<meta name="keywords" content="Mr · 王,个人博客" />
+<meta name="description" content="花若盛开，清风自来！" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="skin/public/js/jquery.min.js" ></script>
+<script src="skin/public/js/hc-sticky.js"></script>
+<script src="skin/public/js/comm.js"></script>
+<link href="skin/public/css/index.css" rel="stylesheet">
 </head>
 <body>
-<header>
-  <div class="logo f_l"> <a href="/"><img src="public/images/logo.png"></a> </div>
-  <nav id="topnav" class="f_r">
+<div class="header-page"></div>
+
+<div class="blank"></div>
+<aside>
+  <div class="newsbox">
+    <h2 class="hometitle">推荐</h2>
+    <ul class="news">
+<li><a href="knowledge/linux/2018-08-08/21.html" title="Linux系统SVN版本控制服务搭建：独立服务器运行和Apache方式运行">Linux系统SVN版本控制服务搭建：独立服务器运行和Apache方式运行</a></li><li><a href="knowledge/java/2018-07-26/20.html" title="JaveWeb学习之Servlet（二）：ServletConfig和ServletContext">JaveWeb学习之Servlet（二）：ServletConfig和ServletContext</a></li><li><a href="knowledge/java/2018-07-22/19.html" title="JaveWeb学习之Servlet（一）：Servlet生命周期和加载机制">JaveWeb学习之Servlet（一）：Servlet生命周期和加载机制</a></li><li><a href="knowledge/java/2018-06-29/18.html" title="Cglib动态代理浅析">Cglib动态代理浅析</a></li><li><a href="knowledge/java/2018-06-29/17.html" title="JDK动态代理浅析">JDK动态代理浅析</a></li>    </ul>
+  </div>
+  <div class="search">
+    <form action="tags/search/index.htm" method="post" name="searchform" id="searchform">
+      <input name="keyboard" id="keyboard" class="input_text" value="请输入关键字词" style="color: rgb(153, 153, 153);" onfocus="if(value=='请输入关键字词'){this.style.color='#000';value=''}" onblur="if(value==''){this.style.color='#999';value='请输入关键字词'}" type="text">
+      <input name="show" value="title" type="hidden">
+      <input name="tempid" value="1" type="hidden">
+      <input name="tbname" value="news" type="hidden">
+      <input name="Submit" class="input_submit" value="搜索" type="submit">
+    </form>
+  </div>
+  <div class="newsbox">
+    <h2 class="hometitle">标签云</h2>
+      <ul class="cloud">
+        <a href="tags/tags.html" target="_blank">SVN</a> <a href="tags/tags/tags_3.html" target="_blank">JavaWeb</a> <a href="tags/tags/tags_6.html" target="_blank">Servlet</a> <a href="tags/tags/tags_2.html" target="_blank">导出</a> <a href="tags/tags/tags_5.html" target="_blank">导入</a> <a href="tags/tags/tags_4.html" target="_blank">Excel</a> <a href="tags/tags/tags_8.html" target="_blank">Jxl</a> <a href="tags/tags/tags_9.html" target="_blank">Jar</a> <a href="tags/tags/tags_7.html" target="_blank">Apache</a> <a href="tags/tags/tags_12.html" target="_blank">命令</a> <a href="tags/tags/tags_10.html" target="_blank">服务器</a> <a href="tags/tags/tags_11.html" target="_blank">论坛</a> <a href="tags/tags/tags_14.html" target="_blank">Discuz</a> <a href="tags/tags/tags_24.html" target="_blank">构建</a> <a href="tags/tags/tags_17.html" target="_blank">Maven</a> <a href="tags/tags/tags_13.html" target="_blank">Jenkins</a> <a href="tags/tags/tags_15.html" target="_blank">文件上传</a> <a href="tags/tags/tags_16.html" target="_blank">Nginx</a> <a href="tags/tags/tags_20.html" target="_blank">MySQL</a> <a href="tags/tags/tags_18.html" target="_blank">环境</a> <a href="tags/tags/tags_21.html" target="_blank">安装</a> <a href="tags/tags/tags_19.html" target="_blank">PHP</a> <a href="tags/tags/tags_22.html" target="_blank">Linux</a> <a href="tags/tags/tags_23.html" target="_blank">JDK</a>      </ul>
+  </div>
+  <div class="newsbox">
+    <h2 class="hometitle">阅读排行</h2>
+    <ul class="news">
+<li><a href="knowledge/java/2018-07-22/19.html" title="JaveWeb学习之Servlet（一）：Servlet生命周期和加载机制">JaveWeb学习之Servlet（一）：Servlet生命周期和加载机制</a></li><li><a href="knowledge/java/2018-06-29/18.html" title="Cglib动态代理浅析">Cglib动态代理浅析</a></li><li><a href="knowledge/java/2018-07-26/20.html" title="JaveWeb学习之Servlet（二）：ServletConfig和ServletContext">JaveWeb学习之Servlet（二）：ServletConfig和ServletContext</a></li><li><a href="knowledge/java/2018-06-29/17.html" title="JDK动态代理浅析">JDK动态代理浅析</a></li><li><a href="knowledge/java/2018-06-29/16.html" title="浅析Java中的final关键字">浅析Java中的final关键字</a></li><li><a href="knowledge/linux/2018-08-08/21.html" title="Linux系统SVN版本控制服务搭建：独立服务器运行和Apache方式运行">Linux系统SVN版本控制服务搭建：独立服务器运行和Apache方式运行</a></li><li><a href="life/we/2018-08-08/23.html" title="一个JAVA程序员成长之路分享 [转载]">一个JAVA程序员成长之路分享 [转载]</a></li><li><a href="knowledge/linux/2018-06-29/12.html" title="Linux系统MySQL源码安装学习记录">Linux系统MySQL源码安装学习记录</a></li>    </ul>
+  </div>
+  <div class="newsbox">
+    <h2 class="hometitle">友情链接</h2>
+    <ul class="links">
+<li><a href="#" title="个人博客1">个人博客1</a></li><li><a href="#" title="个人博客2">个人博客2</a></li><li><a href="#" title="个人博客3">个人博客3</a></li><li><a href="#" title="个人博客4">个人博客4</a></li><li><a href="#" title="个人博客5">个人博客5</a></li>    </ul>
+  </div>
+</aside>
+<main>
+  <div class="bloglist">
     <ul>
-      <a href="index.html" target="_blank">��ҳ</a> <a href="news.html" target="_blank">������</a> <a href="p.html" target="_blank">����</a> <a href="a.html" target="_blank">����</a> <a href="c.html" target="_blank">���</a> <a href="b.html" target="_blank">����</a>
+   <li>
+        <h2><a href="knowledge/java/2018-08-11/24.html">Java Pattern和Matcher详解 [转载]</a></h2>
+        <p class="blogtext">最近玩了玩微信公众号开发之后，想写一个爬虫为公众号爬一点数据；在测试过程中，需要获取页面的所有链接，比较快捷的办法是使用正则表达式直接匹配，那么Java中的字符串正则用的是Pattern和Matcher结合，功能还是蛮强大的；我平时工作中对这两个类接触的少，具体的使用这篇博文写的很详细，转载记录一下；</p>
+        <p class="bloginfo"><span>转载</span><span>2018-08-11</span><span>[<a href="knowledge/java/java.html">Java</a>]</span><span>阅读(5)</span></p>
+      </li>
+   <li>
+        <h2><a href="life/we/2018-08-08/23.html">一个JAVA程序员成长之路分享 [转载]</a></h2>
+        <p class="blogtext">我搞JAVA也有些日子了, 因为我比较贪玩,上进心不那么强, 总是逼不得已为了高薪跳槽才去学习, 所以也没混成什么大牛, 但好在现在也已经成家立业, 小日子过的还算滋润, 起码顶得住一月近万元的吃喝拉撒玩各种贷款信用卡 不为金钱过于发愁了。 我特别感谢当初贴吧遇见的那位大神, 虽然每个月也就聊那么几句, 但是他总能在我不知道该学啥, 该怎么走的时候, 给我方向, 毫不夸张的说,我现在的衣食无忧, 技术马马虎虎, 都是拜他所赐。 所以 我也想分享一些自己的成长过程 以及技术路线 希望一些迷茫的新人,或者想转</p>
+        <p class="bloginfo"><span>转载</span><span>2018-08-08</span><span>[<a href="life/we/we.html">网络来源</a>]</span><span>阅读(37)</span></p>
+      </li>
+   <li>
+        <h2><a href="knowledge/linux/2018-08-08/21.html">Linux系统SVN版本控制服务搭建：独立服务器运行和Apache方式运行</a></h2>
+        <p class="blogtext">作为一名程序员，版本控制工具肯定是接触的非常多的，国内公司一般用的是Git个SVN，我比较常用的是SVN，SVN全程Subversion，是一个自由开源的版本控制系统，SVN有两种运行方式：独立服务器和结合Apache运行，今天就分别就这两种运行方式做一下分析和测试</p>
+        <p class="bloginfo"><span></span><span>2018-08-08</span><span>[<a href="knowledge/linux/linux.html">Linux</a>]</span><span>阅读(47)</span></p>
+      </li>
+   <li>
+        <h2><a href="knowledge/java/2018-07-26/20.html">JaveWeb学习之Servlet（二）：ServletConfig和ServletContext</a></h2>
+        <p class="blogtext">这几天因为工作的关系，忙了好几天，博客几天没有更新，进度慢了，要加油了；接着简单分析一下ServletConfig和ServletContext两大对象；ServletConfig和ServletContext最常见的使用之一就是传递初始化参数，比如我们最常用的在Spring中配置contextConfigLocation；</p>
+        <p class="bloginfo"><span></span><span>2018-07-26</span><span>[<a href="knowledge/java/java.html">Java</a>]</span><span>阅读(104)</span></p>
+      </li>
+   <li>
+        <h2><a href="knowledge/java/2018-07-22/19.html">JaveWeb学习之Servlet（一）：Servlet生命周期和加载机制</a></h2>
+        <p class="blogtext">Servlet（Server Applet）是Java Servlet的简称，称为小服务程序或服务连接器，用Java编写的服务器端程序，主要功能在于交互式地浏览和修改数据，生成动态Web内容。</p>
+        <p class="bloginfo"><span></span><span>2018-07-22</span><span>[<a href="knowledge/java/java.html">Java</a>]</span><span>阅读(257)</span></p>
+      </li>
+   <li>
+        <h2><a href="knowledge/java/2018-06-29/18.html">Cglib动态代理浅析</a></h2>
+        <p class="blogtext">Java中的动态代理设计模式是非常经典且非常重要的设计模式之一，在感叹设计者的天才设计至于，我们想去探究一下这个设计模式是如何来实现的；<br />
+著名的spring框架的AOP的原理就是Java的动态代理机制；<br />
+在Spring中动态代理是实现有两种：JDK动态代理和Cglib动态代理，本篇分析的是Cglib动态代理的实现；</p>
+        <p class="bloginfo"><span></span><span>2018-05-27</span><span>[<a href="knowledge/java/java.html">Java</a>]</span><span>阅读(167)</span></p>
+      </li>
+   <li>
+        <h2><a href="knowledge/java/2018-06-29/17.html">JDK动态代理浅析</a></h2>
+        <p class="blogtext">Java中的动态代理设计模式是非常经典且非常重要的设计模式之一，在感叹设计者的天才设计至于，我们想去探究一下这个设计模式是如何来实现的；<br />
+著名的spring框架的AOP的原理就是Java的动态代理机制；<br />
+在Spring中动态代理是实现有两种：JDK动态代理和Cglib动态代理，本篇分析的是JDK动态代理的实现；</p>
+        <p class="bloginfo"><span></span><span>2018-05-27</span><span>[<a href="knowledge/java/java.html">Java</a>]</span><span>阅读(81)</span></p>
+      </li>
+   <li>
+        <h2><a href="knowledge/java/2018-06-29/16.html">浅析Java中的final关键字</a></h2>
+        <p class="blogtext">谈到final关键字，想必很多人都不陌生，在使用匿名内部类的时候可能会经常用到final关键字。另外，Java中的String类就是一个final类，那么今天我们就来了解final这个关键字的用法。下面是本文的目录大纲：<br />
+一.final关键字的基本用法<br />
+二.深入理解final关键字</p>
+        <p class="bloginfo"><span></span><span>2018-05-26</span><span>[<a href="knowledge/java/java.html">Java</a>]</span><span>阅读(55)</span></p>
+      </li>
+   <li>
+        <h2><a href="knowledge/java/2018-06-29/15.html">Jackson注解学习参考</a></h2>
+        <p class="blogtext">Jackson注解学习参考</p>
+        <p class="bloginfo"><span></span><span>2018-05-25</span><span>[<a href="knowledge/java/java.html">Java</a>]</span><span>阅读(22)</span></p>
+      </li>
+   <li>
+        <h2><a href="knowledge/linux/2018-06-29/14.html">Linux 源码安装 PHP</a></h2>
+        <p class="blogtext">点击查看 [ Linux 快速搭建 Apache + PHP 环境 ],所有操作在默认的 /root 目录进行，且已经安装好 Apache 服务,安装步骤点击 [ Linux 源码安装 Apache ] 查看</p>
+        <p class="bloginfo"><span></span><span>2018-05-05</span><span>[<a href="knowledge/linux/linux.html">Linux</a>]</span><span>阅读(27)</span></p>
+      </li>
+   <li>
+        <h2><a href="knowledge/java/2018-06-29/13.html">Iterable 和 Iterator 接口学习笔记</a></h2>
+        <p class="blogtext">Iterable 和 Iterator 接口学习笔记</p>
+        <p class="bloginfo"><span></span><span>2018-04-24</span><span>[<a href="http://www.guitu18.com/se/java/java.html">Java</a>]</span><span>阅读(17)</span></p>
+      </li>
+   <li>
+        <h2><a href="knowledge/linux/2018-06-29/12.html">Linux系统MySQL源码安装学习记录</a></h2>
+        <p class="blogtext">Linux系统MySQL源码安装学习记录</p>
+        <p class="bloginfo"><span></span><span>2018-04-19</span><span>[<a href="http://www.guitu18.com/se/linux/linux.html">Linux</a>]</span><span>阅读(32)</span></p>
+      </li>
     </ul>
-    <script src="public/js/nav.js"></script> 
-  </nav>
-</header>
-<article>
-  <div class="l_box f_l">
-    <div class="banner">
-      <div id="slide-holder">
-        <div id="slide-runner"> <a href="/" target="_blank"><img id="slide-img-1" src="public/images/a1.jpg"  alt="" /></a> <a href="/" target="_blank"><img id="slide-img-2" src="public/images/a2.jpg"  alt="" /></a> <a href="/" target="_blank"><img id="slide-img-3" src="public/images/a3.jpg"  alt="" /></a> <a href="/" target="_blank"><img id="slide-img-4" src="public/images/a4.jpg"  alt="" /></a>
-          <div id="slide-controls">
-            <p id="slide-client" class="text"><strong></strong><span></span></p>
-            <p id="slide-desc" class="text"></p>
-            <p id="slide-nav"></p>
-          </div>
-        </div>
-      </div>
-      <script>
-	  if(!window.slider) {
-		var slider={};
-	}
-
-	slider.data= [
-    {
-        "id":"slide-img-1", // ��slide-runner�е�img��ǩid��Ӧ
-        "client":"����1",
-        "desc":"�����޸����� �����޸����� �����޸�����" //�����޸�����
-    },
-    {
-        "id":"slide-img-2",
-        "client":"����2",
-        "desc":"add your description here"
-    },
-    {
-        "id":"slide-img-3",
-        "client":"����3",
-        "desc":"add your description here"
-    },
-    {
-        "id":"slide-img-4",
-        "client":"����4",
-        "desc":"add your description here"
-    } 
-	];
-
-	  </script> 
-    </div>
-    <!-- banner���� ���� -->
-    <div class="topnews">
-      <h2><span><a href="/" target="_blank">��Ŀ����</a><a href="/" target="_blank">��Ŀ����</a><a href="/" target="_blank">��Ŀ����</a></span><b>����</b>�Ƽ�</h2>
-      <div class="blogs">
-        <figure><img src="public/images/01.jpg"></figure>
-        <ul>
-          <h3><a href="/">ס���ֻ��������</a></h3>
-          <p>ͨ��ʱ���������ǳ���������������ط꣬������ϵ��ʽ�������Ǳ˴˽�����Ƭ��Ȼ��֣�ػ��ǳ�����ò���ֻ����¶Է��ĵ绰���롣�ڿ�������������ǲ�֪�����оͳ�Ϊס�ڱ����ֻ�������ѡ�����ĳЩ���⣬����˱����ֻ����æ�Ĺ��ͣ����ֿ��ʽ������ ...</p>
-          <p class="autor"><span class="lm f_l"><a href="/">���˲���</a></span><span class="dtime f_l">2014-02-19</span><span class="viewnum f_r">�����<a href="/">459</a>��</span><span class="pingl f_r">���ۣ�<a href="/">30</a>��</span></p>
-        </ul>
-      </div>
-      <div class="blogs">
-        <figure><img src="public/images/02.jpg"></figure>
-        <ul>
-          <h3><a href="/">����������Ƿ���ֻ�����绰</a></h3>
-          <p>������ʶ��ϲ�ã���������ƺ��ҵ���֪�������ǣ�����ͶԵ���ˣ���ʼ�˽�Ƶ���Ľ����������أ���ʶ��ϲ���˾������������ǽ�����������ϵ��ƽ����ż���ڽڼ�Ի�����Ż����ʺ�...</p>
-          <p class="autor"><span class="lm f_l"><a href="/">���˲���</a></span><span class="dtime f_l">2014-02-19</span><span class="viewnum f_r">�����<a href="/">459</a>��</span><span class="pingl f_r">���ۣ�<a href="/">30</a>��</span></p>
-        </ul>
-      </div>
-      <div class="blogs">
-        <figure><img src="public/images/03.jpg"></figure>
-        <ul>
-          <h3><a href="/">ԭ����Ϊ��һ���˵��¸��ǣ�ɾ�������ֻ�����...</a></h3>
-          <p>ԭ����Ϊ��һ���˵��¸��ǣ�ɾ�������ֻ����롢QQ����ȵ�һ�У�Ŭ���������־��롣������һ�죬ϰ�߲���������ϰ������������,ϰ��ʱ��������Ҽ��������Ӱĥʴ�ɾ�... </p>
-          <p class="autor"><span class="lm f_l"><a href="/">���˲���</a></span><span class="dtime f_l">2014-02-19</span><span class="viewnum f_r">�����<a href="/">459</a>��</span><span class="pingl f_r">���ۣ�<a href="/">30</a>��</span></p>
-        </ul>
-      </div>
-      <div class="blogs">
-        <figure><img src="public/images/04.jpg"></figure>
-        <ul>
-          <h3><a href="/">�ֻ���16������С���ܣ���˵99.999%���˶���֪</a></h3>
-          <p>�����֪��ô���ֻ��б��õ�أ��ֻ�������12593+�绰����=���塭���ֻ����кܶ��㲻֪����С���ܣ�˵����һ���ܾ��棡���ŵĻ����������ɣ�...</p>
-          <p class="autor"><span class="lm f_l"><a href="/">���˲���</a></span><span class="dtime f_l">2014-02-19</span><span class="viewnum f_r">�����<a href="/">459</a>��</span><span class="pingl f_r">���ۣ�<a href="/">30</a>��</span></p>
-        </ul>
-      </div>
-      <div class="blogs">
-        <figure><img src="public/images/05.jpg"></figure>
-        <ul>
-          <h3><a href="/">����Ե�������������ֻ�</a></h3>
-          <p>ÿһ������˳Է����ܻ����˻��ó��ֻ�����Ϊ�����ڴ�绰�����н����Ķ��ţ�����������һ��֮�����޷Ǿ������£�1����С˵��2�������˻���QQ...</p>
-          <p class="autor"><span class="lm f_l"><a href="/">���˲���</a></span><span class="dtime f_l">2014-02-19</span><span class="viewnum f_r">�����<a href="/">459</a>��</span><span class="pingl f_r">���ۣ�<a href="/">30</a>��</span></p>
-        </ul>
-      </div>
-      <div class="blogs">
-        <figure><img src="public/images/06.jpg"></figure>
-        <ul>
-          <h3><a href="/">�����ֻ���ʽ����! �ڷ���ȫ�ֹ�������ݳ�Ʒ</a></h3>
-          <p>���ڿ��������ʱ�С������Լ��˶�Ʒ�������ֻ����������Ϸ����ֻ���Ʒ����ҵ���Ѿ��������ʣ��������Ǹ���ұ����������ֱ���������ʿ̩�񡤺��ţ�Tag Heuer�� ���Ϸ������ֻ�������Modelabs������һ���ݻ��ֻ��Ĳ��ֵ��գ������ո��ֻ����ڱ���ʽ������...</p>
-          <p class="autor"><span class="lm f_l"><a href="/">���˲���</a></span><span class="dtime f_l">2014-02-19</span><span class="viewnum f_r">�����<a href="/">459</a>��</span><span class="pingl f_r">���ۣ�<a href="/">30</a>��</span></p>
-        </ul>
-      </div>
-      <div class="blogs">
-        <figure><img src="public/images/04.jpg"></figure>
-        <ul>
-          <h3><a href="/">�ֻ���16������С���ܣ���˵99.999%���˶���֪</a></h3>
-          <p>�����֪��ô���ֻ��б��õ�أ��ֻ�������12593+�绰����=���塭���ֻ����кܶ��㲻֪����С���ܣ�˵����һ���ܾ��棡���ŵĻ����������ɣ�...</p>
-          <p class="autor"><span class="lm f_l"><a href="/">���˲���</a></span><span class="dtime f_l">2014-02-19</span><span class="viewnum f_r">�����<a href="/">459</a>��</span><span class="pingl f_r">���ۣ�<a href="/">30</a>��</span></p>
-        </ul>
-      </div>
-    </div>
   </div>
-  <div class="r_box f_r">
-    <div class="tit01">
-      <h3>��ע��</h3>
-      <div class="gzwm">
-        <ul>
-          <li><a class="xlwb" href="#" target="_blank">����΢��</a></li>
-          <li><a class="txwb" href="#" target="_blank">��Ѷ΢��</a></li>
-          <li><a class="rss" href="portal.php?mod=rss" target="_blank">RSS</a></li>
-          <li><a class="wx" href="mailto:admin@admin.com">����</a></li>
-        </ul>
-      </div>
-    </div>
-    <!--tit01 end-->
-    <div class="ad300x100"> <img src="public/images/ad300x100.jpg"> </div>
-    <div class="moreSelect" id="lp_right_select"> 
-      <script>
-window.onload = function ()
-{
-	var oLi = document.getElementById("tab").getElementsByTagName("li");
-	var oUl = document.getElementById("ms-main").getElementsByTagName("div");
-	
-	for(var i = 0; i < oLi.length; i++)
-	{
-		oLi[i].index = i;
-		oLi[i].onmouseover = function ()
-		{
-			for(var n = 0; n < oLi.length; n++) oLi[n].className="";
-			this.className = "cur";
-			for(var n = 0; n < oUl.length; n++) oUl[n].style.display = "none";
-			oUl[this.index].style.display = "block"
-		}	
-	}
-}
-</script>
-      <div class="ms-top">
-        <ul class="hd" id="tab">
-          <li class="cur"><a href="/">�������</a></li>
-          <li><a href="/">��������</a></li>
-          <li><a href="/">վ���Ƽ�</a></li>
-        </ul>
-      </div>
-      <div class="ms-main" id="ms-main">
-        <div style="display: block;" class="bd bd-news" >
-          <ul>
-            <li><a href="/" target="_blank">ס���ֻ��������</a></li>
-            <li><a href="/" target="_blank">����������Ƿ���ֻ�����绰</a></li>
-            <li><a href="/" target="_blank">ԭ����Ϊ��һ���˵��¸��ǣ�ɾ�������ֻ�����...</a></li>
-            <li><a href="/" target="_blank">�ֻ���16������С���ܣ���˵99.999%���˶���֪</a></li>
-            <li><a href="/" target="_blank">����Ե�������������ֻ�</a></li>
-            <li><a href="/" target="_blank">�����ֻ���ʽ����! �ڷ���ȫ�ֹ�������ݳ�Ʒ</a></li>
-          </ul>
-        </div>
-        <div  class="bd bd-news">
-          <ul>
-            <li><a href="/" target="_blank">ԭ����Ϊ��һ���˵��¸��ǣ�ɾ�������ֻ�����...</a></li>
-            <li><a href="/" target="_blank">�ֻ���16������С���ܣ���˵99.999%���˶���֪</a></li>
-            <li><a href="/" target="_blank">ס���ֻ��������</a></li>
-            <li><a href="/" target="_blank">����������Ƿ���ֻ�����绰</a></li>
-            <li><a href="/" target="_blank">����Ե�������������ֻ�</a></li>
-            <li><a href="/" target="_blank">�����ֻ���ʽ����! �ڷ���ȫ�ֹ�������ݳ�Ʒ</a></li>
-          </ul>
-        </div>
-        <div class="bd bd-news">
-          <ul>
-            <li><a href="/" target="_blank">�ֻ���16������С���ܣ���˵99.999%���˶���֪</a></li>
-            <li><a href="/" target="_blank">����Ե�������������ֻ�</a></li>
-            <li><a href="/" target="_blank">ס���ֻ��������</a></li>
-            <li><a href="/" target="_blank">�����ֻ���ʽ����! �ڷ���ȫ�ֹ�������ݳ�Ʒ</a></li>
-            <li><a href="/" target="_blank">����������Ƿ���ֻ�����绰</a></li>
-            <li><a href="/" target="_blank">ԭ����Ϊ��һ���˵��¸��ǣ�ɾ�������ֻ�����...</a></li>
-          </ul>
-        </div>
-      </div>
-      <!--ms-main end --> 
-    </div>
-    <!--�л��� moreSelect end -->
-    
-    <div class="cloud">
-      <h3>��ǩ��</h3>
-      <ul>
-        <li><a href="/">���˲���</a></li>
-        <li><a href="/">web����</a></li>
-        <li><a href="/">ǰ�����</a></li>
-        <li><a href="/">Html</a></li>
-        <li><a href="/">CSS3</a></li>
-        <li><a href="/">Html5+css3</a></li>
-        <li><a href="/">�ٶ�</a></li>
-        <li><a href="/">Javasript</a></li>
-        <li><a href="/">web����</a></li>
-        <li><a href="/">ǰ�����</a></li>
-        <li><a href="/">Html</a></li>
-        <li><a href="/">CSS3</a></li>
-        <li><a href="/">Html5+css3</a></li>
-        <li><a href="/">�ٶ�</a></li>
-      </ul>
-    </div>
-    <div class="tuwen">
-      <h3>ͼ���Ƽ�</h3>
-      <ul>
-        <li><a href="/"><img src="public/images/01.jpg"><b>ס���ֻ��������</b></a>
-          <p><span class="tulanmu"><a href="/">�ֻ����</a></span><span class="tutime">2015-02-15</span></p>
-        </li>
-        <li><a href="/"><img src="public/images/02.jpg"><b>����������Ƿ���ֻ�����绰</b></a>
-          <p><span class="tulanmu"><a href="/">�ֻ����</a></span><span class="tutime">2015-02-15</span></p>
-        </li>
-        <li><a href="/" title="�ֻ���16������С���ܣ���˵99.999%���˶���֪"><img src="public/images/03.jpg"><b>�ֻ���16������С���ܣ���˵...</b></a>
-          <p><span class="tulanmu"><a href="/">�ֻ����</a></span><span class="tutime">2015-02-15</span></p>
-        </li>
-        <li><a href="/"><img src="public/images/06.jpg"><b>ס���ֻ��������</b></a>
-          <p><span class="tulanmu"><a href="/">�ֻ����</a></span><span class="tutime">2015-02-15</span></p>
-        </li>
-        <li><a href="/"><img src="public/images/04.jpg"><b>����������Ƿ���ֻ�����绰</b></a>
-          <p><span class="tulanmu"><a href="/">�ֻ����</a></span><span class="tutime">2015-02-15</span></p>
-        </li>
-      </ul>
-    </div>
-    <div class="ad"> <img src="public/images/03.jpg"> </div>
-    <div class="links">
-      <h3><span>[<a href="/">������������</a>]</span>��������</h3>
-      <ul>
-        <li><a href="/">������˲���</a></li>
-        <li><a href="/">web����</a></li>
-        <li><a href="/">ǰ�����</a></li>
-        <li><a href="/">Html</a></li>
-        <li><a href="/">CSS3</a></li>
-        <li><a href="/">Html5+css3</a></li>
-        <li><a href="/">�ٶ�</a></li>
-      </ul>
-    </div>
-  </div>
-  <!--r_box end --> 
-</article>
+</main>
+<div class="blank"></div>
 <footer>
-  <p class="ft-copyright">��С�ײ��� Design by DanceSmile ��ICP��11002373��-1</p>
-  <div id="tbox"> <a id="togbook" href="/"></a> <a id="gotop" href="javascript:void(0)"></a> </div>
+  <p>Design by <a href="http://www.guitu18.com/www_guitu18_default.html"></a> 浙ICP备18008136号-2</p>
 </footer>
+<a href="http://www.guitu18.com/www_guitu18_default.html#" class="cd-top cd-is-visible cd-fade-out">Top</a>
+
+<script type="application/javascript">
+    $(function(){
+        /* 公共部分
+         * 导航栏
+         */
+        $(".header-page").load("header.html");
+        // $(".footerpage").load("footer.html");
+    });
+</script>
 </body>
 </html>
