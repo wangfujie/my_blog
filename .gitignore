@@ -1,4 +1,5 @@
 .idea/
+multi-blog-parent.iml
 blog-common/target/
 blog-common/blog-common.iml
 blog-index-web/target/

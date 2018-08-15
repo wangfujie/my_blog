@@ -30,7 +30,7 @@
         <mybatisplus-spring-boot-starter.version>1.0.4</mybatisplus-spring-boot-starter.version>
         <mybatisplus.version>2.1.0</mybatisplus.version>
         <velocity.version>1.7</velocity.version>
-        <mysql.version>5.1.38</mysql.version>
+        <mysql.version>8.0.11</mysql.version>
         <swagger2.version>2.7.0</swagger2.version>
     </properties>
 
