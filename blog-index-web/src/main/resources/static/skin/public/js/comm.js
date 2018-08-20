@@ -1,36 +1,36 @@
 $(document).ready(function () {
 
-	var oH2 = document.getElementById("mnavh"); 
-	var oUl = document.getElementById("starlist");  
-	oH2.onclick = function ()
-	{
-		var style = oUl.style;
-		style.display = style.display == "block" ? "none" : "block";
-		oH2.className = style.display == "block" ? "open" : ""
-	}
-var obj=null;
-var As=document.getElementById('starlist').getElementsByTagName('a');
-obj = As[0];
-for(i=1;i<As.length;i++){if(window.location.href.indexOf(As[i].href)>=0)
-obj=As[i];}
-obj.id='selected'
+    var oH2 = document.getElementById("mnavh");
+    var oUl = document.getElementById("starlist");
+    oH2.onclick = function () {
+        var style = oUl.style;
+        style.display = style.display == "block" ? "none" : "block";
+        oH2.className = style.display == "block" ? "open" : ""
+    }
+    var obj = null;
+    var As = document.getElementById('starlist').getElementsByTagName('a');
+    obj = As[0];
+    for (i = 1; i < As.length; i++) {
+        if (window.location.href.indexOf(As[i].href) >= 0)
+            obj = As[i];
+    }
+    obj.id = 'selected'
 
-	
-	//aside
+
+    //aside
     var Sticky = new hcSticky('aside', {
-      stickTo: 'main',
-      innerTop: 200,
-      followScroll: false,
-      queries: {
-        480: {
-          disable: true,
-          stickTo: 'body'
+        stickTo: 'main',
+        innerTop: 200,
+        followScroll: false,
+        queries: {
+            480: {
+                disable: true,
+                stickTo: 'body'
+            }
         }
-      }
     });
 
-
-	//scroll to top
+    //scroll to top
     var offset = 300,
         offset_opacity = 1200,
         scroll_top_duration = 700,
@@ -49,5 +49,5 @@ obj.id='selected'
             }, scroll_top_duration
         );
     });
-		
-	});
+
+});

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blog.index.modules.other.mapper.BlogAboutMeMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="baseResultMap" type="com.blog.pojo.entity.BlogAboutMe">
+		<id column="id" property="id" />
+		<result column="my_name" property="myName" />
+		<result column="about_me" property="aboutMe" />
+		<result column="blog_domain_name" property="blogDomainName" />
+		<result column="server_name" property="serverName" />
+		<result column="domain_time" property="domainTime" />
+		<result column="server_link" property="serverLink" />
+		<result column="record_number" property="recordNumber" />
+		<result column="program_type" property="programType" />
+		<result column="update_time" property="updateTime" />
+	</resultMap>
+
+</mapper>

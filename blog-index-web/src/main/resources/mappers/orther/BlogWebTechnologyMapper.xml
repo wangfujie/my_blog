@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blog.index.modules.other.mapper.BlogWebTechnologyMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="baseResultMap" type="com.blog.pojo.entity.BlogWebTechnology">
+		<id column="id" property="id" />
+		<result column="technology_title" property="technologyTitle" />
+		<result column="technology_content" property="technologyContent" />
+		<result column="show_sort" property="showSort" />
+	</resultMap>
+
+</mapper>

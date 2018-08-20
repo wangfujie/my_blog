@@ -57,10 +57,10 @@ public class MpGenerator {
                 return super.processTypeConvert(fieldType);
             }
         });
-        dsc.setDriverName("com.mysql.jdbc.Driver");
+        dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
         dsc.setPassword("wang123");
-        dsc.setUrl("jdbc:mysql://127.0.0.1:3306/my_blog?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8");
+        dsc.setUrl("jdbc:mysql://127.0.0.1:3306/my_blog?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8&amp");
         mpg.setDataSource(dsc);
 
         // 策略配置
@@ -72,7 +72,8 @@ public class MpGenerator {
         // 表名生成策略，下划线->驼峰值
         strategy.setNaming(NamingStrategy.underline_to_camel);
         // 需要生成的表
-        strategy.setInclude(new String[]{"blog_user"});
+        strategy.setInclude(new String[]{"blog_user","blog_about_me","blog_category","blog_leave_message",
+                "blog_treatise","blog_web_info","blog_web_technology","blog_friendly_links","blog_tags"});
         // 排除生成的表
         // strategy.setExclude(new String[]{"test"});
         // 自定义实体父类
@@ -98,12 +99,11 @@ public class MpGenerator {
         // 包配置
         PackageConfig pc = new PackageConfig();
         pc.setParent("com.blog");
-        pc.setController("index.modules.user.controller");
-        pc.setService("index.modules.user.service");
-        pc.setServiceImpl("index.modules.user.service.impl");
-        pc.setMapper("index.modules.user.mapper");
+        pc.setController("index.modules.other.controller");
+        pc.setService("index.modules.other.service");
+        pc.setServiceImpl("index.modules.other.service.impl");
+        pc.setMapper("index.modules.other.mapper");
         pc.setEntity("pojo.entity");
-        pc.setModuleName("user");
         mpg.setPackageInfo(pc);
 
         // 注入自定义配置，可以在 VM 中使用 cfg.abc 【可无】

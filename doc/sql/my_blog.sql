@@ -155,4 +155,26 @@ CREATE TABLE `blog_web_technology`  (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '关于网站使用的技术' ROW_FORMAT = Dynamic;
 
+DROP TABLE IF EXISTS `blog_friendly_links`;
+CREATE TABLE `blog_friendly_links` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `link_url` varchar(200) DEFAULT NULL COMMENT '链接地址',
+  `link_name` varchar(50) DEFAULT NULL COMMENT '链接名称',
+  `link_title` varchar(50) DEFAULT NULL COMMENT '链接标题',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `del_falg` int(1) DEFAULT '0' COMMENT '逻辑删除标识',
+  `delete_time` datetime DEFAULT NULL COMMENT '删除时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='友情链接';
+
+DROP TABLE IF EXISTS `blog_tags`;
+CREATE TABLE `blog_tags` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tag_name` varchar(50) DEFAULT NULL COMMENT '标签名称',
+  `category_id` int(11) DEFAULT NULL COMMENT '所属分类',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='标签表';
+
+
 SET FOREIGN_KEY_CHECKS = 1;
