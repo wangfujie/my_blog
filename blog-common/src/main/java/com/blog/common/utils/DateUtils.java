@@ -10,10 +10,7 @@ import java.util.List;
 
 /**
  * 日期处理
- *
- * @author chenshun
- * @email sunlightcs@gmail.com
- * @date 2016年12月21日 下午12:53:33
+ * @author wangfujie
  */
 public class DateUtils {
     /**
@@ -25,11 +22,31 @@ public class DateUtils {
      */
     public final static String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
 
-    public static String format(Date date) {
-        return format(date, DATE_PATTERN);
+    /**
+     * 将时间格式转成 yyyy-MM-dd 格式的字符串
+     * @param date
+     * @return
+     */
+    public static String formatYmd(Date date) {
+        return formatCustom(date, DATE_PATTERN);
     }
 
-    public static String format(Date date, String pattern) {
+    /**
+     * 将时间格式转成 yyyy-MM-dd HH:mm:ss 格式的字符串
+     * @param date
+     * @return
+     */
+    public static String formatYmdHms(Date date) {
+        return formatCustom(date, DATE_TIME_PATTERN);
+    }
+
+    /**
+     * 将时间转换成指定格式的字符串
+     * @param date
+     * @param pattern
+     * @return
+     */
+    public static String formatCustom(Date date, String pattern) {
         if (date != null) {
             SimpleDateFormat df = new SimpleDateFormat(pattern);
             return df.format(date);
@@ -93,7 +110,8 @@ public class DateUtils {
             throw new NullPointerException("by calculating the difference between two [java.util.Date]");
         }
         double yDouble = now.getTime() - yesterday.getTime();
-        double oneDouble = 24 * 60 * 60 * 1000;//一天的时间
+        //一天的时间
+        double oneDouble = 24 * 60 * 60 * 1000;
         double days = yDouble / oneDouble;
         return (int) Math.ceil(days);
     }
@@ -107,7 +125,8 @@ public class DateUtils {
             throw new NullPointerException("by calculating the difference between two [java.util.Date]");
         }
         double yDouble = now.getTime() - yesterday.getTime();
-        double oneDouble = 24 * 60 * 60 * 1000;//一天的时间
+        //一天的时间
+        double oneDouble = 24 * 60 * 60 * 1000;
         int days = (int) (yDouble / oneDouble);
         int sum = 0;
         for (int i = 0; i < days; i++) {
@@ -116,7 +135,6 @@ public class DateUtils {
             if (isWeekend(calendar)) {
                 sum++;
             }
-
         }
         //subtract weekends
         days = days - sum;
@@ -144,23 +162,27 @@ public class DateUtils {
      * @return
      */
     public static String getDate(int way, int time, int type, Date datetime) {
-        Date date = new Date();//取时间
+        //取时间
+        Date date = new Date();
         if (datetime != null) {
             date = datetime;
         }
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(date);
         if (way == 1) {
-            calendar.add(Calendar.DATE, time);//把日期往后增加天数.整数往后推,负数往前移动
+            //把日期往后增加天数.整数往后推,负数往前移动
+            calendar.add(Calendar.DATE, time);
         }
         if (way == 2) {
-            calendar.add(Calendar.MONTH, time);//把日期往后增加月数.整数往后推,负数往前移动
+            //把日期往后增加月数.整数往后推,负数往前移动
+            calendar.add(Calendar.MONTH, time);
         }
-        date = calendar.getTime(); //这个时间就是日期往后推一天的结果
+        //这个时间就是日期往后推一天的结果
+        date = calendar.getTime();
         String dateString = "";
         if (type == 1) {
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-            dateString = formatter.format(date);
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            dateString = format.format(date);
         } else if (type == 2) {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             dateString = formatter.format(date);
@@ -184,7 +206,6 @@ public class DateUtils {
         return fmt.format(calendar.getTime());
     }
 
-
     public static Date getDateTime(String dateTime) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date Date = new Date();
@@ -196,7 +217,6 @@ public class DateUtils {
         return Date;
     }
 
-
     /**
      * 计算两个时间天数之差，排除周末，并且不以24小时为一天
      *
@@ -204,7 +224,7 @@ public class DateUtils {
      * @param now
      * @return
      */
-    public static int getDaysWithOutWeekends(Date yesterday, Date now) {
+    public static Integer getDaysWithOutWeekends(Date yesterday, Date now) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String yesterdayString = formatter.format(yesterday) + " 00:00:00";
@@ -235,6 +255,11 @@ public class DateUtils {
         return newDate;
     }
 
+    /**
+     * 将字符串转为date类型
+     * @param strDate
+     * @return
+     */
     public static Date parse(String strDate) {
         Date date;
         SimpleDateFormat sdf = new SimpleDateFormat();
@@ -246,7 +271,6 @@ public class DateUtils {
         } catch (Exception e) {
 
         }
-
         sdf.applyPattern("yyyy-MM-dd HH:mm");
         try {
             date = sdf.parse(strDate);
@@ -349,8 +373,9 @@ public class DateUtils {
         List<String> dateList = new ArrayList<String>();
         for (int j = -i; j < 0; j++) {
             Calendar cal = Calendar.getInstance();
-            cal.add(Calendar.DAY_OF_MONTH, j);  //设置为前j天
-            String tempDate = format(cal.getTime());
+            //设置为前j天
+            cal.add(Calendar.DAY_OF_MONTH, j);
+            String tempDate = formatYmd(cal.getTime());
             dateList.add(tempDate);
         }
         return dateList;

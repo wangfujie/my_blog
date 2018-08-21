@@ -1,11 +1,29 @@
-#server:
-#  error:
-#  path: /error/404.html
+# Tomcat
+server:
+  error:
+    path: /error/404.html
+  session:
+    timeout: 1200
+  tomcat:
+    uri-encoding: UTF-8
+    max-threads: 1000
+    min-spare-threads: 30
 
 # 环境 dev|test|pro
 spring:
   profiles:
     active: dev
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    druid:
+      max-wait: 20000
+      initial-size: 50
+      min-idle: 50
+      max-active: 500
+      #是否启用StatViewServlet默认值true
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /sys/druid/*
 
 # Mybatis配置
 mybatis-plus:

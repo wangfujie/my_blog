@@ -1,9 +1,11 @@
 package com.blog.index.modules.other.service.impl;
 
+import com.blog.index.modules.other.vo.BlogTreatiseVo;
 import com.blog.pojo.entity.BlogTreatise;
 import com.blog.index.modules.other.mapper.BlogTreatiseMapper;
 import com.blog.index.modules.other.service.IBlogTreatiseService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,4 +18,17 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class BlogTreatiseServiceImpl extends ServiceImpl<BlogTreatiseMapper, BlogTreatise> implements IBlogTreatiseService {
 
+    @Autowired
+    private BlogTreatiseMapper treatiseMapper;
+
+    /**
+     * 通过id查询详情
+     *
+     * @param uuid
+     * @return
+     */
+    @Override
+    public BlogTreatiseVo getBlogTreatiseVoById(String uuid) {
+        return treatiseMapper.getBlogTreatiseVoById(uuid);
+    }
 }

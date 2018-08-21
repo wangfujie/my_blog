@@ -6,7 +6,7 @@ $(function(){
         success:function(data){
             if (data.code == 200){
                 $(data.data.list).each(function () {
-                    var li = '<li><a href="'+ '/knowledge/treatise-detail.html#' + this.uuid + '" title="'+this.treatiseTitle+'">'+this.treatiseTitle+'</a></li>';
+                    var li = '<li><a href="'+ '/knowledge/treatise-detail.html?uuid=' + this.uuid + '" title="'+this.treatiseTitle+'">'+this.treatiseTitle+'</a></li>';
                     $("#recommend").append(li);
                 });
             }
