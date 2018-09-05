@@ -1,5 +1,7 @@
 package com.blog.index.modules.other.service.impl;
 
+import com.baomidou.mybatisplus.plugins.Page;
+import com.blog.index.modules.other.query.BlogTreatiseQuery;
 import com.blog.index.modules.other.vo.BlogTreatiseVo;
 import com.blog.pojo.entity.BlogTreatise;
 import com.blog.index.modules.other.mapper.BlogTreatiseMapper;
@@ -30,5 +32,18 @@ public class BlogTreatiseServiceImpl extends ServiceImpl<BlogTreatiseMapper, Blo
     @Override
     public BlogTreatiseVo getBlogTreatiseVoById(String uuid) {
         return treatiseMapper.getBlogTreatiseVoById(uuid);
+    }
+
+    /**
+     * 查询文章分页列表
+     *
+     * @param page
+     * @param treatiseQuery
+     * @return
+     */
+    @Override
+    public Page<BlogTreatiseVo> getTreatisePage(Page<BlogTreatiseVo> page, BlogTreatiseQuery treatiseQuery) {
+        page.setRecords(treatiseMapper.getTreatiseList(page, treatiseQuery));
+        return page;
     }
 }

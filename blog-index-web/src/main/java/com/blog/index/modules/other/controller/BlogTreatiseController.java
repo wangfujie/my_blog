@@ -1,5 +1,6 @@
 package com.blog.index.modules.other.controller;
 
+import com.blog.index.modules.other.query.BlogTreatiseQuery;
 import com.blog.index.modules.other.vo.BlogTreatiseVo;
 import com.blog.pojo.entity.BlogTreatise;
 import com.blog.index.modules.other.service.IBlogTreatiseService;
@@ -37,12 +38,14 @@ public class BlogTreatiseController {
     @ApiOperation(value = "文章详情表", notes = "获取文章详情表分页列表" )
     @ApiImplicitParams({
             @ApiImplicitParam(name = "currentPage", value = "当前页码", paramType = "query" ),
-            @ApiImplicitParam(name = "pageSize", value = "每页条数", paramType = "query" )
+            @ApiImplicitParam(name = "pageSize", value = "每页条数", paramType = "query" ),
+            @ApiImplicitParam(name = "tagInfo", value = "标签信息", paramType = "query" ),
+            @ApiImplicitParam(name = "keyWord", value = "关键词", paramType = "query" )
     })
-    public R list(@ApiIgnore BaseQuery baseQuery){
+    public R list(@ApiIgnore BlogTreatiseQuery treatiseQuery){
             //查询列表数据
-            Page<BlogTreatise> page=new Page<>(baseQuery.getCurrentPage(),baseQuery.getPageSize());
-            Page pageList=treatiseService.selectPage(page,new EntityWrapper<>());
+            Page<BlogTreatiseVo> page=new Page<>(treatiseQuery.getCurrentPage(),treatiseQuery.getPageSize());
+            Page<BlogTreatiseVo> pageList=treatiseService.getTreatisePage(page,treatiseQuery);
             if (CollectionUtils.isEmpty(pageList.getRecords())) {
                 return R.notFound();
             }
@@ -64,10 +67,10 @@ public class BlogTreatiseController {
     }
 
     /**
-     * 获取阅读排行，十条
+     * 获取阅读排行
      */
     @GetMapping("/getReadRanking" )
-    @ApiOperation(value = "获取阅读排行", notes = "获取阅读排行，十条" )
+    @ApiOperation(value = "获取阅读排行", notes = "获取阅读排行" )
     @ApiImplicitParams({
             @ApiImplicitParam(name = "currentPage", value = "当前页码", paramType = "query" ),
             @ApiImplicitParam(name = "pageSize", value = "每页条数", paramType = "query" )

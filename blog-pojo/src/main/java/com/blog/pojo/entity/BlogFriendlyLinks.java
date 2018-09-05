@@ -11,7 +11,7 @@ import java.io.Serializable;
 /**
  * @author wangfj
  * @date 2018-08-20
- * @description 
+ * @description 友情链接
  */
 @TableName("blog_friendly_links")
 public class BlogFriendlyLinks extends Model<BlogFriendlyLinks> {

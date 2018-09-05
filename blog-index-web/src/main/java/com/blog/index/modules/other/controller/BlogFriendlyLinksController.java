@@ -21,7 +21,7 @@ import springfox.documentation.annotations.ApiIgnore;
  */
 @RestController
 @RequestMapping("/blogFriendlyLinks" )
-@Api(value = "接口",description = "用作演示")
+@Api(value = "友情链接接口",description = "用作友情链接演示")
 public class BlogFriendlyLinksController {
                                                                                                 
     @Autowired

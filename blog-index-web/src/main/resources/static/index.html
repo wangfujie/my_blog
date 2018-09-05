@@ -59,12 +59,8 @@
         </ul>
     </div>
     <div class="search">
-        <form action="" method="post" name="searchform" id="searchform">
-            <input name="keyboard" id="keyboard" class="input_text" value="请输入关键字词" style="color: rgb(153, 153, 153);"
-                   onfocus="if(value=='请输入关键字词'){this.style.color='#000';value=''}"
-                   onblur="if(value==''){this.style.color='#999';value='请输入关键字词'}" type="text">
-            <input name="Submit" class="input_submit" value="搜索" type="submit">
-        </form>
+        <input name="keyboard" id="keyboard" class="input_text" placeholder="请输入关键字词" type="text">
+        <input id="keyboardQuery" name="Submit" class="input_submit" value="搜索" type="submit">
     </div>
     <div class="newsbox">
         <h2 class="hometitle">标签云</h2>
@@ -81,95 +77,7 @@
 </aside>
 <main>
     <div class="bloglist">
-        <ul>
-            <li>
-                <h2><a href="knowledge/java/2018-08-11/24.html">Java Pattern和Matcher详解 [转载]</a></h2>
-                <p class="blogtext">
-                    最近玩了玩微信公众号开发之后，想写一个爬虫为公众号爬一点数据；在测试过程中，需要获取页面的所有链接，比较快捷的办法是使用正则表达式直接匹配，那么Java中的字符串正则用的是Pattern和Matcher结合，功能还是蛮强大的；我平时工作中对这两个类接触的少，具体的使用这篇博文写的很详细，转载记录一下；</p>
-                <p class="bloginfo"><span>转载</span><span>2018-08-11</span><span>[<a
-                        href="knowledge/java/java.html">Java</a>]</span><span>阅读(5)</span></p>
-            </li>
-            <li>
-                <h2><a href="life/we/2018-08-08/23.html">一个JAVA程序员成长之路分享 [转载]</a></h2>
-                <p class="blogtext">我搞JAVA也有些日子了, 因为我比较贪玩,上进心不那么强, 总是逼不得已为了高薪跳槽才去学习, 所以也没混成什么大牛, 但好在现在也已经成家立业,
-                    小日子过的还算滋润, 起码顶得住一月近万元的吃喝拉撒玩各种贷款信用卡 不为金钱过于发愁了。 我特别感谢当初贴吧遇见的那位大神, 虽然每个月也就聊那么几句, 但是他总能在我不知道该学啥,
-                    该怎么走的时候, 给我方向, 毫不夸张的说,我现在的衣食无忧, 技术马马虎虎, 都是拜他所赐。 所以 我也想分享一些自己的成长过程 以及技术路线 希望一些迷茫的新人,或者想转</p>
-                <p class="bloginfo"><span>转载</span><span>2018-08-08</span><span>[<a
-                        href="life/we/we.html">网络来源</a>]</span><span>阅读(37)</span></p>
-            </li>
-            <li>
-                <h2><a href="knowledge/linux/2018-08-08/21.html">Linux系统SVN版本控制服务搭建：独立服务器运行和Apache方式运行</a></h2>
-                <p class="blogtext">
-                    作为一名程序员，版本控制工具肯定是接触的非常多的，国内公司一般用的是Git个SVN，我比较常用的是SVN，SVN全程Subversion，是一个自由开源的版本控制系统，SVN有两种运行方式：独立服务器和结合Apache运行，今天就分别就这两种运行方式做一下分析和测试</p>
-                <p class="bloginfo"><span></span><span>2018-08-08</span><span>[<a href="knowledge/linux/linux.html">Linux</a>]</span><span>阅读(47)</span>
-                </p>
-            </li>
-            <li>
-                <h2><a href="knowledge/java/2018-07-26/20.html">JaveWeb学习之Servlet（二）：ServletConfig和ServletContext</a>
-                </h2>
-                <p class="blogtext">
-                    这几天因为工作的关系，忙了好几天，博客几天没有更新，进度慢了，要加油了；接着简单分析一下ServletConfig和ServletContext两大对象；ServletConfig和ServletContext最常见的使用之一就是传递初始化参数，比如我们最常用的在Spring中配置contextConfigLocation；</p>
-                <p class="bloginfo"><span></span><span>2018-07-26</span><span>[<a
-                        href="knowledge/java/java.html">Java</a>]</span><span>阅读(104)</span></p>
-            </li>
-            <li>
-                <h2><a href="knowledge/java/2018-07-22/19.html">JaveWeb学习之Servlet（一）：Servlet生命周期和加载机制</a></h2>
-                <p class="blogtext">Servlet（Server Applet）是Java
-                    Servlet的简称，称为小服务程序或服务连接器，用Java编写的服务器端程序，主要功能在于交互式地浏览和修改数据，生成动态Web内容。</p>
-                <p class="bloginfo"><span></span><span>2018-07-22</span><span>[<a
-                        href="knowledge/java/java.html">Java</a>]</span><span>阅读(257)</span></p>
-            </li>
-            <li>
-                <h2><a href="knowledge/java/2018-06-29/18.html">Cglib动态代理浅析</a></h2>
-                <p class="blogtext">Java中的动态代理设计模式是非常经典且非常重要的设计模式之一，在感叹设计者的天才设计至于，我们想去探究一下这个设计模式是如何来实现的；<br/>
-                    著名的spring框架的AOP的原理就是Java的动态代理机制；<br/>
-                    在Spring中动态代理是实现有两种：JDK动态代理和Cglib动态代理，本篇分析的是Cglib动态代理的实现；</p>
-                <p class="bloginfo"><span></span><span>2018-05-27</span><span>[<a
-                        href="knowledge/java/java.html">Java</a>]</span><span>阅读(167)</span></p>
-            </li>
-            <li>
-                <h2><a href="knowledge/java/2018-06-29/17.html">JDK动态代理浅析</a></h2>
-                <p class="blogtext">Java中的动态代理设计模式是非常经典且非常重要的设计模式之一，在感叹设计者的天才设计至于，我们想去探究一下这个设计模式是如何来实现的；<br/>
-                    著名的spring框架的AOP的原理就是Java的动态代理机制；<br/>
-                    在Spring中动态代理是实现有两种：JDK动态代理和Cglib动态代理，本篇分析的是JDK动态代理的实现；</p>
-                <p class="bloginfo"><span></span><span>2018-05-27</span><span>[<a
-                        href="knowledge/java/java.html">Java</a>]</span><span>阅读(81)</span></p>
-            </li>
-            <li>
-                <h2><a href="knowledge/java/2018-06-29/16.html">浅析Java中的final关键字</a></h2>
-                <p class="blogtext">
-                    谈到final关键字，想必很多人都不陌生，在使用匿名内部类的时候可能会经常用到final关键字。另外，Java中的String类就是一个final类，那么今天我们就来了解final这个关键字的用法。下面是本文的目录大纲：<br/>
-                    一.final关键字的基本用法<br/>
-                    二.深入理解final关键字</p>
-                <p class="bloginfo"><span></span><span>2018-05-26</span><span>[<a
-                        href="knowledge/java/java.html">Java</a>]</span><span>阅读(55)</span></p>
-            </li>
-            <li>
-                <h2><a href="knowledge/java/2018-06-29/15.html">Jackson注解学习参考</a></h2>
-                <p class="blogtext">Jackson注解学习参考</p>
-                <p class="bloginfo"><span></span><span>2018-05-25</span><span>[<a
-                        href="knowledge/java/java.html">Java</a>]</span><span>阅读(22)</span></p>
-            </li>
-            <li>
-                <h2><a href="knowledge/linux/2018-06-29/14.html">Linux 源码安装 PHP</a></h2>
-                <p class="blogtext">点击查看 [ Linux 快速搭建 Apache + PHP 环境 ],所有操作在默认的 /root 目录进行，且已经安装好 Apache 服务,安装步骤点击 [
-                    Linux 源码安装 Apache ] 查看</p>
-                <p class="bloginfo"><span></span><span>2018-05-05</span><span>[<a href="knowledge/linux/linux.html">Linux</a>]</span><span>阅读(27)</span>
-                </p>
-            </li>
-            <li>
-                <h2><a href="knowledge/java/2018-06-29/13.html">Iterable 和 Iterator 接口学习笔记</a></h2>
-                <p class="blogtext">Iterable 和 Iterator 接口学习笔记</p>
-                <p class="bloginfo"><span></span><span>2018-04-24</span><span>[<a
-                        href="http://www.guitu18.com/se/java/java.html">Java</a>]</span><span>阅读(17)</span></p>
-            </li>
-            <li>
-                <h2><a href="knowledge/linux/2018-06-29/12.html">Linux系统MySQL源码安装学习记录</a></h2>
-                <p class="blogtext">Linux系统MySQL源码安装学习记录</p>
-                <p class="bloginfo"><span></span><span>2018-04-19</span><span>[<a
-                        href="http://www.guitu18.com/se/linux/linux.html">Linux</a>]</span><span>阅读(32)</span></p>
-            </li>
-        </ul>
+        <ul id="treatise-list"></ul>
     </div>
 </main>
 <div class="blank"></div>
@@ -178,5 +86,6 @@
 </footer>
 <a href="index.html" class="cd-top cd-is-visible cd-fade-out">Top</a>
 <script src="common/aside-left.js"></script>
+<script src="index.js"></script>
 </body>
 </html>

@@ -6,7 +6,7 @@ $(function(){
         success:function(data){
             if (data.code == 200){
                 $(data.data.list).each(function () {
-                    var li = '<li><a href="'+ '/knowledge/treatise-detail.html?uuid=' + this.uuid + '" title="'+this.treatiseTitle+'">'+this.treatiseTitle+'</a></li>';
+                    var li = '<li><a href="/knowledge/treatise-detail.html?uuid=' + this.uuid + '" title="'+this.treatiseTitle+'">'+this.treatiseTitle+'</a></li>';
                     $("#recommend").append(li);
                 });
             }
@@ -27,7 +27,7 @@ $(function(){
         }
     });
 
-    //阅读排行
+    //阅读排行，10条
     $.ajax({
         url:"/blogTreatise/getReadRanking",
         type:"GET",
@@ -35,7 +35,7 @@ $(function(){
         success:function(data){
             if (data.code == 200){
                 $(data.data.page.records).each(function () {
-                    var li = '<li><a href="'+ '/blogTreatise/info/' + this.uuid + '" title="'+this.treatiseTitle+'">'+this.treatiseTitle+'</a></li>';
+                    var li = '<li><a href="/knowledge/treatise-detail.html?uuid=' + this.uuid + '" title="'+this.treatiseTitle+'">'+this.treatiseTitle+'</a></li>';
                     $("#read_ranking").append(li);
                 });
             }

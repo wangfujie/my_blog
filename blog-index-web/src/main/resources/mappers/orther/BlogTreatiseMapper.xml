@@ -9,4 +9,23 @@
 		WHERE `uuid` = #{uuid}
 	</select>
 
+    <select id="getTreatiseList" resultType="com.blog.index.modules.other.vo.BlogTreatiseVo">
+		SELECT bt.*,bc.category_name
+		FROM `blog_treatise` bt
+		LEFT JOIN `blog_category` bc ON bc.id = bt.category_id
+		<where>
+			<if test="keyWord != null and keyWord != ''">
+				(
+					treatise_title like concat('%',#{keyWord},'%') OR
+					treatise_preview like concat('%',#{keyWord},'%') OR
+					treatise_body like concat('%',#{keyWord},'%')
+				)
+			</if>
+			<if test="tagInfo != null and tagInfo != ''">
+				AND tags like concat('%',#{keyWord},'%')
+			</if>
+		</where>
+		order by bt.create_time desc
+	</select>
+
 </mapper>
