@@ -39,6 +39,7 @@ public class BlogTreatiseController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "currentPage", value = "当前页码", paramType = "query" ),
             @ApiImplicitParam(name = "pageSize", value = "每页条数", paramType = "query" ),
+            @ApiImplicitParam(name = "categoryId", value = "分类ID", paramType = "query" ),
             @ApiImplicitParam(name = "tagInfo", value = "标签信息", paramType = "query" ),
             @ApiImplicitParam(name = "keyWord", value = "关键词", paramType = "query" )
     })

@@ -1,126 +1,107 @@
 <!doctype html>
 <html>
 <head>
-<meta charset="utf-8">
-<title>时间轴</title>
-<meta name="keywords" content="" />
-<meta name="description" content="" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="../skin/public/css/index.css" rel="stylesheet">
-<script src="../skin/public/js/jquery.min.js" ></script>
-<script src="../skin/public/js/hc-sticky.js"></script>
-<script src="../skin/public/js/comm.js"></script>
-<script src="../skin/public/js/page.js"></script>
+    <meta charset="utf-8">
+    <title>时间轴</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../skin/public/js/jquery.min.js" ></script>
+    <script src="../skin/public/js/hc-sticky.js"></script>
+    <script src="../skin/public/js/comm.js"></script>
+    <script src="public/head-menu.js"></script>
+    <script src="public/aside-left.js"></script>
+    <link rel="stylesheet" type="text/css" href="../skin/public/css/pagination.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="../skin/public/css/index.css" >
 </head>
 <body>
 <header>
     <div class="logo">
         <h1><a href="../index.html">Mr · 王</a></h1>
-        <span>花若盛开，清风自来。</span>
+        <span>花若盛开，清风自来！</span>
     </div>
     <nav>
         <h2 id="mnavh"><span class="navicon"></span></h2>
         <ul id="starlist">
-
             <li><a href="../index.html">首页</a></li>
-
-            <li ><a href="../knowledge/knowledge.html">技术博客</a>
-                <ul class="sub">
-                    <li><a href="../knowledge/db/db.html" >数据库</a></li>
-                    <li><a href="../knowledge/linux/linux.html" >Linux</a></li>
-                    <li><a href="../knowledge/java/java.html" >Java</a></li>
-                </ul>
-            </li>
-
-            <li ><a href="../life/life.html">生活杂谈</a>
-                <ul class="sub">
-                    <li><a href="../life/we/we.html" >网络来源</a></li>
-                    <li><a href="../life/ez/ez.html" >随笔</a></li>
-                    <li><a href="../life/es/es.html" >语录</a></li>
-                </ul>
-            </li>
-
-            <li ><a href="../share/share.html">爱分享</a></li>
-
-            <li ><a href="web-info.html">网站介绍</a></li>
-
-            <li ><a href="about-me.html">关于我</a></li>
-
-            <li><a href="time-axis.html">时间轴</a></li>
-
-            <li><a href="gbook.html">留言</a></li>
         </ul>
     </nav>
 </header>
 <div class="blank"></div>
 <aside>
-  <div class="newsbox">
-    <h2 class="hometitle">推荐</h2>
-    <ul class="news">
-<li><a href="../knowledge/linux/2018-08-08/21.html" title="Linux系统SVN版本控制服务搭建：独立服务器运行和Apache方式运行">Linux系统SVN版本控制服务搭建：独立服务器运行和Apache方式运行</a></li><li><a href="../knowledge/java/2018-07-26/20.html" title="JaveWeb学习之Servlet（二）：ServletConfig和ServletContext">JaveWeb学习之Servlet（二）：ServletConfig和ServletContext</a></li><li><a href="../knowledge/java/2018-07-22/19.html" title="JaveWeb学习之Servlet（一）：Servlet生命周期和加载机制">JaveWeb学习之Servlet（一）：Servlet生命周期和加载机制</a></li><li><a href="../knowledge/java/2018-06-29/18.html" title="Cglib动态代理浅析">Cglib动态代理浅析</a></li><li><a href="../knowledge/java/2018-06-29/17.html" title="JDK动态代理浅析">JDK动态代理浅析</a></li>    </ul>
-  </div>
-  <div class="search">
-    <form action="e/search/index.htm" method="post" name="searchform" id="searchform">
-      <input name="keyboard" id="keyboard" class="input_text" value="请输入关键字词" style="color: rgb(153, 153, 153);" onfocus="if(value=='请输入关键字词'){this.style.color='#000';value=''}" onblur="if(value==''){this.style.color='#999';value='请输入关键字词'}" type="text">
-      <input name="show" value="title" type="hidden">
-      <input name="tempid" value="1" type="hidden">
-      <input name="tbname" value="news" type="hidden">
-      <input name="Submit" class="input_submit" value="搜索" type="submit">
-    </form>
-  </div>
-  <div class="newsbox">
-    <h2 class="hometitle">标签云</h2>
-      <ul class="cloud">
-        <a href="../tags/tags.html" target="_blank">SVN</a> <a href="../tags/tags/tags_3.html" target="_blank">JavaWeb</a> <a href="../tags/tags/tags_6.html" target="_blank">Servlet</a> <a href="../tags/tags/tags_2.html" target="_blank">导出</a> <a href="../tags/tags/tags_5.html" target="_blank">导入</a> <a href="../tags/tags/tags_4.html" target="_blank">Excel</a> <a href="../tags/tags/tags_8.html" target="_blank">Jxl</a> <a href="../tags/tags/tags_9.html" target="_blank">Jar</a> <a href="../tags/tags/tags_7.html" target="_blank">Apache</a> <a href="../tags/tags/tags_12.html" target="_blank">命令</a> <a href="../tags/tags/tags_10.html" target="_blank">服务器</a> <a href="../tags/tags/tags_11.html" target="_blank">论坛</a> <a href="../tags/tags/tags_14.html" target="_blank">Discuz</a> <a href="../tags/tags/tags_24.html" target="_blank">构建</a> <a href="../tags/tags/tags_17.html" target="_blank">Maven</a> <a href="../tags/tags/tags_13.html" target="_blank">Jenkins</a> <a href="../tags/tags/tags_15.html" target="_blank">文件上传</a> <a href="../tags/tags/tags_16.html" target="_blank">Nginx</a> <a href="../tags/tags/tags_20.html" target="_blank">MySQL</a> <a href="../tags/tags/tags_18.html" target="_blank">环境</a> <a href="../tags/tags/tags_21.html" target="_blank">安装</a> <a href="../tags/tags/tags_19.html" target="_blank">PHP</a> <a href="../tags/tags/tags_22.html" target="_blank">Linux</a> <a href="../tags/tags/tags_23.html" target="_blank">JDK</a>      </ul>
-  </div>
-  <div class="newsbox">
-    <h2 class="hometitle">阅读排行</h2>
-    <ul class="news">
-<li><a href="../knowledge/java/2018-07-22/19.html" title="JaveWeb学习之Servlet（一）：Servlet生命周期和加载机制">JaveWeb学习之Servlet（一）：Servlet生命周期和加载机制</a></li><li><a href="../knowledge/java/2018-06-29/18.html" title="Cglib动态代理浅析">Cglib动态代理浅析</a></li><li><a href="../knowledge/java/2018-07-26/20.html" title="JaveWeb学习之Servlet（二）：ServletConfig和ServletContext">JaveWeb学习之Servlet（二）：ServletConfig和ServletContext</a></li><li><a href="../knowledge/java/2018-06-29/17.html" title="JDK动态代理浅析">JDK动态代理浅析</a></li><li><a href="../knowledge/java/2018-06-29/16.html" title="浅析Java中的final关键字">浅析Java中的final关键字</a></li><li><a href="../knowledge/linux/2018-08-08/21.html" title="Linux系统SVN版本控制服务搭建：独立服务器运行和Apache方式运行">Linux系统SVN版本控制服务搭建：独立服务器运行和Apache方式运行</a></li><li><a href="../life/we/2018-08-08/23.html" title="一个JAVA程序员成长之路分享 [转载]">一个JAVA程序员成长之路分享 [转载]</a></li><li><a href="../knowledge/linux/2018-06-29/12.html" title="Linux系统MySQL源码安装学习记录">Linux系统MySQL源码安装学习记录</a></li>    </ul>
-  </div>
-  <div class="newsbox">
-    <h2 class="hometitle">友情链接</h2>
-    <ul class="links">
-        <li><a href="#" title="个人博客1">个人博客1</a></li><li><a href="#" title="个人博客2">个人博客2</a></li><li><a href="#" title="个人博客3">个人博客3</a></li><li><a href="#" title="个人博客4">个人博客4</a></li><li><a href="#" title="个人博客5">个人博客5</a></li>    </ul>
-  </div>
+    <div class="newsbox">
+        <h2 class="hometitle">推荐</h2>
+        <ul class="news" id="recommend">
+        </ul>
+    </div>
+    <div class="search">
+        <input name="keyboard" id="keyboard" class="input_text" placeholder="请输入关键字词" type="text">
+        <input id="keyboardQuery" name="Submit" class="input_submit" value="搜索" type="submit">
+    </div>
+    <div class="newsbox">
+        <h2 class="hometitle">标签云</h2>
+        <ul class="cloud" id="show_tags"></ul>
+    </div>
+    <div class="newsbox">
+        <h2 class="hometitle">阅读排行</h2>
+        <ul class="news" id="read_ranking"></ul>
+    </div>
+    <div class="newsbox">
+        <h2 class="hometitle">友情链接</h2>
+        <ul class="links"></ul>
+    </div>
 </aside>
 <main>
-  <div class="weizhi">您现在的位置是：<a href="../index.html">首页</a>>时间轴</div>
-  <div class="timebox">
-    <ul id="list" style="display:none;">
-   <li><span>2018-08-11</span><i><a href="../knowledge/java/2018-08-11/24.html" target="_blank">Java Pattern和Matcher详解 [转载]</i></a></li>
-   <li><span>2018-08-08</span><i><a href="../life/we/2018-08-08/23.html" target="_blank">一个JAVA程序员成长之路分享 [转载]</i></a></li>
-   <li><span>2018-08-08</span><i><a href="../knowledge/linux/2018-08-08/21.html" target="_blank">Linux系统SVN版本控制服务搭建：独立服务器运行和Apache方式运行</i></a></li>
-   <li><span>2018-07-26</span><i><a href="../knowledge/java/2018-07-26/20.html" target="_blank">JaveWeb学习之Servlet（二）：ServletConfig和ServletContext</i></a></li>
-   <li><span>2018-07-22</span><i><a href="../knowledge/java/2018-07-22/19.html" target="_blank">JaveWeb学习之Servlet（一）：Servlet生命周期和加载机制</i></a></li>
-   <li><span>2018-05-27</span><i><a href="../knowledge/java/2018-06-29/18.html" target="_blank">Cglib动态代理浅析</i></a></li>
-   <li><span>2018-05-27</span><i><a href="../knowledge/java/2018-06-29/17.html" target="_blank">JDK动态代理浅析</i></a></li>
-   <li><span>2018-05-26</span><i><a href="../knowledge/java/2018-06-29/16.html" target="_blank">浅析Java中的final关键字</i></a></li>
-   <li><span>2018-05-25</span><i><a href="../knowledge/java/2018-06-29/15.html" target="_blank">Jackson注解学习参考</i></a></li>
-   <li><span>2018-05-05</span><i><a href="../knowledge/linux/2018-06-29/14.html" target="_blank">Linux 源码安装 PHP</i></a></li>
-   <li><span>2018-04-24</span><i><a href="../knowledge/java/2018-06-29/13.html" target="_blank">Iterable 和 Iterator 接口学习笔记</i></a></li>
-   <li><span>2018-04-19</span><i><a href="../knowledge/linux/2018-06-29/12.html" target="_blank">Linux系统MySQL源码安装学习记录</i></a></li>
-   <li><span>2018-04-18</span><i><a href="../knowledge/linux/2018-06-29/11.html" target="_blank">解决Nginx+PHP上传文件大小被限制为2M的问题</i></a></li>
-   <li><span>2018-04-08</span><i><a href="../knowledge/db/2018-06-29/10.html" target="_blank">MySQL 授权时提示 Access denied for user ‘root’@’localhost’ to database ….</i></a></li>
-   <li><span>2018-03-29</span><i><a href="../knowledge/java/2018-06-29/9.html" target="_blank">Java 使用 Jxl 实现 Excel 导入导出</i></a></li>
-   <li><span>2018-03-27</span><i><a href="../knowledge/java/2018-06-29/8.html" target="_blank">Maven项目中添加本地jar包</i></a></li>
-   <li><span>2018-03-25</span><i><a href="../knowledge/linux/2018-06-29/7.html" target="_blank">Linux 源码安装Apache</i></a></li>
-   <li><span>2018-03-24</span><i><a href="../knowledge/linux/2018-06-29/6.html" target="_blank">Linux 搭建 Apache + PHP 环境</i></a></li>
-   <li><span>2018-03-23</span><i><a href="../knowledge/linux/2018-06-29/5.html" target="_blank">Linux 修改 rm 命令防止误删操作，增加回收站功能</i></a></li>
-   <li><span>2018-03-22</span><i><a href="../knowledge/java/2018-06-29/4.html" target="_blank">Jenkins 自动化部署运行 Tomcat 显示 Tomcat started 但启动不成功</i></a></li>
-   <li><span>2018-03-21</span><i><a href="../knowledge/linux/2018-06-29/3.html" target="_blank">Nginx 静态资源访问 配置的参数说明</i></a></li>
-   <li><span>2018-03-20</span><i><a href="../knowledge/linux/2018-06-29/2.html" target="_blank">Discuz论坛版块和帖子都打不开，原因是链接带了端口号了</i></a></li>
-   <li><span>2018-03-20</span><i><a href="../knowledge/java/2018-06-29/1.html" target="_blank">在Jenkins上构建Maven项目时Failed to execute goal org.apache.maven.plugins</i></a></li>
-    </ul>
-    <ul id="list2">
-    </ul>
-    <script src="../skin/public/js/page2.js"></script>
-  </div>
+    <div class="address">您现在的位置是：<a href="../index.html">首页</a>>时间轴</div>
+    <div class="timebox">
+        <ul id="timeBoxList"></ul>
+    </div>
+    <div class="m-style pageList"></div>
 </main>
 <div class="blank"></div>
 <footer>
     <p>Design by <a href="../index.html">Mr · 王</a></p>
 </footer>
 <a href="time-axis.html" class="cd-top cd-is-visible cd-fade-out">Top</a>
+<script src="../skin/public/js/jquery.pagination.js"></script>
+<script>
+    $(function () {
+        getTreatiseList(1);
+    });
+    /**
+     * 博客文章列表查询
+     * @param pageNum
+     * @param keyWord
+     */
+    function getTreatiseList(pageNum) {
+        $("#treatise-list").empty();
+        $.ajax({
+            url: "/blogTreatise/list",
+            type: "GET",
+            data: {"currentPage": pageNum, "pageSize": 12},
+            success: function (data) {
+                if (data.code == 200) {
+                    $('.pageList').pagination({
+                        pageCount: data.data.page.pages,
+                        current: data.data.page.current,
+                        jump: true,
+                        coping: true,
+                        homePage: '首页',
+                        endPage: '末页',
+                        prevContent: '上页',
+                        nextContent: '下页',
+                        callback: function (api) {
+                            getTreatiseList(api.getCurrent());
+                        }
+                    });
+                    $(data.data.page.records).each(function () {
+                        var li = '<li><span>'+this.createTime+'</span><i><a href="../knowledge/treatise-detail.html?uuid=' + this.uuid + '" target="_blank">'+this.treatiseTitle+'</a></i></li>';
+                        $("#timeBoxList").append(li);
+                    });
+                }
+            }
+        });
+    }
+</script>
 </body>
 </html>

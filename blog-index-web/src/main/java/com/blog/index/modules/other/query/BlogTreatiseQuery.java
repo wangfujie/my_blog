@@ -18,6 +18,11 @@ public class BlogTreatiseQuery extends BaseQuery {
      */
     private String tagInfo;
 
+    /**
+     * 分类ID
+     */
+    private String categoryId;
+
     public String getKeyWord() {
         return keyWord;
     }
@@ -32,5 +37,13 @@ public class BlogTreatiseQuery extends BaseQuery {
 
     public void setTagInfo(String tagInfo) {
         this.tagInfo = tagInfo;
+    }
+
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
     }
 }

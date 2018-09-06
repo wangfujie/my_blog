@@ -28,6 +28,11 @@ public class BlogCategory extends Model<BlogCategory> {
      */
 	@TableField("category_name")
 	private String categoryName;
+	/**
+     * 跳转url
+     */
+	@TableField("link_url")
+	private String linkUrl;
     /**
      * 上级id
      */
@@ -41,8 +46,8 @@ public class BlogCategory extends Model<BlogCategory> {
     /**
      * 创建时间
      */
-	@TableField("creat_time")
-	private Date creatTime;
+	@TableField("create_time")
+	private Date createTime;
     /**
      * 状态（0停用，1启用）
      */
@@ -81,12 +86,12 @@ public class BlogCategory extends Model<BlogCategory> {
 		this.dictLevel = dictLevel;
 	}
 
-	public Date getCreatTime() {
-		return creatTime;
+	public Date getCreateTime() {
+		return createTime;
 	}
 
-	public void setCreatTime(Date creatTime) {
-		this.creatTime = creatTime;
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
 	}
 
 	public Integer getStatus() {
@@ -102,4 +107,11 @@ public class BlogCategory extends Model<BlogCategory> {
 		return this.id;
 	}
 
+	public String getLinkUrl() {
+		return linkUrl;
+	}
+
+	public void setLinkUrl(String linkUrl) {
+		this.linkUrl = linkUrl;
+	}
 }

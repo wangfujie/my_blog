@@ -30,7 +30,7 @@ function getTreatiseList(pageNum,keyWord){
     $.ajax({
         url:"/blogTreatise/list",
         type:"GET",
-        data:{"currentPage":pageNum,"pageSize":3,"keyWord":keyWord},
+        data:{"currentPage":pageNum,"pageSize":5,"keyWord":keyWord},
         success:function(data){
             if (data.code == 200){
                 pages = data.data.page.pages;

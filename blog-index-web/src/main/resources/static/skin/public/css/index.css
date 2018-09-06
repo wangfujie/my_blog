@@ -453,12 +453,16 @@ footer a:hover {
     left: 0
 }
 
-#pagecurrent {
+#categoryList a{
+    cursor:pointer;
+}
+
+#thisCategory {
     color: #222;
     position: relative
 }
 
-#pagecurrent:after {
+#thisCategory:after {
     position: absolute;
     width: 80px;
     height: 3px;
@@ -509,7 +513,7 @@ a.curPage {
     font-weight: bold;
 }
 
-.weizhi {
+.address {
     background: /*url(../images/dw.png) no-repeat left 5px*/ #fff;
     overflow: hidden;
     margin-bottom: 8px;
@@ -517,7 +521,7 @@ a.curPage {
     padding: 5px 0 5px 25px
 }
 
-.weizhi a {
+.address a {
     padding: 0 8px
 }
 
@@ -996,7 +1000,7 @@ media
         padding: 10px
     }
 
-    .bloglist li, .place, .weizhi, .infosbox, .piclistshow, .gbinfos, .timebox {
+    .bloglist li, .place, .address, .infosbox, .piclistshow, .gbinfos, .timebox {
         border: none
     }
 
@@ -1122,7 +1126,7 @@ media
         padding: 10px
     }
 
-    .bloglist li, .place, .weizhi, .infosbox, .piclistshow, .gbinfos, .timebox {
+    .bloglist li, .place, .address, .infosbox, .piclistshow, .gbinfos, .timebox {
         border: none
     }
 
@@ -1222,11 +1226,11 @@ media
         padding: 10px 10px 10px 70px;
     }
 
-    .weizhi {
+    .address {
         font-size: 14px;
     }
 
-    .weizhi a {
+    .address a {
         padding: 0 3px;
     }
 }

@@ -1,5 +1,6 @@
 package com.blog.index.modules.other.controller;
 
+import com.blog.index.modules.other.vo.BlogMenuNode;
 import com.blog.pojo.entity.BlogCategory;
 import com.blog.index.modules.other.service.IBlogCategoryService;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import java.util.List;
+
 /**
  * @author wangfj
  * @date 2018-08-16
@@ -26,6 +29,15 @@ public class BlogCategoryController {
                                                                                     
     @Autowired
     private IBlogCategoryService iBlogCategoryService;
+
+    /**
+     * 获取菜单分类列表
+     */
+    @GetMapping("/getBlogMenuNode" )
+    @ApiOperation(value = "获取菜单分类列表", notes = "获取菜单分类列表" )
+    public R getBlogMenuNode(){
+        return R.fillListData(iBlogCategoryService.getBlogMenuNode());
+    }
 
     /**
      * 列表
@@ -47,6 +59,19 @@ public class BlogCategoryController {
             return R.fillPageData(pageList);
     }
 
+    /**
+     * 通过categoryId获取分类
+     */
+    @GetMapping("/getCategoryList" )
+    @ApiOperation(value = "通过categoryId获取分类", notes = "通过categoryId获取分类" )
+    public R getCategoryList(Integer categoryId){
+        //查询列表数据
+        List<BlogCategory> categoryList = iBlogCategoryService.selectList(new EntityWrapper<BlogCategory>().eq("f_id",categoryId));
+        if (CollectionUtils.isEmpty(categoryList)) {
+            return R.notFound();
+        }
+        return R.fillListData(categoryList);
+    }
 
     /**
      * 信息
