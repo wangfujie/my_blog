@@ -7,11 +7,14 @@
   <meta name="description" content="留言" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="../skin/public/css/index.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="../skin/public/css/pagination.css" media="screen">
   <script src="../skin/public/js/jquery.min.js" ></script>
+  <script src="../skin/public/js/jquery.pagination.js"></script>
   <script src="../skin/public/js/hc-sticky.js"></script>
   <script src="../skin/public/js/comm.js"></script>
   <script src="public/head-menu.js"></script>
   <script src="public/aside-left.js"></script>
+  <script type="text/javascript" src="../skin/public/js/vue.js"></script>
 </head>
 <body>
 <header>
@@ -52,118 +55,47 @@
 </aside>
 <main>
   <div class="address">您现在的位置是：<a href="../index.html">网站首页</a>><a href="gbook.html#">留言</a></div>
-  <div class="gbinfos">
-
-    <div class="fb">
-      <ul>
-        <p class="fbtime"><span>
-          2018-08-04          </span> 董玉斌</p>
-        <p class="fbinfo">程序小黑个人博客&lt;a href=&quot;http://wangdu.site/&quot;&gt;http://wangdu.site&lt;/a&gt;,看到你网站加入了我网站友情链接，我网站http://wangdu.site/ 已经链接了贵站，请注意观察，联系QQ 892457803</p>
-      </ul>
+  <div class="gbinfos" id="leaveMessage">
+    <div v-for="message in messages">
+      <div class="fb">
+        <ul :style="'background: url(../skin/public/images/head/head_' + message.headImgNum + '.png) no-repeat top 2px left 5px;'">
+          <p class="fbtime"><span>{{ message.createTime }}</span>{{ message.fanName }}</p>
+          <p class="fbinfo">{{ message.messageContent }}</p>
+        </ul>
+      </div>
+      <div class="replyDiv" v-if="message.reply != null">
+        <ul>
+          <p id="reply"><span style="color: #FF0000;">回复: </span>{{ message.reply }}</p>
+        </ul>
+      </div>
     </div>
-
-    <div class="hf">
-      <ul>
-        <p class="zzhf"><font color="#FF0000">站长回复:</font>感谢关注、已添加友链</p>
-      </ul>
-    </div>
-
-    <div class="fb">
-      <ul>
-        <p class="fbtime"><span>
-          2018-08-02          </span> 夜雨听风</p>
-        <p class="fbinfo">你这个头像男女混用的？哈哈，可以在发留言的时候加个性别啊，然后区分下男头像和女头像</p>
-      </ul>
-    </div>
-
-    <div class="hf">
-      <ul>
-        <p class="zzhf"><font color="#FF0000">站长回复:</font>这个用的是帝国内置的留言功能，暂时还没有性别选项；小站没想到还有人过来访问，肯定是青姐帮我推的，嘿嘿</p>
-      </ul>
-    </div>
-
-    <div class="fb">
-      <ul>
-        <p class="fbtime"><span>
-          2018-07-31          </span> 建华兄</p>
-        <p class="fbinfo">建华兄&lt;a href=&quot;http://www.jianhuax.com&quot;&gt;jianhuax.com&lt;/a&gt;,看到你网站加入了我网站友情链接，我网站http://www.jianhuax.com/link.html 已经链接了贵站，请注意观察，联系QQ1249721215</p>
-      </ul>
-    </div>
-
-    <div class="hf">
-      <ul>
-        <p class="zzhf"><font color="#FF0000">站长回复:</font>久仰建华兄大名，建站之前就一直在关注你网站，哈哈</p>
-      </ul>
-    </div>
-
-    <div class="fb">
-      <ul>
-        <p class="fbtime"><span>
-          2018-07-30          </span> 廖威任</p>
-        <p class="fbinfo">换个友情链接：http://www.xcbkseo.com/</p>
-      </ul>
-    </div>
-
-    <div class="hf">
-      <ul>
-        <p class="zzhf"><font color="#FF0000">站长回复:</font>友链已经加上了，小站还能有人访问甚至添加友链，深感荣幸哈</p>
-      </ul>
-    </div>
-
-    <div class="fb">
-      <ul>
-        <p class="fbtime"><span>
-          2018-07-29          </span> 李荣耀</p>
-        <p class="fbinfo">你好，我是一名编程爱好者，看到你的博客很羡慕，我想知道你的博客后台是用什么搭建的，方便告诉我一下呢</p>
-      </ul>
-    </div>
-
-    <div class="hf">
-      <ul>
-        <p class="zzhf"><font color="#FF0000">站长回复:</font>你好，小站能有同行访问非常荣幸；博客是使用帝国CMS系统做的，网站模板是用的青姐的 http://yangqq.com ，服务器是阿里云ECS，环境：Apache+MySQL+PHP；最近工作忙，经常加班，网站有几天没上来看了，今天一上来发现多了好几条留言很惊喜啊，肯定是青姐在给我宣传的，嘿嘿；</p>
-      </ul>
-    </div>
-
-    <div class="fb">
-      <ul>
-        <p class="fbtime"><span>
-          2018-07-20          </span> 凯哥Java</p>
-        <p class="fbinfo">hi~ 杨青 青姐说你也是java开发的。所以来看看。加个好友可以不？</p>
-      </ul>
-    </div>
-
-    <div class="hf">
-      <ul>
-        <p class="zzhf"><font color="#FF0000">站长回复:</font>才发现帝国里有现成的留言回复功能，我微信：zhang_kuan，我Java入行不久，还需要多多请教和学习呢；</p>
-      </ul>
-    </div>
-
-    <div class="fb">
-      <ul>
-        <p class="fbtime"><span>
-          2018-07-20          </span></p>
-        <p class="fbinfo">你，我生命中一个重要的过客，我们之所以是过客，因为你未曾会为我停留。</p>
-      </ul>
-    </div>
-
-    <div class="gbox">
-      <form action="../../enews/index.htm" method="post" name="form1" id="form1">
-        <p> <strong>来说点儿什么吧...</strong></p>
-        <p><span> 您的姓名:</span>
-          <input name="name" type="text" id="name" />
-          *</p>
-        <p><span>联系邮箱:</span>
-          <input name="email" type="text" id="email" />
-          *</p>
-        <p><span class="tnr">留言内容:</span>
-          <textarea name="lytext" cols="60" rows="12" id="lytext"></textarea>
-        </p>
-        <p>
-          <input type="submit" name="Submit3" value="提交" />
-          <input name="enews" type="hidden" id="enews" value="AddGbook" />
-        </p>
-      </form>
-    </div>
+    <div class="m-style pageList"></div>
+  </div>
+  <div class="gbox">
+    <form @submit.prevent="checkForm" novalidate="true">
+      <p> <strong>来说点儿什么吧...</strong></p>
+      <p>
+        <label for="fanName"> 您的姓名:</label>
+        <input name="fanName" type="text" id="fanName" v-model="blogLeaveMessage.fanName"/>
+        <span style="color: red;">*</span>
+        <span id="fanNameError" style="color: red;visibility: hidden">此项必填！</span>
+      </p>
+      <p>
+        <label for="contactMail">联系邮箱:</label>
+        <input name="contactMail" type="text" id="contactMail" v-model="blogLeaveMessage.contactMail"/>
+        <span style="color: red;">*</span>
+        <span id="contactMailError" style="color: red;visibility: hidden">此项必填！</span>
+        <span id="contactMailFormatError" style="color: red;visibility: hidden">邮件格式错误！</span>
+      </p>
+      <p>
+        <label for="messageContent">留言内容:</label>
+        <textarea name="messageContent" cols="60" rows="12" id="messageContent" v-model="blogLeaveMessage.messageContent"></textarea>
+        <span id="messageContentError" style="color: red;visibility: hidden">此项必填！</span>
+      </p>
+      <p>
+        <input type="submit" value="提交" />
+      </p>
+    </form>
   </div>
 </main>
 <div class="blank"></div>
@@ -171,5 +103,103 @@
   <p>Design by <a href="../index.html">Mr · 王</a></p>
 </footer>
 <a href="gbook.html" class="cd-top cd-is-visible cd-fade-out">Top</a>
+<script>
+  $(function () {
+      var list = new Vue({
+          el: "#leaveMessage",
+          data: {messages:[]},
+          methods:{
+              getList:function (pageNum) {
+                  var self = this;
+                  $.ajax({
+                      url: "/blogLeaveMessage/list",
+                      type: "GET",
+                      data:{"currentPage":pageNum, "pageSize":5}
+                  }).then(function (value) {
+                      if (value.code == 200) {
+                          $('.pageList').pagination({
+                              pageCount: value.data.page.pages,
+                              current: value.data.page.current,
+                              coping: true,
+                              homePage: '首页',
+                              endPage: '末页',
+                              prevContent: '上页',
+                              nextContent: '下页',
+                              callback: function (api) {
+                                  self.getList(api.getCurrent());
+                              }
+                          });
+                          self.messages = value.data.page.records;
+                      }
+                  }).fail(function () {
+                      console.log("获取失败");
+                  });
+              }
+          },
+          created: function () {
+              this.getList(1);
+          }
+      });
+
+      new Vue({
+          el: ".gbox",
+          data: {blogLeaveMessage:{}},
+          methods: {
+              checkForm: function(){
+                  var ableSubmit = true;
+                  if (!this.blogLeaveMessage.fanName) {
+                      ableSubmit = false;
+                      $('#fanNameError').css("visibility","visible");
+                      return ;
+                  }else {
+                      $('#fanNameError').css("visibility","hidden");
+                  }
+                  if (!this.blogLeaveMessage.contactMail) {
+                      ableSubmit = false;
+                      $('#contactMailError').css("visibility","visible");
+                      return ;
+                  }else if (!this.validEmail(this.blogLeaveMessage.contactMail)){
+                      ableSubmit = false;
+                      $('#contactMailError').css("visibility","hidden");
+                      $('#contactMailFormatError').css("visibility","visible");
+                      return ;
+                  }else {
+                      $('#contactMailFormatError').css("visibility","hidden");
+                  }
+                  if (!this.blogLeaveMessage.messageContent) {
+                      ableSubmit = false;
+                      $('#messageContentError').css("visibility","visible");
+                      return ;
+                  }else {
+                      $('#messageContentError').css("visibility","hidden");
+                  }
+                  if (ableSubmit){
+                      this.submit();
+                  }
+              },
+              validEmail: function (email) {
+                  var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                  return re.test(email);
+              },
+              submit: function () {
+                  var self = this;
+                  $.ajax({
+                      url: '/blogLeaveMessage/save',
+                      data: this.blogLeaveMessage,
+                      type: 'POST',
+                      dataType: 'JSON',
+                      success: function (data) {
+                          if (data.code == 200) {
+                              self.blogLeaveMessage = {};
+                              list.getList(1);
+                              $('html , body').animate({scrollTop: 0},'slow');
+                          }
+                      }
+                  })
+              }
+          }
+      });
+  });
+</script>
 </body>
 </html>

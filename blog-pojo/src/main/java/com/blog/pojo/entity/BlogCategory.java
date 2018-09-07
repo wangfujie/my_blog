@@ -53,7 +53,6 @@ public class BlogCategory extends Model<BlogCategory> {
      */
 	private Integer status;
 
-
 	public Integer getId() {
 		return id;
 	}

@@ -803,58 +803,26 @@ p.fbinfo {
     border-bottom: #ececec 1px solid;
 }
 
-.fb:nth-child(8n-7) ul {
-    background: url(../images/tx1.png) no-repeat top 2px left 5px;
-}
+/*.fb:first-child ul {*/
+    /*background: url(../images/tx2.png) no-repeat top 2px left 5px;*/
+/*}*/
 
-.fb:nth-child(8n-6) ul {
-    background: url(../images/tx2.png) no-repeat top 2px left 5px;
-}
+/*.fb:last-child ul {*/
+    /*background: url(../images/tx1.png) no-repeat top 2px left 5px;*/
+/*}*/
 
-.fb:nth-child(8n-5) ul {
-    background: url(../images/tx1.png) no-repeat top 2px left 5px;
-}
-
-.fb:nth-child(8n-4) ul {
-    background: url(../images/tx2.png) no-repeat top 2px left 5px;
-}
-
-.fb:nth-child(8n-3) ul {
-    background: url(../images/tx1.png) no-repeat top 2px left 5px;
-}
-
-.fb:nth-child(8n-2) ul {
-    background: url(../images/tx2.png) no-repeat top 2px left 5px;
-}
-
-.fb:nth-child(8n-1) ul {
-    background: url(../images/tx1.png) no-repeat top 2px left 5px;
-}
-
-.fb:nth-child(8n) ul {
-    background: url(../images/tx1.png) no-repeat top 2px left 5px;
-}
-
-.fb:first-child ul {
-    background: url(../images/tx2.png) no-repeat top 2px left 5px;
-}
-
-.fb:last-child ul {
-    background: url(../images/tx1.png) no-repeat top 2px left 5px;
-}
-
-.hf ul {
+.replyDiv ul {
     padding: 10px 20px;
     background: #f9f9f9;
 }
 
-.hf {
+.replyDiv {
     margin: 0 20px;
     padding-bottom: 20px;
     border-bottom: #dedddd 1px dashed;
 }
 
-textarea#lytext {
+textarea#messageContent {
     width: 100%;
 }
 

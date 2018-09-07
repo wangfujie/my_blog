@@ -1,5 +1,6 @@
 package com.blog.index.modules.other.controller;
 
+import com.blog.common.utils.RandomUtils;
 import com.blog.pojo.entity.BlogLeaveMessage;
 import com.blog.index.modules.other.service.IBlogLeaveMessageService;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
@@ -13,6 +14,8 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.*;
 import springfox.documentation.annotations.ApiIgnore;
+
+import java.util.Date;
 
 /**
  * @author wangfj
@@ -40,13 +43,15 @@ public class BlogLeaveMessageController {
     public R list(@ApiIgnore BaseQuery baseQuery){
             //查询列表数据
             Page page=new Page(baseQuery.getCurrentPage(),baseQuery.getPageSize());
-            Page pageList=iBlogLeaveMessageService.selectPage(page,new EntityWrapper<BlogLeaveMessage>());
+            Page pageList=iBlogLeaveMessageService.selectPage(page,
+                    new EntityWrapper<BlogLeaveMessage>()
+                            .eq("status",1)
+                            .orderBy("create_time",false));
             if (CollectionUtils.isEmpty(pageList.getRecords())) {
                 return R.notFound();
             }
             return R.fillPageData(pageList);
     }
-
 
     /**
      * 信息
@@ -68,7 +73,10 @@ public class BlogLeaveMessageController {
     @PostMapping("/save" )
     @RequiresPermissions("blogLeaveMessage:save" )
     @ApiOperation(value = "留言表", notes = "保存留言表信息" )
-    public R save(@RequestBody BlogLeaveMessage blogLeaveMessage){
+    public R save(BlogLeaveMessage blogLeaveMessage){
+        //设置随机头像数字
+        blogLeaveMessage.setHeadImgNum(RandomUtils.getRandomNum(1,17));
+        blogLeaveMessage.setCreateTime(new Date());
         boolean retFlag = iBlogLeaveMessageService.insert(blogLeaveMessage);
         if (!retFlag) {
             return R.error(MessageSourceUtil.getMessage("500"));

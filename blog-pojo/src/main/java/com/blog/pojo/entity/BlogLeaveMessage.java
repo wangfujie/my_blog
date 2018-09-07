@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 
 /**
@@ -34,7 +36,21 @@ public class BlogLeaveMessage extends Model<BlogLeaveMessage> {
      * 性别
      */
 	@TableField("fan_sex")
-	private String fanSex;
+	private Integer fanSex;
+	/**
+     * 随机头像码
+     */
+	@TableField("head_img_num")
+	private Integer headImgNum;
+	/**
+     * 留言内容
+     */
+	@TableField("message_content")
+	private String messageContent;
+	/**
+     * 回复
+     */
+	private String reply;
     /**
      * 联系邮箱
      */
@@ -43,6 +59,7 @@ public class BlogLeaveMessage extends Model<BlogLeaveMessage> {
     /**
      * 留言时间
      */
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
 	@TableField("create_time")
 	private Date createTime;
     /**
@@ -75,11 +92,11 @@ public class BlogLeaveMessage extends Model<BlogLeaveMessage> {
 		this.fanName = fanName;
 	}
 
-	public String getFanSex() {
+	public Integer getFanSex() {
 		return fanSex;
 	}
 
-	public void setFanSex(String fanSex) {
+	public void setFanSex(Integer fanSex) {
 		this.fanSex = fanSex;
 	}
 
@@ -112,4 +129,27 @@ public class BlogLeaveMessage extends Model<BlogLeaveMessage> {
 		return this.uuid;
 	}
 
+	public String getMessageContent() {
+		return messageContent;
+	}
+
+	public void setMessageContent(String messageContent) {
+		this.messageContent = messageContent;
+	}
+
+	public String getReply() {
+		return reply;
+	}
+
+	public void setReply(String reply) {
+		this.reply = reply;
+	}
+
+	public Integer getHeadImgNum() {
+		return headImgNum;
+	}
+
+	public void setHeadImgNum(Integer headImgNum) {
+		this.headImgNum = headImgNum;
+	}
 }
