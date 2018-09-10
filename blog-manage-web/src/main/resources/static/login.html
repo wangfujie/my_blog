@@ -41,13 +41,9 @@
                 data: data.field,
                 success: function (result) {
                     if (result.code == 200){
-                        layer.alert(result.msg, {
-                            title: '登录信息'
-                        });
+                        location.href = 'index.html';
                     }else {
-                        layer.alert(result.msg, {
-                            title: '登录信息'
-                        });
+                        layer.msg(result.msg, {icon: 5});
                     }
                 }
             });

@@ -1,18 +1,35 @@
 package com.blog.manage.config;
 
 import com.blog.common.utils.DateUtils;
+import com.blog.manage.common.filter.RewriteFilter;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import java.util.Date;
 
 /**
  * @author wangfujie
- * @date 2018-08-10 17:09
- * @description 时间格式化配置
+ * @date 2018-09-10 17:52
+ * @description MVC配置
+ * 继承WebMvcConfigurerAdapter覆写里面的方法修改web容器默认配置
  */
 @Configuration
-public class FormatDateConfig {
+public class WebMvcConfig extends WebMvcConfigurerAdapter {
+
+    @Bean
+    public FilterRegistrationBean testFilterRegistration() {
+        FilterRegistrationBean registration = new FilterRegistrationBean();
+        //注册rewrite过滤器
+        registration.setFilter(new RewriteFilter());
+        registration.addUrlPatterns("/*");
+        registration.addInitParameter(RewriteFilter.REWRITE_TO,"/index.html");
+        registration.addInitParameter(RewriteFilter.REWRITE_PATTERNS, "/");
+        registration.setName("rewriteFilter");
+        registration.setOrder(1);
+        return registration;
+    }
 
     /**
      * 处理时间格式数据转换（将前端传入的时间字符串转换为date类型）
@@ -24,7 +41,7 @@ public class FormatDateConfig {
             public Date convert(String source) {
                 //如果从浏览器传入字符串不等于空开始转换
                 if (source != null) {
-                    //去除前后空格
+                    //去除前后的空格
                     source = source.trim();
                     if (source.equals("")) {
                         source = null;
@@ -38,4 +55,5 @@ public class FormatDateConfig {
             }
         };
     }
+
 }
