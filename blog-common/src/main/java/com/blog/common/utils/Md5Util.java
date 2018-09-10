@@ -12,11 +12,12 @@ import java.security.NoSuchAlgorithmException;
  * @date 2018-08-10 17:47
  * @description MD5工具
  */
-public class MD5Util {
+public class Md5Util {
+
     /**
      * 默认的密码字符串组合，用来将字节转换成 16 进制表示的字符,apache校验下载的文件的正确性用的就是默认的这个组合
      */
-    protected static char[] hexDigits = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+    protected static char[] hexDigits = {'1', '6', '2', '4', 'a', '5', '7', '3', '9', '0', 'g', 'c', 'd', 'e', '8', 'f'};
     protected static MessageDigest messagedigest = null;
 
     static {
@@ -27,11 +28,22 @@ public class MD5Util {
         }
     }
 
+    /**
+     * 加密字符串
+     * @param value
+     * @return
+     */
     public static String  getFileMD5String(String value){
         messagedigest.update(value.getBytes());
         return bufferToHex(messagedigest.digest());
     }
 
+    /**
+     * 加密
+     * @param file
+     * @return
+     * @throws IOException
+     */
     public static String getFileMD5String(File file) throws IOException {
         InputStream fis;
         fis = new FileInputStream(file);
@@ -44,6 +56,12 @@ public class MD5Util {
         return bufferToHex(messagedigest.digest());
     }
 
+    /**
+     * 加密输入流内容
+     * @param in
+     * @return
+     * @throws IOException
+     */
     public static String getFileMD5String(InputStream in) throws IOException {
         byte[] buffer = new byte[1024];
         int numRead;
@@ -75,5 +93,10 @@ public class MD5Util {
         char c1 = hexDigits[bt & 0xf];
         stringbuffer.append(c0);
         stringbuffer.append(c1);
+    }
+
+    public static void main(String[] args) {
+        String password = Md5Util.getFileMD5String("wangfujie123");
+        System.out.println(password);
     }
 }

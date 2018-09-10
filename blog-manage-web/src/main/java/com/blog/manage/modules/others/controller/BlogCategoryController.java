@@ -1,0 +1,106 @@
+package com.blog.manage.modules.others.controller;
+
+import com.blog.manage.modules.others.service.IBlogCategoryService;
+import com.blog.pojo.entity.BlogCategory;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.plugins.Page;
+import com.blog.common.query.BaseQuery;
+import com.blog.common.utils.MessageSourceUtil;
+import com.blog.common.result.R;
+import org.apache.commons.collections.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.web.bind.annotation.*;
+import io.swagger.annotations.*;
+import springfox.documentation.annotations.ApiIgnore;
+
+/**
+ * @author wangfj
+ * @date 2018-09-10
+ * @description 博客类型表 前端控制器
+ */
+@RestController
+@RequestMapping("/blogCategory" )
+@Api(value = "博客类型表接口",description = "用作博客类型表演示")
+public class BlogCategoryController {
+
+    @Autowired
+    private IBlogCategoryService iBlogCategoryService;
+
+    /**
+     * 列表
+     */
+    @GetMapping("/list" )
+    @RequiresPermissions("blogCategory:list" )
+    @ApiOperation(value = "博客类型表", notes = "获取博客类型表分页列表" )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "currentPage", value = "当前页码", paramType = "query" ),
+            @ApiImplicitParam(name = "pageSize", value = "每页条数", paramType = "query" )
+    })
+    public R list(@ApiIgnore BaseQuery baseQuery){
+            //查询列表数据
+            Page page=new Page(baseQuery.getCurrentPage(),baseQuery.getPageSize());
+            Page pageList=iBlogCategoryService.selectPage(page,new EntityWrapper<BlogCategory>());
+            if (CollectionUtils.isEmpty(pageList.getRecords())) {
+                return R.notFound();
+            }
+            return R.fillPageData(pageList);
+    }
+
+
+    /**
+     * 信息
+     */
+    @GetMapping("/info/{id}" )
+    @RequiresPermissions("blogCategory:info" )
+    @ApiOperation(value = "博客类型表", notes = "获取博客类型表详情信息" )
+    public R info(@PathVariable("id" ) Integer id){
+        BlogCategory blogCategory = iBlogCategoryService.selectById(id);
+        if (blogCategory == null) {
+            return R.notFound();
+        }
+        return R.fillSingleData(blogCategory);
+    }
+
+    /**
+     * 保存
+     */
+    @PostMapping("/save" )
+    @RequiresPermissions("blogCategory:save" )
+    @ApiOperation(value = "博客类型表", notes = "保存博客类型表信息" )
+    public R save(@RequestBody BlogCategory blogCategory){
+        boolean retFlag = iBlogCategoryService.insert(blogCategory);
+        if (!retFlag) {
+            return R.error(MessageSourceUtil.getMessage("500"));
+        }
+        return R.ok();
+    }
+
+    /**
+     * 修改
+     */
+    @PostMapping("/update" )
+    @RequiresPermissions("blogCategory:update" )
+    @ApiOperation(value = "博客类型表", notes = "更新博客类型表信息" )
+    public R update(@RequestBody BlogCategory blogCategory){
+        boolean retFlag = iBlogCategoryService.updateById(blogCategory);
+        if (!retFlag) {
+            return R.error(MessageSourceUtil.getMessage("500"));
+        }
+        return R.ok();
+    }
+
+    /**
+     * 删除
+     */
+    @PostMapping("/delete/{id}" )
+    @RequiresPermissions("blogCategory:delete" )
+    @ApiOperation(value = "博客类型表", notes = "删除博客类型表信息" )
+    public R delete(@PathVariable("id" ) Integer id){
+        boolean retFlag = iBlogCategoryService.deleteById(id);
+        if (!retFlag) {
+            return R.error(MessageSourceUtil.getMessage("500"));
+        }
+        return R.ok();
+    }
+}

@@ -11,7 +11,6 @@
     <link rel="icon" href="frame/static/image/code.png">
 </head>
 <body>
-
 <div class="login-main">
     <header class="layui-elip">后台登录</header>
     <form class="layui-form">
@@ -24,23 +23,36 @@
                    class="layui-input">
         </div>
         <div class="layui-input-inline login-btn">
-            <button type="submit" class="layui-btn">登录</button>
+            <button class="layui-btn" lay-submit="" lay-filter="login">登录</button>
         </div>
         <hr/>
     </form>
 </div>
-
-
 <script src="frame/layui/layui.js"></script>
 <script type="text/javascript">
     layui.use(['form'], function () {
-
         // 操作对象
-        var form = layui.form
-                , $ = layui.jquery;
-
-        // you code ...
-        console.log(form)
+        var form = layui.form, $ = layui.jquery;
+        //监听提交
+        form.on('submit(login)', function(data){
+            $.ajax({
+                url: "/sys/login",
+                type: "post",
+                data: data.field,
+                success: function (result) {
+                    if (result.code == 200){
+                        layer.alert(result.msg, {
+                            title: '登录信息'
+                        });
+                    }else {
+                        layer.alert(result.msg, {
+                            title: '登录信息'
+                        });
+                    }
+                }
+            });
+            return false;
+        });
 
     });
 </script>

@@ -1809,7 +1809,7 @@ if (typeof Promise !== 'undefined' && isNative(Promise)) {
     // in problematic UIWebViews, Promise.then doesn't completely break, but
     // it can get stuck in a weird state where callbacks are pushed into the
     // microtask queue but the queue isn't being flushed, until the browser
-    // needs to do some other work, e.g. handle a timer. Therefore we can
+    // needs to do some others work, e.g. handle a timer. Therefore we can
     // "force" the microtask queue to be flushed by adding an empty timer.
     if (isIOS) { setTimeout(noop); }
   };
@@ -4253,7 +4253,7 @@ function createComponent (
 
   if (isTrue(Ctor.options.abstract)) {
     // abstract components do not keep anything
-    // other than props & listeners & slot
+    // others than props & listeners & slot
 
     // work around flow
     var slot = data.slot;
@@ -5241,7 +5241,7 @@ function getTagNamespace (tag) {
     return 'svg'
   }
   // basic support for MathML
-  // note it doesn't support other MathML elements being component roots
+  // note it doesn't support others MathML elements being component roots
   if (tag === 'math') {
     return 'math'
   }
@@ -8453,7 +8453,7 @@ var TransitionGroup = {
       // Detect whether an element with the move class applied has
       // CSS transitions. Since the element may be inside an entering
       // transition at this very moment, we make a clone of it and remove
-      // all other transition classes applied to ensure only the move class
+      // all others transition classes applied to ensure only the move class
       // is applied.
       var clone = el.cloneNode();
       if (el._transitionClasses) {
@@ -9740,7 +9740,7 @@ function preTransformNode (el, options) {
         exp: "(" + typeBinding + ")==='radio'" + ifConditionExtra,
         block: branch1
       });
-      // 3. other
+      // 3. others
       var branch2 = cloneASTElement(el);
       getAndRemoveAttr(branch2, 'v-for', true);
       addRawAttr(branch2, ':type', typeBinding);
@@ -10275,7 +10275,7 @@ function genData$2 (el, state) {
   var data = '{';
 
   // directives first.
-  // directives may mutate the el's other properties before they are generated.
+  // directives may mutate the el's others properties before they are generated.
   var dirs = genDirectives(el, state);
   if (dirs) { data += dirs + ','; }
 
@@ -10785,7 +10785,7 @@ function createCompilerCreator (baseCompile) {
             options.directives
           );
         }
-        // copy other options
+        // copy others options
         for (var key in options) {
           if (key !== 'modules' && key !== 'directives') {
             finalOptions[key] = options[key];
@@ -10845,7 +10845,7 @@ function getShouldDecode (href) {
   return div.innerHTML.indexOf('&#10;') > 0
 }
 
-// #3663: IE encodes newlines inside attribute values while other browsers don't
+// #3663: IE encodes newlines inside attribute values while others browsers don't
 var shouldDecodeNewlines = inBrowser ? getShouldDecode(false) : false;
 // #6828: chrome encodes content in a[href]
 var shouldDecodeNewlinesForHref = inBrowser ? getShouldDecode(true) : false;

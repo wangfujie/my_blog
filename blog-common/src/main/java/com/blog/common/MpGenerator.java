@@ -73,7 +73,7 @@ public class MpGenerator {
         strategy.setNaming(NamingStrategy.underline_to_camel);
         // 需要生成的表
         strategy.setInclude(new String[]{"blog_user","blog_about_me","blog_category","blog_leave_message",
-                "blog_treatise","blog_web_info","blog_web_technology","blog_friendly_links","blog_tags"});
+                "blog_treatise","blog_web_info","blog_web_technology","blog_friendly_links","blog_tags","blog_admin"});
         // 排除生成的表
         // strategy.setExclude(new String[]{"test"});
         // 自定义实体父类
@@ -99,10 +99,10 @@ public class MpGenerator {
         // 包配置
         PackageConfig pc = new PackageConfig();
         pc.setParent("com.blog");
-        pc.setController("index.modules.other.controller");
-        pc.setService("index.modules.other.service");
-        pc.setServiceImpl("index.modules.other.service.impl");
-        pc.setMapper("index.modules.other.mapper");
+        pc.setController("index.modules.others.controller");
+        pc.setService("index.modules.others.service");
+        pc.setServiceImpl("index.modules.others.service.impl");
+        pc.setMapper("index.modules.others.mapper");
         pc.setEntity("pojo.entity");
         mpg.setPackageInfo(pc);
 
