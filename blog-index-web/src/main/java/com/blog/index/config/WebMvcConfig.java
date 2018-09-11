@@ -4,6 +4,7 @@ import com.blog.common.utils.DateUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import java.util.Date;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Date;
  * @description 时间格式化配置
  */
 @Configuration
-public class FormatDateConfig {
+public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
     /**
      * 处理时间格式数据转换（将前端传入的时间字符串转换为date类型）

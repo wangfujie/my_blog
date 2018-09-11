@@ -7,6 +7,9 @@ $(function () {
     //默认加载分类
     getCategoryList(categoryId,thisCategory);
     //默认加载列表
+    if (thisCategory == null || thisCategory == 0){
+        thisCategory = categoryId;
+    }
     getTreatiseList(1,keyWord,thisCategory);
     $('#keyboardQuery').click(function () {
         keyWord = $("#keyboard").val();
