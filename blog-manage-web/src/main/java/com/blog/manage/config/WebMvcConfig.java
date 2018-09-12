@@ -24,7 +24,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         //注册rewrite过滤器
         registration.setFilter(new RewriteFilter());
         registration.addUrlPatterns("/*");
-        registration.addInitParameter(RewriteFilter.REWRITE_TO,"/index.html");
+        registration.addInitParameter(RewriteFilter.REWRITE_TO,"/login.html");
         registration.addInitParameter(RewriteFilter.REWRITE_PATTERNS, "/");
         registration.setName("rewriteFilter");
         registration.setOrder(1);
