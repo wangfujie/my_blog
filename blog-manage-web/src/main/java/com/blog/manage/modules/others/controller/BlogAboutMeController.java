@@ -52,6 +52,7 @@ public class BlogAboutMeController {
      * 信息
      */
     @GetMapping("/info/{id}" )
+    @RequiresPermissions("blogAboutMe:info" )
     @ApiOperation(value = "关于我", notes = "获取关于我详情信息" )
     public R info(@PathVariable("id" ) Integer id){
         BlogAboutMe blogAboutMe = iBlogAboutMeService.selectById(id);
