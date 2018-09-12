@@ -26,7 +26,7 @@ public class Swagger2Config {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.blog.index"))
+                .apis(RequestHandlerSelectors.basePackage("com.blog.manage"))
                 .paths(PathSelectors.any())
                 .build();
     }
