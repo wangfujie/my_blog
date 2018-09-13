@@ -1,15 +1,14 @@
 package com.blog.manage.modules.treatise.controller;
 
+import com.blog.manage.modules.treatise.query.BlogTreatiseQuery;
 import com.blog.manage.modules.treatise.service.IBlogTreatiseService;
+import com.blog.manage.modules.treatise.vo.BlogTreatiseVo;
 import com.blog.pojo.entity.BlogTreatise;
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.blog.common.query.BaseQuery;
 import com.blog.common.utils.MessageSourceUtil;
 import com.blog.common.result.R;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.*;
 import springfox.documentation.annotations.ApiIgnore;
@@ -25,26 +24,24 @@ import springfox.documentation.annotations.ApiIgnore;
 public class BlogTreatiseController {
 
     @Autowired
-    private IBlogTreatiseService iBlogTreatiseService;
+    private IBlogTreatiseService treatiseService;
 
     /**
      * 列表
      */
     @GetMapping("/list" )
-    @RequiresPermissions("blogTreatise:list" )
     @ApiOperation(value = "文章详情表", notes = "获取文章详情表分页列表" )
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "currentPage", value = "当前页码", paramType = "query" ),
-            @ApiImplicitParam(name = "pageSize", value = "每页条数", paramType = "query" )
+            @ApiImplicitParam(name = "page", value = "当前页码", paramType = "query" ),
+            @ApiImplicitParam(name = "limit", value = "每页条数", paramType = "query" ),
+            @ApiImplicitParam(name = "categoryId", value = "分类ID", paramType = "query" ),
+            @ApiImplicitParam(name = "tagInfo", value = "标签信息", paramType = "query" ),
+            @ApiImplicitParam(name = "keyWord", value = "关键词", paramType = "query" )
     })
-    public R list(@ApiIgnore BaseQuery baseQuery){
-            //查询列表数据
-            Page page=new Page(baseQuery.getCurrentPage(),baseQuery.getPageSize());
-            Page pageList=iBlogTreatiseService.selectPage(page,new EntityWrapper<BlogTreatise>());
-            if (CollectionUtils.isEmpty(pageList.getRecords())) {
-                return R.notFound();
-            }
-            return R.fillPageData(pageList);
+    public R list(@ApiIgnore BlogTreatiseQuery treatiseQuery){
+        //查询列表数据
+        Page<BlogTreatiseVo> page = new Page<>(treatiseQuery.getPage(),treatiseQuery.getLimit());
+        return R.fillPageData(treatiseService.getTreatisePage(page,treatiseQuery));
     }
 
 
@@ -52,10 +49,9 @@ public class BlogTreatiseController {
      * 信息
      */
     @GetMapping("/info/{uuid}" )
-    @RequiresPermissions("blogTreatise:info" )
     @ApiOperation(value = "文章详情表", notes = "获取文章详情表详情信息" )
     public R info(@PathVariable("uuid" ) String uuid){
-        BlogTreatise blogTreatise = iBlogTreatiseService.selectById(uuid);
+        BlogTreatise blogTreatise = treatiseService.selectById(uuid);
         if (blogTreatise == null) {
             return R.notFound();
         }
@@ -66,10 +62,9 @@ public class BlogTreatiseController {
      * 保存
      */
     @PostMapping("/save" )
-    @RequiresPermissions("blogTreatise:save" )
     @ApiOperation(value = "文章详情表", notes = "保存文章详情表信息" )
     public R save(@RequestBody BlogTreatise blogTreatise){
-        boolean retFlag = iBlogTreatiseService.insert(blogTreatise);
+        boolean retFlag = treatiseService.insert(blogTreatise);
         if (!retFlag) {
             return R.error(MessageSourceUtil.getMessage("500"));
         }
@@ -80,10 +75,9 @@ public class BlogTreatiseController {
      * 修改
      */
     @PostMapping("/update" )
-    @RequiresPermissions("blogTreatise:update" )
     @ApiOperation(value = "文章详情表", notes = "更新文章详情表信息" )
     public R update(@RequestBody BlogTreatise blogTreatise){
-        boolean retFlag = iBlogTreatiseService.updateById(blogTreatise);
+        boolean retFlag = treatiseService.updateById(blogTreatise);
         if (!retFlag) {
             return R.error(MessageSourceUtil.getMessage("500"));
         }
@@ -94,10 +88,9 @@ public class BlogTreatiseController {
      * 删除
      */
     @PostMapping("/delete/{uuid}" )
-    @RequiresPermissions("blogTreatise:delete" )
     @ApiOperation(value = "文章详情表", notes = "删除文章详情表信息" )
     public R delete(@PathVariable("uuid" ) String uuid){
-        boolean retFlag = iBlogTreatiseService.deleteById(uuid);
+        boolean retFlag = treatiseService.deleteById(uuid);
         if (!retFlag) {
             return R.error(MessageSourceUtil.getMessage("500"));
         }

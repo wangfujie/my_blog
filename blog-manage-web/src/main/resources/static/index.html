@@ -23,19 +23,19 @@
         <div class="my-header-btn">
             <button class="layui-btn layui-btn-small btn-nav"><i class="layui-icon">&#xe65f;</i></button>
         </div>
-
         <!-- 顶部左侧添加选项卡监听 -->
         <ul class="layui-nav" lay-filter="side-top-left">
-            <!--<li class="layui-nav-item"><a href="javascript:;" href-url="demo/btn.html"><i class="layui-icon">&#xe621;</i>按钮</a></li>
+            <li class="layui-nav-item">
+                <a href="javascript:;" href-url="demo/btn.html"><i class="layui-icon">&#xe621;</i>按钮</a>
+            </li>
             <li class="layui-nav-item">
                 <a href="javascript:;"><i class="layui-icon">&#xe621;</i>基础</a>
                 <dl class="layui-nav-child">
                     <dd><a href="javascript:;" href-url="demo/btn.html"><i class="layui-icon">&#xe621;</i>按钮</a></dd>
                     <dd><a href="javascript:;" href-url="demo/form.html"><i class="layui-icon">&#xe621;</i>表单</a></dd>
                 </dl>
-            </li>-->
+            </li>
         </ul>
-
         <!-- 顶部右侧添加选项卡监听 -->
         <ul class="layui-nav my-header-user-nav" lay-filter="side-top-right">
             <li class="layui-nav-item">
@@ -63,29 +63,21 @@
             <!-- 左侧主菜单添加选项卡监听 -->
             <ul class="layui-nav layui-nav-tree" lay-filter="side-main">
                <li class="layui-nav-item  layui-nav-itemed">
-                    <a href="javascript:;"><i class="layui-icon">&#xe620;</i>基础</a>
+                    <a href="javascript:;"><i class="layui-icon">&#xe620;</i>博客管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" href-url="demo/btn1.html"><i class="layui-icon">&#xe621;</i>按钮</a></dd>
-                        <dd><a href="javascript:;" href-url="demo/form.html"><i class="layui-icon">&#xe621;</i>表单</a></dd>
-                        <dd><a href="javascript:;" href-url="demo/table.html"><i class="layui-icon">&#xe621;</i>表格</a></dd>
-                        <dd><a href="javascript:;" href-url="demo/tab-card.html"><i class="layui-icon">&#xe621;</i>选项卡</a></dd>
-                        <dd><a href="javascript:;" href-url="demo/progress-bar.html"><i class="layui-icon">&#xe621;</i>进度条</a></dd>
-                        <dd><a href="javascript:;" href-url="demo/folding-panel.html"><i class="layui-icon">&#xe621;</i>折叠面板</a></dd>
-                        <dd><a href="javascript:;" href-url="demo/auxiliar.html"><i class="layui-icon">&#xe621;</i>辅助元素</a></dd>
+                        <dd><a href="javascript:;" href-url="modules/treatise-manage.html"><i class="layui-icon">&#xe621;</i>文章管理</a></dd>
+                        <dd><a href="javascript:;" href-url="demo/table.html"><i class="layui-icon">&#xe621;</i>资源分享</a></dd>
+                        <dd><a href="javascript:;" href-url="demo/table.html"><i class="layui-icon">&#xe621;</i>标签管理</a></dd>
+                        <dd><a href="javascript:;" href-url="demo/table.html"><i class="layui-icon">&#xe621;</i>分类管理</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
-                    <a href="javascript:;"><i class="layui-icon">&#xe628;</i>扩展</a>
+                    <a href="javascript:;"><i class="layui-icon">&#xe628;</i>关于网站</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" href-url="demo/login.html"><i class="layui-icon">&#xe621;</i>登录页</a></dd>
-                        <dd><a href="javascript:;" href-url="demo/register.html"><i class="layui-icon">&#xe621;</i>注册页</a></dd>
-                        <dd><a href="javascript:;" href-url="demo/login2.html"><i class="layui-icon">&#xe621;</i>登录页2</a></dd>
-                        <dd><a href="javascript:;" href-url="demo/map.html"><i class="layui-icon">&#xe621;</i>图表</a></dd>
-                        <dd><a href="javascript:;" href-url="demo/add-edit.html"><i class="layui-icon">&#xe621;</i>添加-修改</a></dd>
-                        <dd><a href="javascript:;" href-url="demo/data-table.html"><i class="layui-icon">&#xe621;</i>data-table 表格页</a></dd>
-                        <dd><a href="javascript:;" href-url="demo/tree-table.html"><i class="layui-icon">&#xe621;</i>Tree table树表格页</a></dd>
-                        <dd><a href="javascript:;" href-url="demo/404.html"><i class="layui-icon">&#xe621;</i>404页</a></dd>
-                        <dd><a href="javascript:;" href-url="demo/tips.html"><i class="layui-icon">&#xe621;</i>提示页</a></dd>
+                        <dd><a href="javascript:;" href-url="demo/login.html"><i class="layui-icon">&#xe621;</i>关于我</a></dd>
+                        <dd><a href="javascript:;" href-url="demo/register.html"><i class="layui-icon">&#xe621;</i>留言管理</a></dd>
+                        <dd><a href="javascript:;" href-url="demo/form.html"><i class="layui-icon">&#xe621;</i>评论管理</a></dd>
+                        <dd><a href="javascript:;" href-url="demo/form.html"><i class="layui-icon">&#xe621;</i>友情链接</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -100,7 +92,7 @@
             </ul>
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show">
-                    <iframe id="iframe" src="demo/welcome.html" frameborder="0"></iframe>
+                    <iframe id="iframe" src="modules/welcome.html" frameborder="0"></iframe>
                 </div>
             </div>
         </div>
@@ -136,10 +128,10 @@ layui.use(['layer','vip_nav'], function () {
         ,vipNav     = layui.vip_nav
         ,$          = layui.jquery;
 
-    // 顶部左侧菜单生成 [请求地址,过滤ID,是否展开,携带参数]
-    vipNav.top_left('./json/nav_top_left.json','side-top-left',false);
-    // 主体菜单生成 [请求地址,过滤ID,是否展开,携带参数]
-    vipNav.main('./json/nav_main.json','side-main',true);
+    // // 顶部左侧菜单生成 [请求地址,过滤ID,是否展开,携带参数]
+    // vipNav.top_left('./json/nav_top_left.json','side-top-left',false);
+    // // 主体菜单生成 [请求地址,过滤ID,是否展开,携带参数]
+    // vipNav.main('./json/nav_main.json','side-main',true);
 
     // you code ...
 

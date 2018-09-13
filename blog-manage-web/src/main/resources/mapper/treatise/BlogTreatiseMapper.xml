@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.blog.index.modules.other.mapper.BlogTreatiseMapper">
+<mapper namespace="com.blog.manage.modules.treatise.mapper.BlogTreatiseMapper">
 
 	<!-- 通用查询映射结果 -->
 	<resultMap id="baseResultMap" type="com.blog.pojo.entity.BlogTreatise">
@@ -18,5 +18,26 @@
 		<result column="tags" property="tags" />
 		<result column="recommend" property="recommend" />
 	</resultMap>
+
+	<select id="getTreatiseList" resultType="com.blog.manage.modules.treatise.vo.BlogTreatiseVo">
+		SELECT bt.*,bc.category_name,
+				case bt.source when 1 then '原创' when 2 then '转载' end as sourceName,
+				case bt.recommend when 1 then '推荐' else '不推荐' end as recommendName
+		FROM `blog_treatise` bt
+		LEFT JOIN `blog_category` bc ON bc.id = bt.category_id
+		<where>
+			<if test="categoryId != null and categoryId != ''">
+				AND (category_id = #{categoryId} OR bc.f_id = #{categoryId})
+			</if>
+			<if test="keyWord != null and keyWord != ''">
+				AND (
+				treatise_title like concat('%',#{keyWord},'%') OR
+				treatise_preview like concat('%',#{keyWord},'%') OR
+				treatise_body like concat('%',#{keyWord},'%')
+				)
+			</if>
+		</where>
+		order by bt.create_time desc
+	</select>
 
 </mapper>

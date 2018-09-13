@@ -9,7 +9,6 @@ import com.blog.common.utils.MessageSourceUtil;
 import com.blog.common.result.R;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.*;
 import springfox.documentation.annotations.ApiIgnore;
@@ -31,7 +30,6 @@ public class BlogAdminController {
      * 列表
      */
     @GetMapping("/list" )
-    @RequiresPermissions("blogAdmin:list" )
     @ApiOperation(value = "", notes = "获取分页列表" )
     @ApiImplicitParams({
             @ApiImplicitParam(name = "currentPage", value = "当前页码", paramType = "query" ),
@@ -52,7 +50,6 @@ public class BlogAdminController {
      * 信息
      */
     @GetMapping("/info/{id}" )
-    @RequiresPermissions("blogAdmin:info" )
     @ApiOperation(value = "", notes = "获取详情信息" )
     public R info(@PathVariable("id" ) Integer id){
         BlogAdmin blogAdmin = iBlogAdminService.selectById(id);
@@ -66,7 +63,6 @@ public class BlogAdminController {
      * 保存
      */
     @PostMapping("/save" )
-    @RequiresPermissions("blogAdmin:save" )
     @ApiOperation(value = "", notes = "保存信息" )
     public R save(@RequestBody BlogAdmin blogAdmin){
         boolean retFlag = iBlogAdminService.insert(blogAdmin);
@@ -80,7 +76,6 @@ public class BlogAdminController {
      * 修改
      */
     @PostMapping("/update" )
-    @RequiresPermissions("blogAdmin:update" )
     @ApiOperation(value = "", notes = "更新信息" )
     public R update(@RequestBody BlogAdmin blogAdmin){
         boolean retFlag = iBlogAdminService.updateById(blogAdmin);
@@ -94,7 +89,6 @@ public class BlogAdminController {
      * 删除
      */
     @PostMapping("/delete/{id}" )
-    @RequiresPermissions("blogAdmin:delete" )
     @ApiOperation(value = "", notes = "删除信息" )
     public R delete(@PathVariable("id" ) Integer id){
         boolean retFlag = iBlogAdminService.deleteById(id);

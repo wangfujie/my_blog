@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>欢迎页</title>
+    <link rel="stylesheet" href="../frame/layui/css/layui.css">
+    <link rel="stylesheet" href="../frame/static/css/style.css">
+    <link rel="icon" href="../frame/static/image/code.png">
+</head>
+<body class="body">
+
+<div class="layui-row layui-col-space10 my-index-main">
+
+    <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+        <div class="layui-collapse">
+            <div class="layui-colla-item">
+                <h2 class="layui-colla-title">浏览数据图表</h2>
+                <div class="layui-colla-content layui-show">
+                    <div id="main-line" style="height: 405px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+        <div class="layui-collapse">
+            <div class="layui-colla-item">
+                <h2 class="layui-colla-title">版本信息</h2>
+                <div class="layui-colla-content layui-show">
+
+                    <ul class="layui-timeline max-auto">
+                        <li class="layui-timeline-item">
+                            <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                            <div class="layui-timeline-content layui-text">
+                                <h3 class="layui-timeline-title">v1.8.0</h3>
+                                <p>
+                                    更新日期:2017-08-26
+                                </p>
+                                <ul>
+                                    <li>更新layui-v1.0.9为layui-v2.0.2版本</li>
+                                    <li>
+                                        <h4>新增js功能</h4>
+                                        <ul>
+                                            <li>
+                                                <p>vip_table.js</p>
+                                                <ul>
+                                                    <li>getFullHeight方法  getFullHeight();    // 返回子页面整体高度,用于table组件设置全屏高度</li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>修改已知BUG</li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="layui-timeline-item">
+                            <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                            <div class="layui-timeline-content layui-text">
+                                <div class="layui-timeline-title">开始于2017年01月06日</div>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript" src="../frame/layui/layui.js"></script>
+<script type="text/javascript" src="../js/index.js"></script>
+<script type="text/javascript" src="../frame/echarts/echarts.min.js"></script>
+<script type="text/javascript">
+    layui.use(['element', 'form', 'table', 'layer', 'vip_tab'], function () {
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main-line'));
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption({
+            title: {
+                text: '浏览'
+            },
+            tooltip: {},
+            legend: {
+                data: ['数量']
+            },
+            xAxis: {
+                data: ["发文数", "网站浏览", "文章浏览", "留言数", "评论数"]
+            },
+            yAxis: {},
+            series: [{
+                name: '数量',
+                type: 'bar',
+                data: [16, 30, 10, 10, 20]
+            }]
+        });
+    });
+</script>
+</body>
+</html>

@@ -32,8 +32,7 @@ public class BaseQuery {
     public void setPageSize(int pageSize) {
         if(pageSize > SystemConst.MAX_PAGE_SIZE){
             pageSize = SystemConst.MAX_PAGE_SIZE;
-        }else {
-            this.pageSize = pageSize;
         }
+        this.pageSize = pageSize;
     }
 }
