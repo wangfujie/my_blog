@@ -1,5 +1,6 @@
 package com.blog.manage.modules.treatise.controller;
 
+import com.blog.manage.common.result.ResultLay;
 import com.blog.manage.modules.treatise.query.BlogTreatiseQuery;
 import com.blog.manage.modules.treatise.service.IBlogTreatiseService;
 import com.blog.manage.modules.treatise.vo.BlogTreatiseVo;
@@ -38,10 +39,10 @@ public class BlogTreatiseController {
             @ApiImplicitParam(name = "tagInfo", value = "标签信息", paramType = "query" ),
             @ApiImplicitParam(name = "keyWord", value = "关键词", paramType = "query" )
     })
-    public R list(@ApiIgnore BlogTreatiseQuery treatiseQuery){
+    public ResultLay list(@ApiIgnore BlogTreatiseQuery treatiseQuery){
         //查询列表数据
         Page<BlogTreatiseVo> page = new Page<>(treatiseQuery.getPage(),treatiseQuery.getLimit());
-        return R.fillPageData(treatiseService.getTreatisePage(page,treatiseQuery));
+        return ResultLay.fillPageData(treatiseService.getTreatisePage(page,treatiseQuery));
     }
 
 

@@ -51,19 +51,18 @@
             , height: vipTable.getFullHeight()    //容器高度
             , cols: [[                  //标题栏
                 {checkbox: true, sort: true, fixed: true, space: true}
-                , {field: 'id', title: '序列', width: 60}
-                , {field: 'categoryName', title: '种类', width: 120}
+                , {field: 'uuid', title: '序列', width: 60}
+                , {field: 'categoryName', title: '种类', width: 90}
                 , {field: 'treatiseTitle', title: '标题', width: 120}
-                , {field: 'treatisePreview', title: '预览', width: 180}
-                , {field: 'source', title: '由来', width: 180}
-                , {field: 'createTime', title: '创建时间', width: 180}
-                , {field: 'recommend', title: '是否推荐', width: 70}
+                , {field: 'treatisePreview', title: '预览', width: 220}
+                , {field: 'sourceName', title: '由来', width: 60}
+                , {field: 'createTime', title: '创建时间', width: 160}
+                , {field: 'recommendName', title: '是否推荐', width: 90}
                 , {fixed: 'right', title: '操作', width: 150, align: 'center', toolbar: '#barOption'} //这里的toolbar值是模板元素的选择器
             ]]
             , id: 'dataCheck'
             , url: '/blogTreatise/list'
             , method: 'get'
-            , data: {"currentPage":1,"pageSize":5}
             , page: true
             , limits: [5, 10, 20, 50, 100]
             , limit: 10 //默认采用10
