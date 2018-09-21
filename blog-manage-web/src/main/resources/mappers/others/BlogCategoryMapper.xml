@@ -13,4 +13,9 @@
 		<result column="status" property="status" />
 	</resultMap>
 
+    <select id="getBlogCategoryList" resultType="com.blog.manage.modules.others.vo.BlogCategoryVo">
+		select *,case status  when 0 then '停用' when 1 then '启用' end as statusName
+		from blog_category
+	</select>
+
 </mapper>
