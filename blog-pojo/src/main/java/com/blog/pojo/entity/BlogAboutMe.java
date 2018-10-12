@@ -45,6 +45,7 @@ public class BlogAboutMe extends Model<BlogAboutMe> {
     /**
      * 域名创建时间
      */
+	@JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
 	@TableField("domain_time")
 	private Date domainTime;
     /**

@@ -39,7 +39,7 @@ public class BlogAboutMeController {
      */
     @PostMapping("/insertOrUpdate" )
     @ApiOperation(value = "关于我,新增或修改", notes = "新增或修改关于我信息" )
-    public R insertOrUpdate(@RequestBody BlogAboutMe blogAboutMe){
+    public R insertOrUpdate(BlogAboutMe blogAboutMe){
         boolean retFlag = iBlogAboutMeService.insertOrUpdate(blogAboutMe);
         if (!retFlag) {
             return R.error(MessageSourceUtil.getMessage("500"));
