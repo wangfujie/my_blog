@@ -16,7 +16,7 @@
 <div class="my-btn-box">
     <span class="fl">
         <a class="layui-btn layui-btn-danger radius btn-delect" id="btn-delete-all">批量删除</a>
-        <a class="layui-btn btn-add btn-default" id="btn-add">添加</a>
+        <a class="layui-btn btn-add btn-default" onclick="addTreatise()" id="btn-add">添加</a>
         <a class="layui-btn btn-add btn-default" id="btn-refresh"><i class="layui-icon">&#x1002;</i></a>
     </span>
     <span class="fr">
@@ -29,7 +29,7 @@
 </div>
 
 <!-- 表格 -->
-<div id="treatiseTable"></div>
+<table class="layui-hide" id="treatiseTable" lay-filter="treatiseTableFilter"></table>
 <script type="text/html" id="indexNum">
     {{d.LAY_TABLE_INDEX+1}}
 </script>
@@ -75,21 +75,33 @@
                 //如果是异步请求数据方式，res即为你接口返回的信息。
                 //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
                 console.log(res);
-
                 //得到当前页码
                 console.log(curr);
-
                 //得到数据总量
                 console.log(count);
             }
         });
 
-        // 获取选中行
-        table.on('checkbox(treatiseTableData)', function (obj) {
-            layer.msg('123');
-            console.log(obj.checked); //当前是否选中状态
-            console.log(obj.data); //选中行的相关数据
-            console.log(obj.type); //如果触发的是全选，则为：all，如果触发的是单选，则为：one
+        //监听表格复选框选择
+        table.on('checkbox(treatiseTableFilter)', function(obj){
+            console.log(obj)
+        });
+
+        //监听工具条
+        table.on('tool(treatiseTableFilter)', function (obj) {
+            layer.msg(obj.event);
+            //查询
+            if (obj.event === 'detail') {
+
+            }
+            //编辑
+            if (obj.event === 'edit') {
+                addTreatise(obj.data.uuid);
+            }
+            //删除
+            if (obj.event === 'del') {
+
+            }
         });
 
         // 刷新
@@ -97,10 +109,24 @@
             tableIns.reload();
         });
 
-
-        // you code ...
-
     });
+
+    /**
+     * 添加编辑文章弹窗
+     */
+    function addTreatise(uuid) {
+        var url = 'treatise-add.html';
+        if (uuid){
+            url += '?treatiseUuid='+ uuid;
+        }
+        var index = layer.open({
+            type: 2,
+            area: ['800px', '425px'],
+            maxmin: true,
+            content: url
+        });
+        layer.full(index);
+    }
 </script>
 <!-- 表格操作按钮集 -->
 <script type="text/html" id="barOption">

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>文章管理-新增</title>
+    <link rel="stylesheet" href="../../../frame/layui/css/layui.css">
+    <link rel="stylesheet" href="../../../frame/static/css/style.css">
+    <link rel="icon" href="../../../frame/static/image/code.png">
+</head>
+<body class="body">
+
+<form id="aboutMeForm" class="layui-form layui-form-pane" action="">
+    <input :value="messages.uuid" type="text" name="uuid" hidden>
+    <div class="layui-form-item">
+        <label class="layui-form-label">文章标题</label>
+        <div class="layui-input-block">
+            <input :value="messages.treatiseTitle" type="text" name="treatiseTitle" lay-verify="treatiseTitle" autocomplete="off" placeholder="请输入文章标题" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">所属类型</label>
+        <div class="layui-input-inline">
+            <select name="categoryIdBig">
+                <option value="">请选择大类</option>
+                <option value="1" selected="">技术博客</option>
+                <option value="2">生活杂谈</option>
+                <option value="3">资源分享</option>
+            </select>
+        </div>
+        <div class="layui-input-inline">
+            <select name="categoryId">
+                <option value="">请选择小类</option>
+                <option value="10">JAVA</option>
+                <option value="11" disabled="">数据库</option>
+                <option value="12">Linux</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">预览内容</label>
+        <div class="layui-input-block">
+            <input :value="messages.treatisePreview" type="text" name="treatisePreview" lay-verify="required" autocomplete="off" placeholder="请输入预览内容" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">文章来源</label>
+            <div class="layui-input-inline">
+                <select name="source">
+                    <option value=""></option>
+                    <option value="1"selected="">原创</option>
+                    <option value="2">转载</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">来源地</label>
+            <div class="layui-input-inline">
+                <input :value="messages.reprintFrom" type="text" name="reprintFrom" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">来源url</label>
+            <div class="layui-input-inline" style="width: 500px;">
+                <input :value="messages.reprintUrl" type="text" name="reprintUrl" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">标签选择</label>
+        <div class="layui-input-block">
+            <input type="checkbox" name="tags" value="JAVA" title="JAVA" checked="">
+            <input type="checkbox" name="tags" value="Linux" title="Linux">
+            <input type="checkbox" name="tags" value="MySQL" title="MySQL">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">是否推荐</label>
+        <div class="layui-input-block">
+            <input type="checkbox" name="recommend" lay-skin="switch" lay-text="是|否" checked>
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">正文部分</label>
+        <div class="layui-input-block">
+            <textarea :value="messages.treatiseBody" placeholder="正文内容" class="layui-textarea"  name="treatiseBody" ></textarea>
+            <!--<textarea :value="messages.aboutMe" class="layui-textarea layui-hide" name="aboutMe" lay-verify="aboutMe" id="about_me_editor"></textarea>-->
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit="" lay-filter="infoSubmit">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript" src="../../../frame/layui/layui.js"></script>
+<script type="text/javascript" src="../../../js/common/jquery.min.js"></script>
+<script type="text/javascript" src="../../../js/common/utils.js"></script>
+<script type="text/javascript" src="../../../js/common/vue.js"></script>
+
+<script type="text/javascript">
+    var params = getRequestParams(window.location.search);
+    var treatiseUuid = params.treatiseUuid;
+    if (treatiseUuid){
+        new Vue({
+            el: "#aboutMeForm",
+            data: {messages:{}},
+            methods:{
+                initInfo:function () {
+                    var self = this;
+                    $.ajax({
+                        url: "/blogTreatise/info/" + treatiseUuid,
+                        type: "GET"
+                    }).then(function (value) {
+                        if (value.code == 200) {
+                            self.messages = value.data.object;
+                        }
+                    }).fail(function () {
+                        console.log("获取失败");
+                    });
+                }
+            },
+            created: function () {
+                this.initInfo();
+            }
+        });
+    }
+
+    // layui方法
+    layui.use(['form', 'layedit', 'laydate'], function () {
+        // 操作对象
+        var form = layui.form
+            ,layer = layui.layer
+            ,layedit = layui.layedit
+            ,laydate = layui.laydate;
+
+
+        //创建一个编辑器
+        // var editIndex = layedit.build('about_me_editor',{
+        //     tool: ['strong','italic','underline', '|', 'left', 'center', 'right', '|', 'face', 'link', 'unlink']
+        // });
+
+        //自定义验证规则
+        form.verify({
+            treatiseTitle: function(value){
+                if(value.length > 200){
+                    return '标题不能长于20个字';
+                }
+            }
+        });
+
+        //监听提交
+        form.on('submit(infoSubmit)', function(data){
+            data.field.recommend = data.field.recommend == 'on' ? 1 : 0;
+            console.log(data);
+
+            // $.ajax({
+            //     url: "/blogTreatise/insertOrUpdate",
+            //     type: "POST",
+            //     data: data.field
+            // }).then(function (result) {
+            //     if (result.code == 200) {
+            //         layer.alert('保存成功！', {
+            //             title: '提交信息'
+            //         });
+            //     }
+            // }).fail(function () {
+            //     layer.alert('保存失败！', {
+            //         title: '提交信息'
+            //     });
+            //     console.log("保存失败");
+            // });
+            return false;
+        });
+
+    });
+</script>
+</body>
+</html>

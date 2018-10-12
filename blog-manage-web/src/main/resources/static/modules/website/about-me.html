@@ -73,8 +73,8 @@
     </div>
 </form>
 <script type="text/javascript" src="../../frame/layui/layui.js"></script>
-<script type="text/javascript" src="../../js/jquery.min.js"></script>
-<script type="text/javascript" src="../../js/vue.js"></script>
+<script type="text/javascript" src="../../js/common/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/common/vue.js"></script>
 <script type="text/javascript">
 
     var vueData = new Vue({
@@ -108,8 +108,6 @@
             ,layer = layui.layer
             ,layedit = layui.layedit
             ,laydate = layui.laydate;
-
-        form.render('');
 
         //日期
         laydate.render({
@@ -148,7 +146,7 @@
                 });
                 console.log("保存失败");
             });
-            return false;
+            return true;
         });
 
     });
