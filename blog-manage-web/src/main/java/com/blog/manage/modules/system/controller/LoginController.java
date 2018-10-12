@@ -2,11 +2,11 @@ package com.blog.manage.modules.system.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.blog.common.result.R;
+import com.blog.common.utils.Md5Util;
 import com.blog.manage.common.utils.ShiroUtils;
 import com.blog.manage.modules.admin.service.IBlogAdminService;
 import com.blog.pojo.entity.BlogAdmin;
 import org.apache.shiro.authc.*;
-import org.apache.shiro.subject.Subject;
 import org.apache.shiro.subject.support.DefaultSubjectContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,10 +34,9 @@ public class LoginController {
     public R login(String account, String password, HttpServletRequest servletRequest){
         BlogAdmin admin = adminService.selectOne(new EntityWrapper<BlogAdmin>().eq("account",account));
         try {
-            Subject subject = ShiroUtils.getSubject();
-            AuthenticationToken token = new UsernamePasswordToken(account, password);
+            AuthenticationToken token = new UsernamePasswordToken(account, Md5Util.getFileMD5String(password));
             //shiro方式登录
-            subject.login(token);
+            ShiroUtils.getSubject().login(token);
         }catch (UnknownAccountException e){
             //账号存在
             return R.error(e.getMessage());
@@ -60,6 +59,8 @@ public class LoginController {
     @RequestMapping(value = "/logout")
     public String logout(HttpSession httpSession) {
         httpSession.removeAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY);
+        //shiro方式登出
+        ShiroUtils.getSubject().logout();
         return "redirect:/login.html";
     }
 }

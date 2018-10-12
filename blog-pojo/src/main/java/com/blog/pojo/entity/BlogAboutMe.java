@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.io.Serializable;
 
@@ -64,6 +65,7 @@ public class BlogAboutMe extends Model<BlogAboutMe> {
     /**
      * 信息更新时间
      */
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 	@TableField("update_time")
 	private Date updateTime;
 

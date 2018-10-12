@@ -1,8 +1,11 @@
 package com.blog.manage.modules.others.mapper;
 
+import com.baomidou.mybatisplus.plugins.pagination.Pagination;
+import com.blog.manage.modules.others.vo.BlogTagsVo;
 import com.blog.pojo.entity.BlogTags;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import java.util.List;
 
 /**
  * @author wangfj
@@ -12,4 +15,10 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface BlogTagsMapper extends BaseMapper<BlogTags> {
 
+    /**
+     * 获取标签表分页列表
+     * @param page
+     * @return
+     */
+    List<BlogTagsVo> getBlogTagsList(Pagination page);
 }

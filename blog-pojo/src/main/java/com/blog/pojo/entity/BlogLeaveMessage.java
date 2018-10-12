@@ -59,7 +59,7 @@ public class BlogLeaveMessage extends Model<BlogLeaveMessage> {
     /**
      * 留言时间
      */
-    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 	@TableField("create_time")
 	private Date createTime;
     /**

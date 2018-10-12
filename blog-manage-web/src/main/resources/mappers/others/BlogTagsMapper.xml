@@ -12,4 +12,10 @@
 		<result column="use_num" property="useNum" />
 	</resultMap>
 
+    <select id="getBlogTagsList" resultType="com.blog.manage.modules.others.vo.BlogTagsVo">
+		SELECT tag.*,cat.category_name categoryName
+		FROM `blog_tags` tag
+		LEFT JOIN blog_category cat ON cat.id = tag.category_id
+	</select>
+
 </mapper>

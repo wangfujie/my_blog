@@ -33,7 +33,7 @@ public class Md5Util {
      * @param value
      * @return
      */
-    public static String  getFileMD5String(String value){
+    public static String getFileMD5String(String value){
         messagedigest.update(value.getBytes());
         return bufferToHex(messagedigest.digest());
     }

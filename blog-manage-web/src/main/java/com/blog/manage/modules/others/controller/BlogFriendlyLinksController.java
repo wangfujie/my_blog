@@ -1,15 +1,14 @@
 package com.blog.manage.modules.others.controller;
 
+import com.blog.manage.common.result.LayPageQuery;
+import com.blog.manage.common.result.ResultLay;
 import com.blog.manage.modules.others.service.IBlogFriendlyLinksService;
 import com.blog.pojo.entity.BlogFriendlyLinks;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.blog.common.query.BaseQuery;
 import com.blog.common.utils.MessageSourceUtil;
 import com.blog.common.result.R;
-import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.*;
 import springfox.documentation.annotations.ApiIgnore;
@@ -25,26 +24,22 @@ import springfox.documentation.annotations.ApiIgnore;
 public class BlogFriendlyLinksController {
 
     @Autowired
-    private IBlogFriendlyLinksService iBlogFriendlyLinksService;
+    private IBlogFriendlyLinksService friendlyLinksService;
 
     /**
      * 列表
      */
     @GetMapping("/list" )
-    @RequiresPermissions("blogFriendlyLinks:list" )
     @ApiOperation(value = "友情链接", notes = "获取友情链接分页列表" )
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "currentPage", value = "当前页码", paramType = "query" ),
-            @ApiImplicitParam(name = "pageSize", value = "每页条数", paramType = "query" )
+            @ApiImplicitParam(name = "page", value = "当前页码", paramType = "query" ),
+            @ApiImplicitParam(name = "limit", value = "每页条数", paramType = "query" )
     })
-    public R list(@ApiIgnore BaseQuery baseQuery){
+    public ResultLay list(@ApiIgnore LayPageQuery baseQuery){
             //查询列表数据
-            Page page=new Page(baseQuery.getCurrentPage(),baseQuery.getPageSize());
-            Page pageList=iBlogFriendlyLinksService.selectPage(page,new EntityWrapper<BlogFriendlyLinks>());
-            if (CollectionUtils.isEmpty(pageList.getRecords())) {
-                return R.notFound();
-            }
-            return R.fillPageData(pageList);
+            Page pageList = friendlyLinksService.selectPage(new Page(baseQuery.getPage(),baseQuery.getLimit()),
+                    new EntityWrapper<BlogFriendlyLinks>());
+            return ResultLay.fillPageData(pageList);
     }
 
 
@@ -52,10 +47,9 @@ public class BlogFriendlyLinksController {
      * 信息
      */
     @GetMapping("/info/{id}" )
-    @RequiresPermissions("blogFriendlyLinks:info" )
     @ApiOperation(value = "友情链接", notes = "获取友情链接详情信息" )
     public R info(@PathVariable("id" ) Integer id){
-        BlogFriendlyLinks blogFriendlyLinks = iBlogFriendlyLinksService.selectById(id);
+        BlogFriendlyLinks blogFriendlyLinks = friendlyLinksService.selectById(id);
         if (blogFriendlyLinks == null) {
             return R.notFound();
         }
@@ -66,10 +60,9 @@ public class BlogFriendlyLinksController {
      * 保存
      */
     @PostMapping("/save" )
-    @RequiresPermissions("blogFriendlyLinks:save" )
     @ApiOperation(value = "友情链接", notes = "保存友情链接信息" )
     public R save(@RequestBody BlogFriendlyLinks blogFriendlyLinks){
-        boolean retFlag = iBlogFriendlyLinksService.insert(blogFriendlyLinks);
+        boolean retFlag = friendlyLinksService.insert(blogFriendlyLinks);
         if (!retFlag) {
             return R.error(MessageSourceUtil.getMessage("500"));
         }
@@ -80,10 +73,9 @@ public class BlogFriendlyLinksController {
      * 修改
      */
     @PostMapping("/update" )
-    @RequiresPermissions("blogFriendlyLinks:update" )
     @ApiOperation(value = "友情链接", notes = "更新友情链接信息" )
     public R update(@RequestBody BlogFriendlyLinks blogFriendlyLinks){
-        boolean retFlag = iBlogFriendlyLinksService.updateById(blogFriendlyLinks);
+        boolean retFlag = friendlyLinksService.updateById(blogFriendlyLinks);
         if (!retFlag) {
             return R.error(MessageSourceUtil.getMessage("500"));
         }
@@ -94,10 +86,9 @@ public class BlogFriendlyLinksController {
      * 删除
      */
     @PostMapping("/delete/{id}" )
-    @RequiresPermissions("blogFriendlyLinks:delete" )
     @ApiOperation(value = "友情链接", notes = "删除友情链接信息" )
     public R delete(@PathVariable("id" ) Integer id){
-        boolean retFlag = iBlogFriendlyLinksService.deleteById(id);
+        boolean retFlag = friendlyLinksService.deleteById(id);
         if (!retFlag) {
             return R.error(MessageSourceUtil.getMessage("500"));
         }

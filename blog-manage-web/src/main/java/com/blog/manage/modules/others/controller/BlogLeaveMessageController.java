@@ -1,15 +1,13 @@
 package com.blog.manage.modules.others.controller;
 
+import com.blog.manage.common.result.LayPageQuery;
+import com.blog.manage.common.result.ResultLay;
 import com.blog.manage.modules.others.service.IBlogLeaveMessageService;
 import com.blog.pojo.entity.BlogLeaveMessage;
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.blog.common.query.BaseQuery;
 import com.blog.common.utils.MessageSourceUtil;
 import com.blog.common.result.R;
-import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.*;
 import springfox.documentation.annotations.ApiIgnore;
@@ -31,20 +29,15 @@ public class BlogLeaveMessageController {
      * 列表
      */
     @GetMapping("/list" )
-    @RequiresPermissions("blogLeaveMessage:list" )
     @ApiOperation(value = "留言表", notes = "获取留言表分页列表" )
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "currentPage", value = "当前页码", paramType = "query" ),
-            @ApiImplicitParam(name = "pageSize", value = "每页条数", paramType = "query" )
+            @ApiImplicitParam(name = "page", value = "当前页码", paramType = "query" ),
+            @ApiImplicitParam(name = "limit", value = "每页条数", paramType = "query" )
     })
-    public R list(@ApiIgnore BaseQuery baseQuery){
+    public ResultLay list(@ApiIgnore LayPageQuery baseQuery){
             //查询列表数据
-            Page page=new Page(baseQuery.getCurrentPage(),baseQuery.getPageSize());
-            Page pageList=iBlogLeaveMessageService.selectPage(page,new EntityWrapper<BlogLeaveMessage>());
-            if (CollectionUtils.isEmpty(pageList.getRecords())) {
-                return R.notFound();
-            }
-            return R.fillPageData(pageList);
+            Page pageList = iBlogLeaveMessageService.selectPage(new Page(baseQuery.getPage(),baseQuery.getLimit()),null);
+            return ResultLay.fillPageData(pageList);
     }
 
 
@@ -52,7 +45,6 @@ public class BlogLeaveMessageController {
      * 信息
      */
     @GetMapping("/info/{uuid}" )
-    @RequiresPermissions("blogLeaveMessage:info" )
     @ApiOperation(value = "留言表", notes = "获取留言表详情信息" )
     public R info(@PathVariable("uuid" ) String uuid){
         BlogLeaveMessage blogLeaveMessage = iBlogLeaveMessageService.selectById(uuid);
@@ -66,7 +58,6 @@ public class BlogLeaveMessageController {
      * 保存
      */
     @PostMapping("/save" )
-    @RequiresPermissions("blogLeaveMessage:save" )
     @ApiOperation(value = "留言表", notes = "保存留言表信息" )
     public R save(@RequestBody BlogLeaveMessage blogLeaveMessage){
         boolean retFlag = iBlogLeaveMessageService.insert(blogLeaveMessage);
@@ -80,7 +71,6 @@ public class BlogLeaveMessageController {
      * 修改
      */
     @PostMapping("/update" )
-    @RequiresPermissions("blogLeaveMessage:update" )
     @ApiOperation(value = "留言表", notes = "更新留言表信息" )
     public R update(@RequestBody BlogLeaveMessage blogLeaveMessage){
         boolean retFlag = iBlogLeaveMessageService.updateById(blogLeaveMessage);
@@ -94,7 +84,6 @@ public class BlogLeaveMessageController {
      * 删除
      */
     @PostMapping("/delete/{uuid}" )
-    @RequiresPermissions("blogLeaveMessage:delete" )
     @ApiOperation(value = "留言表", notes = "删除留言表信息" )
     public R delete(@PathVariable("uuid" ) String uuid){
         boolean retFlag = iBlogLeaveMessageService.deleteById(uuid);

@@ -8,7 +8,6 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.blog.common.utils.MessageSourceUtil;
 import com.blog.common.result.R;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.*;
 import springfox.documentation.annotations.ApiIgnore;
@@ -45,7 +44,6 @@ public class BlogCategoryController {
      * 信息
      */
     @GetMapping("/info/{id}" )
-    @RequiresPermissions("blogCategory:info" )
     @ApiOperation(value = "博客类型表", notes = "获取博客类型表详情信息" )
     public R info(@PathVariable("id" ) Integer id){
         BlogCategory blogCategory = categoryService.selectById(id);
@@ -59,7 +57,6 @@ public class BlogCategoryController {
      * 保存
      */
     @PostMapping("/save" )
-    @RequiresPermissions("blogCategory:save" )
     @ApiOperation(value = "博客类型表", notes = "保存博客类型表信息" )
     public R save(@RequestBody BlogCategory blogCategory){
         boolean retFlag = categoryService.insert(blogCategory);
@@ -73,7 +70,6 @@ public class BlogCategoryController {
      * 修改
      */
     @PostMapping("/update" )
-    @RequiresPermissions("blogCategory:update" )
     @ApiOperation(value = "博客类型表", notes = "更新博客类型表信息" )
     public R update(@RequestBody BlogCategory blogCategory){
         boolean retFlag = categoryService.updateById(blogCategory);
@@ -87,7 +83,6 @@ public class BlogCategoryController {
      * 删除
      */
     @PostMapping("/delete/{id}" )
-    @RequiresPermissions("blogCategory:delete" )
     @ApiOperation(value = "博客类型表", notes = "删除博客类型表信息" )
     public R delete(@PathVariable("id" ) Integer id){
         boolean retFlag = categoryService.deleteById(id);
