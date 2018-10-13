@@ -62,7 +62,7 @@
                 , {field: 'useNum', title: '使用次数', width: 90, align: 'center'}
                 , {fixed: 'right', title: '操作', width: 150, align: 'center', toolbar: '#barOption'} //这里的toolbar值是模板元素的选择器
             ]]
-            , id: 'treatiseTableData'
+            , id: 'tableInsData'
             , url: '/blogTags/list'
             , where: {}
             , method: 'get'
@@ -83,8 +83,22 @@
             }
         });
 
+        //监听工具条
+        table.on('tool(layTableFilter)', function (obj) {
+            layer.msg(obj.event);
+            console.log(obj);
+            //保存
+            if (obj.event === 'save') {
+
+            }
+            //删除
+            if (obj.event === 'del') {
+
+            }
+        });
+
         // 获取选中行
-        table.on('checkbox(treatiseTableData)', function (obj) {
+        table.on('checkbox(tableInsData)', function (obj) {
             layer.msg('123');
             console.log(obj.checked); //当前是否选中状态
             console.log(obj.data); //选中行的相关数据
@@ -96,14 +110,13 @@
             tableIns.reload();
         });
 
-
         // you code ...
 
     });
 </script>
 <!-- 表格操作按钮集 -->
 <script type="text/html" id="barOption">
-    <a class="layui-btn layui-btn-mini layui-btn-normal" lay-event="edit">保存</a>
+    <a class="layui-btn layui-btn-mini layui-btn-normal" lay-event="save">保存</a>
     <a class="layui-btn layui-btn-mini layui-btn-danger" lay-event="del">删除</a>
 </script>
 </body>

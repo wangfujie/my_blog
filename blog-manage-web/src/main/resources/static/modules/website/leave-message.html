@@ -63,7 +63,7 @@
                 , {field: 'createTime', title: '留言时间', width: 110, align: 'center' }
                 , {fixed: 'right', title: '操作', width: 150, align: 'center', toolbar: '#barOption'} //这里的toolbar值是模板元素的选择器
             ]]
-            , id: 'treatiseTableData'
+            , id: 'tableInsData'
             , url: '/blogLeaveMessage/list'
             , where: {}
             , method: 'get'
@@ -85,7 +85,7 @@
         });
 
         // 获取选中行
-        table.on('checkbox(treatiseTableData)', function (obj) {
+        table.on('checkbox(tableInsData)', function (obj) {
             layer.msg('123');
             console.log(obj.checked); //当前是否选中状态
             console.log(obj.data); //选中行的相关数据

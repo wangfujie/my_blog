@@ -1,5 +1,6 @@
 package com.blog.manage.modules.others.controller;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.blog.manage.common.result.LayPageQuery;
 import com.blog.manage.common.result.ResultLay;
 import com.blog.manage.modules.others.service.IBlogCategoryService;
@@ -11,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.*;
 import springfox.documentation.annotations.ApiIgnore;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author wangfj
@@ -38,6 +42,26 @@ public class BlogCategoryController {
         //查询列表数据
         Page pageList = categoryService.getBlogCategoryPage(new Page(baseQuery.getPage(),baseQuery.getLimit()));
         return ResultLay.fillPageData(pageList);
+    }
+
+    /**
+     * 获取分类下拉列表
+     */
+    @GetMapping("/getCategoryList" )
+    @ApiOperation(value = "博客类型，获取分类下拉列表", notes = "获取分类下拉列表" )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "categoryId", value = "分类id", paramType = "query" )
+    })
+    public R getCategoryList(Integer categoryId){
+        List<BlogCategory> categoryList;
+        //如果参数不为空，查询子分类
+        if (categoryId != null){
+            categoryList = categoryService.selectList(new EntityWrapper<BlogCategory>().eq("f_id", categoryId));
+        }else {
+            //查询大分类
+            categoryList = categoryService.selectList(new EntityWrapper<BlogCategory>().eq("f_id", 0));
+        }
+        return R.fillListData(categoryList);
     }
 
     /**

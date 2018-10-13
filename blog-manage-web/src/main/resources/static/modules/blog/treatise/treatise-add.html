@@ -20,22 +20,16 @@
             <input :value="messages.treatiseTitle" type="text" name="treatiseTitle" lay-verify="treatiseTitle" autocomplete="off" placeholder="请输入文章标题" class="layui-input">
         </div>
     </div>
-    <div class="layui-form-item">
+    <div class="layui-form-item" id="categorySelect">
         <label class="layui-form-label">所属类型</label>
         <div class="layui-input-inline">
-            <select name="categoryIdBig">
-                <option value="">请选择大类</option>
-                <option value="1" selected="">技术博客</option>
-                <option value="2">生活杂谈</option>
-                <option value="3">资源分享</option>
+            <select name="categoryIdBig" placeholder="请选择" lay-filter="onSelectedCategory">
+                <option v-for="item in fCategoryList" :value="item.id">{{ item.categoryName }}</option>
             </select>
         </div>
         <div class="layui-input-inline">
-            <select name="categoryId">
-                <option value="">请选择小类</option>
-                <option value="10">JAVA</option>
-                <option value="11" disabled="">数据库</option>
-                <option value="12">Linux</option>
+            <select name="categoryId" placeholder="请选择小类">
+                <option v-for="item in categoryList" :value="item.id">{{ item.categoryName }}</option>
             </select>
         </div>
     </div>
@@ -76,8 +70,6 @@
         <label class="layui-form-label">标签选择</label>
         <div class="layui-input-block">
             <input type="checkbox" name="tags" value="JAVA" title="JAVA" checked="">
-            <input type="checkbox" name="tags" value="Linux" title="Linux">
-            <input type="checkbox" name="tags" value="MySQL" title="MySQL">
         </div>
     </div>
 
@@ -109,8 +101,49 @@
 <script type="text/javascript" src="../../../js/common/vue.js"></script>
 
 <script type="text/javascript">
+    //页面初始化一些数据
+    //初始化分类数据
+    var categorySelectVue = new Vue({
+        el: "#categorySelect",
+        data:{fCategoryList:[],categoryList:[]},
+        methods:{
+            initInfo:function () {
+                var self = this;
+                $.ajax({
+                    url: "/blogCategory/getCategoryList",
+                    type: "GET"
+                }).then(function (value) {
+                    if (value.code == 200) {
+                        self.fCategoryList = value.data.list;
+                    }
+                }).fail(function () {
+                    console.log("获取失败");
+                });
+            },
+            loadCategory:function (categoryId) {
+                var self = this;
+                $.ajax({
+                    url: "/blogCategory/getCategoryList",
+                    type: "GET",
+                    data: {"categoryId":categoryId}
+                }).then(function (value) {
+                    if (value.code == 200) {
+                        Vue.set(this, 'categoryList', value.data.list);
+                        // self.categoryList = value.data.list;
+                    }
+                }).fail(function () {
+                    console.log("获取失败");
+                });
+            }
+        },
+        created: function () {
+            this.initInfo();
+        }
+    });
+
     var params = getRequestParams(window.location.search);
     var treatiseUuid = params.treatiseUuid;
+    //如果传有主角uuid，则是编辑，加载编辑数据
     if (treatiseUuid){
         new Vue({
             el: "#aboutMeForm",
@@ -183,6 +216,16 @@
             return false;
         });
 
+        /**
+         * 监听所属分类列表
+         */
+        form.on('select(onSelectedCategory)', function(data){
+            var categoryId = data.value;
+            if (categoryId){
+                categorySelectVue.loadCategory(categoryId);
+                console.log(categorySelectVue);
+            }
+        });
     });
 </script>
 </body>
