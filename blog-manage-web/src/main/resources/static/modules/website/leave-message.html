@@ -81,10 +81,9 @@
 
         //监听工具条
         table.on('tool(layTableFilter)', function (obj) {
-            layer.msg(obj.event);
             //查看详情
             if (obj.event === 'detail') {
-
+                layer.msg(obj.event);
             }
             //回复
             if (obj.event === 'reply') {

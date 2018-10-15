@@ -12,19 +12,19 @@
 </head>
 <body class="body">
 
-<form id="aboutMeForm" class="layui-form layui-form-pane" action="">
-    <input :value="messages.uuid" type="text" name="uuid" hidden>
+<form id="treatiseAddForm" class="layui-form layui-form-pane" action="">
+    <input :value="treatiseInfo.uuid" type="text" name="uuid" hidden>
     <div class="layui-form-item">
         <label class="layui-form-label">文章标题</label>
         <div class="layui-input-block">
-            <input :value="messages.treatiseTitle" type="text" name="treatiseTitle" lay-verify="treatiseTitle" autocomplete="off" placeholder="请输入文章标题" class="layui-input">
+            <input :value="treatiseInfo.treatiseTitle" type="text" name="treatiseTitle" lay-verify="treatiseTitle" autocomplete="off" placeholder="请输入文章标题" class="layui-input">
         </div>
     </div>
-    <div class="layui-form-item" id="categorySelect">
+    <div class="layui-form-item">
         <label class="layui-form-label">所属类型</label>
         <div class="layui-input-inline">
-            <select name="categoryIdBig" placeholder="请选择" lay-filter="onSelectedCategory">
-                <option v-for="item in fCategoryList" :value="item.id">{{ item.categoryName }}</option>
+            <select v-model="categoryVal" name="categoryIdBig" placeholder="请选择" lay-filter="onSelectedCategory">
+                <option v-for="fCategory in fCategoryList" :value="fCategory.id">{{ fCategory.categoryName }}</option>
             </select>
         </div>
         <div class="layui-input-inline">
@@ -37,7 +37,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">预览内容</label>
         <div class="layui-input-block">
-            <input :value="messages.treatisePreview" type="text" name="treatisePreview" lay-verify="required" autocomplete="off" placeholder="请输入预览内容" class="layui-input">
+            <input :value="treatiseInfo.treatisePreview" type="text" name="treatisePreview" lay-verify="required" autocomplete="off" placeholder="请输入预览内容" class="layui-input">
         </div>
     </div>
 
@@ -45,9 +45,8 @@
         <div class="layui-inline">
             <label class="layui-form-label">文章来源</label>
             <div class="layui-input-inline">
-                <select name="source">
-                    <option value=""></option>
-                    <option value="1"selected="">原创</option>
+                <select name="source" placeholder="请选择来源">
+                    <option value="1">原创</option>
                     <option value="2">转载</option>
                 </select>
             </div>
@@ -55,13 +54,13 @@
         <div class="layui-inline">
             <label class="layui-form-label">来源地</label>
             <div class="layui-input-inline">
-                <input :value="messages.reprintFrom" type="text" name="reprintFrom" autocomplete="off" class="layui-input">
+                <input :value="treatiseInfo.reprintFrom" type="text" name="reprintFrom" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label">来源url</label>
             <div class="layui-input-inline" style="width: 500px;">
-                <input :value="messages.reprintUrl" type="text" name="reprintUrl" autocomplete="off" class="layui-input">
+                <input :value="treatiseInfo.reprintUrl" type="text" name="reprintUrl" autocomplete="off" class="layui-input">
             </div>
         </div>
     </div>
@@ -83,8 +82,8 @@
     <div class="layui-form-item layui-form-text">
         <label class="layui-form-label">正文部分</label>
         <div class="layui-input-block">
-            <textarea :value="messages.treatiseBody" placeholder="正文内容" class="layui-textarea"  name="treatiseBody" ></textarea>
-            <!--<textarea :value="messages.aboutMe" class="layui-textarea layui-hide" name="aboutMe" lay-verify="aboutMe" id="about_me_editor"></textarea>-->
+            <textarea :value="treatiseInfo.treatiseBody" placeholder="正文内容" class="layui-textarea"  name="treatiseBody" ></textarea>
+            <!--<textarea :value="treatiseInfo.aboutMe" class="layui-textarea layui-hide" name="aboutMe" lay-verify="aboutMe" id="about_me_editor"></textarea>-->
         </div>
     </div>
     <div class="layui-form-item">
@@ -101,12 +100,25 @@
 <script type="text/javascript" src="../../../js/common/vue.js"></script>
 
 <script type="text/javascript">
-    //页面初始化一些数据
-    //初始化分类数据
-    var categorySelectVue = new Vue({
-        el: "#categorySelect",
-        data:{fCategoryList:[],categoryList:[]},
+
+    //页面初始化一些数据（vue）
+    var bodyVue = new Vue({
+        el: "#treatiseAddForm",
+        data:{categoryVal:'',fCategoryList:[],categoryList:[],treatiseInfo:{}},
         methods:{
+            editInfo:function (treatiseUuid) {
+                var self = this;
+                $.ajax({
+                    url: "/blogTreatise/info/" + treatiseUuid,
+                    type: "GET"
+                }).then(function (value) {
+                    if (value.code == 200) {
+                        self.treatiseInfo = value.data.object;
+                    }
+                }).fail(function () {
+                    console.log("获取失败");
+                });
+            },
             initInfo:function () {
                 var self = this;
                 $.ajax({
@@ -136,37 +148,26 @@
             }
         },
         created: function () {
+            //渲染种类下拉列表
             this.initInfo();
+            //获取参数
+            var params = getRequestParams(window.location.search);
+            var treatiseUuid = params.treatiseUuid;
+            //如果传有主键uuid，则是编辑，加载编辑数据
+            if (treatiseUuid){
+                this.editInfo(treatiseUuid);
+            }
+        },
+        watch:{
+            // categoryVal: function(curVal, oldVal){
+            //     console.log(curVal);
+            //     console.log(oldVal);
+            // }
+        },
+        mounted(){
+
         }
     });
-
-    var params = getRequestParams(window.location.search);
-    var treatiseUuid = params.treatiseUuid;
-    //如果传有主角uuid，则是编辑，加载编辑数据
-    if (treatiseUuid){
-        new Vue({
-            el: "#aboutMeForm",
-            data: {messages:{}},
-            methods:{
-                initInfo:function () {
-                    var self = this;
-                    $.ajax({
-                        url: "/blogTreatise/info/" + treatiseUuid,
-                        type: "GET"
-                    }).then(function (value) {
-                        if (value.code == 200) {
-                            self.messages = value.data.object;
-                        }
-                    }).fail(function () {
-                        console.log("获取失败");
-                    });
-                }
-            },
-            created: function () {
-                this.initInfo();
-            }
-        });
-    }
 
     // layui方法
     layui.use(['form', 'layedit', 'laydate'], function () {
@@ -175,7 +176,6 @@
             ,layer = layui.layer
             ,layedit = layui.layedit
             ,laydate = layui.laydate;
-
 
         //创建一个编辑器
         // var editIndex = layedit.build('about_me_editor',{
@@ -221,8 +221,8 @@
         form.on('select(onSelectedCategory)', function(data){
             var categoryId = data.value;
             if (categoryId){
-                categorySelectVue.loadCategory(categoryId);
-                console.log(categorySelectVue);
+                bodyVue.loadCategory(categoryId);
+                console.log(bodyVue);
             }
         });
     });
