@@ -16,7 +16,7 @@
 <div class="my-btn-box">
     <span class="fl">
         <a class="layui-btn layui-btn-danger radius btn-delect" id="btn-delete-all">批量删除</a>
-        <a class="layui-btn btn-add btn-default" id="btn-add">添加</a>
+        <a class="layui-btn btn-add btn-default layui-btn-disabled" id="btn-add">添加</a>
         <a class="layui-btn btn-add btn-default" id="btn-refresh"><i class="layui-icon">&#x1002;</i></a>
     </span>
     <span class="fr">
@@ -53,12 +53,10 @@
                 {type:'checkbox'}
                 , {type:'numbers', title: '序列', width: 60, align: 'center'}
                 , {field: 'fanName', title: '留言人名称', width: 100 }
-                , {field: 'ipAddress', title: '留言ip地址', width: 100 }
-                , {field: 'messageContent', title: '留言内容', width: 200 }
-                , {field: 'reply', title: '回复内容', width: 200, align: 'center' }
-                , {field: 'contactMail', title: '联系邮箱', width: 90, align: 'center' }
-                , {field: 'createTime', title: '留言时间', width: 110, align: 'center' }
-                , {fixed: 'right', title: '操作', width: 150, align: 'center', toolbar: '#barOption'} //这里的toolbar值是模板元素的选择器
+                , {field: 'messageContent', title: '留言内容', width: 260 }
+                , {field: 'reply', title: '回复内容', width: 230, align: 'center' }
+                , {field: 'createTime', title: '留言时间', width: 160, align: 'center' }
+                , {fixed: 'right', title: '操作', width: 160, align: 'center', toolbar: '#barOption'} //这里的toolbar值是模板元素的选择器
             ]]
             , id: 'layTableData'
             , url: '/blogLeaveMessage/list'
@@ -81,10 +79,64 @@
             }
         });
 
-        //监听表格复选框选择
-        table.on('checkbox(layTableFilter)', function(obj){
-            layer.msg(obj.type);
-            console.log(obj)
+        //监听工具条
+        table.on('tool(layTableFilter)', function (obj) {
+            layer.msg(obj.event);
+            //查看详情
+            if (obj.event === 'detail') {
+
+            }
+            //回复
+            if (obj.event === 'reply') {
+                replyCon(obj.data);
+            }
+            //删除
+            if (obj.event === 'del') {
+                layer.confirm('确认删除此行？', function (index) {
+                    obj.del(); //删除对应行（tr）的DOM结构
+                    layer.close(index);
+                    //向服务端发送删除指令
+                    $.ajax({
+                        url: "/blogLeaveMessage/delete/" + obj.data.uuid ,
+                        type: "POST"
+                    }).then(function (value) {
+                        if (value.code == 200) {
+                            layer.msg("删除成功！");
+                        }else {
+                            layer.msg(value.msg);
+                        }
+                    }).fail(function () {
+                        layer.msg("调用出错！");
+                    });
+                });
+            }
+        });
+
+        //批量删除
+        $('#btn-delete-all').on('click', function () {
+            var checkStatus = table.checkStatus('layTableData');
+            if (checkStatus.data.length > 0){
+                var idArr = [];
+                for (var obj in checkStatus.data){
+                    idArr.push(checkStatus.data[obj].uuid);
+                }
+                layer.msg(idArr.join(','));
+            } else {
+                layer.alert("没有选择内容！",{icon: 5, title:"提示", btnAlign: 'c'});
+            }
+
+        });
+
+        // 添加
+        $('#btn-add').on('click', function () {
+            layer.alert("点击了添加按钮",{title:"提示信息"});
+            // layer.open({
+            //     title:'新增',
+            //     type: 2,
+            //     area: ['525px', '300px'],
+            //     maxmin: false,
+            //     content: 'links-add.html'
+            // });
         });
 
         // 刷新
@@ -92,6 +144,27 @@
             tableIns.reload();
         });
 
+        //回复
+        function replyCon(data) {
+            layer.prompt({
+                formType: 2,
+                value: data.reply,
+                title: '请输入回复内容'
+            }, function(value, index, elem){
+                layer.close(index);
+                $.ajax({
+                    type: "post",
+                    url: "/blogLeaveMessage/reply",
+                    data: {
+                        "uuid": data.uuid,
+                        "reply":value
+                    },
+                    async: true,
+                });
+                layer.alert('回复成功');
+                location=location;
+            });
+        }
 
         // you code ...
 
@@ -99,7 +172,8 @@
 </script>
 <!-- 表格操作按钮集 -->
 <script type="text/html" id="barOption">
-    <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="edit">保存</a>
+    <a class="layui-btn layui-btn-xs" lay-event="detail">详情</a>
+    <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="reply">回复</a>
     <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
 </script>
 </body>

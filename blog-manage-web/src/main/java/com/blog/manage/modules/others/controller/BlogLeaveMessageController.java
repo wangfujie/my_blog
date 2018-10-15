@@ -70,9 +70,9 @@ public class BlogLeaveMessageController {
     /**
      * 修改
      */
-    @PostMapping("/update" )
-    @ApiOperation(value = "留言表", notes = "更新留言表信息" )
-    public R update(@RequestBody BlogLeaveMessage blogLeaveMessage){
+    @PostMapping("/reply" )
+    @ApiOperation(value = "留言表", notes = "回复留言" )
+    public R reply(BlogLeaveMessage blogLeaveMessage){
         boolean retFlag = iBlogLeaveMessageService.updateById(blogLeaveMessage);
         if (!retFlag) {
             return R.error(MessageSourceUtil.getMessage("500"));
@@ -86,7 +86,12 @@ public class BlogLeaveMessageController {
     @PostMapping("/delete/{uuid}" )
     @ApiOperation(value = "留言表", notes = "删除留言表信息" )
     public R delete(@PathVariable("uuid" ) String uuid){
-        boolean retFlag = iBlogLeaveMessageService.deleteById(uuid);
+        BlogLeaveMessage blogLeaveMessage = iBlogLeaveMessageService.selectById(uuid);
+        if (blogLeaveMessage != null){
+            //设置成删除状态
+            blogLeaveMessage.setStatus(2);
+        }
+        boolean retFlag = iBlogLeaveMessageService.updateById(blogLeaveMessage);
         if (!retFlag) {
             return R.error(MessageSourceUtil.getMessage("500"));
         }

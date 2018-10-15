@@ -53,9 +53,9 @@
             , cols: [[                  //表头
                 {type:'checkbox'}
                 , {type:'numbers', title: '序号', width: 60, align: 'center'}
-                , {field: 'linkName', title: '链接名称', width: 90, edit: true}
-                , {field: 'linkTitle', title: '链接标题', width: 90, edit: true}
-                , {field: 'linkUrl', title: '链接地址', width: 200, align: 'center', edit: true}
+                , {field: 'linkName', title: '链接名称', width: 120, edit: true}
+                , {field: 'linkTitle', title: '链接标题', width: 120, edit: true}
+                , {field: 'linkUrl', title: '链接地址', width: 260, align: 'center', edit: true}
                 , {field: 'createTime', title: '创建时间', width: 160, align: 'center'}
                 , {fixed: 'right', title: '操作', width: 150, align: 'center', toolbar: '#barOption'} //这里的toolbar值是模板元素的选择器
             ]]
@@ -132,7 +132,15 @@
         //批量删除
         $('#btn-delete-all').on('click', function () {
             var checkStatus = table.checkStatus('tableData');
-            console.log(checkStatus);
+            if (checkStatus.data.length > 0){
+                var idArr = [];
+                for (var obj in checkStatus.data){
+                    idArr.push(checkStatus.data[obj].id);
+                }
+                layer.msg(idArr.join(','));
+            }  else {
+                layer.alert("没有选择内容！",{icon: 5, title:"提示", btnAlign: 'c'});
+            }
         });
 
         // 添加
