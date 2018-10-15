@@ -23,7 +23,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">所属类型</label>
         <div class="layui-input-inline">
-            <select v-model="categoryVal" name="categoryIdBig" placeholder="请选择" lay-filter="onSelectedCategory">
+            <select name="categoryIdBig" placeholder="请选择" lay-filter="onSelectedCategory">
                 <option v-for="fCategory in fCategoryList" :value="fCategory.id">{{ fCategory.categoryName }}</option>
             </select>
         </div>
@@ -104,7 +104,7 @@
     //页面初始化一些数据（vue）
     var bodyVue = new Vue({
         el: "#treatiseAddForm",
-        data:{categoryVal:'',fCategoryList:[],categoryList:[],treatiseInfo:{}},
+        data:{fCategoryList:[],categoryList:[],treatiseInfo:{}},
         methods:{
             editInfo:function (treatiseUuid) {
                 var self = this;
@@ -140,7 +140,8 @@
                     data: {"categoryId":categoryId}
                 }).then(function (value) {
                     if (value.code == 200) {
-                        self.$set(self, "categoryList" , value.data.list);
+                        self.categoryList = value.data.list;
+                        // self.$set(self, "categoryList" , value.data.list);
                     }
                 }).fail(function () {
                     console.log("获取失败");
@@ -157,12 +158,6 @@
             if (treatiseUuid){
                 this.editInfo(treatiseUuid);
             }
-        },
-        watch:{
-            // categoryVal: function(curVal, oldVal){
-            //     console.log(curVal);
-            //     console.log(oldVal);
-            // }
         },
         mounted(){
 
@@ -222,7 +217,8 @@
             var categoryId = data.value;
             if (categoryId){
                 bodyVue.loadCategory(categoryId);
-                console.log(bodyVue);
+                console.log(bodyVue.categoryList);
+                form.render();
             }
         });
     });
