@@ -30,9 +30,6 @@
 
 <!-- 表格 -->
 <table class="layui-hide" id="layTable" lay-filter="layTableFilter"></table>
-<script type="text/html" id="indexNum">
-    {{d.LAY_TABLE_INDEX+1}}
-</script>
 
 <script type="text/javascript" src="../../../frame/layui/layui.js"></script>
 <script type="text/javascript" src="../../module.js"></script>
@@ -53,8 +50,8 @@
             elem: '#layTable'                  //指定原始表格元素选择器（推荐id选择器）
             , height: vipTable.getFullHeight()    //容器高度
             , cols: [[                  //表头
-                {checkbox: true, sort: true, fixed: true, space: true}
-                , {field:'indexNum', title: '序列', width: 60, align: 'center',templet:'#indexNum'}
+                {type: 'checkbox'}
+                , {type:'numbers', title: '序列', width: 60, align: 'center'}
                 , {field: 'categoryName', title: '类型名称', width: 90, edit: true}
                 , {field: 'linkUrl', title: '跳转URL', width: 300, edit: true}
                 , {field: 'dictLevel', title: '级别', width: 60, align: 'center'}
@@ -83,12 +80,10 @@
             }
         });
 
-        // 获取选中行
-        table.on('checkbox(categoryTableData)', function (obj) {
-            layer.msg('123');
-            console.log(obj.checked); //当前是否选中状态
-            console.log(obj.data); //选中行的相关数据
-            console.log(obj.type); //如果触发的是全选，则为：all，如果触发的是单选，则为：one
+        //监听表格复选框选择
+        table.on('checkbox(layTableFilter)', function(obj){
+            layer.msg(obj.type);
+            console.log(obj)
         });
 
         // 刷新
@@ -103,8 +98,8 @@
 </script>
 <!-- 表格操作按钮集 -->
 <script type="text/html" id="barOption">
-    <a class="layui-btn layui-btn-mini layui-btn-normal" lay-event="edit">保存</a>
-    <a class="layui-btn layui-btn-mini layui-btn-danger" lay-event="del">停用</a>
+    <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="edit">保存</a>
+    <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">停用</a>
 </script>
 </body>
 </html>

@@ -46,8 +46,8 @@ public class BlogFriendlyLinks extends Model<BlogFriendlyLinks> {
     /**
      * 逻辑删除标识
      */
-	@TableField("del_falg")
-	private Integer delFalg;
+	@TableField("del_flag")
+	private Integer delFlag;
     /**
      * 删除时间
      */
@@ -95,12 +95,12 @@ public class BlogFriendlyLinks extends Model<BlogFriendlyLinks> {
 		this.createTime = createTime;
 	}
 
-	public Integer getDelFalg() {
-		return delFalg;
+	public Integer getDelFlag() {
+		return delFlag;
 	}
 
-	public void setDelFalg(Integer delFalg) {
-		this.delFalg = delFalg;
+	public void setDelFlag(Integer delFlag) {
+		this.delFlag = delFlag;
 	}
 
 	public Date getDeleteTime() {

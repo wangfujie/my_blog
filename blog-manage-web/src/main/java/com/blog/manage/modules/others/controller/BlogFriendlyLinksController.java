@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.*;
 import springfox.documentation.annotations.ApiIgnore;
+import java.util.Date;
 
 /**
  * @author wangfj
@@ -38,10 +39,9 @@ public class BlogFriendlyLinksController {
     public ResultLay list(@ApiIgnore LayPageQuery baseQuery){
             //查询列表数据
             Page pageList = friendlyLinksService.selectPage(new Page(baseQuery.getPage(),baseQuery.getLimit()),
-                    new EntityWrapper<BlogFriendlyLinks>());
+                    new EntityWrapper<BlogFriendlyLinks>().eq("del_flag", 0));
             return ResultLay.fillPageData(pageList);
     }
-
 
     /**
      * 信息
@@ -57,25 +57,17 @@ public class BlogFriendlyLinksController {
     }
 
     /**
-     * 保存
+     * 新增或修改
      */
-    @PostMapping("/save" )
-    @ApiOperation(value = "友情链接", notes = "保存友情链接信息" )
-    public R save(@RequestBody BlogFriendlyLinks blogFriendlyLinks){
-        boolean retFlag = friendlyLinksService.insert(blogFriendlyLinks);
-        if (!retFlag) {
-            return R.error(MessageSourceUtil.getMessage("500"));
+    @PostMapping("/insertOrUpdate" )
+    @ApiOperation(value = "友情链接", notes = "新增或修改友情链接信息" )
+    public R insertOrUpdate(BlogFriendlyLinks friendlyLinks){
+        if (friendlyLinks != null){
+            if (friendlyLinks.getId() == null){
+                friendlyLinks.setCreateTime(new Date());
+            }
         }
-        return R.ok();
-    }
-
-    /**
-     * 修改
-     */
-    @PostMapping("/update" )
-    @ApiOperation(value = "友情链接", notes = "更新友情链接信息" )
-    public R update(@RequestBody BlogFriendlyLinks blogFriendlyLinks){
-        boolean retFlag = friendlyLinksService.updateById(blogFriendlyLinks);
+        boolean retFlag = friendlyLinksService.insertOrUpdate(friendlyLinks);
         if (!retFlag) {
             return R.error(MessageSourceUtil.getMessage("500"));
         }
@@ -88,7 +80,12 @@ public class BlogFriendlyLinksController {
     @PostMapping("/delete/{id}" )
     @ApiOperation(value = "友情链接", notes = "删除友情链接信息" )
     public R delete(@PathVariable("id" ) Integer id){
-        boolean retFlag = friendlyLinksService.deleteById(id);
+        BlogFriendlyLinks friendlyLink = friendlyLinksService.selectById(id);
+        if (friendlyLink != null){
+            friendlyLink.setDelFlag(1);
+            friendlyLink.setDeleteTime(new Date());
+        }
+        boolean retFlag = friendlyLinksService.updateById(friendlyLink);
         if (!retFlag) {
             return R.error(MessageSourceUtil.getMessage("500"));
         }

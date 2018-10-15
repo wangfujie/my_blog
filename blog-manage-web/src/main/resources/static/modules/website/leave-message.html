@@ -30,9 +30,6 @@
 
 <!-- 表格 -->
 <table class="layui-hide" id="layTable" lay-filter="layTableFilter"></table>
-<script type="text/html" id="indexNum">
-    {{d.LAY_TABLE_INDEX+1}}
-</script>
 
 <script type="text/javascript" src="../../frame/layui/layui.js"></script>
 <script type="text/javascript" src="../module.js"></script>
@@ -53,8 +50,8 @@
             elem: '#layTable'                  //指定原始表格元素选择器（推荐id选择器）
             , height: vipTable.getFullHeight()    //容器高度
             , cols: [[                  //表头
-                {checkbox: true, sort: true, fixed: true, space: true}
-                , {field:'indexNum', title: '序列', width: 60, align: 'center',templet:'#indexNum'}
+                {type:'checkbox'}
+                , {type:'numbers', title: '序列', width: 60, align: 'center'}
                 , {field: 'fanName', title: '留言人名称', width: 100 }
                 , {field: 'ipAddress', title: '留言ip地址', width: 100 }
                 , {field: 'messageContent', title: '留言内容', width: 200 }
@@ -63,7 +60,7 @@
                 , {field: 'createTime', title: '留言时间', width: 110, align: 'center' }
                 , {fixed: 'right', title: '操作', width: 150, align: 'center', toolbar: '#barOption'} //这里的toolbar值是模板元素的选择器
             ]]
-            , id: 'treatiseTableData'
+            , id: 'layTableData'
             , url: '/blogLeaveMessage/list'
             , where: {}
             , method: 'get'
@@ -84,12 +81,10 @@
             }
         });
 
-        // 获取选中行
-        table.on('checkbox(treatiseTableData)', function (obj) {
-            layer.msg('123');
-            console.log(obj.checked); //当前是否选中状态
-            console.log(obj.data); //选中行的相关数据
-            console.log(obj.type); //如果触发的是全选，则为：all，如果触发的是单选，则为：one
+        //监听表格复选框选择
+        table.on('checkbox(layTableFilter)', function(obj){
+            layer.msg(obj.type);
+            console.log(obj)
         });
 
         // 刷新
@@ -104,8 +99,8 @@
 </script>
 <!-- 表格操作按钮集 -->
 <script type="text/html" id="barOption">
-    <a class="layui-btn layui-btn-mini layui-btn-normal" lay-event="edit">保存</a>
-    <a class="layui-btn layui-btn-mini layui-btn-danger" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="edit">保存</a>
+    <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
 </script>
 </body>
 </html>

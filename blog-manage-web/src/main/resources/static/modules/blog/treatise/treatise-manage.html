@@ -30,9 +30,6 @@
 
 <!-- 表格 -->
 <table class="layui-hide" id="treatiseTable" lay-filter="treatiseTableFilter"></table>
-<script type="text/html" id="indexNum">
-    {{d.LAY_TABLE_INDEX+1}}
-</script>
 
 <script type="text/javascript" src="../../../frame/layui/layui.js"></script>
 <script type="text/javascript" src="../../module.js"></script>
@@ -53,15 +50,15 @@
             elem: '#treatiseTable'                  //指定原始表格元素选择器（推荐id选择器）
             , height: vipTable.getFullHeight()    //容器高度
             , cols: [[                  //表头
-                {checkbox: true, sort: true, fixed: true, space: true}
-                , {field:'indexNum', title: '序列', width: 60, align: 'center',templet:'#indexNum'}
+                  {type:'checkbox'}
+                , {type:'numbers', title: '序列', width: 60, align: 'center'}
                 , {field: 'categoryName', title: '种类', width: 90}
                 , {field: 'treatiseTitle', title: '标题', width: 120}
                 , {field: 'treatisePreview', title: '预览', width: 220}
                 , {field: 'sourceName', title: '由来', width: 60, align: 'center'}
                 , {field: 'createTime', title: '创建时间', width: 160, align: 'center'}
                 , {field: 'recommendName', title: '是否推荐', width: 90, align: 'center'}
-                , {fixed: 'right', title: '操作', width: 150, align: 'center', toolbar: '#barOption'} //这里的toolbar值是模板元素的选择器
+                , {fixed: 'right', title: '操作', width: 160, align: 'center', toolbar: '#barOption'} //这里的toolbar值是模板元素的选择器
             ]]
             , id: 'treatiseTableData'
             , url: '/blogTreatise/list'
@@ -120,6 +117,7 @@
             url += '?treatiseUuid='+ uuid;
         }
         var index = layer.open({
+            title:'编辑文章',
             type: 2,
             area: ['800px', '425px'],
             maxmin: true,
@@ -130,9 +128,9 @@
 </script>
 <!-- 表格操作按钮集 -->
 <script type="text/html" id="barOption">
-    <a class="layui-btn layui-btn-mini" lay-event="detail">查看</a>
-    <a class="layui-btn layui-btn-mini layui-btn-normal" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-mini layui-btn-danger" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
+    <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
 </script>
 </body>
 </html>
