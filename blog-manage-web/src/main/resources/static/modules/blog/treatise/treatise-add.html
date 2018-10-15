@@ -29,7 +29,7 @@
         </div>
         <div class="layui-input-inline">
             <select name="categoryId" placeholder="请选择小类">
-                <option v-for="item in categoryList" :value="item.id">{{ item.categoryName }}</option>
+                <option v-for="category in categoryList" :value="category.id">{{ category.categoryName }}</option>
             </select>
         </div>
     </div>
@@ -128,8 +128,7 @@
                     data: {"categoryId":categoryId}
                 }).then(function (value) {
                     if (value.code == 200) {
-                        Vue.set(this, 'categoryList', value.data.list);
-                        // self.categoryList = value.data.list;
+                        self.$set(self, "categoryList" , value.data.list);
                     }
                 }).fail(function () {
                     console.log("获取失败");

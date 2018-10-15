@@ -82,7 +82,7 @@ CREATE TABLE `blog_friendly_links`  (
   `link_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '链接名称',
   `link_title` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '链接标题',
   `create_time` datetime(0) DEFAULT NULL COMMENT '创建时间',
-  `del_falg` int(1) DEFAULT 0 COMMENT '逻辑删除标识',
+  `del_flag` int(1) DEFAULT 0 COMMENT '逻辑删除标识',
   `delete_time` datetime(0) DEFAULT NULL COMMENT '删除时间',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '友情链接' ROW_FORMAT = Compact;
@@ -249,5 +249,26 @@ CREATE TABLE `blog_web_technology`  (
   `show_sort` int(5) DEFAULT NULL COMMENT '显示顺序',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '关于网站使用的技术' ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Table structure for blog_admin
+-- ----------------------------
+DROP TABLE IF EXISTS `blog_admin`;
+CREATE TABLE `blog_admin`  (
+  `id` int(11) NOT NULL,
+  `show_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '显示名称',
+  `account` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '账号',
+  `password` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '密码',
+  `status` int(1) DEFAULT 0 COMMENT '状态（1，启用，0，停用）',
+  `login_time` datetime(0) DEFAULT NULL COMMENT '最后登录时间',
+  `login_ip` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '最后登录ip',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '后台管理员表' ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of blog_admin
+-- ----------------------------
+INSERT INTO `blog_admin` VALUES (1, '管理员', 'wangAdminBlog', '5c02e66d8f94e824g0a07441971665f0', 1, '2018-09-10 16:16:22', '127.0.0.1');
+INSERT INTO `blog_admin` VALUES (2, '写代码测试用户', 'admin', 'dadga249g1c024921edd510g7f359a0c', 1, '2018-10-15 15:52:59', '127.0.0.1');
 
 SET FOREIGN_KEY_CHECKS = 1;
