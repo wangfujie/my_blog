@@ -23,12 +23,12 @@
     <div class="layui-form-item">
         <label class="layui-form-label">所属类型</label>
         <div class="layui-input-inline">
-            <select v-model="categoryVal" name="categoryIdBig" placeholder="请选择" lay-filter="onSelectedCategory">
+            <select name="categoryIdBig" placeholder="请选择" lay-filter="onSelectedCategory">
                 <option v-for="fCategory in fCategoryList" :value="fCategory.id">{{ fCategory.categoryName }}</option>
             </select>
         </div>
         <div class="layui-input-inline">
-            <select name="categoryId" placeholder="请选择小类">
+            <select name="categoryId" placeholder="请选择小类" lay-filter="categorySelected">
                 <option v-for="category in categoryList" :value="category.id">{{ category.categoryName }}</option>
             </select>
         </div>
@@ -69,6 +69,7 @@
         <label class="layui-form-label">标签选择</label>
         <div class="layui-input-block">
             <input type="checkbox" name="tags" value="JAVA" title="JAVA" checked="">
+            <input type="checkbox" name="tags" value="MySQL" title="MySQL">
         </div>
     </div>
 
@@ -102,9 +103,9 @@
 <script type="text/javascript">
 
     //页面初始化一些数据（vue）
-    var bodyVue = new Vue({
+    var addFormVue = new Vue({
         el: "#treatiseAddForm",
-        data:{categoryVal:'',fCategoryList:[],categoryList:[],treatiseInfo:{}},
+        data:{fCategoryList:[],categoryList:[],treatiseInfo:{}},
         methods:{
             editInfo:function (treatiseUuid) {
                 var self = this;
@@ -221,8 +222,10 @@
         form.on('select(onSelectedCategory)', function(data){
             var categoryId = data.value;
             if (categoryId){
-                bodyVue.loadCategory(categoryId);
-                console.log(bodyVue);
+                addFormVue.loadCategory(categoryId);
+                console.log(addFormVue);
+                form.render('select','categorySelected');
+                // form.render('select');
             }
         });
     });
