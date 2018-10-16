@@ -28,7 +28,7 @@
             </select>
         </div>
         <div class="layui-input-inline">
-            <select name="categoryId" placeholder="请选择小类">
+            <select name="categoryId" placeholder="请选择小类" lay-filter="categorySelected">
                 <option v-for="category in categoryList" :value="category.id">{{ category.categoryName }}</option>
             </select>
         </div>
@@ -69,6 +69,7 @@
         <label class="layui-form-label">标签选择</label>
         <div class="layui-input-block">
             <input type="checkbox" name="tags" value="JAVA" title="JAVA" checked="">
+            <input type="checkbox" name="tags" value="MySQL" title="MySQL">
         </div>
     </div>
 
@@ -102,7 +103,7 @@
 <script type="text/javascript">
 
     //页面初始化一些数据（vue）
-    var bodyVue = new Vue({
+    var addFormVue = new Vue({
         el: "#treatiseAddForm",
         data:{fCategoryList:[],categoryList:[],treatiseInfo:{}},
         methods:{
@@ -216,9 +217,10 @@
         form.on('select(onSelectedCategory)', function(data){
             var categoryId = data.value;
             if (categoryId){
-                bodyVue.loadCategory(categoryId);
-                console.log(bodyVue.categoryList);
-                form.render();
+                addFormVue.loadCategory(categoryId);
+                console.log(addFormVue);
+                form.render('select','categorySelected');
+                // form.render('select');
             }
         });
     });
