@@ -10,9 +10,12 @@ import com.blog.common.utils.MessageSourceUtil;
 import com.blog.common.result.R;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.*;
 import springfox.documentation.annotations.ApiIgnore;
+
+import java.util.Date;
 
 /**
  * @author wangfj
@@ -60,25 +63,15 @@ public class BlogTreatiseController {
     }
 
     /**
-     * 保存
+     *  修改或新增
      */
-    @PostMapping("/save" )
-    @ApiOperation(value = "文章详情表", notes = "保存文章详情表信息" )
-    public R save(@RequestBody BlogTreatise blogTreatise){
-        boolean retFlag = treatiseService.insert(blogTreatise);
-        if (!retFlag) {
-            return R.error(MessageSourceUtil.getMessage("500"));
+    @PostMapping("/insertOrUpdate" )
+    @ApiOperation(value = "文章详情表", notes = "修改或新增文章详情表信息" )
+    public R save(BlogTreatise blogTreatise){
+        if (StringUtils.isEmpty(blogTreatise.getUuid())){
+            blogTreatise.setCreateTime(new Date());
         }
-        return R.ok();
-    }
-
-    /**
-     * 修改
-     */
-    @PostMapping("/update" )
-    @ApiOperation(value = "文章详情表", notes = "更新文章详情表信息" )
-    public R update(@RequestBody BlogTreatise blogTreatise){
-        boolean retFlag = treatiseService.updateById(blogTreatise);
+        boolean retFlag = treatiseService.insertOrUpdate(blogTreatise);
         if (!retFlag) {
             return R.error(MessageSourceUtil.getMessage("500"));
         }
