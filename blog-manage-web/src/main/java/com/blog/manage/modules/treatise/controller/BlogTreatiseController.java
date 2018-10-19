@@ -81,9 +81,15 @@ public class BlogTreatiseController {
     @PostMapping("/delete/{uuid}" )
     @ApiOperation(value = "文章详情表", notes = "删除文章详情表信息" )
     public R delete(@PathVariable("uuid" ) String uuid){
-        boolean retFlag = treatiseService.deleteById(uuid);
-        if (!retFlag) {
-            return R.error(MessageSourceUtil.getMessage("500"));
+        BlogTreatise blogTreatise = treatiseService.selectById(uuid);
+        if (blogTreatise != null){
+            blogTreatise.setDelFlag(1);
+            boolean retFlag = treatiseService.updateById(blogTreatise);
+            if (!retFlag) {
+                return R.error(MessageSourceUtil.getMessage("500"));
+            }
+        }else {
+            return R.error("错误的uuid");
         }
         return R.ok();
     }

@@ -7,7 +7,6 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.io.Serializable;
 
 /**
@@ -80,6 +79,12 @@ public class BlogTreatise extends Model<BlogTreatise> {
      * 是否推荐（1是，0否）
      */
 	private Integer recommend;
+
+	/**
+	 * 删除状态（1删除，0正常）
+	 */
+	@TableField("del_flag")
+	private Integer delFlag;
 
 
 	public String getUuid() {
@@ -191,4 +196,11 @@ public class BlogTreatise extends Model<BlogTreatise> {
 		return this.uuid;
 	}
 
+	public Integer getDelFlag() {
+		return delFlag;
+	}
+
+	public void setDelFlag(Integer delFlag) {
+		this.delFlag = delFlag;
+	}
 }

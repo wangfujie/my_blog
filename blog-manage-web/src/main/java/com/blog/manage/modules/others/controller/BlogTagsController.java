@@ -1,5 +1,6 @@
 package com.blog.manage.modules.others.controller;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.blog.manage.common.result.LayPageQuery;
 import com.blog.manage.common.result.ResultLay;
 import com.blog.manage.modules.others.service.IBlogTagsService;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.*;
 import springfox.documentation.annotations.ApiIgnore;
+import java.util.List;
 
 /**
  * @author wangfj
@@ -39,6 +41,21 @@ public class BlogTagsController {
         //查询列表数据
         Page<BlogTagsVo> pageList = tagsService.getBlogTagsPage(new Page(baseQuery.getPage(),baseQuery.getLimit()));
         return ResultLay.fillPageData(pageList);
+    }
+
+    /**
+     * 获取标签列表，通过分类id
+     */
+    @GetMapping("/getList" )
+    @ApiOperation(value = "获取标签列表，通过分类id", notes = "获取标签列表，通过分类id" )
+    public R getList(Integer categoryId){
+        EntityWrapper<BlogTags> blogTagWrapper = new EntityWrapper<>();
+        if (categoryId != null){
+            blogTagWrapper.eq("category_id",categoryId);
+        }
+        blogTagWrapper.orderBy("click_num", false);
+        List<BlogTags> blogTagsList = tagsService.selectList(blogTagWrapper);
+        return R.fillListData(blogTagsList);
     }
 
     /**
