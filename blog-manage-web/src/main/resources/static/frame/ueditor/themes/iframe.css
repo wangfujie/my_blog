@@ -31,8 +31,8 @@
 
 .tags a {
     background: #074979;
-    padding: 3px 8px;
-    margin: 0 5px 0 0;
+    padding: 1px 6px;
+    margin: 0 8px 0 0;
     color: #fff;
     transition: 1s;
     text-decoration:none;
@@ -40,8 +40,8 @@
 
 .tags a:hover {
     background: #F4650E;
-    padding: 3px 8px;
-    margin: 0 5px 0 0;
+    padding: 2px 7px;
+    margin: 0 7px 0 0;
     color: #FFF;
     transition: 0.5s
 }

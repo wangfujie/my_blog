@@ -5,14 +5,14 @@
     <title>文章详情页</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../skin/ueditor/themes/default/css/ueditor.min.css">
-    <link rel="stylesheet" href="../skin/ueditor/themes/iframe.css">
     <link rel="stylesheet" href="../skin/ueditor/SyntaxHighlighter/shCoreDefault.css">
+    <link href="../skin/public/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../skin/ueditor/themes/iframe.css">
     <script src="../skin/public/js/jquery.min.js" ></script>
     <script src="../skin/public/js/hc-sticky.js"></script>
     <script src="../skin/public/js/comm.js"></script>
     <script src="../common/public/head-menu.js"></script>
     <script src="../common/public/aside-left.js"></script>
-    <link href="../skin/public/css/index.css" rel="stylesheet">
     <script type="text/javascript" src="../skin/public/js/ajax.js"></script>
 </head>
 <body>
@@ -52,27 +52,37 @@
         <ul class="links"></ul>
     </div>
 </aside>
-<main>
+<main id="treatiseDetail" >
     <div class="address">您现在的位置是：
         <a href="../index.html">首页</a>
+        &nbsp;>&nbsp;
         <a href="#">浏览详情</a>
     </div>
-    <div class="infosbox">
-        <h1 class="infotitle" id="treatise_title"></h1>
-        <p class="bloginfo">
-            <span id="treatise_source">原创</span>
-            <span id="create_time">2018-01-01</span>
-            <span id="category_type">JAVA</span>
-            <span>阅读(<b id="read_num"></b>)</span>
+    <div class="infoBox">
+        <h1 class="infoTitle">{{ treatiseInfo.treatiseTitle }}</h1>
+        <p class="blogInfo">
+            <span>{{ treatiseInfo.sourceName }}</span>
+            <span>{{ treatiseInfo.createTime }}</span>
+            <span>{{ treatiseInfo.categoryName }}</span>
+            <span>阅读(<b>{{ treatiseInfo.readNum }}</b>)</span>
         </p>
-        <div class="tags" id="the_tags"></div>
-        <div class="news_about" id="summary">
+        <div class="tags" id="the_tags" v-if="treatiseInfo.tags != null">
+            <!--<a href="#" target="_blank" v-for="tag in treatiseInfo.tagsList">{{ tag }}</a>-->
+            <a href="#2" v-for="tag in treatiseInfo.tagsList">{{ tag }}</a>
         </div>
-        <div class="news_con" id="treatise_body"></div>
+        <div class="news_about">
+            <strong>简介</strong>
+            {{ treatiseInfo.treatisePreview }}
+        </div>
+        <div class="treatise_body" v-html="treatiseInfo.treatiseBody"></div>
+        <p v-if="treatiseInfo.source == 2">
+            转载自：
+            <a target="_blank" :href="treatiseInfo.reprintUrl">{{ treatiseInfo.reprintUrl }}</a>
+        </p>
         <div class="share">
-            <p class="diggit">
+            <p class="praise">
                 <a href=""> 很赞哦！</a>
-                (<b id="diggnum"></b>)
+                (<b>{{ treatiseInfo.praiseNum }}</b>)
             </p>
         </div>
         <div class="nextinfo">
@@ -125,6 +135,7 @@
 <script type="text/javascript" charset="utf-8" src="../skin/ueditor/SyntaxHighlighter/shCore.js"></script>
 <script>SyntaxHighlighter.all();</script>
 <script src="../skin/public/js/utils.js"></script>
+<script src="../skin/public/js/vue.js"></script>
 <script src="treatise-detail.js"></script>
 </body>
 </html>

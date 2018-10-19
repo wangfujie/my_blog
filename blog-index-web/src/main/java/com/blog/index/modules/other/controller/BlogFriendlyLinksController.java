@@ -40,7 +40,7 @@ public class BlogFriendlyLinksController {
     public R list(@ApiIgnore BaseQuery baseQuery){
             //查询列表数据
             Page page=new Page(baseQuery.getCurrentPage(),baseQuery.getPageSize());
-            Page pageList=iBlogFriendlyLinksService.selectPage(page,new EntityWrapper<BlogFriendlyLinks>().eq("del_falg",0));
+            Page pageList=iBlogFriendlyLinksService.selectPage(page,new EntityWrapper<BlogFriendlyLinks>().eq("del_flag",0));
             if (CollectionUtils.isEmpty(pageList.getRecords())) {
                 return R.notFound();
             }

@@ -245,7 +245,11 @@
                     }).then(function (result) {
                         if (result.code == 200) {
                             layer.alert('保存成功！', {
-                                title: '提交信息'
+                                title: '提交信息',
+                                yes:function (index,layero) {
+                                    //点击确认刷新
+                                    location = location;
+                                }
                             });
                         }
                     }).fail(function () {
