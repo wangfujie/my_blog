@@ -97,7 +97,23 @@
             }
             //删除
             if (obj.event === 'del') {
-                delTreatise(obj.data.uuid);
+                layer.confirm('确认删除此行？', function (index) {
+                    obj.del(); //删除对应行（tr）的DOM结构
+                    layer.close(index);
+                    //向服务端发送删除指令
+                    $.ajax({
+                        url: "/blogTreatise/delete/" + obj.data.uuid ,
+                        type: "POST"
+                    }).then(function (value) {
+                        if (value.code == 200) {
+                            layer.msg("删除成功！");
+                        }else {
+                            layer.msg(value.msg);
+                        }
+                    }).fail(function () {
+                        layer.msg("调用出错！");
+                    });
+                });
             }
         });
 
@@ -139,30 +155,6 @@
             content: url
         });
         layer.full(index);
-    }
-
-    /**
-     * 删除文章
-     * @param uuid
-     */
-    function delTreatise(uuid) {
-        layer.confirm('确认删除此行？', function (index) {
-            obj.del(); //删除对应行（tr）的DOM结构
-            layer.close(index);
-            //向服务端发送删除指令
-            $.ajax({
-                url: "/blogTreatise/delete/" + obj.data.id ,
-                type: "POST"
-            }).then(function (value) {
-                if (value.code == 200) {
-                    layer.msg("删除成功！");
-                }else {
-                    layer.msg(value.msg);
-                }
-            }).fail(function () {
-                layer.msg("调用出错！");
-            });
-        });
     }
 </script>
 <!-- 表格操作按钮集 -->
