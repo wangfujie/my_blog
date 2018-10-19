@@ -21,25 +21,32 @@
             <div class="my-header-logo">后台模板 HTML</div>
         </a>
         <div class="my-header-btn">
-            <button class="layui-btn layui-btn-small btn-nav"><i class="layui-icon">&#xe65f;</i></button>
+            <button class="layui-btn layui-btn-small btn-nav"><i class="layui-icon layui-icon-more"></i></button>
         </div>
         <!-- 顶部左侧添加选项卡监听 -->
         <ul class="layui-nav" lay-filter="side-top-left">
             <li class="layui-nav-item">
-                <a href="javascript:;" href-url="demo/btn.html"><i class="layui-icon">&#xe621;</i>按钮</a>
+                <a href="javascript:;"><i class="layui-icon layui-icon-cart"></i>其它</a>
+                <dl class="layui-nav-child">
+                    <dd>
+                        <a href="javascript:;" href-url="demo/btn.html">
+                        <i class="layui-icon layui-icon-flag"></i>按钮</a>
+                    </dd>
+                    <dd>
+                        <a href="javascript:;" href-url="demo/form.html">
+                        <i class="layui-icon layui-icon-fonts-del"></i>表单</a>
+                    </dd>
+                </dl>
             </li>
             <li class="layui-nav-item">
-                <a href="javascript:;"><i class="layui-icon">&#xe621;</i>基础</a>
-                <dl class="layui-nav-child">
-                    <dd><a href="javascript:;" href-url="demo/btn.html"><i class="layui-icon">&#xe621;</i>按钮</a></dd>
-                    <dd><a href="javascript:;" href-url="demo/form.html"><i class="layui-icon">&#xe621;</i>表单</a></dd>
-                </dl>
+                <a href="javascript:;" href-url="modules/blog/treatise/treatise-add-test.html">
+                    <i class="layui-icon layui-icon-read"></i>新增文章</a>
             </li>
         </ul>
         <!-- 顶部右侧添加选项卡监听 -->
         <ul class="layui-nav my-header-user-nav" lay-filter="side-top-right">
             <li class="layui-nav-item">
-                <a class="name" href="javascript:;"><i class="layui-icon">&#xe629;</i>主题</a>
+                <a class="name" href="javascript:;"><i class="layui-icon layui-icon-chart-screen"></i>主题</a>
                 <dl class="layui-nav-child">
                     <dd data-skin="0"><a href="javascript:;">默认</a></dd>
                     <dd data-skin="1"><a href="javascript:;">纯白</a></dd>
@@ -49,9 +56,14 @@
             <li class="layui-nav-item">
                 <a class="name" href="javascript:;"><img src="./frame/static/image/code.png" alt="logo"> Admin </a>
                 <dl class="layui-nav-child">
-                    <dd><a href="javascript:;" href-url="demo/login.html"><i class="layui-icon">&#xe621;</i>登录页</a></dd>
-                    <dd><a href="javascript:;" href-url="demo/map.html"><i class="layui-icon">&#xe621;</i>图表</a></dd>
-                    <dd><a href="/sys/logout"><i class="layui-icon">&#x1006;</i>退出</a></dd>
+                    <dd>
+                        <a href="javascript:;" href-url="demo/map.html">
+                            <i class="layui-icon layui-icon-user"></i>个人中心</a>
+                    </dd>
+                    <dd>
+                        <a href="/sys/logout">
+                            <i class="layui-icon layui-icon-close"></i>退出</a>
+                    </dd>
                 </dl>
             </li>
         </ul>
@@ -62,22 +74,45 @@
         <div class="layui-side-scroll">
             <!-- 左侧主菜单添加选项卡监听 -->
             <ul class="layui-nav layui-nav-tree" lay-filter="side-main">
-               <li class="layui-nav-item  layui-nav-itemed">
-                    <a href="javascript:;"><i class="layui-icon">&#xe620;</i>博客管理</a>
+               <li class="layui-nav-item layui-nav-itemed">
+                    <a href="javascript:;"><i class="layui-icon layui-icon-component"></i>博客管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" href-url="modules/blog/treatise/treatise-manage.html"><i class="layui-icon">&#xe621;</i>文章管理</a></dd>
-                        <dd><a href="javascript:;" href-url="demo/table.html"><i class="layui-icon">&#xe621;</i>资源分享</a></dd>
-                        <dd><a href="javascript:;" href-url="modules/blog/tag/tags-manage.html"><i class="layui-icon">&#xe621;</i>标签管理</a></dd>
-                        <dd><a href="javascript:;" href-url="modules/blog/category/category-manage.html"><i class="layui-icon">&#xe621;</i>分类管理</a></dd>
+                        <dd>
+                            <a href="javascript:;" href-url="modules/blog/treatise/treatise-manage.html">
+                                <i class="layui-icon layui-icon-read"></i>文章管理</a></dd>
+                        <dd>
+                            <a href="javascript:;" href-url="demo/table.html">
+                                <i class="layui-icon layui-icon-video"></i>资源分享</a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" href-url="modules/blog/tag/tags-manage.html">
+                                <i class="layui-icon layui-icon-form"></i>标签管理</a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" href-url="modules/blog/category/category-manage.html">
+                                <i class="layui-icon layui-icon-templeate-1"></i>分类管理</a>
+                        </dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;"><i class="layui-icon">&#xe628;</i>关于网站</a>
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a href="javascript:;"><i class="layui-icon layui-icon-website"></i>关于网站</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" href-url="modules/website/about-me.html"><i class="layui-icon">&#xe621;</i>关于我</a></dd>
-                        <dd><a href="javascript:;" href-url="modules/website/leave-message.html"><i class="layui-icon">&#xe621;</i>留言管理</a></dd>
-                        <dd><a href="javascript:;" href-url="modules/website/comment-manage.html"><i class="layui-icon">&#xe621;</i>评论管理</a></dd>
-                        <dd><a href="javascript:;" href-url="modules/website/friendly-links.html"><i class="layui-icon">&#xe621;</i>友情链接</a></dd>
+                        <dd>
+                            <a href="javascript:;" href-url="modules/website/about-me.html">
+                                <i class="layui-icon layui-icon-about"></i>关于我</a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" href-url="modules/website/leave-message.html">
+                                <i class="layui-icon layui-icon-chat"></i>留言管理</a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" href-url="modules/website/comment-manage.html">
+                                <i class="layui-icon layui-icon-reply-fill"></i>评论管理</a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" href-url="modules/website/friendly-links.html">
+                                <i class="layui-icon layui-icon-link"></i>友情链接</a>
+                        </dd>
                     </dl>
                 </li>
             </ul>

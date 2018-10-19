@@ -74,8 +74,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">标签选择</label>
             <div class="layui-input-block">
-                <input type="checkbox" name="tags" value="JAVA" title="JAVA" checked="">
-                <input type="checkbox" name="tags" value="MySQL" title="MySQL">
+                <input v-for="tag in tagsList" type="checkbox" name="tags" :value="tag.tagName" :title="tag.tagName">
             </div>
         </div>
 
@@ -89,8 +88,6 @@
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">正文部分</label>
             <div class="layui-input-block">
-                <!--<textarea :value="treatiseInfo.treatiseBody" placeholder="正文内容" class="layui-textarea"  name="treatiseBody" ></textarea>-->
-                <!--<textarea :value="treatiseInfo.aboutMe" class="layui-textarea layui-hide" name="aboutMe" lay-verify="aboutMe" id="about_me_editor"></textarea>-->
                 <textarea :value="treatiseInfo.treatiseBody" name="treatiseBody" id="editor" style="width:100%;height:600px;"></textarea>
             </div>
         </div>
@@ -112,7 +109,7 @@
     //页面初始化一些数据（vue）
     var addFormVue = new Vue({
         el: "#treatiseAddForm",
-        data:{fCategoryList:[],categoryList:[],treatiseInfo:{}},
+        data:{fCategoryList:[],categoryList:[],treatiseInfo:{},tagsList:[]},
         methods:{
             editInfo:function (treatiseUuid) {
                 var self = this;
@@ -130,6 +127,7 @@
             },
             initInfo:function () {
                 var self = this;
+                //渲染种类下拉列表
                 $.ajax({
                     url: "/blogCategory/getCategoryList",
                     type: "GET"
@@ -140,6 +138,8 @@
                 }).fail(function () {
                     console.log("获取失败");
                 });
+                //渲染标签多选
+                self.loadTagList();
             },
             loadCategory:function (categoryId) {
                 var self = this;
@@ -154,11 +154,24 @@
                 }).fail(function () {
                     console.log("获取失败");
                 });
-                return true;
+            },
+            loadTagList: function (categoryId) {
+                var self = this;
+                $.ajax({
+                    url: "/blogTags/getList",
+                    type: "GET",
+                    data: {"categoryId":categoryId}
+                }).then(function (value) {
+                    if (value.code == 200) {
+                        self.$set(self, "tagsList" , value.data.list);
+                    }
+                }).fail(function () {
+                    console.log("获取失败");
+                });
             }
         },
         created: function () {
-            //渲染种类下拉列表
+            //初始化数据
             this.initInfo();
             //获取参数
             var params = getRequestParams(window.location.search);
@@ -185,26 +198,46 @@
                 form.on('select(onSelectedCategory)', function(data){
                     var categoryId = data.value;
                     if (categoryId){
-                        var result = vueThis.loadCategory(categoryId);
-                        if (result){
-                            console.log(vueThis.categoryList);
-                            form.render('select');
-                        }
+                        vueThis.loadCategory(categoryId);
+                        vueThis.loadTagList(categoryId);
+                        form.render('select');
                     }
                 });
+
+                /**
+                 * 监听所属分类小类列表
+                 */
+                // form.on('select(categorySelected)', function(data){
+                //     var categoryId = data.value;
+                //     if (categoryId){
+                //         vueThis.loadTagList(categoryId);
+                //         form.render('select');
+                //     }
+                // });
 
                 //自定义验证规则
                 form.verify({
                     treatiseTitle: function(value){
+                        if (!value){
+                            return '标题必填';
+                        }
                         if(value.length > 200){
-                            return '标题不能长于20个字';
+                            return '标题不能长于200个字';
                         }
                     }
                 });
 
                 //监听提交
                 form.on('submit(infoSubmit)', function(data){
+                    //处理是否推荐数据
                     data.field.recommend = data.field.recommend == 'on' ? 1 : 0;
+                    //获取标签多选数据
+                    var tagsArr = [];
+                    $("input:checkbox[name='tags']:checked").each(function() { // 遍历name=tags的多选框
+                        tagsArr.push($(this).val());
+                    });
+                    data.field.tags = tagsArr.join(",");
+
                     $.ajax({
                         url: "/blogTreatise/insertOrUpdate",
                         type: "POST",

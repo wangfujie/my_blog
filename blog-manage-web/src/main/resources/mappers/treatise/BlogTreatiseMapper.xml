@@ -26,6 +26,7 @@
 		FROM `blog_treatise` bt
 		LEFT JOIN `blog_category` bc ON bc.id = bt.category_id
 		<where>
+			bt.del_flag = 0
 			<if test="categoryId != null and categoryId != ''">
 				AND (category_id = #{categoryId} OR bc.f_id = #{categoryId})
 			</if>

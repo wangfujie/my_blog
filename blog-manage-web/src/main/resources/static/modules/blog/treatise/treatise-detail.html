@@ -21,8 +21,8 @@
             <span id="createTime">{{ treatiseInfo.createTime }}</span>
             <span id="categoryName">{{ treatiseInfo.categoryName }}</span>
         </p>
-        <div class="tags" id="the_tags">
-            <a href="#" target="_blank">{{ treatiseInfo.tags }}</a>
+        <div class="tags" id="the_tags" v-if="treatiseInfo.tags != null">
+            <a href="#2" v-for="tag in treatiseInfo.tagsList">{{ tag }}</a>
         </div>
         <div class="news_about" id="treatisePreview">
             <strong>简介</strong>
@@ -49,6 +49,10 @@
                     type: "GET"
                 }).then(function (value) {
                     if (value.code == 200) {
+                        var tags = value.data.object.tags;
+                        if (tags){
+                            value.data.object.tagsList = tags.split(",");
+                        }
                         self.treatiseInfo = value.data.object;
                     }
                 }).fail(function () {
