@@ -8,13 +8,11 @@ import com.blog.pojo.entity.BlogTreatise;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.blog.common.utils.MessageSourceUtil;
 import com.blog.common.result.R;
-import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.*;
 import springfox.documentation.annotations.ApiIgnore;
-
 import java.util.Date;
 
 /**
@@ -48,14 +46,13 @@ public class BlogTreatiseController {
         return ResultLay.fillPageData(treatiseService.getTreatisePage(page,treatiseQuery));
     }
 
-
     /**
      * 信息
      */
     @GetMapping("/info/{uuid}" )
     @ApiOperation(value = "文章详情表", notes = "获取文章详情表详情信息" )
     public R info(@PathVariable("uuid" ) String uuid){
-        BlogTreatise blogTreatise = treatiseService.selectById(uuid);
+        BlogTreatiseVo blogTreatise = treatiseService.getTreatiseVoById(uuid);
         if (blogTreatise == null) {
             return R.notFound();
         }

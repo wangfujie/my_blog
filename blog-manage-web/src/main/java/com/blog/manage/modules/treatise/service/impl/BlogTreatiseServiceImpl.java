@@ -31,4 +31,15 @@ public class BlogTreatiseServiceImpl extends ServiceImpl<BlogTreatiseMapper, Blo
         page.setRecords(treatiseMapper.getTreatiseList(page, treatiseQuery));
         return page;
     }
+
+    /**
+     * 查询文章详情
+     *
+     * @param uuid
+     * @return
+     */
+    @Override
+    public BlogTreatiseVo getTreatiseVoById(String uuid) {
+        return treatiseMapper.getTreatiseVoById(uuid);
+    }
 }

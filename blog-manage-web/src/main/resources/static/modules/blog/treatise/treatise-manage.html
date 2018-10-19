@@ -89,7 +89,7 @@
             layer.msg(obj.event);
             //查询
             if (obj.event === 'detail') {
-
+                showTreatise(obj.data.uuid);
             }
             //编辑
             if (obj.event === 'edit') {
@@ -97,7 +97,7 @@
             }
             //删除
             if (obj.event === 'del') {
-
+                delTreatise(obj.data.uuid);
             }
         });
 
@@ -107,6 +107,21 @@
         });
 
     });
+
+    /**
+     * 查看详情文章弹窗
+     */
+    function showTreatise(uuid) {
+        var url = 'treatise-detail.html?uuid=' + uuid;
+        var index = layer.open({
+            title:'查看详情',
+            type: 2,
+            area: ['800px', '500px'],
+            maxmin: true,
+            content: url
+        });
+        // layer.full(index);
+    }
 
     /**
      * 添加编辑文章弹窗
@@ -124,6 +139,14 @@
             content: url
         });
         layer.full(index);
+    }
+
+    /**
+     * 删除文章
+     * @param uuid
+     */
+    function delTreatise(uuid) {
+
     }
 </script>
 <!-- 表格操作按钮集 -->

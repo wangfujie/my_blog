@@ -20,4 +20,11 @@ public interface IBlogTreatiseService extends IService<BlogTreatise> {
      * @return
      */
     Page<BlogTreatiseVo> getTreatisePage(Page<BlogTreatiseVo> page, BlogTreatiseQuery treatiseQuery);
+
+    /**
+     * 查询文章详情
+     * @param uuid
+     * @return
+     */
+    BlogTreatiseVo getTreatiseVoById(String uuid);
 }
