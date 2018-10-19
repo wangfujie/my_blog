@@ -40,4 +40,13 @@
 		order by bt.create_time desc
 	</select>
 
+    <select id="getTreatiseVoById" resultType="com.blog.manage.modules.treatise.vo.BlogTreatiseVo">
+		SELECT bt.*,bc.category_name,
+				case bt.source when 1 then '原创' when 2 then '转载' end as sourceName,
+				case bt.recommend when 1 then '推荐' else '不推荐' end as recommendName
+		FROM `blog_treatise` bt
+		LEFT JOIN `blog_category` bc ON bc.id = bt.category_id
+		where bt.uuid = #{uuid}
+	</select>
+
 </mapper>

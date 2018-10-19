@@ -1,1 +1,65 @@
 /*可以在这里添加你自己的css*/
+.infoBox{
+    margin: 10px;
+}
+
+.infoTitle {
+    font-size: 24px;
+    margin-bottom: 10px
+}
+
+.infoBox .blogInfo span {
+    color: #A8B1BA;
+    margin-right: 8px;
+}
+
+.news_about {
+    color: #888888;
+    border: 1px solid #F3F3F3;
+    padding: 10px;
+    margin: 20px auto 15px auto;
+    line-height: 23px;
+    background: none repeat 0 0 #F6F6F6;
+}
+
+.news_about strong {
+    color: #38485A;
+    font-weight: 400 !important;
+    font-size: 13px;
+    padding-right: 8px;
+}
+
+.tags a {
+    background: #074979;
+    padding: 3px 8px;
+    margin: 0 5px 0 0;
+    color: #fff;
+    transition: 1s;
+    text-decoration:none;
+}
+
+.tags a:hover {
+    background: #F4650E;
+    padding: 3px 8px;
+    margin: 0 5px 0 0;
+    color: #FFF;
+    transition: 0.5s
+}
+
+.tags {
+    margin: 10px 0;
+}
+
+.infoBox .news_con {
+    line-height: 1.8;
+    text-align: justify;
+}
+
+.infoBox .news_con p {
+    margin-bottom: 15px
+}
+
+.infoBox .news_con img {
+    max-width: 650px;
+    height: auto;
+}

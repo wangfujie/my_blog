@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="icon" href="../../../frame/static/image/code.png">
+    <title>文章管理-详情</title>
+    <link rel="stylesheet" href="../../../frame/ueditor/themes/default/css/ueditor.min.css">
+    <link rel="stylesheet" href="../../../frame/ueditor/themes/iframe.css">
+    <link rel="stylesheet" href="../../../frame/ueditor/third-party/SyntaxHighlighter/shCoreDefault.css">
+    <script type="text/javascript" charset="utf-8" src="../../../frame/ueditor/third-party/SyntaxHighlighter/shCore.js"></script>
+</head>
+<body>
+<main>
+    <div id="treatiseDetail" class="infoBox">
+        <h1 class="infoTitle">{{ treatiseInfo.treatiseTitle }}</h1>
+        <p class="blogInfo">
+            <span id="sourceName">{{ treatiseInfo.sourceName }}</span>
+            <span id="createTime">{{ treatiseInfo.createTime }}</span>
+            <span id="categoryName">{{ treatiseInfo.categoryName }}</span>
+        </p>
+        <div class="tags" id="the_tags">
+            <a href="#" target="_blank">{{ treatiseInfo.tags }}</a>
+        </div>
+        <div class="news_about" id="treatisePreview">
+            <strong>简介</strong>
+            {{ treatiseInfo.treatisePreview }}
+        </div>
+        <div class="treatise_body" id="treatiseBody" v-html="treatiseInfo.treatiseBody"></div>
+    </div>
+</main>
+<div class="blank"></div>
+
+<script type="text/javascript" src="../../../js/common/jquery.min.js"></script>
+<script type="text/javascript" src="../../../js/common/utils.js"></script>
+<script type="text/javascript" src="../../../js/common/vue.js"></script>
+
+<script type="text/javascript">
+    new Vue({
+        el: "#treatiseDetail",
+        data:{treatiseInfo:{}},
+        methods:{
+            initInfo:function (treatiseUuid) {
+                var self = this;
+                $.ajax({
+                    url: "/blogTreatise/info/" + treatiseUuid,
+                    type: "GET"
+                }).then(function (value) {
+                    if (value.code == 200) {
+                        self.treatiseInfo = value.data.object;
+                    }
+                }).fail(function () {
+                    console.log("获取失败");
+                });
+            }
+        },
+        created: function () {
+            //获取参数
+            var params = getRequestParams(window.location.search);
+            var uuid = params.uuid;
+            //如果传有主键uuid，则加载详情数据
+            if (uuid){
+                this.initInfo(uuid);
+            }
+        },
+        mounted() {
+            //使代码部分高亮显示
+            SyntaxHighlighter.all();
+        }
+    });
+</script>
+</body>
+</html>
