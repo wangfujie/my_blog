@@ -82,7 +82,7 @@ CREATE TABLE `blog_friendly_links`  (
   `link_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '链接名称',
   `link_title` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '链接标题',
   `create_time` datetime(0) DEFAULT NULL COMMENT '创建时间',
-  `del_flag` int(1) DEFAULT 0 COMMENT '逻辑删除标识',
+  `del_flag` int(1) DEFAULT 0 COMMENT '逻辑删除标识（1删除，0正常）',
   `delete_time` datetime(0) DEFAULT NULL COMMENT '删除时间',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '友情链接' ROW_FORMAT = Compact;
@@ -175,7 +175,7 @@ CREATE TABLE `blog_treatise`  (
   `praise_num` int(11) DEFAULT NULL COMMENT '点赞数',
   `tags` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '标签',
   `recommend` int(1) DEFAULT NULL COMMENT '是否推荐（1是，0否）',
-  `del_flag` int(1) DEFAULT '0' COMMENT '删除状态（1删除，0正常）',
+  `del_flag` int(1) DEFAULT '0' COMMENT '逻辑删除标识（1删除，0正常）',
   PRIMARY KEY (`uuid`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '文章详情表' ROW_FORMAT = Compact;
 

@@ -3,7 +3,9 @@
 <mapper namespace="com.blog.index.modules.other.mapper.BlogTreatiseMapper">
 
     <select id="getBlogTreatiseVoById" resultType="com.blog.index.modules.other.vo.BlogTreatiseVo">
-		SELECT bt.*,bc.category_name
+		SELECT bt.*,bc.category_name,
+				case bt.source when 1 then '原创' when 2 then '转载' end as sourceName,
+				case bt.recommend when 1 then '推荐' else '不推荐' end as recommendName
 		FROM `blog_treatise` bt
 		LEFT JOIN `blog_category` bc ON bc.id = bt.category_id
 		WHERE `uuid` = #{uuid}
@@ -14,6 +16,7 @@
 		FROM `blog_treatise` bt
 		LEFT JOIN `blog_category` bc ON bc.id = bt.category_id
 		<where>
+			bt.del_flag = 0
 			<if test="categoryId != null and categoryId != ''">
 				AND (category_id = #{categoryId} OR bc.f_id = #{categoryId})
 			</if>

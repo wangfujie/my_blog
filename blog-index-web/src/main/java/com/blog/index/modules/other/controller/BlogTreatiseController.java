@@ -60,7 +60,11 @@ public class BlogTreatiseController {
     @ApiOperation(value = "文章推荐", notes = "获取文章推荐列表" )
     public R getRecommend(){
         //查询列表数据
-        List<BlogTreatise> treatiseList=treatiseService.selectList(new EntityWrapper<BlogTreatise>().eq("recommend",1).orderBy("create_time",false));
+        List<BlogTreatise> treatiseList=treatiseService.selectList(
+                new EntityWrapper<BlogTreatise>()
+                        .eq("del_flag",0)
+                        .eq("recommend",1)
+                        .orderBy("create_time",false));
         if (CollectionUtils.isEmpty(treatiseList)) {
             return R.notFound();
         }
@@ -79,7 +83,10 @@ public class BlogTreatiseController {
     public R getReadRanking(@ApiIgnore BaseQuery baseQuery){
         //查询列表数据
         Page<BlogTreatise> page = new Page<>(baseQuery.getCurrentPage(),baseQuery.getPageSize());
-        Page<BlogTreatise> pageList=treatiseService.selectPage(page,new EntityWrapper<BlogTreatise>().orderBy("read_num",false));
+        Page<BlogTreatise> pageList=treatiseService.selectPage(page,
+                new EntityWrapper<BlogTreatise>()
+                        .eq("del_flag",0)
+                        .orderBy("read_num",false));
         if (CollectionUtils.isEmpty(pageList.getRecords())) {
             return R.notFound();
         }
