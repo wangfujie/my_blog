@@ -1,23 +1,10 @@
 package com.blog.manage.modules.system.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.baidu.ueditor.ActionEnter;
-import com.blog.common.result.R;
-import com.blog.manage.modules.system.vo.ReturnUploadImage;
-import com.jhlabs.image.ImageUtils;
-import org.json.JSONException;
-import org.springframework.util.StringUtils;
+import com.blog.manage.common.ueditor.ActionEnter;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 /**
  * @author wangfujie
@@ -30,12 +17,11 @@ import java.io.UnsupportedEncodingException;
 public class UeditorController {
 
     @RequestMapping(value = "/exec")
-    public String exec(HttpServletRequest request) throws UnsupportedEncodingException {
-        request.setCharacterEncoding("utf-8");
-        String rootPath = request.getRealPath("/");
-        return new ActionEnter( request, rootPath).exec();
+    public String exec(HttpServletRequest request) throws Exception{
+        String rootPath = request.getSession().getServletContext().getRealPath("/");
+        System.out.println("=========================rootPath: " + rootPath);
+        return  new ActionEnter( request, rootPath).exec();
     }
-
 
 //    @RequestMapping(value ="upload")
 //    public String uploadImage(HttpServletRequest request, HttpServletResponse response) throws IllegalStateException, IOException {

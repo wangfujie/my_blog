@@ -71,11 +71,15 @@
 			<version>1.4.3</version>
 		</dependency>
 		<dependency>
-			<groupId>com.baidu.ueditor.jeecg</groupId>
+			<groupId>com.baidu</groupId>
 			<artifactId>ueditor</artifactId>
-			<version>1.1.1</version>
+			<version>1.1.2</version>
 		</dependency>
-
+		<dependency>
+			<groupId>com.baidu.ueditor.jeecg</groupId>
+			<artifactId>json</artifactId>
+			<version>1.0</version>
+		</dependency>
 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
