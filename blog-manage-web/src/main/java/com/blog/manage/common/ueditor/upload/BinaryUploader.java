@@ -58,19 +58,18 @@ public class BinaryUploader {
                 return new BaseState(false, AppInfo.NOT_ALLOW_FILE_TYPE);
             }
             savePath = PathFormat.parse(savePath, originFileName);
-            localSavePathPrefix = localSavePathPrefix + savePath;
+
             String physicalPath = conf.get("rootPath") + savePath;
-            logger.info("Base64Uploader localSavePathPrefix:{}", localSavePathPrefix);
-            logger.info("Base64Uploader physicalPath:{}", physicalPath);
-            logger.info("Base64Uploader savePath:{},", savePath);
+
             InputStream is = file.getInputStream();
-            State storageState = StorageManager.saveFileByInputStream(is, localSavePathPrefix, maxSize);
+            State storageState = new StorageManager().saveFileByInputStream(is, localSavePathPrefix, savePath);
             is.close();
 
             if (storageState.isSuccess()) {
                 storageState.putInfo("url", PathFormat.format(savePath));
                 storageState.putInfo("type", suffix);
                 storageState.putInfo("original", originFileName + suffix);
+                logger.info("上传图片成功，上传位置：{}", localSavePathPrefix + savePath);
             }
 
             return storageState;

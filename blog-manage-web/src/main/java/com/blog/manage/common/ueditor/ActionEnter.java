@@ -7,6 +7,7 @@ import com.baidu.ueditor.define.State;
 import com.baidu.ueditor.hunter.FileManager;
 import com.baidu.ueditor.hunter.ImageHunter;
 
+import com.baidu.ueditor.upload.StorageManager;
 import com.blog.manage.common.ueditor.upload.Uploader;
 import org.json.JSONException;
 import javax.servlet.http.HttpServletRequest;
@@ -88,7 +89,7 @@ public class ActionEnter {
             case ActionMap.CATCH_IMAGE:
                 conf = configManager.getConfig( actionCode );
                 String[] list = this.request.getParameterValues( (String)conf.get( "fieldName" ) );
-                state = new ImageHunter( conf ).capture( list );
+                state = new ImageHunter(new StorageManager(), conf ).capture( list );
                 break;
 
             case ActionMap.LIST_IMAGE:
