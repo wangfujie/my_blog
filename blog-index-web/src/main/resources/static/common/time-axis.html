@@ -11,8 +11,8 @@
     <script src="../skin/public/js/comm.js"></script>
     <script src="public/head-menu.js"></script>
     <script src="public/aside-left.js"></script>
-    <link rel="stylesheet" type="text/css" href="../skin/public/css/pagination.css" media="screen">
     <link rel="stylesheet" type="text/css" href="../skin/public/css/index.css" >
+    <script type="text/javascript" src="../skin/public/js/vue.js"></script>
 </head>
 <body>
 <header>
@@ -51,57 +51,64 @@
         <ul class="links"></ul>
     </div>
 </aside>
-<main>
-    <div class="address">您现在的位置是：<a href="../index.html">首页</a>>时间轴</div>
+<main id="timeBoxMain">
+    <div class="address">您现在的位置是：<a href="../index.html">首页</a>> 时间轴</div>
     <div class="timebox">
-        <ul id="timeBoxList"></ul>
+        <ul id="timeBoxList">
+            <li v-for="item in messages">
+                <span>{{ item.createTime }}</span><i><a :href="'../knowledge/treatise-detail.html?uuid=' + item.uuid" target="_blank">{{ item.treatiseTitle }}</a></i>
+            </li>
+        </ul>
     </div>
-    <div class="m-style pageList"></div>
 </main>
 <div class="blank"></div>
 <footer>
     <p>Design by <a href="../index.html">Mr · 王</a></p>
 </footer>
 <a href="time-axis.html" class="cd-top cd-is-visible cd-fade-out">Top</a>
-<script src="../skin/public/js/jquery.pagination.js"></script>
 <script>
-    $(function () {
-        getTreatiseList(1);
-    });
-    /**
-     * 博客文章列表查询
-     * @param pageNum
-     * @param keyWord
-     */
-    function getTreatiseList(pageNum) {
-        $("#treatise-list").empty();
-        $.ajax({
-            url: "/blogTreatise/list",
-            type: "GET",
-            data: {"currentPage": pageNum, "pageSize": 12},
-            success: function (data) {
-                if (data.code == 200) {
-                    $('.pageList').pagination({
-                        pageCount: data.data.page.pages,
-                        current: data.data.page.current,
-                        jump: true,
-                        coping: true,
-                        homePage: '首页',
-                        endPage: '末页',
-                        prevContent: '上页',
-                        nextContent: '下页',
-                        callback: function (api) {
-                            getTreatiseList(api.getCurrent());
-                        }
-                    });
-                    $(data.data.page.records).each(function () {
-                        var li = '<li><span>'+this.createTime+'</span><i><a href="../knowledge/treatise-detail.html?uuid=' + this.uuid + '" target="_blank">'+this.treatiseTitle+'</a></i></li>';
-                        $("#timeBoxList").append(li);
-                    });
-                }
+    new Vue({
+        el: "#timeBoxMain",
+        data: {messages:[]},
+        methods:{
+            initInfo:function () {
+                var self = this;
+                $.ajax({
+                    url: "/blogTreatise/getTimeAxis",
+                    type: "GET"
+                }).then(function (value) {
+                    if (value.code == 200) {
+                        self.messages = value.data.list;
+                    }
+                }).fail(function () {
+                    console.log("获取失败");
+                });
             }
-        });
-    }
+        },
+        created: function () {
+            this.initInfo();
+        }
+    });
+    // /**
+    //  * 博客文章列表查询
+    //  * @param pageNum
+    //  * @param keyWord
+    //  */
+    // function getTreatiseList() {
+    //     $("#treatise-list").empty();
+    //     $.ajax({
+    //         url: "/blogTreatise/getTimeAxis",
+    //         type: "GET",
+    //         success: function (data) {
+    //             if (data.code == 200) {
+    //                 $(data.data.list).each(function () {
+    //                     var li = '<li><span>'+this.createTime+'</span><i><a href="../knowledge/treatise-detail.html?uuid=' + this.uuid + '" target="_blank">'+this.treatiseTitle+'</a></i></li>';
+    //                     $("#timeBoxList").append(li);
+    //                 });
+    //             }
+    //         }
+    //     });
+    // }
 </script>
 </body>
 </html>
