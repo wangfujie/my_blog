@@ -83,7 +83,7 @@
         table.on('tool(layTableFilter)', function (obj) {
             //查看详情
             if (obj.event === 'detail') {
-                layer.msg(obj.event);
+                showDetailInfo(obj.data.uuid);
             }
             //回复
             if (obj.event === 'reply') {
@@ -128,7 +128,7 @@
 
         // 添加
         $('#btn-add').on('click', function () {
-            layer.alert("点击了添加按钮",{title:"提示信息"});
+            layer.alert("不能后台添加，还想造假数据？",{title:"提示信息"});
             // layer.open({
             //     title:'新增',
             //     type: 2,
@@ -137,6 +137,21 @@
             //     content: 'links-add.html'
             // });
         });
+
+        /**
+         * 查看详情弹窗
+         */
+        function showDetailInfo(uuid) {
+            var url = 'leave-message-detail.html?uuid=' + uuid;
+            var index = layer.open({
+                title:'查看详情',
+                type: 2,
+                area: ['800px', '500px'],
+                maxmin: true,
+                content: url
+            });
+            // layer.full(index);
+        }
 
         // 刷新
         $('#btn-refresh').on('click', function () {

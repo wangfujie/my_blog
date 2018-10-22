@@ -60,7 +60,7 @@
       <div class="fb">
         <ul :style="'background: url(../skin/public/images/head/head_' + message.headImgNum + '.png) no-repeat top 2px left 5px;'">
           <p class="fbtime"><span>{{ message.createTime }}</span>{{ message.fanName }}</p>
-          <p class="fbinfo">{{ message.messageContent }}</p>
+          <pre class="fbinfo">{{ message.messageContent }}</pre>
         </ul>
       </div>
       <div class="replyDiv" v-if="message.reply != null">
@@ -185,7 +185,7 @@
                               $('html , body').animate({scrollTop: 0},'slow');
                           }
                       }
-                  })
+                  });
               }
           },
           created: function () {

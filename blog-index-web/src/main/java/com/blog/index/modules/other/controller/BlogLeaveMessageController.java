@@ -1,5 +1,6 @@
 package com.blog.index.modules.other.controller;
 
+import com.blog.common.utils.IpAddressUtil;
 import com.blog.common.utils.RandomUtils;
 import com.blog.pojo.entity.BlogLeaveMessage;
 import com.blog.index.modules.other.service.IBlogLeaveMessageService;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
 /**
@@ -73,10 +75,12 @@ public class BlogLeaveMessageController {
     @PostMapping("/save" )
     @RequiresPermissions("blogLeaveMessage:save" )
     @ApiOperation(value = "留言表", notes = "保存留言表信息" )
-    public R save(BlogLeaveMessage blogLeaveMessage){
+    public R save(BlogLeaveMessage blogLeaveMessage, HttpServletRequest request){
         //设置随机头像数字
-        blogLeaveMessage.setHeadImgNum(RandomUtils.getRandomNum(1,17));
+        blogLeaveMessage.setHeadImgNum(RandomUtils.getRandomNum(1,16));
         blogLeaveMessage.setCreateTime(new Date());
+        //获取访问ip地址
+        blogLeaveMessage.setIpAddress(IpAddressUtil.getClientIP(request));
         boolean retFlag = iBlogLeaveMessageService.insert(blogLeaveMessage);
         if (!retFlag) {
             return R.error(MessageSourceUtil.getMessage("500"));

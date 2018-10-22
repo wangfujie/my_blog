@@ -1,5 +1,6 @@
 package com.blog.manage.modules.others.controller;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.blog.manage.common.result.LayPageQuery;
 import com.blog.manage.common.result.ResultLay;
 import com.blog.manage.modules.others.service.IBlogLeaveMessageService;
@@ -36,10 +37,12 @@ public class BlogLeaveMessageController {
     })
     public ResultLay list(@ApiIgnore LayPageQuery baseQuery){
             //查询列表数据
-            Page pageList = iBlogLeaveMessageService.selectPage(new Page(baseQuery.getPage(),baseQuery.getLimit()),null);
+            Page pageList = iBlogLeaveMessageService.selectPage(new Page(baseQuery.getPage(),baseQuery.getLimit()),
+                    new EntityWrapper<BlogLeaveMessage>()
+                            .eq("status", 1)
+                            .orderBy("create_time", false));
             return ResultLay.fillPageData(pageList);
     }
-
 
     /**
      * 信息
