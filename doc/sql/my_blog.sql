@@ -71,6 +71,7 @@ INSERT INTO `blog_category` VALUES (12, 'Linux', 'knowledge/knowledge.html?categ
 INSERT INTO `blog_category` VALUES (13, '网络来源', 'knowledge/knowledge.html?categoryId=2&thisCategory=13', 2, 2, '2018-08-27 10:33:44', 1);
 INSERT INTO `blog_category` VALUES (14, '随笔', 'knowledge/knowledge.html?categoryId=2&thisCategory=14', 2, 2, '2018-09-06 14:21:04', 1);
 INSERT INTO `blog_category` VALUES (15, '语录', 'knowledge/knowledge.html?categoryId=2&thisCategory=15', 2, 2, '2018-09-06 14:21:06', 1);
+INSERT INTO `blog_category` VALUES (16, '有趣资源', 'knowledge/knowledge.html?categoryId=3&thisCategory=16', 3, 2, '2018-10-22 14:58:52', 1);
 
 -- ----------------------------
 -- Table structure for blog_friendly_links
