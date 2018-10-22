@@ -1,3 +1,7 @@
+# ueditor上传图片后显示本地图片配置，增加映射到F盘
+web:
+  upload-path: F:/
+
 server:
   port: 8088                #配置端口号默认为 8080
 
@@ -7,6 +11,11 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/my_blog?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8&amp
     username: root
     password: wang123
+
+  mvc:
+      static-path-pattern: /**
+  resources:
+      static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,file:${web.upload-path}
 
 # REDIS (RedisProperties)
   redis:
