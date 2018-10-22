@@ -23,6 +23,15 @@ public class BlogTreatiseVo extends BlogTreatise {
      */
     private String recommendName;
 
+    /**
+     * 上一篇
+     */
+    private BlogTreatise upBlogTreatise;
+    /**
+     * 下一篇
+     */
+    private BlogTreatise downBlogTreatise;
+
     public String getCategoryName() {
         return categoryName;
     }

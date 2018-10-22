@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>留言管理-详情</title>
+    <link rel="stylesheet" href="../../frame/layui/css/layui.css">
+    <link rel="stylesheet" href="../../frame/static/css/style.css">
+    <link rel="icon" href="../../frame/static/image/code.png">
+    <style type="text/css">
+        p.createTime {
+            color: #000;
+        }
+
+        .createTime span {
+            float: right;
+            color: #999;
+            font-size: 12px;
+        }
+
+        p.messageContent {
+            margin: 10px 0;
+        }
+
+        .fb ul {
+            margin: 10px 10px;
+            padding: 10px 40px 10px 70px;
+            border-bottom: #ececec 1px solid;
+        }
+    </style>
+</head>
+<body class="body">
+<div id="leaveMessage">
+    <hr>
+    <div class="fb">
+        <ul :style="'background: url(../../frame/static/image/head/head_' + message.headImgNum + '.png) no-repeat top 2px left 5px;'">
+            <p class="createTime"><span>{{ message.createTime }}</span>{{ message.fanName }} / {{ message.ipAddress }} / {{ message.contactMail }}</p>
+            <pre class="messageContent">{{ message.messageContent }}</pre>
+        </ul>
+    </div>
+    <div class="replyDiv">
+        <ul>
+            <p id="reply"><span style="color: #FF0000;">回复: </span>{{ message.reply }}</p>
+        </ul>
+    </div>
+</div>
+
+<script type="text/javascript" src="../../js/common/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/common/utils.js"></script>
+<script type="text/javascript" src="../../js/common/vue.js"></script>
+<script type="text/javascript">
+    new Vue({
+        el: "#leaveMessage",
+        data:{message:{}},
+        methods:{
+            initInfo:function (uuid) {
+                var self = this;
+                $.ajax({
+                    url: "/blogLeaveMessage/info/" + uuid,
+                    type: "GET"
+                }).then(function (value) {
+                    if (value.code == 200) {
+                        self.message = value.data.object;
+                    }
+                }).fail(function () {
+                    console.log("获取失败");
+                });
+            }
+        },
+        created: function () {
+            //获取参数
+            var params = getRequestParams(window.location.search);
+            var uuid = params.uuid;
+            //如果传有主键uuid，则加载详情数据
+            if (uuid){
+                this.initInfo(uuid);
+            }
+        },
+        mounted() {
+
+        }
+    });
+</script>
+</body>
+</html>
