@@ -39,7 +39,7 @@ public class Base64Uploader {
         localSavePathPrefix = localSavePathPrefix + suffix;
         String physicalPath = localSavePathPrefix;
         logger.info("Base64Uploader physicalPath:{},savePath:{}",localSavePathPrefix,savePath);
-        State storageState = StorageManager.saveBinaryFile(data, physicalPath);
+        State storageState = new StorageManager().saveBinaryFile(data, localSavePathPrefix, savePath);
 
         if (storageState.isSuccess()) {
             storageState.putInfo("url", PathFormat.format(savePath));
