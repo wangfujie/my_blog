@@ -94,6 +94,18 @@ public class BlogTreatiseController {
     }
 
     /**
+     * 获取时间轴列表
+     */
+    @GetMapping("/getTimeAxis" )
+    @ApiOperation(value = "文章详情表", notes = "获取文章详情表分页列表" )
+    public R getTimeAxis(){
+        //查询列表数据
+        List<BlogTreatise> pageList=treatiseService.selectList(new EntityWrapper<BlogTreatise>()
+                .eq("del_flag",0).orderBy("create_time", false));
+        return R.fillListData(pageList);
+    }
+
+    /**
      * 信息
      */
     @GetMapping("/info/{uuid}" )

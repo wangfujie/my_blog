@@ -53,7 +53,7 @@
     <ul class="links"></ul>
   </div>
 </aside>
-<main>
+<main id="gbookMain">
   <div class="address">您现在的位置是：<a href="../index.html">网站首页</a>><a href="gbook.html#">留言</a></div>
   <div class="gbinfos" id="leaveMessage">
     <div v-for="message in messages">
@@ -105,9 +105,9 @@
 <a href="gbook.html" class="cd-top cd-is-visible cd-fade-out">Top</a>
 <script>
   $(function () {
-      var list = new Vue({
-          el: "#leaveMessage",
-          data: {messages:[]},
+      new Vue({
+          el: "#gbookMain",
+          data: {messages:[], blogLeaveMessage:{}},
           methods:{
               getList:function (pageNum) {
                   var self = this;
@@ -134,46 +134,36 @@
                   }).fail(function () {
                       console.log("获取失败");
                   });
-              }
-          },
-          created: function () {
-              this.getList(1);
-          }
-      });
-
-      new Vue({
-          el: ".gbox",
-          data: {blogLeaveMessage:{}},
-          methods: {
-              checkForm: function(){
+              },
+              checkForm: function() {
                   var ableSubmit = true;
                   if (!this.blogLeaveMessage.fanName) {
                       ableSubmit = false;
-                      $('#fanNameError').css("visibility","visible");
-                      return ;
-                  }else {
-                      $('#fanNameError').css("visibility","hidden");
+                      $('#fanNameError').css("visibility", "visible");
+                      return;
+                  } else {
+                      $('#fanNameError').css("visibility", "hidden");
                   }
                   if (!this.blogLeaveMessage.contactMail) {
                       ableSubmit = false;
-                      $('#contactMailError').css("visibility","visible");
-                      return ;
-                  }else if (!this.validEmail(this.blogLeaveMessage.contactMail)){
+                      $('#contactMailError').css("visibility", "visible");
+                      return;
+                  } else if (!this.validEmail(this.blogLeaveMessage.contactMail)) {
                       ableSubmit = false;
-                      $('#contactMailError').css("visibility","hidden");
-                      $('#contactMailFormatError').css("visibility","visible");
-                      return ;
-                  }else {
-                      $('#contactMailFormatError').css("visibility","hidden");
+                      $('#contactMailError').css("visibility", "hidden");
+                      $('#contactMailFormatError').css("visibility", "visible");
+                      return;
+                  } else {
+                      $('#contactMailFormatError').css("visibility", "hidden");
                   }
                   if (!this.blogLeaveMessage.messageContent) {
                       ableSubmit = false;
-                      $('#messageContentError').css("visibility","visible");
-                      return ;
-                  }else {
-                      $('#messageContentError').css("visibility","hidden");
+                      $('#messageContentError').css("visibility", "visible");
+                      return;
+                  } else {
+                      $('#messageContentError').css("visibility", "hidden");
                   }
-                  if (ableSubmit){
+                  if (ableSubmit) {
                       this.submit();
                   }
               },
@@ -197,6 +187,9 @@
                       }
                   })
               }
+          },
+          created: function () {
+              this.getList(1);
           }
       });
   });
