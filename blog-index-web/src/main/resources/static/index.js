@@ -2,13 +2,11 @@ var pages = 1;
 var thisPage = 1;
 var keyWord = "";
 $(function(){
+    //获取参数
+    var params = getRequestParams(window.location.search);
+    keyWord = params.keyWord;
     //默认加载列表
     getTreatiseList(thisPage,keyWord);
-    $('#keyboardQuery').click(function () {
-       thisPage = 1;
-       keyWord = $("#keyboard").val();
-       getTreatiseList(thisPage, keyWord);
-    });
     window.onscroll= function(){
         //变量t是滚动条滚动时，距离顶部的距离
         var t = document.documentElement.scrollTop||document.body.scrollTop;

@@ -31,4 +31,18 @@ public interface BlogTreatiseMapper extends BaseMapper<BlogTreatise> {
      * @return
      */
     List<BlogTreatiseVo> getTreatiseList(Pagination page, BlogTreatiseQuery treatiseQuery);
+
+    /**
+     * 获取上篇文章
+     * @param uuid
+     * @return
+     */
+    BlogTreatise getUpBlogTreatise(String uuid);
+
+    /**
+     * 获取下篇文章
+     * @param uuid
+     * @return
+     */
+    BlogTreatise getDownBlogTreatise(String uuid);
 }

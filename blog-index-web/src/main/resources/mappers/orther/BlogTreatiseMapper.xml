@@ -2,8 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.blog.index.modules.other.mapper.BlogTreatiseMapper">
 
-    <select id="getBlogTreatiseVoById" resultType="com.blog.index.modules.other.vo.BlogTreatiseVo">
-		SELECT bt.*,bc.category_name,
+	<resultMap id="blogTreatiseVoMap" type="com.blog.index.modules.other.vo.BlogTreatiseVo">
+		<id property="uuid" column="uuid" />
+		<result property="categoryId" column="category_id" />
+		<result property="treatiseTitle" column="treatise_title" />
+		<result property="treatisePreview" column="treatise_preview" />
+		<result property="source" column="source" />
+		<result property="reprintFrom" column="reprint_from" />
+		<result property="reprintUrl" column="reprint_url" />
+		<result property="treatiseBody" column="treatise_body" />
+		<result property="createTime" column="create_time" />
+		<result property="readNum" column="read_num" />
+		<result property="praiseNum" column="praise_num" />
+		<result property="tags" column="tags" />
+		<result property="recommend" column="recommend" />
+		<result property="delFlag" column="del_flag" />
+        <result property="fId" column="f_id" />
+        <result property="categoryName" column="category_name" />
+        <result property="sourceName" column="sourceName" />
+        <result property="recommendName" column="recommendName" />
+		<association property="upBlogTreatise" column="uuid" select="getUpBlogTreatise" />
+		<association property="downBlogTreatise"  column="uuid" select="getDownBlogTreatise" />
+	</resultMap>
+
+    <select id="getBlogTreatiseVoById" resultMap="blogTreatiseVoMap">
+		SELECT bt.*,bc.category_name,bc.f_id,
 				case bt.source when 1 then '原创' when 2 then '转载' end as sourceName,
 				case bt.recommend when 1 then '推荐' else '不推荐' end as recommendName
 		FROM `blog_treatise` bt
@@ -12,7 +35,9 @@
 	</select>
 
     <select id="getTreatiseList" resultType="com.blog.index.modules.other.vo.BlogTreatiseVo">
-		SELECT bt.*,bc.category_name
+		SELECT bt.*,bc.category_name,
+				case bt.source when 1 then '原创' when 2 then '转载' end as sourceName,
+				case bt.recommend when 1 then '推荐' else '不推荐' end as recommendName
 		FROM `blog_treatise` bt
 		LEFT JOIN `blog_category` bc ON bc.id = bt.category_id
 		<where>
@@ -28,10 +53,28 @@
 					)
 			</if>
 			<if test="tagInfo != null and tagInfo != ''">
-				AND tags like concat('%',#{keyWord},'%')
+				AND tags like concat('%',#{tagInfo},'%')
 			</if>
 		</where>
 		order by bt.create_time desc
+	</select>
+
+    <select id="getUpBlogTreatise" resultType="com.blog.pojo.entity.BlogTreatise">
+		select *
+		from blog_treatise
+		where del_flag = 0 and create_time = (
+				select min(create_time) from blog_treatise
+				where del_flag = 0 and create_time &gt; (select create_time  from blog_treatise where uuid = #{uuid})
+			)
+	</select>
+
+	<select id="getDownBlogTreatise" resultType="com.blog.pojo.entity.BlogTreatise">
+		select *
+		from blog_treatise
+		where del_flag = 0 and create_time = (
+				select max(create_time) from blog_treatise
+				where del_flag = 0 and create_time &lt; (select create_time  from blog_treatise where uuid = #{uuid})
+			)
 	</select>
 
 </mapper>

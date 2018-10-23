@@ -20,7 +20,7 @@ $(function(){
         success:function(data){
             if (data.code == 200){
                 $(data.data.list).each(function () {
-                    var a = '<a href="'+ '/blogTags/info/' + this.id + '" target="_blank" >'+this.tagName+'</a>';
+                    var a = '<a href="/tags/tags.html?tagName=' + this.tagName + '" target="_blank" >'+this.tagName+'</a>';
                     $("#show_tags").append(a);
                 });
             }
@@ -55,5 +55,11 @@ $(function(){
                 });
             }
         }
+    });
+
+    //搜索
+    $('#keyboardQuery').click(function () {
+        keyWord = $("#keyboard").val();
+        window.location.href="/index.html?keyWord=" + keyWord;
     });
 });
