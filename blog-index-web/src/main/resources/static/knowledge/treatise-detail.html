@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>文章详情页</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../skin/public/images/logo.png">
     <link rel="stylesheet" href="../skin/ueditor/themes/default/css/ueditor.min.css">
     <link rel="stylesheet" href="../skin/ueditor/SyntaxHighlighter/shCoreDefault.css">
     <link href="../skin/public/css/index.css" rel="stylesheet">
@@ -86,32 +87,31 @@
             </p>
         </div>
         <div class="nextinfo">
-            <p>上一篇：<a href='../2018-07-26/20.html'>JaveWeb学习之Servlet（二）：ServletConfig和ServletContext</a></p>
-            <p>下一篇：<a href='../java.html'>返回列表</a></p>
+            <p v-if="treatiseInfo.upBlogTreatise != null">上一篇：<a :href="'treatise-detail.html?uuid=' + treatiseInfo.upBlogTreatise.uuid">{{ treatiseInfo.upBlogTreatise.treatiseTitle }}</a></p>
+            <p v-if="treatiseInfo.upBlogTreatise == null">上一篇：<a :href="'knowledge.html?categoryId=' + treatiseInfo.fId + '&thisCategory=' + treatiseInfo.categoryId">返回列表</a></p>
+
+            <p v-if="treatiseInfo.downBlogTreatise != null">下一篇：<a :href="'treatise-detail.html?uuid=' + treatiseInfo.downBlogTreatise.uuid">{{ treatiseInfo.downBlogTreatise.treatiseTitle }}</a></p>
+            <p v-if="treatiseInfo.downBlogTreatise == null">下一篇：<a :href="'knowledge.html?categoryId=' + treatiseInfo.fId + '&thisCategory=' + treatiseInfo.categoryId">返回列表</a></p>
         </div>
-        <div class="otherlink">
+<!--        <div class="otherlink">
             <h2>相关文章</h2>
             <ul>
-                <li><a href="../life/we/2018-08-08/23.html" title="一个JAVA程序员成长之路分享 [转载]">一个JAVA程序员成长之路分享 [转载]</a></li><li><a href="../2018-07-26/20.html" title="JaveWeb学习之Servlet（二）：ServletConfig和ServletContext">JaveWeb学习之Servlet（二）：ServletConfig和ServletContex</a></li><li><a href="../2018-07-22/19.html" title="JaveWeb学习之Servlet（一）：Servlet生命周期和加载机制">JaveWeb学习之Servlet（一）：Servlet生命周期和加载机制</a></li><li><a href="../2018-06-29/18.html" title="Cglib动态代理浅析">Cglib动态代理浅析</a></li><li><a href="../2018-06-29/17.html" title="JDK动态代理浅析">JDK动态代理浅析</a></li><li><a href="../2018-06-29/16.html" title="浅析Java中的final关键字">浅析Java中的final关键字</a></li><li><a href="../2018-06-29/15.html" title="Jackson注解学习参考">Jackson注解学习参考</a></li><li><a href="../2018-06-29/13.html" title="Iterable 和 Iterator 接口学习笔记">Iterable 和 Iterator 接口学习笔记</a></li><li><a href="../2018-06-29/9.html" title="Java 使用 Jxl 实现 Excel 导入导出">Java 使用 Jxl 实现 Excel 导入导出</a></li><li><a href="../2018-06-29/8.html" title="Maven项目中添加本地jar包">Maven项目中添加本地jar包</a></li>      </ul>
-        </div>
+                <li><a href="../life/we/2018-08-08/23.html" title="">一个JAVA程序员成长之路分享 [转载]</a></li>
+                <li><a href="../2018-07-22/19.html" title="JaveWeb学习之Servlet">JaveWeb学习之Servlet（一）</a></li>
+                <li><a href="../2018-06-29/18.html" title="Cglib动态代理浅析">Cglib动态代理浅析</a></li>
+                <li><a href="../2018-06-29/17.html" title="JDK动态代理浅析">JDK动态代理浅析</a></li>
+                <li><a href="../2018-06-29/16.html" title="浅析Java中的final关键字">浅析Java中的final关键字</a></li>
+                <li><a href="../2018-06-29/15.html" title="Jackson注解学习参考">Jackson注解学习参考</a></li>
+                <li><a href="../2018-06-29/8.html" title="Maven项目中添加本地jar包">Maven项目中添加本地jar包</a></li>
+            </ul>
+        </div>-->
         <div class="news_pl">
             <h2>文章评论</h2>
             <div class="gbko">
-                <script>
-                    function CheckPl(obj)
-                    {
-                        if(obj.saytext.value=="")
-                        {
-                            alert("您没什么话要说吗？");
-                            obj.saytext.focus();
-                            return false;
-                        }
-                        return true;
-                    }
-                </script><form action="../tags/pl/doaction.htm" method="post" name="saypl" id="saypl" onsubmit="return CheckPl(document.saypl)">
+                <form action="" method="post" name="saypl" onsubmit="">
                 <div id="plpost">
-                    <p class="saying"><span><a href="http://www.guitu18.com/e/pl/?classid=7&amp;id=24">共有<script type="text/javascript" src="http://www.guitu18.com/e/public/ViewClick/?classid=7&amp;id=24&amp;down=2"></script>条评论</a></span>来说两句吧...</p>
-                    <p class="yname"><span>用户名:</span><input name="username" type="text" class="inputText" id="username" value="" size="16" /></p>
+                    <p class="saying"><span><a href="#2">共有0条评论</a></span>暂无评论功能...</p>
+                    <!--<p class="yname"><span>用户名:</span><input name="username" type="text" class="inputText" id="username" value="" size="16" /></p>
                     <p class="yzm"><span>验证码:</span><input name="key" type="text" class="inputText" size="16" />
                         <img src="../skin/public/images/ShowKey.jpg" align="absmiddle" name="plKeyImg" id="plKeyImg" onclick="plKeyImg.src='/e/ShowKey/?v=pl&t='+Math.random()" title="看不清楚,点击刷新" /> </p>
                     <input name="nomember"  type="hidden" id="nomember" value="1" checked="checked" />
@@ -120,8 +120,9 @@
                     <input name="classid" type="hidden" id="classid" value="7" />
                     <input name="enews" type="hidden" id="enews" value="AddPl" />
                     <input name="repid" type="hidden" id="repid" value="0" />
-                    <input type="hidden" name="ecmsfrom" value="/se/java/2018-08-11/24.html"></td>
-                </div></form>
+                    <input type="hidden" name="ecmsfrom" value="/se/java/2018-08-11/24.html"></td>-->
+                </div>
+                </form>
             </div>
         </div>
     </div>

@@ -10,6 +10,11 @@ import com.blog.pojo.entity.BlogTreatise;
  */
 public class BlogTreatiseVo extends BlogTreatise {
     /**
+     * 分类父id
+     */
+    @TableField("f_id")
+    private String fId;
+    /**
      * 分类名称
      */
     @TableField("category_name")
@@ -54,5 +59,29 @@ public class BlogTreatiseVo extends BlogTreatise {
 
     public void setRecommendName(String recommendName) {
         this.recommendName = recommendName;
+    }
+
+    public BlogTreatise getUpBlogTreatise() {
+        return upBlogTreatise;
+    }
+
+    public void setUpBlogTreatise(BlogTreatise upBlogTreatise) {
+        this.upBlogTreatise = upBlogTreatise;
+    }
+
+    public BlogTreatise getDownBlogTreatise() {
+        return downBlogTreatise;
+    }
+
+    public void setDownBlogTreatise(BlogTreatise downBlogTreatise) {
+        this.downBlogTreatise = downBlogTreatise;
+    }
+
+    public String getfId() {
+        return fId;
+    }
+
+    public void setfId(String fId) {
+        this.fId = fId;
     }
 }

@@ -6,6 +6,7 @@
   <meta name="keywords" content="留言" />
   <meta name="description" content="留言" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="../skin/public/images/logo.png">
   <link href="../skin/public/css/index.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="../skin/public/css/pagination.css" media="screen">
   <script src="../skin/public/js/jquery.min.js" ></script>
@@ -114,7 +115,7 @@
                   $.ajax({
                       url: "/blogLeaveMessage/list",
                       type: "GET",
-                      data:{"currentPage":pageNum, "pageSize":5}
+                      data:{"currentPage":pageNum, "pageSize":10}
                   }).then(function (value) {
                       if (value.code == 200) {
                           $('.pageList').pagination({
