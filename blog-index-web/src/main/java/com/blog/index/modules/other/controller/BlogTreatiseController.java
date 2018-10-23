@@ -120,17 +120,33 @@ public class BlogTreatiseController {
     }
 
     /**
-     * 保存
+     * 文章增加阅读数量
      */
-    @PostMapping("/save" )
-    @RequiresPermissions("blogTreatise:save" )
-    @ApiOperation(value = "文章详情表", notes = "保存文章详情表信息" )
-    public R save(@RequestBody BlogTreatise blogTreatise){
-        boolean retFlag = treatiseService.insert(blogTreatise);
-        if (!retFlag) {
-            return R.error(MessageSourceUtil.getMessage("500"));
+    @GetMapping("/addReadNum/{uuid}" )
+    @ApiOperation(value = "文章增加阅读数量", notes = "文章增加阅读数量" )
+    public R addReadNum(@PathVariable("uuid" ) String uuid){
+        BlogTreatiseVo blogTreatise = treatiseService.getBlogTreatiseVoById(uuid);
+        if (blogTreatise != null) {
+            Integer readNum = blogTreatise.getReadNum();
+            blogTreatise.setReadNum(readNum != null ? readNum + 1 : 1);
+            treatiseService.updateById(blogTreatise);
         }
-        return R.ok();
+        return R.fillSingleData(blogTreatise.getReadNum());
+    }
+
+    /**
+     * 文章增加点赞数量
+     */
+    @GetMapping("/addPraiseNum/{uuid}" )
+    @ApiOperation(value = "文章增加点赞数量", notes = "文章增加点赞数量" )
+    public R addPraiseNum(@PathVariable("uuid" ) String uuid){
+        BlogTreatiseVo blogTreatise = treatiseService.getBlogTreatiseVoById(uuid);
+        if (blogTreatise != null) {
+            Integer praiseNum = blogTreatise.getPraiseNum();
+            blogTreatise.setPraiseNum(praiseNum != null ? praiseNum + 1 : 1);
+            treatiseService.updateById(blogTreatise);
+        }
+        return R.fillSingleData(blogTreatise.getPraiseNum());
     }
 
     /**

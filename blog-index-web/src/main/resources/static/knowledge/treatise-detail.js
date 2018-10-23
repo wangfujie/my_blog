@@ -18,6 +18,34 @@ new Vue({
             }).fail(function () {
                 console.log("获取失败");
             });
+        },
+        addReadNum: function (treatiseUuid) {
+            var self = this;
+            $.ajax({
+                url: "/blogTreatise/addReadNum/" + treatiseUuid,
+                type: "GET"
+            }).then(function (value) {
+                if (value.code == 200) {
+                    self.treatiseInfo.readNum = value.data.object;
+                    console.log("增加成功");
+                }
+            }).fail(function () {
+                console.log("增加失败");
+            });
+        },
+        addPraiseNum: function () {
+            var self = this;
+            $.ajax({
+                url: "/blogTreatise/addPraiseNum/" + self.treatiseInfo.uuid,
+                type: "GET"
+            }).then(function (value) {
+                if (value.code == 200) {
+                    self.treatiseInfo.praiseNum = value.data.object;
+                    console.log("增加成功");
+                }
+            }).fail(function () {
+                console.log("增加失败");
+            });
         }
     },
     created: function () {
@@ -26,6 +54,9 @@ new Vue({
         var uuid = params.uuid;
         //如果传有主键uuid，则加载详情数据
         if (uuid){
+            //增加阅读量
+            this.addReadNum(uuid);
+            //初始化数据
             this.initInfo(uuid);
         }
     },
