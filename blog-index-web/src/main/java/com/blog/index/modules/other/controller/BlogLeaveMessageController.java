@@ -80,7 +80,7 @@ public class BlogLeaveMessageController {
         blogLeaveMessage.setHeadImgNum(RandomUtils.getRandomNum(1,16));
         blogLeaveMessage.setCreateTime(new Date());
         //获取访问ip地址
-        blogLeaveMessage.setIpAddress(IpAddressUtil.getClientIP(request));
+        blogLeaveMessage.setIpAddress(IpAddressUtil.getRealIpAddress(request));
         boolean retFlag = iBlogLeaveMessageService.insert(blogLeaveMessage);
         if (!retFlag) {
             return R.error(MessageSourceUtil.getMessage("500"));

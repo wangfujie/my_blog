@@ -54,10 +54,10 @@ new Vue({
         var uuid = params.uuid;
         //如果传有主键uuid，则加载详情数据
         if (uuid){
-            //增加阅读量
-            this.addReadNum(uuid);
             //初始化数据
             this.initInfo(uuid);
+            //增加阅读量
+            this.addReadNum(uuid);
         }
     },
     mounted() {

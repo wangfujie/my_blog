@@ -48,7 +48,7 @@ public class LoginController {
             //账号没登录权限
             return R.error(e.getMessage());
         }
-        admin.setLoginIp(IpAddressUtil.getClientIP(servletRequest));
+        admin.setLoginIp(IpAddressUtil.getRealIpAddress(servletRequest));
         admin.setLoginTime(new Date());
         adminService.updateById(admin);
         return R.ok("登录成功！");
