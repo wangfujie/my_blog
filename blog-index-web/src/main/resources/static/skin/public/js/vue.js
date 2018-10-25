@@ -5079,7 +5079,7 @@ Vue.version = '2.5.17';
 
 /*  */
 
-// these are reserved for web because they are directly compiled away
+// these are reserved for record because they are directly compiled away
 // during template compilation
 var isReservedAttr = makeMap('style,class');
 
@@ -7147,7 +7147,7 @@ function updateDOMProps (oldVnode, vnode) {
   }
 }
 
-// check platforms/web/util/attrs.js acceptValue
+// check platforms/record/util/attrs.js acceptValue
 
 
 function shouldUpdateValue (elm, checkVal) {
