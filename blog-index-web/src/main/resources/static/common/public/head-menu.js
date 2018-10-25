@@ -6,12 +6,11 @@ $(function(){
         success:function(data){
             if (data.code == 200){
                 $(data.data.list).each(function () {
-                    var ipUrl = this.ipAddress;
-                    var li = '<li><a href="'+ ipUrl + this.linkUrl + '">'+this.categoryName+'</a>';
+                    var li = '<li><a href="'+ this.linkUrl + '">'+this.categoryName+'</a>';
                     if (this.subNodeList != null && this.subNodeList.length > 0){
                         li += '<ul class="sub">';
                             this.subNodeList.forEach(function (value,i) {
-                                li += '<li><a href="'+ ipUrl + value.linkUrl + '">'+value.categoryName+'</a></li>';
+                                li += '<li><a href="' + value.linkUrl + '">'+value.categoryName+'</a></li>';
                             })
                         li += '</ul>';
                     }

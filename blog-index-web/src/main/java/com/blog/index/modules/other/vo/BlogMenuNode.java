@@ -12,11 +12,6 @@ import java.util.List;
 public class BlogMenuNode extends BlogCategory {
 
     /**
-     * 系统部署的ip地址
-     */
-    private String ipAddress;
-
-    /**
      * 子节点菜单
      */
     private List<BlogCategory> subNodeList;
@@ -29,11 +24,4 @@ public class BlogMenuNode extends BlogCategory {
         this.subNodeList = subNodeList;
     }
 
-    public String getIpAddress() {
-        return ipAddress;
-    }
-
-    public void setIpAddress(String ipAddress) {
-        this.ipAddress = ipAddress;
-    }
 }

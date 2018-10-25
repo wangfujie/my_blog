@@ -6,12 +6,8 @@ import com.blog.index.modules.other.mapper.BlogCategoryMapper;
 import com.blog.index.modules.other.service.IBlogCategoryService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
-
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -25,8 +21,6 @@ public class BlogCategoryServiceImpl extends ServiceImpl<BlogCategoryMapper, Blo
 
     @Autowired
     private BlogCategoryMapper categoryMapper;
-    @Value("${ipAddress}")
-    private String ipAddress;
 
     /**
      * 获取菜单分类列表
@@ -35,12 +29,6 @@ public class BlogCategoryServiceImpl extends ServiceImpl<BlogCategoryMapper, Blo
      */
     @Override
     public List<BlogMenuNode> getBlogMenuNode() {
-        List<BlogMenuNode> nodeList = categoryMapper.getBlogMenuNode();
-        if (!CollectionUtils.isEmpty(nodeList)){
-            nodeList.forEach(menuNode -> {
-                menuNode.setIpAddress(ipAddress);
-            });
-        }
-        return nodeList;
+        return categoryMapper.getBlogMenuNode();
     }
 }

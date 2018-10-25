@@ -53,20 +53,20 @@ CREATE TABLE `blog_category`  (
 -- ----------------------------
 -- Records of blog_category
 -- ----------------------------
-INSERT INTO `blog_category` VALUES (1, '技术博客', 'knowledge/knowledge.html?categoryId=1', 0, 1, '2018-08-15 11:35:47', 1);
-INSERT INTO `blog_category` VALUES (2, '生活杂谈', 'knowledge/knowledge.html?categoryId=2', 0, 1, '2018-08-15 11:37:10', 1);
-INSERT INTO `blog_category` VALUES (3, '资源分享', 'knowledge/knowledge.html?categoryId=3', 0, 1, '2018-08-15 11:37:48', 1);
-INSERT INTO `blog_category` VALUES (4, '网站介绍', 'common/web-info.html', 0, 1, '2018-09-06 14:24:18', 0);
-INSERT INTO `blog_category` VALUES (5, '关于我', 'common/about-me.html', 0, 1, '2018-09-06 14:24:22', 1);
-INSERT INTO `blog_category` VALUES (6, '时间轴', 'common/time-axis.html', 0, 1, '2018-09-06 14:24:24', 1);
-INSERT INTO `blog_category` VALUES (7, '留言', 'common/gbook.html', 0, 1, '2018-09-06 14:24:27', 1);
-INSERT INTO `blog_category` VALUES (10, 'JAVA', 'knowledge/knowledge.html?categoryId=1&thisCategory=10', 1, 2, '2018-08-15 11:39:02', 1);
-INSERT INTO `blog_category` VALUES (11, '数据库', 'knowledge/knowledge.html?categoryId=1&thisCategory=11', 1, 2, '2018-08-15 11:38:43', 1);
-INSERT INTO `blog_category` VALUES (12, 'Linux', 'knowledge/knowledge.html?categoryId=1&thisCategory=12', 1, 2, '2018-08-15 11:39:24', 1);
-INSERT INTO `blog_category` VALUES (13, '网络来源', 'knowledge/knowledge.html?categoryId=2&thisCategory=13', 2, 2, '2018-08-27 10:33:44', 1);
-INSERT INTO `blog_category` VALUES (14, '随笔', 'knowledge/knowledge.html?categoryId=2&thisCategory=14', 2, 2, '2018-09-06 14:21:04', 1);
-INSERT INTO `blog_category` VALUES (15, '语录', 'knowledge/knowledge.html?categoryId=2&thisCategory=15', 2, 2, '2018-09-06 14:21:06', 1);
-INSERT INTO `blog_category` VALUES (16, '有趣资源', 'knowledge/knowledge.html?categoryId=3&thisCategory=16', 3, 2, '2018-10-22 14:58:52', 1);
+INSERT INTO `blog_category` VALUES (1, '技术博客', '/knowledge/knowledge.html?categoryId=1', 0, 1, '2018-08-15 11:35:47', 1);
+INSERT INTO `blog_category` VALUES (2, '生活杂谈', '/knowledge/knowledge.html?categoryId=2', 0, 1, '2018-08-15 11:37:10', 1);
+INSERT INTO `blog_category` VALUES (3, '资源分享', '/knowledge/knowledge.html?categoryId=3', 0, 1, '2018-08-15 11:37:48', 1);
+INSERT INTO `blog_category` VALUES (4, '网站介绍', '/common/web-info.html', 0, 1, '2018-09-06 14:24:18', 0);
+INSERT INTO `blog_category` VALUES (5, '关于我', '/common/about-me.html', 0, 1, '2018-09-06 14:24:22', 1);
+INSERT INTO `blog_category` VALUES (6, '时间轴', '/common/time-axis.html', 0, 1, '2018-09-06 14:24:24', 1);
+INSERT INTO `blog_category` VALUES (7, '留言', '/common/gbook.html', 0, 1, '2018-09-06 14:24:27', 1);
+INSERT INTO `blog_category` VALUES (10, 'JAVA', '/knowledge/knowledge.html?categoryId=1&thisCategory=10', 1, 2, '2018-08-15 11:39:02', 1);
+INSERT INTO `blog_category` VALUES (11, '数据库', '/knowledge/knowledge.html?categoryId=1&thisCategory=11', 1, 2, '2018-08-15 11:38:43', 1);
+INSERT INTO `blog_category` VALUES (12, 'Linux', '/knowledge/knowledge.html?categoryId=1&thisCategory=12', 1, 2, '2018-08-15 11:39:24', 1);
+INSERT INTO `blog_category` VALUES (13, '网络来源', '/knowledge/knowledge.html?categoryId=2&thisCategory=13', 2, 2, '2018-08-27 10:33:44', 1);
+INSERT INTO `blog_category` VALUES (14, '随笔', '/knowledge/knowledge.html?categoryId=2&thisCategory=14', 2, 2, '2018-09-06 14:21:04', 1);
+INSERT INTO `blog_category` VALUES (15, '语录', '/knowledge/knowledge.html?categoryId=2&thisCategory=15', 2, 2, '2018-09-06 14:21:06', 1);
+INSERT INTO `blog_category` VALUES (16, '有趣资源', '/knowledge/knowledge.html?categoryId=3&thisCategory=16', 3, 2, '2018-10-22 14:58:52', 1);
 
 -- ----------------------------
 -- Table structure for blog_friendly_links
@@ -212,6 +212,6 @@ CREATE TABLE `blog_admin`  (
 -- Records of blog_admin
 -- ----------------------------
 INSERT INTO `blog_admin` VALUES (1, '管理员', 'wangAdminBlog', '5c02e66d8f94e824g0a07441971665f0', 1, '2018-09-10 16:16:22', '127.0.0.1');
-INSERT INTO `blog_admin` VALUES (2, '写代码测试用户', 'admin', 'dadga249g1c024921edd510g7f359a0c', 1, '2018-10-15 15:52:59', '127.0.0.1');
+INSERT INTO `blog_admin` VALUES (2, '写代码测试用户', 'admin', 'dadga249g1c024921edd510g7f359a0c', 0, '2018-10-15 15:52:59', '127.0.0.1');
 
 SET FOREIGN_KEY_CHECKS = 1;
