@@ -13,10 +13,11 @@
         </fileSet>
         <fileSet>
             <directory>src/main/resources</directory>
-            <outputDirectory>/conf</outputDirectory>
+            <outputDirectory>/</outputDirectory>
             <includes>
                 <include>**/*.properties</include>
                 <include>**/*.yml</include>
+                <include>**/*.json</include>
             </includes>
         </fileSet>
         <fileSet>
