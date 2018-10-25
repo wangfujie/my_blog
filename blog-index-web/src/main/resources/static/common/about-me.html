@@ -58,12 +58,13 @@
         <div class="infosbox">
             <h1 class="infotitle">关于我</h1>
             <div class="news_con" id="aboutMe">
-                <p>{{ aboutMe }}</p>
+                <p>博主：{{ aboutMeInfo.myName }}</p>
+                <p>简介：{{ aboutMeInfo.aboutMe }}</p>
                 <h2>About my blog</h2>
-                <p>域 名：{{ blogDomainName }}</p>
-                <p>服务器：{{ serverName }}<a :href="serverLink" target="_blank" style="margin-left: 15px;"><span style="color:#FF0000;"><strong>前往阿里云官网购买&gt;&gt;</strong></span></a></p>
-                <p>备案号：{{ recordNumber }}</p>
-                <p>技 术：{{ programType }}</p>
+                <p>域 名：<a :href="aboutMeInfo.blogDomainName" target="_blank" >{{ aboutMeInfo.blogDomainName }}</a> </p>
+                <p>服务器：{{ aboutMeInfo.serverName }}<a :href="aboutMeInfo.serverLink" target="_blank" style="margin-left: 15px;"><span style="color:#FF0000;"><strong>前往阿里云官网购买&gt;&gt;</strong></span></a></p>
+                <p>备案号：{{ aboutMeInfo.recordNumber }}</p>
+                <p>技 术：{{ aboutMeInfo.programType }}</p>
             </div>
         </div>
     </main>
@@ -76,28 +77,16 @@
         $(function () {
             new Vue({
                 el: '#aboutMe',
-                data: {
-                    aboutMe: "",
-                    blogDomainName: "",
-                    serverName: "",
-                    recordNumber: "",
-                    programType: "",
-                    serverLink: ""
-                },
+                data: { aboutMeInfo:{}},
                 methods:{
                    init:function () {
-                       var $this = this;
+                       var self = this;
                        $.ajax({
                            url: "/blogAboutMe/info/1",
                            type: "GET",
                            success: function (data) {
                                if (data.code == 200) {
-                                  $this.aboutMe = data.data.object.aboutMe;
-                                  $this.blogDomainName = data.data.object.blogDomainName;
-                                  $this.serverName = data.data.object.serverName;
-                                  $this.recordNumber = data.data.object.recordNumber;
-                                  $this.programType = data.data.object.programType;
-                                  $this.serverLink = data.data.object.serverLink;
+                                   self.aboutMeInfo = data.data.object;
                                }
                            }
                        });

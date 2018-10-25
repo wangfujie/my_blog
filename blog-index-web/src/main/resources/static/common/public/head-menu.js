@@ -1,4 +1,7 @@
 $(function(){
+    //获取站点主地址（http://127.0.0.1:8080）
+    var url = window.location.origin;
+
     //获取公共头菜单列表
     $.ajax({
         url:"/blogCategory/getBlogMenuNode",
