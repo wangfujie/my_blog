@@ -56,7 +56,7 @@ CREATE TABLE `blog_category`  (
 INSERT INTO `blog_category` VALUES (1, '技术博客', '/knowledge/knowledge.html?categoryId=1', 0, 1, '2018-08-15 11:35:47', 1);
 INSERT INTO `blog_category` VALUES (2, '生活杂谈', '/knowledge/knowledge.html?categoryId=2', 0, 1, '2018-08-15 11:37:10', 1);
 INSERT INTO `blog_category` VALUES (3, '资源分享', '/knowledge/knowledge.html?categoryId=3', 0, 1, '2018-08-15 11:37:48', 1);
-INSERT INTO `blog_category` VALUES (4, '网站介绍', '/common/web-info.html', 0, 1, '2018-09-06 14:24:18', 0);
+INSERT INTO `blog_category` VALUES (4, '网站介绍', '/common/record-info.html', 0, 1, '2018-09-06 14:24:18', 0);
 INSERT INTO `blog_category` VALUES (5, '关于我', '/common/about-me.html', 0, 1, '2018-09-06 14:24:22', 1);
 INSERT INTO `blog_category` VALUES (6, '时间轴', '/common/time-axis.html', 0, 1, '2018-09-06 14:24:24', 1);
 INSERT INTO `blog_category` VALUES (7, '留言', '/common/gbook.html', 0, 1, '2018-09-06 14:24:27', 1);
