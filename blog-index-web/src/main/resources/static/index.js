@@ -18,6 +18,9 @@ $(function(){
             }
         }
     }
+
+    //增加网站浏览记录
+    addLogRecord();
 });
 
 //博客文章列表查询
@@ -47,5 +50,22 @@ function getTreatiseList(pageNum,keyWord){
                 });
             }
         }
+    });
+}
+
+/**
+ * 增加网站浏览记录
+ */
+function addLogRecord() {
+    $.ajax({
+        url: "/blogLogRecord/addRecord",
+        type: "POST",
+        data:{"recordType": 3}
+    }).then(function (value) {
+        if (value.code == 200) {
+            console.log(value.code);
+        }
+    }).fail(function () {
+        console.log("增加网站浏览记录,接口调用失败");
     });
 }

@@ -1,18 +1,24 @@
 package com.blog.index.modules.record.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.blog.common.result.R;
 import com.blog.common.utils.DateUtils;
 import com.blog.common.utils.IpAddressUtil;
+import com.blog.index.modules.other.service.IBlogTreatiseService;
 import com.blog.index.modules.other.service.IBlogWebInfoService;
+import com.blog.index.modules.other.vo.BlogTreatiseVo;
 import com.blog.index.modules.record.mapper.BlogLogRecordMapper;
 import com.blog.index.modules.record.service.IBlogLogRecordService;
 import com.blog.pojo.entity.BlogLogRecord;
+import com.blog.pojo.entity.BlogTreatise;
 import com.blog.pojo.entity.BlogWebInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
@@ -27,6 +33,8 @@ public class BlogLogRecordServiceImpl extends ServiceImpl<BlogLogRecordMapper, B
 
     @Autowired
     private IBlogWebInfoService webInfoService;
+    @Autowired
+    private IBlogTreatiseService treatiseService;
 
     /**
      * 增加日志记录信息
@@ -37,36 +45,51 @@ public class BlogLogRecordServiceImpl extends ServiceImpl<BlogLogRecordMapper, B
      */
     @Override
     public R addBlogLogRecord(BlogLogRecord blogLogRecord, HttpServletRequest request) {
+        //获取当前时间
+        Date now = new Date();
         //获取访问ip地址
         String ipAddress = IpAddressUtil.getRealIpAddress(request);
         switch (blogLogRecord.getRecordType()){
             case 1:
-                //网站浏览记录
+                //文章点赞记录
+                //查询该ip是今日否点过赞
+                if (checkIpRecord(ipAddress, 1, blogLogRecord.getTreatiseUuid(), DateUtils.formatYmd(now))){
+                    return R.error("谢谢支持，今天已经赞过这篇了");
+                }else {
+                    //修改文章点赞总数量
+                    BlogTreatise blogTreatise = treatiseService.selectById(blogLogRecord.getTreatiseUuid());
+                    if (blogTreatise != null) {
+                        Integer praiseNum = blogTreatise.getPraiseNum();
+                        blogTreatise.setPraiseNum(praiseNum != null ? praiseNum + 1 : 1);
+                        treatiseService.updateById(blogTreatise);
+                    }
+                }
                 break;
             case 2:
                 //文章浏览记录
+                //加一操作已经在查询那里操作了，这里只添加记录
                 break;
             case 3:
-                //文章点赞记录
-                if (blogLogRecord.getRecordType() == 3){
-                    //查询该ip是今日否点过赞
-                    Integer recordNum = selectCount(new EntityWrapper<BlogLogRecord>()
-                            .eq("ip_address",ipAddress)
-                            .eq("record_type",3)
-                            .like("create_time",DateUtils.formatYmd(new Date()))
-                    );
-                    if (recordNum != null && recordNum > 0){
-                        return R.error("谢谢您的支持，今天已经赞过了");
-                    }
+                //网站浏览记录
+                BlogWebInfo webInfo = getWebInfoByDate(DateUtils.formatYmd(now));
+                if (webInfo != null){
+                    webInfo.setWebBrowseNum(webInfo.getWebBrowseNum() + 1);
+                    webInfoService.updateById(webInfo);
+                }else {
+                    webInfo = new BlogWebInfo();
+                    webInfo.setWebSummary(DateUtils.formatYmd(now) + "的记录统计信息");
+                    webInfo.setWebBrowseNum(1);
+                    webInfo.setUpdateTime(now);
+                    webInfoService.insert(webInfo);
                 }
                 break;
             default:break;
         }
         blogLogRecord.setIpAddress(ipAddress);
-        blogLogRecord.setCreateTime(new Date());
+        blogLogRecord.setCreateTime(now);
         //新增记录
         insert(blogLogRecord);
-        return R.ok("谢谢您的支持");
+        return R.ok("谢谢支持，感谢点赞");
     }
 
     /**
@@ -74,6 +97,22 @@ public class BlogLogRecordServiceImpl extends ServiceImpl<BlogLogRecordMapper, B
      * @return
      */
     private BlogWebInfo getWebInfoByDate(String today){
-        return webInfoService.selectOne(new EntityWrapper<BlogWebInfo>());
+        return webInfoService.selectOne(new EntityWrapper<BlogWebInfo>().eq("update_time", today));
+    }
+
+    /**
+     * 检查ip是否今日已经记录了
+     */
+    private boolean checkIpRecord(String ipAddress, Integer recordType, String treatiseUuid, String nowDate){
+        Wrapper wrapper = new EntityWrapper<BlogLogRecord>();
+        wrapper.eq("ip_address",ipAddress);
+        wrapper.eq("record_type",recordType);
+        if (!StringUtils.isEmpty(treatiseUuid)){
+            wrapper.eq("treatise_uuid",treatiseUuid);
+        }
+        wrapper.like("create_time", nowDate);
+        //查询该ip是今日否点过赞
+        Integer recordNum = selectCount(wrapper);
+        return (recordNum != null && recordNum > 0);
     }
 }

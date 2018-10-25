@@ -2,6 +2,8 @@ package com.blog.index.modules.other.controller;
 
 import com.blog.index.modules.other.query.BlogTreatiseQuery;
 import com.blog.index.modules.other.vo.BlogTreatiseVo;
+import com.blog.index.modules.record.service.IBlogLogRecordService;
+import com.blog.pojo.entity.BlogLogRecord;
 import com.blog.pojo.entity.BlogTreatise;
 import com.blog.index.modules.other.service.IBlogTreatiseService;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.*;
 import springfox.documentation.annotations.ApiIgnore;
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -29,6 +32,8 @@ public class BlogTreatiseController {
 
     @Resource
     private IBlogTreatiseService treatiseService;
+    @Resource
+    private IBlogLogRecordService logRecordService;
 
     /**
      * 列表
@@ -111,42 +116,21 @@ public class BlogTreatiseController {
     @GetMapping("/info/{uuid}" )
     @RequiresPermissions("blogTreatise:info" )
     @ApiOperation(value = "文章详情表", notes = "获取文章详情表详情信息" )
-    public R info(@PathVariable("uuid" ) String uuid){
+    public R info(@PathVariable("uuid" ) String uuid, HttpServletRequest request){
         BlogTreatiseVo blogTreatise = treatiseService.getBlogTreatiseVoById(uuid);
-        if (blogTreatise == null) {
-            return R.notFound();
-        }
-        return R.fillSingleData(blogTreatise);
-    }
-
-    /**
-     * 文章增加阅读数量
-     */
-    @GetMapping("/addReadNum/{uuid}" )
-    @ApiOperation(value = "文章增加阅读数量", notes = "文章增加阅读数量" )
-    public R addReadNum(@PathVariable("uuid" ) String uuid){
-        BlogTreatiseVo blogTreatise = treatiseService.getBlogTreatiseVoById(uuid);
+        //文章增加阅读数量
         if (blogTreatise != null) {
             Integer readNum = blogTreatise.getReadNum();
             blogTreatise.setReadNum(readNum != null ? readNum + 1 : 1);
+            //使阅读数量+1
             treatiseService.updateById(blogTreatise);
+            //增加阅读记录
+            BlogLogRecord logRecord = new BlogLogRecord();
+            logRecord.setRecordType(2);
+            logRecord.setTreatiseUuid(uuid);
+            logRecordService.addBlogLogRecord(logRecord, request);
         }
-        return R.fillSingleData(blogTreatise.getReadNum());
-    }
-
-    /**
-     * 文章增加点赞数量
-     */
-    @GetMapping("/addPraiseNum/{uuid}" )
-    @ApiOperation(value = "文章增加点赞数量", notes = "文章增加点赞数量" )
-    public R addPraiseNum(@PathVariable("uuid" ) String uuid){
-        BlogTreatiseVo blogTreatise = treatiseService.getBlogTreatiseVoById(uuid);
-        if (blogTreatise != null) {
-            Integer praiseNum = blogTreatise.getPraiseNum();
-            blogTreatise.setPraiseNum(praiseNum != null ? praiseNum + 1 : 1);
-            treatiseService.updateById(blogTreatise);
-        }
-        return R.fillSingleData(blogTreatise.getPraiseNum());
+        return R.fillSingleData(blogTreatise);
     }
 
     /**
