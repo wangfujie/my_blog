@@ -118,11 +118,10 @@ CREATE TABLE `blog_tags`  (
 -- ----------------------------
 -- Records of blog_tags
 -- ----------------------------
-INSERT INTO `blog_tags` VALUES (1, 'JAVA', 4, '2018-08-20 16:52:29', 0, 5);
-INSERT INTO `blog_tags` VALUES (2, 'Linux', 6, '2018-08-20 16:52:29', 0, 3);
-INSERT INTO `blog_tags` VALUES (3, 'SVN', 1, '2018-08-20 16:52:29', 0, 2);
-INSERT INTO `blog_tags` VALUES (4, 'MySQL', 5, '2018-08-20 16:52:29', 0, 4);
-INSERT INTO `blog_tags` VALUES (5, 'Jenkins', 1, '2018-08-20 16:53:59', 0, 1);
+INSERT INTO `blog_tags` VALUES (1, 'JAVA', 1, '2018-08-20 16:52:29', 0, 0);
+INSERT INTO `blog_tags` VALUES (2, 'Linux', 1, '2018-08-20 16:52:29', 0, 0);
+INSERT INTO `blog_tags` VALUES (3, 'SVN', 1, '2018-08-20 16:52:29', 0, 0);
+INSERT INTO `blog_tags` VALUES (4, 'MySQL', 1, '2018-08-20 16:52:29', 0, 0);
 
 -- ----------------------------
 -- Table structure for blog_treatise
