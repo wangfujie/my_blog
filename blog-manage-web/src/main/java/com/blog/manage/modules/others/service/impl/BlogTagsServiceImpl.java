@@ -33,4 +33,15 @@ public class BlogTagsServiceImpl extends ServiceImpl<BlogTagsMapper, BlogTags> i
         page.setRecords(blogTagsMapper.getBlogTagsList(page));
         return page;
     }
+
+    /**
+     * 通过id获取标签信息
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public BlogTagsVo getBlogTagsVoById(Integer id) {
+        return blogTagsMapper.getBlogTagsVoById(id);
+    }
 }

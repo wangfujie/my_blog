@@ -143,12 +143,14 @@
      * 添加编辑文章弹窗
      */
     function addTreatise(uuid) {
+        var title = "新增文章";
         var url = 'treatise-add-test.html';
         if (uuid){
             url += '?treatiseUuid='+ uuid;
+            title = "编辑文章";
         }
         var index = layer.open({
-            title:'编辑文章',
+            title:title,
             type: 2,
             area: ['800px', '425px'],
             maxmin: true,

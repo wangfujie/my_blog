@@ -119,7 +119,6 @@
                 }).then(function (value) {
                     if (value.code == 200) {
                         self.treatiseInfo = value.data.object;
-                        console.log(value.data.object.treatiseBody)
                     }
                 }).fail(function () {
                     console.log("获取失败");

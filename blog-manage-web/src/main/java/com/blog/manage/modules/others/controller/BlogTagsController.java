@@ -3,8 +3,10 @@ package com.blog.manage.modules.others.controller;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.blog.manage.common.result.LayPageQuery;
 import com.blog.manage.common.result.ResultLay;
+import com.blog.manage.modules.others.service.IBlogCategoryService;
 import com.blog.manage.modules.others.service.IBlogTagsService;
 import com.blog.manage.modules.others.vo.BlogTagsVo;
+import com.blog.pojo.entity.BlogCategory;
 import com.blog.pojo.entity.BlogTags;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.blog.common.utils.MessageSourceUtil;
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.*;
 import springfox.documentation.annotations.ApiIgnore;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -64,33 +67,20 @@ public class BlogTagsController {
     @GetMapping("/info/{id}" )
     @ApiOperation(value = "标签表", notes = "获取标签表详情信息" )
     public R info(@PathVariable("id" ) Integer id){
-        BlogTags blogTags = tagsService.selectById(id);
-        if (blogTags == null) {
-            return R.notFound();
-        }
+        BlogTagsVo blogTags = tagsService.getBlogTagsVoById(id);
         return R.fillSingleData(blogTags);
     }
 
     /**
-     * 保存
+     * 新增或修改
      */
-    @PostMapping("/save" )
-    @ApiOperation(value = "标签表", notes = "保存标签表信息" )
-    public R save(@RequestBody BlogTags blogTags){
-        boolean retFlag = tagsService.insert(blogTags);
-        if (!retFlag) {
-            return R.error(MessageSourceUtil.getMessage("500"));
+    @PostMapping("/insertOrUpdate" )
+    @ApiOperation(value = "新增或修改", notes = "新增或修改" )
+    public R insertOrUpdate(BlogTags blogTags){
+        if (blogTags.getId() == null){
+            blogTags.setCreateTime(new Date());
         }
-        return R.ok();
-    }
-
-    /**
-     * 修改
-     */
-    @PostMapping("/update" )
-    @ApiOperation(value = "标签表", notes = "更新标签表信息" )
-    public R update(@RequestBody BlogTags blogTags){
-        boolean retFlag = tagsService.updateById(blogTags);
+        boolean retFlag = tagsService.insertOrUpdate(blogTags);
         if (!retFlag) {
             return R.error(MessageSourceUtil.getMessage("500"));
         }
