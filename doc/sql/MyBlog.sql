@@ -173,9 +173,9 @@ DROP TABLE IF EXISTS `blog_web_info`;
 CREATE TABLE `blog_web_info`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `web_summary` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '网站简介',
-  `web_browse_num` int(11) DEFAULT NULL COMMENT '网站浏览量',
-  `web_follow_num` int(11) DEFAULT NULL COMMENT '网站关注量',
-  `web_user_num` int(11) DEFAULT NULL COMMENT '网站注册量',
+  `web_browse_num` int(11) DEFAULT 0 NULL COMMENT '网站浏览量',
+  `web_follow_num` int(11) DEFAULT 0 NULL COMMENT '网站关注量',
+  `web_user_num` int(11) DEFAULT 0 NULL COMMENT '网站注册量',
   `update_time` date DEFAULT NULL COMMENT '数据更新时间（按天统计）',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '网站的一些统计数据' ROW_FORMAT = Compact;
