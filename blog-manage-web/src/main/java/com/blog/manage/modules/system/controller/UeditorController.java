@@ -17,9 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 public class UeditorController {
 
     @RequestMapping(value = "/exec")
-    public String exec(HttpServletRequest request) throws Exception{
+    public String exec(HttpServletRequest request, String action) throws Exception{
         String rootPath = request.getSession().getServletContext().getRealPath("/");
-        System.out.println("=========================rootPath: " + rootPath);
         return  new ActionEnter( request, rootPath).exec();
     }
 }

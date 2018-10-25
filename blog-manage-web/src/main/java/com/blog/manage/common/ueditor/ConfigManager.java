@@ -1,5 +1,6 @@
 package com.blog.manage.common.ueditor;
 
+import com.alibaba.druid.support.logging.Log;
 import com.baidu.ueditor.define.ActionMap;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -152,9 +153,8 @@ public class ConfigManager {
     }
 
     private void initEnv () throws FileNotFoundException, IOException {
-
-		/*File file = new File( this.originalPath );
-
+        //linux服务器获取config.json的方式
+        File file = new File( this.configFileName );
 		if ( !file.isAbsolute() ) {
 			file = new File( file.getAbsolutePath() );
 		}
@@ -165,13 +165,12 @@ public class ConfigManager {
 				file = new File( file.getAbsolutePath() );
 			}
 		}
-
 		this.parentPath = file.getParent();
-
-		String configContent = this.readFile( this.getConfigPath() );*/
+		String configContent = this.readFile( this.getConfigPath() );
         //更改获取配置文件的方式
-        String configPath = ResourceUtils.getFile("classpath:config.json").getAbsolutePath();
-        String configContent =  this.readFile( configPath );
+//        String configPath = ResourceUtils.getFile("classpath:config.json").getAbsolutePath();
+//
+//        String configContent =  this.readFile( configPath );
         try{
             JSONObject jsonConfig = new JSONObject( configContent );
             this.jsonConfig = jsonConfig;
