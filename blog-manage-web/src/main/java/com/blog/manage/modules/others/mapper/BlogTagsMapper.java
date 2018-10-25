@@ -21,4 +21,11 @@ public interface BlogTagsMapper extends BaseMapper<BlogTags> {
      * @return
      */
     List<BlogTagsVo> getBlogTagsList(Pagination page);
+
+    /**
+     * 通过id获取标签信息
+     * @param id
+     * @return
+     */
+    BlogTagsVo getBlogTagsVoById(Integer id);
 }

@@ -16,7 +16,7 @@
 <div class="my-btn-box">
     <span class="fl">
         <a class="layui-btn layui-btn-danger radius btn-delect" id="btn-delete-all">批量删除</a>
-        <a class="layui-btn btn-add btn-default" id="btn-add">添加</a>
+        <a class="layui-btn btn-add btn-default" onclick="addTag()" id="btn-add">添加</a>
         <a class="layui-btn btn-add btn-default" id="btn-refresh"><i class="layui-icon">&#x1002;</i></a>
     </span>
     <span class="fr">
@@ -82,36 +82,60 @@
 
         //监听工具条
         table.on('tool(layTableFilter)', function (obj) {
-            layer.msg(obj.event);
-            console.log(obj);
-            //保存
-            if (obj.event === 'save') {
-
+            //编辑
+            if (obj.event == 'edit'){
+                addTag(obj.data.id);
             }
             //删除
             if (obj.event === 'del') {
-
+                layer.confirm('确认删除此行？', function (index) {
+                    obj.del(); //删除对应行（tr）的DOM结构
+                    layer.close(index);
+                    //向服务端发送删除指令
+                    $.ajax({
+                        url: "/blogTags/delete/" + obj.data.id ,
+                        type: "POST"
+                    }).then(function (value) {
+                        if (value.code == 200) {
+                            layer.msg("删除成功！");
+                        }else {
+                            layer.msg(value.msg);
+                        }
+                    }).fail(function () {
+                        layer.msg("调用出错！");
+                    });
+                });
             }
-        });
-
-        //监听表格复选框选择
-        table.on('checkbox(layTableFilter)', function(obj){
-            layer.msg(obj.type);
-            console.log(obj)
         });
 
         // 刷新
         $('#btn-refresh').on('click', function () {
             tableIns.reload();
         });
-
-        // you code ...
-
     });
+
+    /**
+     * 添加编辑弹窗
+     */
+    function addTag(id) {
+        var title = "新增标签";
+        var url = 'tags-add.html';
+        if (id){
+            url += '?id='+ id;
+            title = "编辑标签";
+        }
+        layer.open({
+            title: title,
+            type: 2,
+            area: ['800px', '425px'],
+            maxmin: true,
+            content: url
+        });
+    }
 </script>
 <!-- 表格操作按钮集 -->
 <script type="text/html" id="barOption">
-    <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="edit">保存</a>
+    <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
 </script>
 </body>

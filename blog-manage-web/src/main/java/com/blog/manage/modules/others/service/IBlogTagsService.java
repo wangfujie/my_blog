@@ -18,4 +18,11 @@ public interface IBlogTagsService extends IService<BlogTags> {
      * @return
      */
     Page<BlogTagsVo> getBlogTagsPage(Page<BlogTagsVo> page);
+
+    /**
+     * 通过id获取标签信息
+     * @param id
+     * @return
+     */
+    BlogTagsVo getBlogTagsVoById(Integer id);
 }

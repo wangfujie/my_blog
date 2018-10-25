@@ -18,4 +18,11 @@
 		LEFT JOIN blog_category cat ON cat.id = tag.category_id
 	</select>
 
+    <select id="getBlogTagsVoById" resultType="com.blog.manage.modules.others.vo.BlogTagsVo">
+		SELECT tag.*,cat.category_name categoryName
+		FROM `blog_tags` tag
+		LEFT JOIN blog_category cat ON cat.id = tag.category_id
+		WHERE tag.id = #{id}
+	</select>
+
 </mapper>
