@@ -132,7 +132,8 @@
                     type: "GET"
                 }).then(function (value) {
                     if (value.code == 200) {
-                        self.fCategoryList = value.data.list;
+                        // self.fCategoryList = value.data.list;
+                        self.$set(self, "fCategoryList" , value.data.list);
                     }
                 }).fail(function () {
                     console.log("获取失败");
