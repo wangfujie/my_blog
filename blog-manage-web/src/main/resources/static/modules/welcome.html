@@ -35,31 +35,7 @@
                         <li class="layui-timeline-item">
                             <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
                             <div class="layui-timeline-content layui-text">
-                                <h3 class="layui-timeline-title">v1.8.0</h3>
-                                <p>
-                                    更新日期:2017-08-26
-                                </p>
-                                <ul>
-                                    <li>更新layui-v1.0.9为layui-v2.0.2版本</li>
-                                    <li>
-                                        <h4>新增js功能</h4>
-                                        <ul>
-                                            <li>
-                                                <p>vip_table.js</p>
-                                                <ul>
-                                                    <li>getFullHeight方法  getFullHeight();    // 返回子页面整体高度,用于table组件设置全屏高度</li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>修改已知BUG</li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="layui-timeline-item">
-                            <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
-                            <div class="layui-timeline-content layui-text">
-                                <div class="layui-timeline-title">开始于2017年01月06日</div>
+                                <div class="layui-timeline-title">开始于2018年10月23日</div>
                             </div>
                         </li>
                     </ul>
@@ -81,22 +57,33 @@
 
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption({
-            title: {
-                text: '浏览'
-            },
             tooltip: {},
             legend: {
-                data: ['数量']
+                data: ['网站浏览',"文章浏览", "留言数", "评论数"]
             },
             xAxis: {
-                data: ["发文数", "网站浏览", "文章浏览", "留言数", "评论数"]
+                data: ["2018-10-26", "2018-10-27", "2018-10-28", "2018-10-29", "2018-10-30"]
             },
             yAxis: {},
-            series: [{
-                name: '数量',
-                type: 'bar',
-                data: [16, 30, 10, 10, 20]
-            }]
+            series: [
+                {
+                    name: '网站浏览',
+                    type: 'bar',
+                    data: [1, 13, 10, 5, 10]
+                },{
+                    name: '文章浏览',
+                    type: 'bar',
+                    data: [2, 2, 3, 5, 10]
+                },{
+                    name: '留言数',
+                    type: 'bar',
+                    data: [1, 2, 1, 2, 1]
+                },{
+                    name: '评论数',
+                    type: 'bar',
+                    data: [0, 0, 0, 0, 0]
+                }
+            ]
         });
     });
 </script>
