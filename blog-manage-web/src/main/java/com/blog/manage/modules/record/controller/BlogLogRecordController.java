@@ -1,5 +1,7 @@
 package com.blog.manage.modules.record.controller;
 
+import com.blog.manage.common.result.LayPageQuery;
+import com.blog.manage.common.result.ResultLay;
 import com.blog.manage.modules.record.service.IBlogLogRecordService;
 import com.blog.pojo.entity.BlogLogRecord;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
@@ -25,26 +27,23 @@ import springfox.documentation.annotations.ApiIgnore;
 public class BlogLogRecordController {
 
     @Autowired
-    private IBlogLogRecordService iBlogLogRecordService;
+    private IBlogLogRecordService logRecordService;
 
     /**
      * 列表
      */
     @GetMapping("/list" )
-    @RequiresPermissions("blogLogRecord:list" )
     @ApiOperation(value = "日志记录", notes = "获取日志记录分页列表" )
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "currentPage", value = "当前页码", paramType = "query" ),
-            @ApiImplicitParam(name = "pageSize", value = "每页条数", paramType = "query" )
+            @ApiImplicitParam(name = "page", value = "当前页码", paramType = "query" ),
+            @ApiImplicitParam(name = "limit", value = "每页条数", paramType = "query" )
     })
-    public R list(@ApiIgnore BaseQuery baseQuery){
+    public ResultLay list(@ApiIgnore LayPageQuery baseQuery){
             //查询列表数据
-            Page page=new Page(baseQuery.getCurrentPage(),baseQuery.getPageSize());
-            Page pageList=iBlogLogRecordService.selectPage(page,new EntityWrapper<BlogLogRecord>());
-            if (CollectionUtils.isEmpty(pageList.getRecords())) {
-                return R.notFound();
-            }
-            return R.fillPageData(pageList);
+        //查询列表数据
+        Page pageList = logRecordService.selectPage(new Page(baseQuery.getPage(),baseQuery.getLimit()),
+                new EntityWrapper<BlogLogRecord>().orderBy("create_time", false));
+        return ResultLay.fillPageData(pageList);
     }
 
 
@@ -52,10 +51,9 @@ public class BlogLogRecordController {
      * 信息
      */
     @GetMapping("/info/{id}" )
-    @RequiresPermissions("blogLogRecord:info" )
     @ApiOperation(value = "日志记录", notes = "获取日志记录详情信息" )
     public R info(@PathVariable("id" ) Integer id){
-        BlogLogRecord blogLogRecord = iBlogLogRecordService.selectById(id);
+        BlogLogRecord blogLogRecord = logRecordService.selectById(id);
         if (blogLogRecord == null) {
             return R.notFound();
         }
@@ -66,10 +64,9 @@ public class BlogLogRecordController {
      * 保存
      */
     @PostMapping("/save" )
-    @RequiresPermissions("blogLogRecord:save" )
     @ApiOperation(value = "日志记录", notes = "保存日志记录信息" )
     public R save(@RequestBody BlogLogRecord blogLogRecord){
-        boolean retFlag = iBlogLogRecordService.insert(blogLogRecord);
+        boolean retFlag = logRecordService.insert(blogLogRecord);
         if (!retFlag) {
             return R.error(MessageSourceUtil.getMessage("500"));
         }
@@ -80,10 +77,9 @@ public class BlogLogRecordController {
      * 修改
      */
     @PostMapping("/update" )
-    @RequiresPermissions("blogLogRecord:update" )
     @ApiOperation(value = "日志记录", notes = "更新日志记录信息" )
     public R update(@RequestBody BlogLogRecord blogLogRecord){
-        boolean retFlag = iBlogLogRecordService.updateById(blogLogRecord);
+        boolean retFlag = logRecordService.updateById(blogLogRecord);
         if (!retFlag) {
             return R.error(MessageSourceUtil.getMessage("500"));
         }
@@ -94,10 +90,9 @@ public class BlogLogRecordController {
      * 删除
      */
     @PostMapping("/delete/{id}" )
-    @RequiresPermissions("blogLogRecord:delete" )
     @ApiOperation(value = "日志记录", notes = "删除日志记录信息" )
     public R delete(@PathVariable("id" ) Integer id){
-        boolean retFlag = iBlogLogRecordService.deleteById(id);
+        boolean retFlag = logRecordService.deleteById(id);
         if (!retFlag) {
             return R.error(MessageSourceUtil.getMessage("500"));
         }
