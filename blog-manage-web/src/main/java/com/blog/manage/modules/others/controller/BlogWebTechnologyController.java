@@ -1,5 +1,7 @@
 package com.blog.manage.modules.others.controller;
 
+import com.blog.manage.common.result.LayPageQuery;
+import com.blog.manage.common.result.ResultLay;
 import com.blog.manage.modules.others.service.IBlogWebTechnologyService;
 import com.blog.pojo.entity.BlogWebTechnology;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
@@ -25,26 +27,22 @@ import springfox.documentation.annotations.ApiIgnore;
 public class BlogWebTechnologyController {
 
     @Autowired
-    private IBlogWebTechnologyService iBlogWebTechnologyService;
+    private IBlogWebTechnologyService technologyService;
 
     /**
      * 列表
      */
     @GetMapping("/list" )
-    @RequiresPermissions("blogWebTechnology:list" )
     @ApiOperation(value = "关于网站使用的技术", notes = "获取关于网站使用的技术分页列表" )
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "currentPage", value = "当前页码", paramType = "query" ),
-            @ApiImplicitParam(name = "pageSize", value = "每页条数", paramType = "query" )
+            @ApiImplicitParam(name = "page", value = "当前页码", paramType = "query" ),
+            @ApiImplicitParam(name = "limit", value = "每页条数", paramType = "query" )
     })
-    public R list(@ApiIgnore BaseQuery baseQuery){
-            //查询列表数据
-            Page page=new Page(baseQuery.getCurrentPage(),baseQuery.getPageSize());
-            Page pageList=iBlogWebTechnologyService.selectPage(page,new EntityWrapper<BlogWebTechnology>());
-            if (CollectionUtils.isEmpty(pageList.getRecords())) {
-                return R.notFound();
-            }
-            return R.fillPageData(pageList);
+    public ResultLay list(@ApiIgnore LayPageQuery baseQuery){
+        //查询列表数据
+        Page pageList = technologyService.selectPage(new Page(baseQuery.getPage(),baseQuery.getLimit()),
+                new EntityWrapper<BlogWebTechnology>().orderBy("show_sort", true));
+        return ResultLay.fillPageData(pageList);
     }
 
 
@@ -52,10 +50,9 @@ public class BlogWebTechnologyController {
      * 信息
      */
     @GetMapping("/info/{id}" )
-    @RequiresPermissions("blogWebTechnology:info" )
     @ApiOperation(value = "关于网站使用的技术", notes = "获取关于网站使用的技术详情信息" )
     public R info(@PathVariable("id" ) Integer id){
-        BlogWebTechnology blogWebTechnology = iBlogWebTechnologyService.selectById(id);
+        BlogWebTechnology blogWebTechnology = technologyService.selectById(id);
         if (blogWebTechnology == null) {
             return R.notFound();
         }
@@ -63,27 +60,12 @@ public class BlogWebTechnologyController {
     }
 
     /**
-     * 保存
+     * 修改或新增
      */
-    @PostMapping("/save" )
-    @RequiresPermissions("blogWebTechnology:save" )
-    @ApiOperation(value = "关于网站使用的技术", notes = "保存关于网站使用的技术信息" )
-    public R save(@RequestBody BlogWebTechnology blogWebTechnology){
-        boolean retFlag = iBlogWebTechnologyService.insert(blogWebTechnology);
-        if (!retFlag) {
-            return R.error(MessageSourceUtil.getMessage("500"));
-        }
-        return R.ok();
-    }
-
-    /**
-     * 修改
-     */
-    @PostMapping("/update" )
-    @RequiresPermissions("blogWebTechnology:update" )
-    @ApiOperation(value = "关于网站使用的技术", notes = "更新关于网站使用的技术信息" )
-    public R update(@RequestBody BlogWebTechnology blogWebTechnology){
-        boolean retFlag = iBlogWebTechnologyService.updateById(blogWebTechnology);
+    @PostMapping("/insertOrUpdate" )
+    @ApiOperation(value = "关于网站使用的技术，修改或新增", notes = "修改或新增关于网站使用的技术信息" )
+    public R save(BlogWebTechnology blogWebTechnology){
+        boolean retFlag = technologyService.insertOrUpdate(blogWebTechnology);
         if (!retFlag) {
             return R.error(MessageSourceUtil.getMessage("500"));
         }
@@ -94,10 +76,9 @@ public class BlogWebTechnologyController {
      * 删除
      */
     @PostMapping("/delete/{id}" )
-    @RequiresPermissions("blogWebTechnology:delete" )
     @ApiOperation(value = "关于网站使用的技术", notes = "删除关于网站使用的技术信息" )
     public R delete(@PathVariable("id" ) Integer id){
-        boolean retFlag = iBlogWebTechnologyService.deleteById(id);
+        boolean retFlag = technologyService.deleteById(id);
         if (!retFlag) {
             return R.error(MessageSourceUtil.getMessage("500"));
         }

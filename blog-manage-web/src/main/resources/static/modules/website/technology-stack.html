@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>技术栈</title>
+    <link rel="stylesheet" href="../../frame/layui/css/layui.css">
+    <link rel="stylesheet" href="../../frame/static/css/style.css">
+    <link rel="icon" href="../../frame/static/image/code.png">
+</head>
+<body class="body">
+
+<!-- 工具集 -->
+<div class="my-btn-box">
+    <span class="fl">
+        <a class="layui-btn layui-btn-danger radius btn-delect" id="btn-delete-all">批量删除</a>
+        <a class="layui-btn btn-add btn-default" id="btn-add">添加</a>
+        <a class="layui-btn btn-add btn-default" id="btn-refresh"><i class="layui-icon">&#x1002;</i></a>
+    </span>
+    <span class="fr">
+        <span class="layui-form-label">搜索条件：</span>
+        <div class="layui-input-inline">
+            <input type="text" autocomplete="off" placeholder="请输入搜索条件" class="layui-input">
+        </div>
+        <button class="layui-btn mgl-20">查询</button>
+    </span>
+</div>
+
+<!-- 表格 -->
+<table class="layui-hide" id="layTable" lay-filter="layTableFilter"></table>
+
+<script type="text/javascript" src="../../frame/layui/layui.js"></script>
+<script type="text/javascript" src="../module.js"></script>
+<script type="text/javascript">
+
+    // layui方法
+    layui.use(['table', 'form', 'layer', 'vip_table'], function () {
+
+        // 操作对象
+        var form = layui.form
+                , table = layui.table
+                , layer = layui.layer
+                , vipTable = layui.vip_table
+                , $ = layui.jquery;
+
+        // 表格渲染
+        var tableIns = table.render({
+            elem: '#layTable'                  //指定原始表格元素选择器（推荐id选择器）
+            , page: true
+            , height: vipTable.getFullHeight()    //容器高度
+            , cols: [[                  //表头
+                {type:'checkbox'}
+                , {type:'numbers', title: '序号', width: 60, align: 'center'}
+                , {field: 'technologyTitle', title: '名称', width: 120, edit: true}
+                , {field: 'technologyContent', title: '描述', width: 120, edit: true}
+                , {field: 'showSort', title: '显示顺序', width: 260, align: 'center', edit: true}
+                , {fixed: 'right', title: '操作', width: 150, align: 'center', toolbar: '#barOption'} //这里的toolbar值是模板元素的选择器
+            ]]
+            , id: 'tableData'
+            , url: '/blogWebTechnology/list'
+            , where: {}
+            , method: 'get'
+            , limits: [5, 10, 20, 50, 100]
+            , limit: 10 //默认采用10
+            , loading: false
+            , done: function (res, curr, count) {
+            }
+        });
+
+        //监听表格复选框选择
+        table.on('checkbox(layTableFilter)', function(obj){
+            console.log(obj)
+        });
+
+        //缓存修改的对象
+        var updateValue = {};
+
+        //监听单元格编辑
+        table.on('edit(layTableFilter)', function(obj){
+            //缓存修改的值
+            updateValue[obj.field] = obj.value;
+        });
+
+        //监听工具条
+        table.on('tool(layTableFilter)', function (obj) {
+            layer.msg(obj.event);
+            //编辑
+            if (obj.event === 'save') {
+                //同步更新缓存对应的值
+                obj.update(updateValue);
+                //调后台接口修改内容
+                $.ajax({
+                    url: "/blogWebTechnology/insertOrUpdate" ,
+                    type: "POST",
+                    data:obj.data
+                }).then(function (value) {
+                    if (value.code == 200) {
+                        layer.msg("修改成功！");
+                    }else {
+                        layer.msg(value.msg);
+                    }
+                }).fail(function () {
+                    layer.msg("调用出错！");
+                });
+            }
+            //删除
+            if (obj.event === 'del') {
+                layer.confirm('确认删除此行？', function (index) {
+                    obj.del(); //删除对应行（tr）的DOM结构
+                    layer.close(index);
+                    //向服务端发送删除指令
+                    $.ajax({
+                        url: "/blogWebTechnology/delete/" + obj.data.id ,
+                        type: "POST"
+                    }).then(function (value) {
+                        if (value.code == 200) {
+                            layer.msg("删除成功！");
+                        }else {
+                            layer.msg(value.msg);
+                        }
+                    }).fail(function () {
+                        layer.msg("调用出错！");
+                    });
+                });
+            }
+            console.log(obj);
+        });
+
+        //批量删除
+        $('#btn-delete-all').on('click', function () {
+            var checkStatus = table.checkStatus('tableData');
+            if (checkStatus.data.length > 0){
+                var idArr = [];
+                for (var obj in checkStatus.data){
+                    idArr.push(checkStatus.data[obj].id);
+                }
+                layer.msg(idArr.join(','));
+            }  else {
+                layer.alert("没有选择内容！",{icon: 5, title:"提示", btnAlign: 'c'});
+            }
+        });
+
+        // 添加
+        $('#btn-add').on('click', function () {
+            layer.open({
+                title:'新增',
+                type: 2,
+                area: ['525px', '300px'],
+                maxmin: false,
+                content: 'technology-add.html'
+            });
+        });
+
+        // 刷新
+        $('#btn-refresh').on('click', function () {
+            tableIns.reload();
+        });
+        // you code ...
+
+    });
+</script>
+<!-- 表格操作按钮集 -->
+<script type="text/html" id="barOption">
+    <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="save">保存</a>
+    <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
+</script>
+</body>
+</html>
