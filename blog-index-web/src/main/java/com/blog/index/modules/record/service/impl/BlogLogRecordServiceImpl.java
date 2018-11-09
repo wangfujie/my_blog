@@ -8,19 +8,20 @@ import com.blog.common.utils.DateUtils;
 import com.blog.common.utils.IpAddressUtil;
 import com.blog.index.modules.other.service.IBlogTreatiseService;
 import com.blog.index.modules.other.service.IBlogWebInfoService;
-import com.blog.index.modules.other.vo.BlogTreatiseVo;
 import com.blog.index.modules.record.mapper.BlogLogRecordMapper;
 import com.blog.index.modules.record.service.IBlogLogRecordService;
 import com.blog.pojo.entity.BlogLogRecord;
 import com.blog.pojo.entity.BlogTreatise;
 import com.blog.pojo.entity.BlogWebInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
-
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author wangfj
@@ -35,6 +36,8 @@ public class BlogLogRecordServiceImpl extends ServiceImpl<BlogLogRecordMapper, B
     private IBlogWebInfoService webInfoService;
     @Autowired
     private IBlogTreatiseService treatiseService;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     /**
      * 增加日志记录信息
@@ -53,21 +56,28 @@ public class BlogLogRecordServiceImpl extends ServiceImpl<BlogLogRecordMapper, B
             case 1:
                 //文章点赞记录
                 //查询该ip是今日否点过赞
-                if (checkIpRecord(ipAddress, 1, blogLogRecord.getTreatiseUuid(), DateUtils.formatYmd(now))){
-                    return R.error("谢谢支持，今天已经赞过这篇了");
+                //拼接redis的key
+                String redisKey = blogLogRecord.getTreatiseUuid() + ipAddress;
+                ValueOperations valueOperations =  redisTemplate.opsForValue();
+                //获取redis，存的临时ip和uuid
+                Object record = valueOperations.get(redisKey);
+                if (record == null){
+                    //存入记录ip和uuid，24小时过期
+                    valueOperations.set(redisKey,"已点击",24*60*60, TimeUnit.SECONDS);
                 }else {
-                    //修改文章点赞总数量
-                    BlogTreatise blogTreatise = treatiseService.selectById(blogLogRecord.getTreatiseUuid());
-                    if (blogTreatise != null) {
-                        Integer praiseNum = blogTreatise.getPraiseNum();
-                        blogTreatise.setPraiseNum(praiseNum != null ? praiseNum + 1 : 1);
-                        treatiseService.updateById(blogTreatise);
-                    }
+                    return R.error("谢谢支持，今天已经赞过这篇了");
+                }
+                //修改文章点赞总数量
+                BlogTreatise blogTreatise = treatiseService.selectById(blogLogRecord.getTreatiseUuid());
+                if (blogTreatise != null) {
+                    Integer praiseNum = blogTreatise.getPraiseNum();
+                    blogTreatise.setPraiseNum(praiseNum != null ? praiseNum + 1 : 1);
+                    treatiseService.updateById(blogTreatise);
                 }
                 break;
             case 2:
                 //文章浏览记录
-                //加一操作已经在查询那里操作了，这里只添加记录
+                //这一操作已经在查询那里操作了，这里只添加记录
                 break;
             case 3:
                 //网站浏览记录

@@ -10,8 +10,8 @@
     <script src="../skin/public/js/jquery.min.js" ></script>
     <script src="../skin/public/js/hc-sticky.js"></script>
     <script src="../skin/public/js/comm.js"></script>
-    <script src="public/head-menu.js"></script>
-    <script src="public/aside-left.js"></script>
+    <script src="../common/js/head-menu.js"></script>
+    <script src="../common/js/aside-left.js"></script>
     <link href="../skin/public/css/index.css" rel="stylesheet">
     <script type="text/javascript" src="../skin/public/js/ajax.js"></script>
     <script type="text/javascript" src="../skin/public/js/vue.js"></script>
@@ -19,9 +19,9 @@
 <body>
     <header>
         <div class="logo">
-            <h1><a href="../index.html">Mr · 王</a></h1>
-            <span>花若盛开，清风自来！</span>
-        </div>
+        <h1><a href="../index.html">Mr · 王</a></h1>
+        <span>花若盛开，清风自来！</span>
+    </div>
         <nav>
             <h2 id="mnavh"><span class="navicon"></span></h2>
             <ul id="starlist">
@@ -62,7 +62,7 @@
                 <p>简介：{{ aboutMeInfo.aboutMe }}</p>
                 <h2>About my blog</h2>
                 <p>域 名：<a :href="aboutMeInfo.blogDomainName" target="_blank" >{{ aboutMeInfo.blogDomainName }}</a> </p>
-                <p>服务器：{{ aboutMeInfo.serverName }}<a :href="aboutMeInfo.serverLink" target="_blank" style="margin-left: 15px;"><span style="color:#FF0000;"><strong>前往阿里云官网购买&gt;&gt;</strong></span></a></p>
+                <p>服务器：{{ aboutMeInfo.serverName }}<!--<a :href="aboutMeInfo.serverLink" target="_blank" style="margin-left: 15px;"><span style="color:#FF0000;"><strong>前往阿里云官网购买&gt;&gt;</strong></span></a></p>-->
                 <p>备案号：{{ aboutMeInfo.recordNumber }}</p>
                 <p>技 术：{{ aboutMeInfo.programType }}</p>
             </div>
@@ -70,7 +70,7 @@
     </main>
     <div class="blank"></div>
     <footer>
-        <p>Design by <a href="../index.html">Mr · 王</a></p>
+        <script>$("footer").load("/common/footer.html");</script>
     </footer>
     <a href="about-me.html" class="cd-top cd-is-visible cd-fade-out">Top</a>
     <script>
