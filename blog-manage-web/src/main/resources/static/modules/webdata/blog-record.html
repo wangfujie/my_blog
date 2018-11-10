@@ -15,12 +15,18 @@
 <!-- 工具集 -->
 <div class="my-btn-box">
     <span class="fl">
-        <a class="layui-btn layui-btn-danger radius btn-delect" id="btn-delete-all">批量删除</a>
         <a class="layui-btn btn-add btn-default layui-btn-disabled" id="btn-add">添加</a>
         <a class="layui-btn btn-add btn-default" id="btn-refresh"><i class="layui-icon">&#x1002;</i></a>
     </span>
     <span class="fr">
         <span class="layui-form-label">搜索条件：</span>
+        <div class="layui-input-inline">
+            <select name="recordType" placeholder="请选择日志分类">
+                <option value="1">点赞文章</option>
+                <option value="2">阅读文章</option>
+                <option value="3">浏览主页</option>
+            </select>
+        </div>
         <div class="layui-input-inline">
             <input type="text" autocomplete="off" placeholder="请输入搜索条件" class="layui-input">
         </div>
@@ -50,8 +56,7 @@
             elem: '#layTable'                  //指定原始表格元素选择器（推荐id选择器）
             , height: vipTable.getFullHeight()    //容器高度
             , cols: [[                  //表头
-                {type:'checkbox'}
-                , {type:'numbers', title: '序列', width: 60, align: 'center'}
+                  {type:'numbers', title: '序列', width: 60, align: 'center'}
                 , {field: 'recordTypeStr', title: '浏览类别', width: 100 }
                 , {field: 'treatiseName', title: '浏览文章', width: 260 }
                 , {field: 'ipAddress', title: '浏览IP', width: 230, align: 'center' }
@@ -78,45 +83,24 @@
             }
         });
 
-        //批量删除
-        $('#btn-delete-all').on('click', function () {
-            var checkStatus = table.checkStatus('layTableData');
-            if (checkStatus.data.length > 0){
-                var idArr = [];
-                for (var obj in checkStatus.data){
-                    idArr.push(checkStatus.data[obj].uuid);
-                }
-                layer.msg(idArr.join(','));
-            } else {
-                layer.alert("没有选择内容！",{icon: 5, title:"提示", btnAlign: 'c'});
-            }
-        });
-
         // 刷新
         $('#btn-refresh').on('click', function () {
             tableIns.reload();
         });
 
-        //回复
-        function replyCon(data) {
-            layer.prompt({
-                formType: 2,
-                value: data.reply,
-                title: '请输入回复内容'
-            }, function(value, index, elem){
-                layer.close(index);
-                $.ajax({
-                    type: "post",
-                    url: "/blogLeaveMessage/reply",
-                    data: {
-                        "uuid": data.uuid,
-                        "reply":value
-                    },
-                    async: true,
-                });
-                layer.alert('回复成功');
-                location=location;
+        /**
+         * 查看详情文章弹窗
+         */
+        function showTreatise(uuid) {
+            var url = '/modules/blog/treatise/treatise-detail.html?uuid=' + uuid;
+            var index = layer.open({
+                title:'查看详情',
+                type: 2,
+                area: ['800px', '500px'],
+                maxmin: true,
+                content: url
             });
+            // layer.full(index);
         }
 
         // you code ...

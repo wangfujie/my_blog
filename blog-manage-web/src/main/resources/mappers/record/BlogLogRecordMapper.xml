@@ -11,4 +11,16 @@
 		<result column="create_time" property="createTime" />
 	</resultMap>
 
+	<select id="getLogRecordList" resultType="com.blog.manage.modules.record.vo.LogRecordVo">
+		SELECT log.*,
+				CASE log.record_type
+					WHEN 1 THEN '点赞文章'
+					WHEN 2 THEN '阅读文章'
+					WHEN 3 THEN '浏览首页'
+		  		END AS recordTypeStr,t.treatise_title treatiseName
+		FROM blog_log_record log
+		LEFT JOIN blog_treatise t ON log.treatise_uuid = t.uuid
+		ORDER BY log.create_time DESC
+	</select>
+
 </mapper>

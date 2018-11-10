@@ -48,5 +48,7 @@ new Vue({
         }
     },
     mounted() {
+        //使代码部分高亮显示
+        SyntaxHighlighter.all();
     }
 });

@@ -39,13 +39,9 @@ public class BlogLogRecordController {
             @ApiImplicitParam(name = "limit", value = "每页条数", paramType = "query" )
     })
     public ResultLay list(@ApiIgnore LayPageQuery baseQuery){
-            //查询列表数据
         //查询列表数据
-        Page pageList = logRecordService.selectPage(new Page(baseQuery.getPage(),baseQuery.getLimit()),
-                new EntityWrapper<BlogLogRecord>().orderBy("create_time", false));
-        return ResultLay.fillPageData(pageList);
+        return ResultLay.fillPageData(logRecordService.getLogRecordVoPage(new Page(baseQuery.getPage(),baseQuery.getLimit())));
     }
-
 
     /**
      * 信息
