@@ -63,7 +63,7 @@ public class BlogLogRecordServiceImpl extends ServiceImpl<BlogLogRecordMapper, B
                 Object record = valueOperations.get(redisKey);
                 if (record == null){
                     //存入记录ip和uuid，24小时过期
-                    valueOperations.set(redisKey,"已点击",24*60*60, TimeUnit.SECONDS);
+                    valueOperations.set(redisKey,"点击时间：" + DateUtils.formatYmdHms(new Date()),24*60*60, TimeUnit.SECONDS);
                 }else {
                     return R.error("谢谢支持，今天已经赞过这篇了");
                 }
