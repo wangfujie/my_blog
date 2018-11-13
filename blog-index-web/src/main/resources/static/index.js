@@ -7,17 +7,15 @@ $(function(){
     keyWord = params.keyWord;
     //默认加载列表
     getTreatiseList(thisPage,keyWord);
-    window.onscroll= function(){
-        //变量t是滚动条滚动时，距离顶部的距离
-        var t = document.documentElement.scrollTop||document.body.scrollTop;
-        //当滚动到距离顶部200px时，继续加载数据
-        if(t <= 20){
+
+    $(window).scroll(function () {
+        if ($(window).scrollTop() >= 25) {
             thisPage++;
             if (thisPage <= pages){
                 getTreatiseList(thisPage,keyWord);
             }
         }
-    }
+    });
 
     //增加网站浏览记录
     addLogRecord();
@@ -42,7 +40,7 @@ function getTreatiseList(pageNum,keyWord){
                         '<p class="bloginfo">' +
                             '<span>'+(this.source == 1 ? '原创' : '转载') + '</span>' +
                             '<span>'+this.createTime+'</span>' +
-                            '<span>[<a href="/blogCategory/info/'+this.categoryId+'">'+this.categoryName+'</a>]</span>' +
+                            '<span>[<a href="/knowledge/knowledge.html?categoryId='+this.fId+'&thisCategory='+this.categoryId+'">'+this.categoryName+'</a>]</span>' +
                             '<span>阅读('+this.readNum+')</span>' +
                         '</p>' +
                         '</li>';

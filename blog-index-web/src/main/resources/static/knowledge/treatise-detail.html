@@ -12,17 +12,20 @@
     <script src="../skin/public/js/jquery.min.js" ></script>
     <script src="../common/js/head-menu.js"></script>
     <script src="../common/js/aside-left.js"></script>
+    <script src="../skin/ueditor/SyntaxHighlighter/shCore.js"></script>
+    <script src="../skin/public/js/utils.js"></script>
+    <script src="../skin/public/js/vue.js"></script>
 </head>
 <body>
 <header>
     <div class="logo">
-        <h1><a href="../index.html">Mr · 王</a></h1>
+        <h1><a href="/">Mr · 王</a></h1>
         <span>路漫漫其修远兮，吾将上下而求索。</span>
     </div>
     <nav>
         <h2 id="mnavh"><span class="navicon"></span></h2>
         <ul id="starlist">
-            <li><a href="../index.html">首页</a></li>
+            <li><a href="/">首页</a></li>
         </ul>
     </nav>
 </header>
@@ -52,7 +55,7 @@
 </aside>
 <main id="treatiseDetail" >
     <div class="address">您现在的位置是：
-        <a href="../index.html">首页</a>
+        <a href="/">首页</a>
         &nbsp;>&nbsp;
         <a href="#">浏览详情</a>
     </div>
@@ -128,10 +131,7 @@
 <footer>
     <script>$("footer").load("/common/footer.html");</script>
 </footer>
-<a href="treatise-detail.html#" class="cd-top cd-is-visible cd-fade-out">Top</a>
-<script type="text/javascript" charset="utf-8" src="../skin/ueditor/SyntaxHighlighter/shCore.js"></script>
-<script src="../skin/public/js/utils.js"></script>
-<script src="../skin/public/js/vue.js"></script>
+<a id="btn_top" title="回到顶部"></a>
 <script src="treatise-detail.js"></script>
 </body>
 </html>

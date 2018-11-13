@@ -14,6 +14,7 @@ new Vue({
                         value.data.object.tagsList = tags.split(",");
                     }
                     self.treatiseInfo = value.data.object;
+
                 }
             }).fail(function () {
                 console.log("获取失败");
@@ -37,6 +38,13 @@ new Vue({
             });
         }
     },
+    watch:{
+        treatiseInfo:function(){
+            this.$nextTick(function(){
+                SyntaxHighlighter.all();
+            });
+        }
+    },
     created: function () {
         //获取参数
         var params = getRequestParams(window.location.search);
@@ -49,6 +57,8 @@ new Vue({
     },
     mounted() {
         //使代码部分高亮显示
-        SyntaxHighlighter.all();
+        this.$nextTick(function () {
+            SyntaxHighlighter.all();
+        });
     }
 });
