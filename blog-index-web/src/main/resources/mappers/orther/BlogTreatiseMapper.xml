@@ -35,7 +35,7 @@
 	</select>
 
     <select id="getTreatiseList" resultType="com.blog.index.modules.other.vo.BlogTreatiseVo">
-		SELECT bt.*,bc.category_name,
+		SELECT bt.*,bc.category_name,bc.f_id,
 				case bt.source when 1 then '原创' when 2 then '转载' end as sourceName,
 				case bt.recommend when 1 then '推荐' else '不推荐' end as recommendName
 		FROM `blog_treatise` bt

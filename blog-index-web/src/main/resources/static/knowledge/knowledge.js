@@ -61,7 +61,7 @@ function getTreatiseList(pageNum,keyWord,categoryId) {
                         '<p class="bloginfo">' +
                         '<span>' + (this.source == 1 ? '原创' : '转载') + '</span>' +
                         '<span>' + this.createTime + '</span>' +
-                        '<span>[<a href="/blogCategory/info/' + this.categoryId + '">' + this.categoryName + '</a>]</span>' +
+                        '<span>[<a href="/knowledge/knowledge.html?categoryId='+this.fId+'&thisCategory='+this.categoryId+'">'+this.categoryName+'</a>]</span>' +
                         '<span>阅读(' + this.readNum + ')</span>' +
                         '</p>' +
                         '</li>';
