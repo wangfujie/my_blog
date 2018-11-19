@@ -180,6 +180,7 @@
                       dataType: 'JSON',
                       success: function (data) {
                           if (data.code == 200) {
+                              self.blogLeaveMessage = {};
                               self.getList(1);
                               $('html , body').animate({scrollTop: 0},'slow');
                           }
