@@ -4,7 +4,10 @@ import com.blog.common.utils.DateUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
+
 import java.util.Date;
 
 /**
@@ -14,6 +17,25 @@ import java.util.Date;
  */
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
+
+    @Bean
+    public LocaleChangeInterceptor localeChangeInterceptor() {
+        LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
+        lci.setParamName("lang");
+        return lci;
+    }
+
+    @Bean
+    public ProtectSameCommitInterceptor protectSameCommitIntercepter() {
+        return new ProtectSameCommitInterceptor();
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+//        registry.addInterceptor(authorizationInterceptor()).addPathPatterns("/api/**");
+        registry.addInterceptor(protectSameCommitIntercepter()).addPathPatterns("/**");
+        registry.addInterceptor(localeChangeInterceptor());
+    }
 
     /**
      * 处理时间格式数据转换（将前端传入的时间字符串转换为date类型）

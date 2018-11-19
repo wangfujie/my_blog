@@ -19,7 +19,7 @@
 <header>
   <div class="logo">
     <h1><a href="/">Mr · 王</a></h1>
-    <span>花若盛开，清风自来！</span>
+    <span>路漫漫其修远兮，吾将上下而求索。</span>
   </div>
   <nav>
     <h2 id="mnavh"><span class="navicon"></span></h2>
@@ -126,6 +126,7 @@
                               nextContent: '下页',
                               callback: function (api) {
                                   self.getList(api.getCurrent());
+                                  $('html , body').animate({scrollTop: 0},'slow');
                               }
                           });
                           self.messages = value.data.page.records;
@@ -179,8 +180,7 @@
                       dataType: 'JSON',
                       success: function (data) {
                           if (data.code == 200) {
-                              self.blogLeaveMessage = {};
-                              list.getList(1);
+                              self.getList(1);
                               $('html , body').animate({scrollTop: 0},'slow');
                           }
                       }

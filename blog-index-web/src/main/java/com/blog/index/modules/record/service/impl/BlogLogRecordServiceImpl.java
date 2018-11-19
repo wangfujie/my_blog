@@ -10,6 +10,7 @@ import com.blog.index.modules.other.service.IBlogTreatiseService;
 import com.blog.index.modules.other.service.IBlogWebInfoService;
 import com.blog.index.modules.record.mapper.BlogLogRecordMapper;
 import com.blog.index.modules.record.service.IBlogLogRecordService;
+import com.blog.index.utils.RedisUtils;
 import com.blog.pojo.entity.BlogLogRecord;
 import com.blog.pojo.entity.BlogTreatise;
 import com.blog.pojo.entity.BlogWebInfo;
@@ -37,7 +38,7 @@ public class BlogLogRecordServiceImpl extends ServiceImpl<BlogLogRecordMapper, B
     @Autowired
     private IBlogTreatiseService treatiseService;
     @Autowired
-    private RedisTemplate redisTemplate;
+    private RedisUtils redisUtils;
 
     /**
      * 增加日志记录信息
@@ -58,12 +59,12 @@ public class BlogLogRecordServiceImpl extends ServiceImpl<BlogLogRecordMapper, B
                 //查询该ip是今日否点过赞
                 //拼接redis的key
                 String redisKey = blogLogRecord.getTreatiseUuid() + ipAddress;
-                ValueOperations valueOperations =  redisTemplate.opsForValue();
+
                 //获取redis，存的临时ip和uuid
-                Object record = valueOperations.get(redisKey);
-                if (record == null){
-                    //存入记录ip和uuid，24小时过期
-                    valueOperations.set(redisKey,"点击时间：" + DateUtils.formatYmdHms(new Date()),24*60*60, TimeUnit.SECONDS);
+                String record = redisUtils.get(redisKey);
+                if (StringUtils.isEmpty(record)){
+                    //存入记录ip和uuid，默认24小时过期
+                    redisUtils.set(redisKey,"点击时间：" + DateUtils.formatYmdHms(new Date()));
                 }else {
                     return R.error("谢谢支持，今天已经赞过这篇了");
                 }

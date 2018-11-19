@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import java.util.List;
+
 /**
  * @author wangfj
  * @date 2018-09-10
@@ -95,6 +97,25 @@ public class BlogLeaveMessageController {
             blogLeaveMessage.setStatus(2);
         }
         boolean retFlag = iBlogLeaveMessageService.updateById(blogLeaveMessage);
+        if (!retFlag) {
+            return R.error(MessageSourceUtil.getMessage("500"));
+        }
+        return R.ok();
+    }
+
+    /**
+     * 批量删除
+     */
+    @PutMapping("/deleteBatch" )
+    @ApiOperation(value = "留言表", notes = "批量删除留言表信息" )
+    public R deleteBatch(String uuidString){
+        String[] uuidArray = uuidString.split("\\,");
+        List<BlogLeaveMessage> leaveMessageList = iBlogLeaveMessageService.selectList(new EntityWrapper<BlogLeaveMessage>().in("uuid",uuidArray));
+        if (leaveMessageList != null && leaveMessageList.size() > 0){
+            //设置成删除状态
+            leaveMessageList.forEach(message -> message.setStatus(2));
+        }
+        boolean retFlag = iBlogLeaveMessageService.updateBatchById(leaveMessageList);
         if (!retFlag) {
             return R.error(MessageSourceUtil.getMessage("500"));
         }

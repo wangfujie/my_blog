@@ -15,7 +15,6 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.*;
 import springfox.documentation.annotations.ApiIgnore;
-
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
@@ -56,20 +55,6 @@ public class BlogLeaveMessageController {
     }
 
     /**
-     * 信息
-     */
-    @GetMapping("/info/{uuid}" )
-    @RequiresPermissions("blogLeaveMessage:info" )
-    @ApiOperation(value = "留言表", notes = "获取留言表详情信息" )
-    public R info(@PathVariable("uuid" ) String uuid){
-        BlogLeaveMessage blogLeaveMessage = iBlogLeaveMessageService.selectById(uuid);
-        if (blogLeaveMessage == null) {
-            return R.notFound();
-        }
-        return R.fillSingleData(blogLeaveMessage);
-    }
-
-    /**
      * 保存
      */
     @PostMapping("/save" )
@@ -88,31 +73,4 @@ public class BlogLeaveMessageController {
         return R.ok();
     }
 
-    /**
-     * 修改
-     */
-    @PostMapping("/update" )
-    @RequiresPermissions("blogLeaveMessage:update" )
-    @ApiOperation(value = "留言表", notes = "更新留言表信息" )
-    public R update(@RequestBody BlogLeaveMessage blogLeaveMessage){
-        boolean retFlag = iBlogLeaveMessageService.updateById(blogLeaveMessage);
-        if (!retFlag) {
-            return R.error(MessageSourceUtil.getMessage("500"));
-        }
-        return R.ok();
-    }
-
-    /**
-     * 删除
-     */
-    @PostMapping("/delete/{uuid}" )
-    @RequiresPermissions("blogLeaveMessage:delete" )
-    @ApiOperation(value = "留言表", notes = "删除留言表信息" )
-    public R delete(@PathVariable("uuid" ) String uuid){
-        boolean retFlag = iBlogLeaveMessageService.deleteById(uuid);
-        if (!retFlag) {
-            return R.error(MessageSourceUtil.getMessage("500"));
-        }
-        return R.ok();
-    }
 }

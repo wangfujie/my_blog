@@ -34,6 +34,7 @@ new Vue({
                     alert(value.msg);
                 }
             }).fail(function () {
+                alert("您点的太快了！不要太快哦！");
                 console.log("点赞文章,接口调用失败");
             });
         }
