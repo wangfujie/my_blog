@@ -119,7 +119,25 @@
                 for (var obj in checkStatus.data){
                     idArr.push(checkStatus.data[obj].uuid);
                 }
-                layer.msg(idArr.join(','));
+                // layer.msg(idArr.join(','));
+                layer.confirm('确认删除这些留言？', function (index) {
+                    layer.close(index);
+                    //向服务端发送删除指令
+                    $.ajax({
+                        url: "/blogLeaveMessage/deleteBatch/" ,
+                        type: "PUT",
+                        data: {"uuidString":idArr.join(',')}
+                    }).then(function (value) {
+                        if (value.code == 200) {
+                            layer.msg("删除成功！");
+                            location = location;
+                        }else {
+                            layer.msg(value.msg);
+                        }
+                    }).fail(function () {
+                        layer.msg("调用出错！");
+                    });
+                });
             } else {
                 layer.alert("没有选择内容！",{icon: 5, title:"提示", btnAlign: 'c'});
             }
