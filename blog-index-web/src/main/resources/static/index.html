@@ -7,59 +7,90 @@
     <meta name="description" content="路漫漫其修远兮，吾将上下而求索。"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="skin/public/images/logo.png">
-    <script src="skin/public/js/jquery.min.js"></script>
-    <script src="common/js/head-menu.js"></script>
-    <script src="common/js/aside-left.js"></script>
     <link href="skin/public/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="skin/public/css/pagination.css" media="screen">
+    <script src="skin/public/js/jquery.min.js"></script>
+    <script src="skin/public/js/jquery.pagination.js"></script>
+    <script src="skin/public/js/utils.js"></script>
+    <script src="skin/public/js/vue.js"></script>
 </head>
 <body>
-<header>
-    <div class="logo">
-        <h1><a href="index.html">Mr · 王</a></h1>
-        <span>路漫漫其修远兮，吾将上下而求索。</span>
-    </div>
-    <nav>
-        <h2 id="mnavh"><span class="navicon"></span></h2>
-        <ul id="starlist">
-            <li><a href="index.html">首页</a></li>
-        </ul>
-    </nav>
-</header>
-<div class="blank"></div>
-<aside>
-    <div class="newsbox">
-        <h2 class="hometitle">推荐</h2>
-        <ul class="news" id="recommend">
-        </ul>
-    </div>
-    <div class="search">
-        <input name="keyboard" id="keyboard" class="input_text" placeholder="请输入关键字词" type="text">
-        <input id="keyboardQuery" name="Submit" class="input_submit" value="搜索" type="submit">
-    </div>
-    <div class="newsbox">
-        <h2 class="hometitle">标签云</h2>
-        <ul class="cloud" id="show_tags"></ul>
-    </div>
-    <div class="newsbox">
-        <h2 class="hometitle">阅读排行</h2>
-        <ul class="news" id="read_ranking"></ul>
-    </div>
-    <div class="newsbox">
-        <h2 class="hometitle">友情链接</h2>
-        <ul class="links"></ul>
-    </div>
-</aside>
-<main>
-    <div class="bloglist">
-        <ul id="treatise-list"></ul>
-    </div>
-</main>
-<div class="blank"></div>
+<div id="vueBodyDiv">
+    <header>
+        <div class="logo">
+            <h1><a href="index.html">Mr · 王</a></h1>
+            <span>路漫漫其修远兮，吾将上下而求索。</span>
+        </div>
+        <nav>
+            <h2 id="mnavh"><span class="navicon"></span></h2>
+            <ul id="starlist">
+                <li><a href="index.html">首页</a></li>
+                <li v-for="head in headMenu">
+                    <a :href="head.linkUrl">{{ head.categoryName }}</a>
+                    <ul v-if="head.subNodeList != null" class="sub">
+                        <li v-for="subNode in head.subNodeList"><a :href="subNode.linkUrl">{{ subNode.categoryName }}</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <div class="blank"></div>
+    <aside>
+        <div class="newsbox">
+            <h2 class="hometitle">推荐</h2>
+            <ul class="news">
+                <li v-for="recommend in recommendList">
+                    <a :href="'/knowledge/treatise-detail.html?uuid=' + recommend.uuid" :title="recommend.treatiseTitle">{{ recommend.treatiseTitle }}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="search">
+            <input name="keyboard" id="keyboard" class="input_text" placeholder="请输入关键字词" type="text">
+            <input id="keyboardQuery" name="Submit" class="input_submit" value="搜索" type="submit">
+        </div>
+        <div class="newsbox">
+            <h2 class="hometitle">标签云</h2>
+            <ul class="cloud">
+                <a v-for="tag in tagList" :href="'/tags/tags.html?tagName=' + tag.tagName" target="_blank" >{{ tag.tagName }}</a>
+            </ul>
+        </div>
+        <div class="newsbox">
+            <h2 class="hometitle">阅读排行</h2>
+            <ul class="news">
+                <li v-for="ranking in readRanking"><a :href="'/knowledge/treatise-detail.html?uuid=' + ranking.uuid" :title="ranking.treatiseTitle">{{ ranking.treatiseTitle }}</a></li>
+            </ul>
+        </div>
+        <div class="newsbox">
+            <h2 class="hometitle">友情链接</h2>
+            <ul class="links">
+                <li v-for="link in friendLinks"><a :href="link.linkUrl" :title="link.linkTitle" target="_blank">{{ link.linkTitle }}</a></li>
+            </ul>
+        </div>
+    </aside>
+    <main>
+        <div class="bloglist">
+            <ul id="treatise-list">
+                <li v-for="treatise in treatiseList">
+                    <h2><a :href="'/knowledge/treatise-detail.html?uuid=' + treatise.uuid" :title="treatise.treatiseTitle">{{ treatise.treatiseTitle }}</a></h2>
+                    <p class="blogtext">{{ treatise.treatisePreview }}</p>
+                    <p class="bloginfo">
+                        <span>{{ (treatise.source == 1 ? '原创' : '转载') }}</span>
+                        <span>{{ treatise.createTime }}</span>
+                        <span>[<a :href="'/knowledge/knowledge.html?categoryId='+ treatise.fId + '&thisCategory=' + treatise.categoryId">{{ treatise.categoryName }}</a>]</span>
+                        <span>阅读({{ treatise.readNum }})</span>
+                    </p>
+                </li>
+            </ul>
+        </div>
+        <div class="m-style pageList"></div>
+    </main>
+    <div class="blank"></div>
+</div>
 <footer>
     <script>$("footer").load("/common/footer.html");</script>
 </footer>
 <a id="btn_top" title="回到顶部"></a>
-<script src="skin/public/js/utils.js"></script>
+<script src="common/js/top.js"></script>
 <script src="index.js"></script>
 </body>
 </html>
