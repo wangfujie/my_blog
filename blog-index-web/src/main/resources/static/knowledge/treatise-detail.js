@@ -104,6 +104,12 @@ new Vue({
                 alert("您点的太快了！不要太快哦！");
                 console.log("点赞文章,接口调用失败");
             });
+        },
+        initDatePicker : function () {
+            //延迟加载，使代码部分高亮显示
+            this.$nextTick(function () {
+                SyntaxHighlighter.all();
+            });
         }
     },
     watch:{
@@ -127,8 +133,6 @@ new Vue({
     },
     mounted() {
         //使代码部分高亮显示
-        this.$nextTick(function () {
-            SyntaxHighlighter.all();
-        });
+        this.initDatePicker();
     }
 });
