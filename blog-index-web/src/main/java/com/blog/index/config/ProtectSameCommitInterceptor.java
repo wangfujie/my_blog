@@ -1,6 +1,7 @@
 package com.blog.index.config;
 
 import com.alibaba.fastjson.JSON;
+import com.blog.common.utils.IpAddressUtil;
 import com.blog.common.utils.RRException;
 import com.blog.index.utils.RedisUtils;
 import org.apache.catalina.connector.RequestFacade;
@@ -12,7 +13,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
@@ -33,13 +33,17 @@ public class ProtectSameCommitInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if (request instanceof RequestFacade) {
             RequestFacade requestFacade = (RequestFacade) request;
-            String requestURI = requestFacade.getRequestURI();
+            //获取请求类型
             String method = requestFacade.getMethod();
-
+            //获取请求地址
+            String requestURI = requestFacade.getRequestURI();
+            //获取ip地址
+            String ipAddress = IpAddressUtil.getRealIpAddress(request);
+            //post提交才限制
             if ("post".equalsIgnoreCase(method)) {
                 Map<String, String[]> parameterMap = requestFacade.getParameterMap();
                 StringBuilder key = new StringBuilder(requestURI);
-                key.append(JSON.toJSONString(parameterMap));
+                key.append(ipAddress).append(JSON.toJSONString(parameterMap));
                 String value = redisUtils.get(key.toString());
                 if (StringUtils.hasLength(value)) {
                     logger.info("发现重复记录:" + key.toString());
@@ -55,6 +59,5 @@ public class ProtectSameCommitInterceptor extends HandlerInterceptorAdapter {
         } else {
             return true;
         }
-
     }
 }
