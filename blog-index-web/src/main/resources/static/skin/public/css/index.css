@@ -784,7 +784,9 @@ p.fbtime {
     font-size: 12px;
 }
 
-p.fbinfo {
+.fbinfo {
+    white-space:pre-wrap;
+    word-wrap:break-word;
     margin: 10px 0;
 }
 
