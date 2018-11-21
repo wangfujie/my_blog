@@ -1,8 +1,75 @@
 new Vue({
-    el: "#treatiseDetail",
-    data:{treatiseInfo:{}},
+    el: "#detailVue",
+    data:{
+        headMenu:[],
+        recommendList:[],
+        tagList:[],
+        readRanking:[],
+        friendLinks:[],
+        treatiseInfo:{}
+        },
     methods:{
-        initInfo:function (treatiseUuid) {
+        initInfo:function () {
+            var self = this;
+
+            //获取公共头菜单列表
+            $.ajax({
+                url:"/blogCategory/getBlogMenuNode",
+                type:"GET",
+                success:function(data){
+                    if (data.code == 200){
+                        self.headMenu = data.data.list;
+                    }
+                }
+            });
+
+            // 推荐
+            $.ajax({
+                url:"/blogTreatise/getRecommend",
+                type:"GET",
+                success:function(data){
+                    if (data.code == 200){
+                        self.recommendList = data.data.list;
+                    }
+                }
+            });
+
+            //标签云
+            $.ajax({
+                url:"/blogTags/getShowTags",
+                type:"GET",
+                success:function(data){
+                    if (data.code == 200){
+                        self.tagList = data.data.list;
+                    }
+                }
+            });
+
+            //阅读排行，10条
+            $.ajax({
+                url:"/blogTreatise/getReadRanking",
+                type:"GET",
+                data:{"currentPage":1,"pageSize":10},
+                success:function(data){
+                    if (data.code == 200){
+                        self.readRanking = data.data.page.records;
+                    }
+                }
+            });
+
+            // 友情链接查询
+            $.ajax({
+                url:"/blogFriendlyLinks/list",
+                type:"GET",
+                data:{"currentPage":1,"pageSize":5},
+                success:function(data){
+                    if (data.code == 200){
+                        self.friendLinks = data.data.page.records;
+                    }
+                }
+            });
+        },
+        getTreatiseDetail:function (treatiseUuid) {
             var self = this;
             $.ajax({
                 url: "/blogTreatise/info/" + treatiseUuid,
@@ -47,13 +114,15 @@ new Vue({
         }
     },
     created: function () {
+        //初始数据加载
+        this.initInfo();
         //获取参数
         var params = getRequestParams(window.location.search);
         var uuid = params.uuid;
         //如果传有主键uuid，则加载详情数据
         if (uuid){
             //初始化数据
-            this.initInfo(uuid);
+            this.getTreatiseDetail(uuid);
         }
     },
     mounted() {
