@@ -42,12 +42,15 @@ public class SessionShiroConfig {
     @Bean("shiroFilter")
     public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilter = new ShiroFilterFactoryBean();
+        // 必须设置 SecurityManager
         shiroFilter.setSecurityManager(securityManager);
-//        shiroFilter.setLoginUrl("/"+projectName);
+        //如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
         shiroFilter.setLoginUrl("/");
+        // 登录成功后要跳转的链接
         shiroFilter.setSuccessUrl("/index.html");
+        // 未授权界面;
         shiroFilter.setUnauthorizedUrl("/");
-
+        // 配置不会被拦截的链接 顺序判断
         Map<String, String> filterMap = new LinkedHashMap<>();
         filterMap.put("/public/**", "anon");
         filterMap.put("/common/**", "anon");
@@ -58,7 +61,6 @@ public class SessionShiroConfig {
         filterMap.put("/swagger-resources/configuration/ui", "anon");
 
         //文件上传下载
-        filterMap.put("/testupload.html", "anon");
         filterMap.put("/sys/oss/upload*", "anon");
         filterMap.put("/sys/oss/download1/*", "anon");
 
@@ -68,7 +70,6 @@ public class SessionShiroConfig {
         filterMap.put("/**/*.html", "anon");
         filterMap.put("/**/*.js", "anon");
         filterMap.put("/**/*.css", "anon");
-        filterMap.put("/**/*.woff", "anon");
         filterMap.put("/**/*.png", "anon");
         filterMap.put("/common/validateCode/validate/**", "anon");
         filterMap.put("/common/email/**", "anon");
@@ -85,6 +86,7 @@ public class SessionShiroConfig {
         //单点登录url
         filterMap.put("/ssologin/**", "anon");
 
+        // 过滤链定义，从上向下顺序执行，一般将 /**放在最为下边
         filterMap.put("/**", "authc");
         shiroFilter.setFilterChainDefinitionMap(filterMap);
 
