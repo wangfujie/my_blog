@@ -896,49 +896,6 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
         },
 
         /**
-         * Finds all elements on the page which should be processes by SyntaxHighlighter.
-         *
-         * @param {Object} globalParams		Optional parameters which override element's
-         * 									parameters. Only used if element is specified.
-         *
-         * @param {Object} element	Optional element to highlight. If none is
-         * 							provided, all elements in the current document
-         * 							are returned which qualify.
-         *
-         * @return {Array}	Returns list of <code>{ target: DOMElement, params: Object }</code> objects.
-         */
-        findElements: function(globalParams, element)
-        {
-            var elements = element ? [element] : toArray(document.getElementsByTagName(sh.config.tagName)),
-                conf = sh.config,
-                result = []
-                ;
-
-            // support for <SCRIPT TYPE="syntaxhighlighter" /> feature
-            if (conf.useScriptTags)
-                elements = elements.concat(getSyntaxHighlighterScriptTags());
-
-            if (elements.length === 0)
-                return result;
-
-            for (var i = 0; i < elements.length; i++)
-            {
-                var item = {
-                    target: elements[i],
-                    // local params take precedence over globals
-                    params: merge(globalParams, parseParams(elements[i].className))
-                };
-
-                if (item.params['brush'] == null)
-                    continue;
-
-                result.push(item);
-            }
-
-            return result;
-        },
-
-        /**
          * Shorthand to highlight all elements on the page that are marked as
          * SyntaxHighlighter source code.
          *
@@ -955,7 +912,7 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
                 propertyName = 'innerHTML',
                 highlighter = null,
                 conf = sh.config
-                ;
+            ;
 
             if (elements.length === 0)
                 return;
@@ -967,7 +924,7 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
                     params = element.params,
                     brushName = params.brush,
                     code
-                    ;
+                ;
 
                 if (brushName == null)
                     continue;
@@ -1014,16 +971,61 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
         },
 
         /**
+         * Finds all elements on the page which should be processes by SyntaxHighlighter.
+         *
+         * @param {Object} globalParams		Optional parameters which override element's
+         * 									parameters. Only used if element is specified.
+         *
+         * @param {Object} element	Optional element to highlight. If none is
+         * 							provided, all elements in the current document
+         * 							are returned which qualify.
+         *
+         * @return {Array}	Returns list of <code>{ target: DOMElement, params: Object }</code> objects.
+         */
+        findElements: function(globalParams, element)
+        {
+            var elements = element ? [element] : toArray(document.getElementsByTagName(sh.config.tagName)),
+                conf = sh.config,
+                result = []
+                ;
+
+            // support for <SCRIPT TYPE="syntaxhighlighter" /> feature
+            if (conf.useScriptTags)
+                elements = elements.concat(getSyntaxHighlighterScriptTags());
+
+            if (elements.length === 0)
+                return result;
+
+            for (var i = 0; i < elements.length; i++)
+            {
+                var item = {
+                    target: elements[i],
+                    // local params take precedence over globals
+                    params: merge(globalParams, parseParams(elements[i].className))
+                };
+
+                if (item.params['brush'] == null)
+                    continue;
+
+                result.push(item);
+            }
+
+            return result;
+        },
+
+        /**
          * Main entry point for the SyntaxHighlighter.
          * @param {Object} params Optional params to apply to all highlighted elements.
          */
         all: function(params)
         {
-            attachEvent(
-                window,
-                'load',
-                function() { sh.highlight(params); }
-            );
+            sh.highlight(params);
+            //注释下面的代码，不知道有啥用，反正此方法有时不会调用highlight方法
+            // attachEvent(
+            //     window,
+            //     'load',
+            //     function() { sh.highlight(params); }
+            // );
         }
     }; // end of sh
 

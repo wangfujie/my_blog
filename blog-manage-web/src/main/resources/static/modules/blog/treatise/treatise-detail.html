@@ -7,6 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="icon" href="../../../frame/static/image/code.png">
     <title>文章管理-详情</title>
+    <script type="text/javascript" src="../../../js/common/jquery.min.js"></script>
+    <script type="text/javascript" src="../../../js/common/utils.js"></script>
+    <script type="text/javascript" src="../../../js/common/vue.js"></script>
     <link rel="stylesheet" href="../../../frame/ueditor/themes/default/css/ueditor.min.css">
     <link rel="stylesheet" href="../../../frame/ueditor/themes/iframe.css">
     <link rel="stylesheet" href="../../../frame/ueditor/third-party/SyntaxHighlighter/shCoreDefault.css">
@@ -28,15 +31,10 @@
             <strong>简介</strong>
             {{ treatiseInfo.treatisePreview }}
         </div>
-        <div class="treatise_body" id="treatiseBody" v-html="treatiseInfo.treatiseBody"></div>
+        <div class="treatise_body" v-html="treatiseInfo.treatiseBody"></div>
     </div>
 </main>
 <div class="blank"></div>
-
-<script type="text/javascript" src="../../../js/common/jquery.min.js"></script>
-<script type="text/javascript" src="../../../js/common/utils.js"></script>
-<script type="text/javascript" src="../../../js/common/vue.js"></script>
-
 <script type="text/javascript">
     new Vue({
         el: "#treatiseDetail",
@@ -60,9 +58,14 @@
                 });
             },
             initDatePicker:function () {
+                SyntaxHighlighter.all();
+            }
+        },
+        watch:{
+            treatiseInfo:function(){
                 //延迟加载，使代码部分高亮显示
                 this.$nextTick(function () {
-                    SyntaxHighlighter.all();
+                    this.initDatePicker()
                 });
             }
         },
@@ -74,10 +77,6 @@
             if (uuid){
                 this.initInfo(uuid);
             }
-        },
-        mounted() {
-            //使代码部分高亮显示
-            setTimeout(this.initDatePicker(),100);
         }
     });
 </script>
