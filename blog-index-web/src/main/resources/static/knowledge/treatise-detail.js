@@ -106,16 +106,16 @@ new Vue({
             });
         },
         initDatePicker : function () {
-            //延迟加载，使代码部分高亮显示
-            this.$nextTick(function () {
-                SyntaxHighlighter.all();
-            });
+            //使代码部分高亮显示
+            SyntaxHighlighter.all();
         }
     },
     watch:{
         treatiseInfo:function(){
-            // setInterval(this.initDatePicker(),1000);
-            setTimeout(this.initDatePicker(),100);
+            //延迟加载，使代码部分高亮显示
+            this.$nextTick(function () {
+                this.initDatePicker();
+            });
         }
     },
     created: function () {

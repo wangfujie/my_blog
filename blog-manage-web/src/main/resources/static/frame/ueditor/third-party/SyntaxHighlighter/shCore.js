@@ -1019,11 +1019,13 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
          */
         all: function(params)
         {
-            attachEvent(
-                window,
-                'load',
-                function() { sh.highlight(params); }
-            );
+            sh.highlight(params);
+            //注释下面的代码，不知道有啥用，反正此方法有时不会调用highlight方法
+            // attachEvent(
+            //     window,
+            //     'load',
+            //     function() { sh.highlight(params); }
+            // );
         }
     }; // end of sh
 
