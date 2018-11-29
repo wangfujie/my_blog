@@ -1,4 +1,5 @@
 # robots.txt generated at http://tool.chinaz.com/robots/
 User-agent: *
 allow: /
+Disallow: /others/gbook.html
 Sitemap: https://blog.wwolf.wang/sitemap.xml

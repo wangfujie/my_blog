@@ -58,6 +58,12 @@
                 }).fail(function () {
                     console.log("获取失败");
                 });
+            },
+            initDatePicker:function () {
+                //延迟加载，使代码部分高亮显示
+                this.$nextTick(function () {
+                    SyntaxHighlighter.all();
+                });
             }
         },
         created: function () {
@@ -71,7 +77,7 @@
         },
         mounted() {
             //使代码部分高亮显示
-            SyntaxHighlighter.all();
+            setTimeout(this.initDatePicker(),100);
         }
     });
 </script>

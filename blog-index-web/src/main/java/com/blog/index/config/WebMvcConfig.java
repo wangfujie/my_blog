@@ -7,13 +7,12 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
-
 import java.util.Date;
 
 /**
  * @author wangfujie
  * @date 2018-08-10 17:09
- * @description 时间格式化配置
+ * @description webMvc的配置
  */
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
