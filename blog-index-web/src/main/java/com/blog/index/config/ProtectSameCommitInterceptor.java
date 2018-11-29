@@ -41,7 +41,9 @@ public class ProtectSameCommitInterceptor extends HandlerInterceptorAdapter {
             String ipAddress = IpAddressUtil.getRealIpAddress(request);
             //post提交才限制
             if ("post".equalsIgnoreCase(method)) {
+                //获取post的提交内容
                 Map<String, String[]> parameterMap = requestFacade.getParameterMap();
+                //拼接redis要存入的key
                 StringBuilder key = new StringBuilder(requestURI);
                 key.append(ipAddress).append(JSON.toJSONString(parameterMap));
                 String value = redisUtils.get(key.toString());

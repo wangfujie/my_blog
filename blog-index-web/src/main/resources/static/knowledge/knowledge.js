@@ -95,6 +95,8 @@ new Vue({
                         $(data.data.list).each(function () {
                             if (selectCategory == this.id){
                                 this['tagId'] = "thisCategory";
+                            }else {
+                                this['tagId'] = "";
                             }
                         });
                         self.categoryList = data.data.list;

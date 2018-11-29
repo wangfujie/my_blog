@@ -114,9 +114,8 @@ new Vue({
     },
     watch:{
         treatiseInfo:function(){
-            this.$nextTick(function(){
-                SyntaxHighlighter.all();
-            });
+            // setInterval(this.initDatePicker(),1000);
+            setTimeout(this.initDatePicker(),100);
         }
     },
     created: function () {
@@ -130,9 +129,5 @@ new Vue({
             //初始化数据
             this.getTreatiseDetail(uuid);
         }
-    },
-    mounted() {
-        //使代码部分高亮显示
-        this.initDatePicker();
     }
 });
