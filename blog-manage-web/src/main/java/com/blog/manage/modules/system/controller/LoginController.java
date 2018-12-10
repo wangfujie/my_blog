@@ -2,8 +2,8 @@ package com.blog.manage.modules.system.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.blog.common.result.R;
-import com.blog.common.utils.IpAddressUtil;
 import com.blog.common.utils.Md5Util;
+import com.blog.common.utils.WebUtil;
 import com.blog.manage.common.utils.ShiroUtils;
 import com.blog.manage.modules.admin.service.IBlogAdminService;
 import com.blog.pojo.entity.BlogAdmin;
@@ -48,7 +48,7 @@ public class LoginController {
             //账号没登录权限
             return R.error(e.getMessage());
         }
-        admin.setLoginIp(IpAddressUtil.getRealIpAddress(servletRequest));
+        admin.setLoginIp(WebUtil.getRealIpAddress(servletRequest));
         admin.setLoginTime(new Date());
         adminService.updateById(admin);
         return R.ok("登录成功！");

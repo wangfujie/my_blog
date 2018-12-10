@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.blog.common.result.R;
 import com.blog.common.utils.DateUtils;
-import com.blog.common.utils.IpAddressUtil;
+import com.blog.common.utils.WebUtil;
 import com.blog.index.modules.other.service.IBlogTreatiseService;
 import com.blog.index.modules.other.service.IBlogWebInfoService;
 import com.blog.index.modules.record.mapper.BlogLogRecordMapper;
@@ -15,14 +15,11 @@ import com.blog.pojo.entity.BlogLogRecord;
 import com.blog.pojo.entity.BlogTreatise;
 import com.blog.pojo.entity.BlogWebInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author wangfj
@@ -52,7 +49,7 @@ public class BlogLogRecordServiceImpl extends ServiceImpl<BlogLogRecordMapper, B
         //获取当前时间
         Date now = new Date();
         //获取访问ip地址
-        String ipAddress = IpAddressUtil.getRealIpAddress(request);
+        String ipAddress = WebUtil.getRealIpAddress(request);
         switch (blogLogRecord.getRecordType()){
             case 1:
                 //文章点赞记录

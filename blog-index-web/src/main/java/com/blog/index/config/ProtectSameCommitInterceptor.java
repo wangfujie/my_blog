@@ -1,8 +1,8 @@
 package com.blog.index.config;
 
 import com.alibaba.fastjson.JSON;
-import com.blog.common.utils.IpAddressUtil;
 import com.blog.common.utils.RRException;
+import com.blog.common.utils.WebUtil;
 import com.blog.index.utils.RedisUtils;
 import org.apache.catalina.connector.RequestFacade;
 import org.apache.shiro.util.StringUtils;
@@ -38,7 +38,7 @@ public class ProtectSameCommitInterceptor extends HandlerInterceptorAdapter {
             //获取请求地址
             String requestURI = requestFacade.getRequestURI();
             //获取ip地址
-            String ipAddress = IpAddressUtil.getRealIpAddress(request);
+            String ipAddress = WebUtil.getRealIpAddress(request);
             //post提交才限制
             if ("post".equalsIgnoreCase(method)) {
                 //获取post的提交内容
