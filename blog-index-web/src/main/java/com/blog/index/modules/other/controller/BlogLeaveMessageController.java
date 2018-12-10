@@ -1,7 +1,7 @@
 package com.blog.index.modules.other.controller;
 
-import com.blog.common.utils.IpAddressUtil;
 import com.blog.common.utils.RandomUtils;
+import com.blog.common.utils.WebUtil;
 import com.blog.pojo.entity.BlogLeaveMessage;
 import com.blog.index.modules.other.service.IBlogLeaveMessageService;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
@@ -65,7 +65,7 @@ public class BlogLeaveMessageController {
         blogLeaveMessage.setHeadImgNum(RandomUtils.getRandomNum(1,16));
         blogLeaveMessage.setCreateTime(new Date());
         //获取访问ip地址
-        blogLeaveMessage.setIpAddress(IpAddressUtil.getRealIpAddress(request));
+        blogLeaveMessage.setIpAddress(WebUtil.getRealIpAddress(request));
         boolean retFlag = iBlogLeaveMessageService.insert(blogLeaveMessage);
         if (!retFlag) {
             return R.error(MessageSourceUtil.getMessage("500"));
