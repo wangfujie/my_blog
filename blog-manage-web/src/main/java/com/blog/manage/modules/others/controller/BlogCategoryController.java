@@ -56,8 +56,8 @@ public class BlogCategoryController {
         if (categoryId != null){
             categoryList = categoryService.selectList(new EntityWrapper<BlogCategory>().eq("f_id", categoryId));
         }else {
-            //查询大分类
-            categoryList = categoryService.selectList(new EntityWrapper<BlogCategory>().eq("f_id", 0));
+            //查询二级分类
+            categoryList = categoryService.selectList(new EntityWrapper<BlogCategory>().ne("f_id", 0));
         }
         return R.fillListData(categoryList);
     }

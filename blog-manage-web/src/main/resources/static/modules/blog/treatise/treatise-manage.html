@@ -144,19 +144,20 @@
      */
     function addTreatise(uuid) {
         var title = "新增文章";
-        var url = 'treatise-add-test.html';
+        var url = 'treatise-add.html';
         if (uuid){
             url += '?treatiseUuid='+ uuid;
             title = "编辑文章";
         }
-        var index = layer.open({
-            title:title,
-            type: 2,
-            area: ['800px', '425px'],
-            maxmin: true,
-            content: url
-        });
-        layer.full(index);
+        window.open(url);
+        // var index = layer.open({
+        //     title:title,
+        //     type: 2,
+        //     area: ['800px', '425px'],
+        //     maxmin: true,
+        //     content: url
+        // });
+        // layer.full(index);
     }
 </script>
 <!-- 表格操作按钮集 -->
