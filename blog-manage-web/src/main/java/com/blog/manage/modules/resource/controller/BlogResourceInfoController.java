@@ -52,11 +52,7 @@ public class BlogResourceInfoController {
     @GetMapping("/info/{id}" )
     @ApiOperation(value = "资源分享信息表", notes = "获取资源分享信息表详情信息" )
     public R info(@PathVariable("id" ) Integer id){
-        BlogResourceInfo blogResourceInfo = resourceInfoService.selectById(id);
-        if (blogResourceInfo == null) {
-            return R.notFound();
-        }
-        return R.fillSingleData(blogResourceInfo);
+        return R.fillSingleData(resourceInfoService.getResourceInfoVoById(id));
     }
 
     /**
