@@ -18,20 +18,28 @@
 <body>
 <main>
     <div id="resourceDetail" class="infoBox">
-        <h1 class="infoTitle">{{ resourceInfo.resourceTitle }}</h1>
+        <h1 class="infoTitle">{{ resourceInfo.resourceName }}</h1>
         <p class="blogInfo">
-            <span id="sourceName">{{ resourceInfo.sourceName }}</span>
-            <span id="createTime">{{ resourceInfo.createTime }}</span>
+            <span id="sourceName">{{ resourceInfo.statusName }}</span>
+            <span id="createTime">{{ resourceInfo.lastUpdateTime }}</span>
             <span id="categoryName">{{ resourceInfo.categoryName }}</span>
         </p>
         <div class="tags" id="the_tags" v-if="resourceInfo.tags != null">
             <a href="#2" v-for="tag in resourceInfo.tagsList">{{ tag }}</a>
         </div>
         <div class="news_about" id="resourcePreview">
-            <strong>简介</strong>
-            {{ resourceInfo.resourcePreview }}
+            <strong>资源描述</strong>
+            {{ resourceInfo.resourceDesc }}
         </div>
-        <div class="resource_body" v-html="resourceInfo.resourceBody"></div>
+        <hr>
+        <div class="treatise_body">
+            <h1 class="infoTitle">{{ resourceInfo.fileName }}</h1>
+            <p class="blogInfo">
+                <span>{{ resourceInfo.fileType }}</span>
+                <span>{{ resourceInfo.fileSize }}</span>
+                <span>{{ resourceInfo.fileCreateTime }}</span>
+            </p>
+        </div>
     </div>
 </main>
 <div class="blank"></div>
@@ -40,10 +48,10 @@
         el: "#resourceDetail",
         data:{resourceInfo:{}},
         methods:{
-            initInfo:function (resourceUuid) {
+            initInfo:function (resourceId) {
                 var self = this;
                 $.ajax({
-                    url: "/blogresource/info/" + resourceUuid,
+                    url: "/blogResourceInfo/info/" + resourceId,
                     type: "GET"
                 }).then(function (value) {
                     if (value.code == 200) {
@@ -56,26 +64,18 @@
                 }).fail(function () {
                     console.log("获取失败");
                 });
-            },
-            initDatePicker:function () {
-                SyntaxHighlighter.all();
             }
         },
         watch:{
-            resourceInfo:function(){
-                //延迟加载，使代码部分高亮显示
-                this.$nextTick(function () {
-                    this.initDatePicker()
-                });
-            }
+
         },
         created: function () {
             //获取参数
             var params = getRequestParams(window.location.search);
-            var uuid = params.uuid;
-            //如果传有主键uuid，则加载详情数据
-            if (uuid){
-                this.initInfo(uuid);
+            var id = params.id;
+            //如果传有主键id，则加载详情数据
+            if (id){
+                this.initInfo(id);
             }
         }
     });

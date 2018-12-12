@@ -9,11 +9,6 @@
     <link rel="stylesheet" href="../../../frame/layui/css/layui.css">
     <link rel="stylesheet" href="../../../frame/static/css/style.css">
     <link rel="icon" href="../../../frame/static/image/code.png">
-    <script type="text/javascript" charset="utf-8" src="../../../frame/ueditor/ueditor.config.js"></script>
-    <script type="text/javascript" charset="utf-8" src="../../../frame/ueditor/ueditor.all.min.js"> </script>
-    <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
-    <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
-    <script type="text/javascript" charset="utf-8" src="../../../frame/ueditor/lang/zh-cn/zh-cn.js"></script>
     <script type="text/javascript" src="../../../frame/layui/layui.js"></script>
     <script type="text/javascript" src="../../../js/common/jquery.min.js"></script>
     <script type="text/javascript" src="../../../js/common/utils.js"></script>
@@ -23,30 +18,36 @@
 
 <div id="resourceAddForm">
     <form class="layui-form layui-form-pane" action="">
-        <input :value="resourceInfo.uuid" type="text" name="uuid" hidden>
+        <input :value="resourceInfo.id" type="text" name="id" hidden>
+
+        <input :value="resourceInfo.fileId" type="text" name="fileId" hidden>
+
         <div class="layui-form-item">
-            <label class="layui-form-label">文章标题</label>
-            <div class="layui-input-block">
-                <input :value="resourceInfo.resourceTitle" type="text" name="resourceTitle" lay-verify="resourceTitle" autocomplete="off" placeholder="请输入文章标题" class="layui-input">
+            <label class="layui-form-label">文件上传</label>
+            <div class="layui-upload-drag" id="uploadFile">
+                <i class="layui-icon"></i>
+                <p>点击上传，或将文件拖拽到此处</p>
             </div>
         </div>
 
         <div class="layui-form-item">
-            <label class="layui-form-label">所属类型</label>
+            <label class="layui-form-label">资源名称</label>
+            <div class="layui-input-block">
+                <input :value="resourceInfo.resourceName" type="text" name="resourceName" lay-verify="resourceName" autocomplete="off" placeholder="请输入资源名称" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">资源类型</label>
             <div class="layui-input-inline">
-                <select name="categoryId" placeholder="请选择分类" lay-filter="onSelectedCategory">
+                <select name="categoryId" placeholder="请选择" lay-filter="onSelectedCategory">
                     <option v-for="category in categoryList" :value="category.id">{{ category.categoryName }}</option>
                 </select>
             </div>
-            <!--<div class="layui-input-inline">-->
-            <!--<select name="categoryId" placeholder="请选择小类" lay-filter="categorySelected">-->
-            <!--<option v-for="category in categoryList" :value="category.id">{{ category.categoryName }}</option>-->
-            <!--</select>-->
-            <!--</div>-->
         </div>
 
         <div class="layui-form-item">
-            <label class="layui-form-label">标签选择</label>
+            <label class="layui-form-label">资源标签</label>
             <div class="layui-input-block">
                 <input v-for="tag in tagsList" type="checkbox" name="tags" :value="tag.tagName" :title="tag.tagName">
             </div>
@@ -54,46 +55,30 @@
 
         <div class="layui-form-item">
             <div class="layui-inline">
-                <label class="layui-form-label">文章来源</label>
+                <label class="layui-form-label">资源分数</label>
                 <div class="layui-input-inline">
-                    <select name="source" placeholder="请选择来源">
-                        <option value="1">原创</option>
-                        <option value="2">转载</option>
+                    <select name="resourceLevel">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
                     </select>
-                </div>
-            </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">来源地</label>
-                <div class="layui-input-inline">
-                    <input :value="resourceInfo.reprintFrom" type="text" name="reprintFrom" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">来源url</label>
-                <div class="layui-input-inline" style="width: 500px;">
-                    <input :value="resourceInfo.reprintUrl" type="text" name="reprintUrl" autocomplete="off" class="layui-input">
                 </div>
             </div>
         </div>
 
         <div class="layui-form-item">
-            <label class="layui-form-label">是否推荐</label>
+            <label class="layui-form-label">分享状态</label>
             <div class="layui-input-block">
-                <input type="checkbox" name="recommend" lay-skin="switch" lay-text="是|否" checked>
+                <input type="checkbox" name="status" lay-skin="switch" lay-text="是|否" checked>
             </div>
         </div>
 
         <div class="layui-form-item layui-form-text">
-            <label class="layui-form-label">预览内容</label>
+            <label class="layui-form-label">资源描述</label>
             <div class="layui-input-block">
-                <textarea :value="resourceInfo.resourcePreview" name="resourcePreview" lay-verify="required" autocomplete="off" placeholder="请输入预览内容" style="width:100%;height:80px;"></textarea>
-            </div>
-        </div>
-        
-        <div class="layui-form-item layui-form-text">
-            <label class="layui-form-label">正文部分</label>
-            <div class="layui-input-block">
-                <textarea :value="resourceInfo.resourceBody" name="resourceBody" id="editor" style="width:100%;height:600px;"></textarea>
+                <textarea :value="resourceInfo.resourceDesc" name="resourceDesc" lay-verify="required" autocomplete="off" placeholder="请输入资源描述" class="layui-textarea"></textarea>
             </div>
         </div>
 
@@ -111,10 +96,10 @@
         el: "#resourceAddForm",
         data:{categoryList:[], tagsList:[], resourceInfo:{}},
         methods:{
-            editInfo:function (resourceUuid) {
+            editInfo:function (resourceId) {
                 var self = this;
                 $.ajax({
-                    url: "/blogresource/info/" + resourceUuid,
+                    url: "/blogResourceInfo/info/" + resourceId,
                     type: "GET"
                 }).then(function (value) {
                     if (value.code == 200) {
@@ -160,10 +145,10 @@
 
             //获取参数
             var params = getRequestParams(window.location.search);
-            var resourceUuid = params.resourceUuid;
-            //如果传有主键uuid，则是编辑，加载编辑数据
-            if (resourceUuid){
-                this.editInfo(resourceUuid);
+            var resourceId = params.resourceId;
+            //如果传有主键resourceId，则是编辑，加载编辑数据
+            if (resourceId){
+                this.editInfo(resourceId);
                 console.log(this.categoryList)
                 console.log(this.tagsList)
                 console.log(this.resourceInfo)
@@ -172,45 +157,28 @@
         mounted(){
             var vueThis = this;
             // layui方法
-            layui.use(['form', 'layedit', 'laydate'], function () {
+            layui.use(['form', 'layedit', 'laydate','upload'], function () {
                 // 操作对象
-                var form = layui.form;
+                var form = layui.form,
+                upload = layui.upload;
 
-                //实例化编辑器
-                //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
-                var ue = UE.getEditor('editor');
-
-                /**
-                 * 监听所属分类列表
-                 */
-                // form.on('select(onSelectedCategory)', function(data){
-                //     var categoryId = data.value;
-                //     if (categoryId){
-                //         vueThis.loadCategory(categoryId);
-                //         vueThis.loadTagList(categoryId);
-                //         form.render('select');
-                //     }
-                // });
-
-                /**
-                 * 监听所属分类小类列表
-                 */
-                // form.on('select(categorySelected)', function(data){
-                //     var categoryId = data.value;
-                //     if (categoryId){
-                //         vueThis.loadTagList(categoryId);
-                //         form.render('select');
-                //     }
-                // });
+                //文件上传
+                upload.render({
+                    elem: '#uploadFile'
+                    ,url: '/upload/'
+                    ,done: function(res){
+                        console.log(res)
+                    }
+                });
 
                 //自定义验证规则
                 form.verify({
-                    resourceTitle: function(value){
+                    resourceName: function(value){
                         if (!value){
-                            return '标题必填';
+                            return '资源名称必填';
                         }
-                        if(value.length > 200){
-                            return '标题不能长于200个字';
+                        if(value.length > 20){
+                            return '不能长于20个字';
                         }
                     }
                 });
@@ -218,16 +186,16 @@
                 //监听提交
                 form.on('submit(infoSubmit)', function(data){
                     //处理是否推荐数据
-                    data.field.recommend = data.field.recommend == 'on' ? 1 : 0;
+                    data.field.status = data.field.status == 'on' ? 1 : 0;
                     //获取标签多选数据
                     var tagsArr = [];
                     $("input:checkbox[name='tags']:checked").each(function() { // 遍历name=tags的多选框
                         tagsArr.push($(this).val());
                     });
                     data.field.tags = tagsArr.join(",");
-
+                    console.log(data.field)
                     $.ajax({
-                        url: "/blogresource/insertOrUpdate",
+                        url: "/blogResourceInfo/insertOrUpdate",
                         type: "POST",
                         data: data.field
                     }).then(function (result) {
