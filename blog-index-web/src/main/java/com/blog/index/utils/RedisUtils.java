@@ -47,6 +47,18 @@ public class RedisUtils {
     }
 
     /**
+     * redis计数器
+     * @param key 计数器key
+     * @param count 设置每次增加的计数器数
+     * @param expire 设置过期时间
+     */
+    public long setMyIncr(String key, int count, long expire){
+        long thisCount = redisTemplate.opsForValue().increment(key, count);
+        redisTemplate.expire(key, expire, TimeUnit.SECONDS);
+        return thisCount;
+    }
+
+    /**
      * 通过key，获取指定转换对象的数据，并设置过期时间
      */
     public <T> T get(String key, Class<T> clazz, long expire) {
@@ -106,5 +118,4 @@ public class RedisUtils {
     private <T> T fromJson(String json, Class<T> clazz){
         return gson.fromJson(json, clazz);
     }
-
 }
