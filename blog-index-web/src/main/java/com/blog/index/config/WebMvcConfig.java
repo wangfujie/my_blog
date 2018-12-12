@@ -25,14 +25,15 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-    public ProtectSameCommitInterceptor protectSameCommitIntercepter() {
-        return new ProtectSameCommitInterceptor();
+    public ProtectCommitInterceptor protectCommitInterceptor() {
+        return new ProtectCommitInterceptor();
     }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
 //        registry.addInterceptor(authorizationInterceptor()).addPathPatterns("/api/**");
-        registry.addInterceptor(protectSameCommitIntercepter()).addPathPatterns("/**");
+        //配置提交拦截器
+        registry.addInterceptor(protectCommitInterceptor()).addPathPatterns("/**");
         registry.addInterceptor(localeChangeInterceptor());
     }
 
