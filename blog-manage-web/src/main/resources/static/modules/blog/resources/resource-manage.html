@@ -53,15 +53,15 @@
                   {type:'checkbox'}
                 , {type:'numbers', title: '序列', width: 60, align: 'center'}
                 , {field: 'categoryName', title: '种类', width: 90}
-                , {field: 'resourceName', title: '名称', width: 120}
-                , {field: 'resourceDesc', title: '描述', width: 220}
+                , {field: 'resourceName', title: '名称', width: 100}
+                , {field: 'resourceDesc', title: '描述', width: 120}
                 , {field: 'resourceLevel', title: '等级', width: 60, align: 'center'}
-                , {field: 'createTime', title: '创建时间', width: 160, align: 'center'}
-                , {field: 'statusName', title: '是否开启分享', width: 90, align: 'center'}
+                , {field: 'lastUpdateTime', title: '最后更新时间', width: 160, align: 'center'}
+                , {field: 'statusName', title: '状态', width: 120, align: 'center'}
                 , {fixed: 'right', title: '操作', width: 160, align: 'center', toolbar: '#barOption'} //这里的toolbar值是模板元素的选择器
             ]]
             , id: 'tableInsData'
-            , url: '/blog/resource/list'
+            , url: '/blogResourceInfo/list'
             , where: {}
             , method: 'get'
             , page: true
@@ -101,7 +101,7 @@
                     layer.close(index);
                     //向服务端发送删除指令
                     $.ajax({
-                        url: "/blog/resource/delete/" + obj.data.id ,
+                        url: "/blogResourceInfo/delete/" + obj.data.id ,
                         type: "POST"
                     }).then(function (value) {
                         if (value.code == 200) {

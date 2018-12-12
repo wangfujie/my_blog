@@ -1,8 +1,13 @@
 package com.blog.manage.modules.resource.mapper;
 
-import com.blog.pojo.entity.BlogResourceInfo;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.baomidou.mybatisplus.plugins.pagination.Pagination;
+import com.blog.manage.modules.resource.vo.ResourceInfoVo;
+import com.blog.pojo.entity.BlogResourceInfo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * @author wangfj
@@ -12,4 +17,17 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface BlogResourceInfoMapper extends BaseMapper<BlogResourceInfo> {
 
+    /**
+     * 查询资源列表
+     * @param page
+     * @return
+     */
+    List<ResourceInfoVo> selectListInfo(Pagination page);
+
+    /**
+     * 查询资源详情
+     * @param id
+     * @return
+     */
+    ResourceInfoVo getResourceInfoVoById(@Param("id") Integer id);
 }

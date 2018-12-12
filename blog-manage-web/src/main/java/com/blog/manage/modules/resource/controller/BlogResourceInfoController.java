@@ -1,17 +1,19 @@
 package com.blog.manage.modules.resource.controller;
 
-import com.blog.pojo.entity.BlogResourceInfo;
-import com.blog.manage.modules.resource.service.IBlogResourceInfoService;
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.blog.common.query.BaseQuery;
-import com.blog.common.utils.MessageSourceUtil;
 import com.blog.common.result.R;
-import org.apache.commons.collections.CollectionUtils;
+import com.blog.common.utils.MessageSourceUtil;
+import com.blog.manage.common.result.LayPageQuery;
+import com.blog.manage.common.result.ResultLay;
+import com.blog.manage.modules.resource.service.IBlogResourceInfoService;
+import com.blog.manage.modules.resource.vo.ResourceInfoVo;
+import com.blog.pojo.entity.BlogResourceInfo;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.*;
-import io.swagger.annotations.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 /**
@@ -26,26 +28,21 @@ public class BlogResourceInfoController {
 
                                                                                                                                     
         @Autowired
-    private IBlogResourceInfoService iBlogResourceInfoService;
+    private IBlogResourceInfoService resourceInfoService;
 
     /**
      * 列表
      */
     @GetMapping("/list" )
-    @RequiresPermissions("blogResourceInfo:list" )
     @ApiOperation(value = "资源分享信息表", notes = "获取资源分享信息表分页列表" )
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "currentPage", value = "当前页码", paramType = "query" ),
-            @ApiImplicitParam(name = "pageSize", value = "每页条数", paramType = "query" )
+            @ApiImplicitParam(name = "page", value = "当前页码", paramType = "query" ),
+            @ApiImplicitParam(name = "limit", value = "每页条数", paramType = "query" )
     })
-    public R list(@ApiIgnore BaseQuery baseQuery){
+    public ResultLay list(@ApiIgnore LayPageQuery layPageQuery){
             //查询列表数据
-            Page page=new Page(baseQuery.getCurrentPage(),baseQuery.getPageSize());
-            Page pageList=iBlogResourceInfoService.selectPage(page,new EntityWrapper<BlogResourceInfo>());
-            if (CollectionUtils.isEmpty(pageList.getRecords())) {
-                return R.notFound();
-            }
-            return R.fillPageData(pageList);
+            Page<ResourceInfoVo> page=new Page(layPageQuery.getPage(),layPageQuery.getLimit());
+            return ResultLay.fillPageData(resourceInfoService.selectPageInfo(page));
     }
 
 
@@ -53,10 +50,9 @@ public class BlogResourceInfoController {
      * 信息
      */
     @GetMapping("/info/{id}" )
-    @RequiresPermissions("blogResourceInfo:info" )
     @ApiOperation(value = "资源分享信息表", notes = "获取资源分享信息表详情信息" )
     public R info(@PathVariable("id" ) Integer id){
-        BlogResourceInfo blogResourceInfo = iBlogResourceInfoService.selectById(id);
+        BlogResourceInfo blogResourceInfo = resourceInfoService.selectById(id);
         if (blogResourceInfo == null) {
             return R.notFound();
         }
@@ -67,10 +63,9 @@ public class BlogResourceInfoController {
      * 保存
      */
     @PostMapping("/save" )
-    @RequiresPermissions("blogResourceInfo:save" )
     @ApiOperation(value = "资源分享信息表", notes = "保存资源分享信息表信息" )
     public R save(@RequestBody BlogResourceInfo blogResourceInfo){
-        boolean retFlag = iBlogResourceInfoService.insert(blogResourceInfo);
+        boolean retFlag = resourceInfoService.insert(blogResourceInfo);
         if (!retFlag) {
             return R.error(MessageSourceUtil.getMessage("500"));
         }
@@ -81,10 +76,9 @@ public class BlogResourceInfoController {
      * 修改
      */
     @PostMapping("/update" )
-    @RequiresPermissions("blogResourceInfo:update" )
     @ApiOperation(value = "资源分享信息表", notes = "更新资源分享信息表信息" )
     public R update(@RequestBody BlogResourceInfo blogResourceInfo){
-        boolean retFlag = iBlogResourceInfoService.updateById(blogResourceInfo);
+        boolean retFlag = resourceInfoService.updateById(blogResourceInfo);
         if (!retFlag) {
             return R.error(MessageSourceUtil.getMessage("500"));
         }
@@ -95,10 +89,9 @@ public class BlogResourceInfoController {
      * 删除
      */
     @PostMapping("/delete/{id}" )
-    @RequiresPermissions("blogResourceInfo:delete" )
     @ApiOperation(value = "资源分享信息表", notes = "删除资源分享信息表信息" )
     public R delete(@PathVariable("id" ) Integer id){
-        boolean retFlag = iBlogResourceInfoService.deleteById(id);
+        boolean retFlag = resourceInfoService.deleteById(id);
         if (!retFlag) {
             return R.error(MessageSourceUtil.getMessage("500"));
         }

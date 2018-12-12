@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blog.manage.modules.resource.mapper.BlogResourceInfoMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="baseResultMap" type="com.blog.pojo.entity.BlogResourceInfo">
+		<id column="id" property="id" />
+		<result column="resource_name" property="resourceName" />
+		<result column="resource_desc" property="resourceDesc" />
+		<result column="resource_level" property="resourceLevel" />
+		<result column="category_id" property="categoryId" />
+		<result column="tags" property="tags" />
+		<result column="file_id" property="fileId" />
+		<result column="last_update_time" property="lastUpdateTime" />
+		<result column="create_time" property="createTime" />
+		<result column="status" property="status" />
+	</resultMap>
+
+	<select id="selectListInfo" resultType="com.blog.manage.modules.resource.vo.ResourceInfoVo">
+		SELECT info.*,category.category_name categoryName,
+				case info.status when 1 then '开启分享' else '未分享' end AS statusName
+		FROM `blog_resource_info` info, `blog_category` category
+		WHERE category.id = info.category_id
+		ORDER BY last_update_time desc
+	</select>
+
+	<select id="getResourceInfoVoById" resultType="com.blog.manage.modules.resource.vo.ResourceInfoVo">
+		SELECT info.*,category.category_name categoryName,
+				case info.status when 1 then '开启分享' else '未分享' end AS statusName,
+				file.file_name AS fileName, file.file_size AS fileSize,
+				file.file_type AS fileType, file.create_time AS fileCreateTime
+		FROM `blog_resource_info` info, `blog_file` file,`blog_category` category
+		WHERE info.file_id = file.id and category.id = info.category_id and info.id = #{id}
+	</select>
+
+</mapper>
