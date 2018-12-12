@@ -40,7 +40,6 @@ public class BlogFriendlyLinks extends Model<BlogFriendlyLinks> {
     /**
      * 创建时间
      */
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 	@TableField("create_time")
 	private Date createTime;
     /**

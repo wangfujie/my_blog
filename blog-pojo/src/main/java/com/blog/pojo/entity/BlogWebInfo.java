@@ -45,7 +45,6 @@ public class BlogWebInfo extends Model<BlogWebInfo> {
     /**
      * 数据更新时间（按天统计）
      */
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 	@TableField("update_time")
 	private Date updateTime;
 
