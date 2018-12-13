@@ -24,7 +24,7 @@
             <span id="createTime">{{ resourceInfo.lastUpdateTime }}</span>
             <span id="categoryName">{{ resourceInfo.categoryName }}</span>
         </p>
-        <div class="tags" id="the_tags" v-if="resourceInfo.tags != null">
+        <div class="tags" v-if="resourceInfo.tags != null">
             <a href="#2" v-for="tag in resourceInfo.tagsList">{{ tag }}</a>
         </div>
         <div class="news_about" id="resourcePreview">

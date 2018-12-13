@@ -2,18 +2,21 @@ package com.blog.manage.modules.resource.service.impl;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.blog.common.result.R;
+import com.blog.common.utils.DateUtils;
 import com.blog.common.utils.UuidBuild;
 import com.blog.manage.modules.resource.mapper.BlogFileMapper;
 import com.blog.manage.modules.resource.service.IBlogFileService;
 import com.blog.pojo.entity.BlogFile;
 import org.apache.commons.io.FileUtils;
+import org.apache.velocity.texen.util.FileUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.net.URLEncoder;
 import java.util.Date;
 
 /**
@@ -25,7 +28,7 @@ import java.util.Date;
 @Transactional
 public class BlogFileServiceImpl extends ServiceImpl<BlogFileMapper, BlogFile> implements IBlogFileService {
 
-    @Value("${web.upload-path}")
+    @Value("${resource.upload-path}")
     private String filePath;
 
     /**
@@ -36,9 +39,12 @@ public class BlogFileServiceImpl extends ServiceImpl<BlogFileMapper, BlogFile> i
      */
     @Override
     public R uploadFile(MultipartFile file) {
+        //文件名称
         String fileName = file.getOriginalFilename();
+        String fileDatePath = filePath + DateUtils.formatCustom(new Date(),"yyyyMMdd") + "/";
+        FileUtil.mkdir(fileDatePath);
         String fileUuid = UuidBuild.getUUID();
-        File localFile = new File(filePath + fileUuid);
+        File localFile = new File(fileDatePath + fileUuid);
         try {
             //文件写入指定位置
             file.transferTo(localFile);
@@ -48,15 +54,60 @@ public class BlogFileServiceImpl extends ServiceImpl<BlogFileMapper, BlogFile> i
         //文件信息存入数据库
         BlogFile blogFile = new BlogFile();
         blogFile.setFileName(fileName);
-        blogFile.setFilePath(filePath + fileName);
+        blogFile.setFilePath(fileDatePath + fileUuid);
         //获取文件大小，字节转带单位
         String fileSize = FileUtils.byteCountToDisplaySize(file.getSize());
         blogFile.setFileSize(fileSize);
         blogFile.setFileType(file.getContentType());
-        blogFile.setShortPath(filePath);
+        blogFile.setShortPath(fileDatePath);
         blogFile.setFileUuid(fileUuid);
         blogFile.setCreateTime(new Date());
         insert(blogFile);
         return R.fillSingleData(blogFile.getId());
+    }
+
+    /**
+     * 下载文件
+     *
+     * @param blogFile
+     * @param response
+     */
+    @Override
+    public void downloadFile(BlogFile blogFile, HttpServletResponse response) throws FileNotFoundException {
+        //输入流读取文件
+        InputStream is = new FileInputStream(new File(blogFile.getFilePath()));
+
+        //文件名称编码设置，处理中文
+        String fileName = null;
+        try {
+            fileName = URLEncoder.encode(blogFile.getFileName(), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        //设置返回的请求头
+        response.setHeader("Content-Disposition", "attachment;fileName="+fileName);
+        response.setContentType("application/octet-stream");
+        OutputStream out = null;
+
+        try {
+            out = response.getOutputStream();
+            int len = 0;
+            byte[] b = new byte[1024];
+            while ((len = is.read(b)) > 0) {
+                out.write(b, 0, len);
+            }
+            out.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            if (out != null){
+                try {
+                    out.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }

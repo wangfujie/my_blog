@@ -7,7 +7,9 @@ import com.blog.common.result.R;
 import com.blog.common.utils.CustomException;
 import com.blog.common.utils.MessageSourceUtil;
 import com.blog.manage.modules.resource.service.IBlogFileService;
+import com.blog.manage.modules.resource.service.IBlogResourceInfoService;
 import com.blog.pojo.entity.BlogFile;
+import com.blog.pojo.entity.BlogResourceInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -17,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.annotations.ApiIgnore;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author wangfj
@@ -30,6 +33,9 @@ public class BlogFileController {
 
     @Autowired
     private IBlogFileService fileService;
+
+    @Autowired
+    private IBlogResourceInfoService resourceInfoService;
 
     /**
      * 列表
@@ -102,4 +108,17 @@ public class BlogFileController {
         return fileService.uploadFile(file);
     }
 
+    /**
+     * 通过资源id，下载文件
+     * @param resourceId
+     * @param response
+     */
+    @RequestMapping("/downloadFile" )
+    @ApiOperation(value = "通过资源id，下载文件", notes = "通过资源id，下载文件" )
+    public void downloadFile(Integer resourceId, HttpServletResponse response) throws Exception {
+        //查询资源信息
+        BlogResourceInfo resourceInfo = resourceInfoService.selectById(resourceId);
+        //下载文件
+        fileService.downloadFile(fileService.selectById(resourceInfo.getFileId()), response);
+    }
 }

@@ -5,6 +5,9 @@ import com.blog.common.result.R;
 import com.blog.pojo.entity.BlogFile;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.FileNotFoundException;
+
 /**
  * @author wangfj
  * @date 2018-12-11
@@ -18,4 +21,11 @@ public interface IBlogFileService extends IService<BlogFile> {
      * @return
      */
     R uploadFile(MultipartFile file);
+
+    /**
+     * 下载文件
+     * @param blogFile
+     * @param response
+     */
+    void downloadFile(BlogFile blogFile, HttpServletResponse response) throws FileNotFoundException;
 }
