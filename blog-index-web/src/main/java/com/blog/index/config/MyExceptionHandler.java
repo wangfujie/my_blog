@@ -1,6 +1,7 @@
 package com.blog.index.config;
 
 import com.blog.common.result.R;
+import com.blog.common.utils.RRException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -13,10 +14,27 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @ControllerAdvice
 public class MyExceptionHandler {
 
+    /**
+     * 统一异常处理
+     * @param e
+     * @return
+     */
     @ResponseBody
     @ExceptionHandler(value = Exception.class)
     public Object errorHandler(Exception e){
         e.printStackTrace();
-        return R.error(100, e.getMessage());
+        return R.error(110, e.getMessage());
+    }
+
+    /**
+     * 自定义异常的处理
+     * @param e
+     * @return
+     */
+    @ResponseBody
+    @ExceptionHandler(value = RRException.class)
+    public Object myErrorHandler(RRException e){
+        e.printStackTrace();
+        return R.error(e.getCode(), e.getMsg());
     }
 }
