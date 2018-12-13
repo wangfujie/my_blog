@@ -1,7 +1,7 @@
 package com.blog.index.config;
 
 import com.alibaba.fastjson.JSON;
-import com.blog.common.utils.RRException;
+import com.blog.common.utils.CustomException;
 import com.blog.common.utils.WebUtil;
 import com.blog.index.utils.RedisUtils;
 import org.apache.catalina.connector.RequestFacade;
@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
@@ -59,7 +60,7 @@ public class ProtectCommitInterceptor extends HandlerInterceptorAdapter {
                 //如果在指定时间内请求次数超过限制值，则返回异常
                 if (thisCount > commitCount){
                     logger.info("同一ip请求频率过高:" + requestKey);
-                    throw new RRException(timeOutTime + "秒内你的请求频率过高，过会儿再试");
+                    throw new CustomException(timeOutTime + "秒内你的请求频率过高，过会儿再试");
                 }
                 //获取post的提交内容
                 Map<String, String[]> parameterMap = requestFacade.getParameterMap();
@@ -69,7 +70,7 @@ public class ProtectCommitInterceptor extends HandlerInterceptorAdapter {
                 String value = redisUtils.get(key.toString());
                 if (StringUtils.hasLength(value)) {
                     logger.info("发现重复记录:" + key.toString());
-                    throw new RRException(timeOutTime + "秒内不能重复提交");
+                    throw new CustomException(timeOutTime + "秒内不能重复提交");
                 } else {
                     //未发现重复记录，添加参数缓存，有效期timeOutTime
                     redisUtils.set(key.toString(), key.toString(), timeOutTime);

@@ -13,8 +13,11 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
+
+import java.util.Date;
 
 /**
  * @author wangfj
@@ -25,9 +28,8 @@ import springfox.documentation.annotations.ApiIgnore;
 @RequestMapping("/blogResourceInfo" )
 @Api(value = "资源分享信息表接口",description = "用作资源分享信息表演示")
 public class BlogResourceInfoController {
-
                                                                                                                                     
-        @Autowired
+    @Autowired
     private IBlogResourceInfoService resourceInfoService;
 
     /**
@@ -56,12 +58,18 @@ public class BlogResourceInfoController {
     }
 
     /**
-     * 保存
+     * 新增或修改
      */
-    @PostMapping("/save" )
-    @ApiOperation(value = "资源分享信息表", notes = "保存资源分享信息表信息" )
-    public R save(@RequestBody BlogResourceInfo blogResourceInfo){
-        boolean retFlag = resourceInfoService.insert(blogResourceInfo);
+    @PostMapping("/insertOrUpdate" )
+    @ApiOperation(value = "资源分享信息表", notes = "新增或修改资源分享信息表" )
+    public R insertOrUpdate(BlogResourceInfo blogResourceInfo){
+        if (StringUtils.isEmpty(blogResourceInfo.getId())){
+            //创建时间
+            blogResourceInfo.setCreateTime(new Date());
+        }
+        //更新时间
+        blogResourceInfo.setLastUpdateTime(new Date());
+        boolean retFlag = resourceInfoService.insertOrUpdate(blogResourceInfo);
         if (!retFlag) {
             return R.error(MessageSourceUtil.getMessage("500"));
         }
@@ -69,25 +77,17 @@ public class BlogResourceInfoController {
     }
 
     /**
-     * 修改
+     * 启用或停用
      */
-    @PostMapping("/update" )
-    @ApiOperation(value = "资源分享信息表", notes = "更新资源分享信息表信息" )
-    public R update(@RequestBody BlogResourceInfo blogResourceInfo){
-        boolean retFlag = resourceInfoService.updateById(blogResourceInfo);
-        if (!retFlag) {
-            return R.error(MessageSourceUtil.getMessage("500"));
+    @PostMapping("/status/{id}" )
+    @ApiOperation(value = "资源分享信息表", notes = "启用或停止资源分享信息" )
+    public R status(@PathVariable("id" ) Integer id){
+        BlogResourceInfo resourceInfo = resourceInfoService.selectById(id);
+        if (resourceInfo != null){
+            Integer status = resourceInfo.getStatus();
+            resourceInfo.setStatus(status == 1 ? 0 : 1);
         }
-        return R.ok();
-    }
-
-    /**
-     * 删除
-     */
-    @PostMapping("/delete/{id}" )
-    @ApiOperation(value = "资源分享信息表", notes = "删除资源分享信息表信息" )
-    public R delete(@PathVariable("id" ) Integer id){
-        boolean retFlag = resourceInfoService.deleteById(id);
+        boolean retFlag = resourceInfoService.updateById(resourceInfo);
         if (!retFlag) {
             return R.error(MessageSourceUtil.getMessage("500"));
         }

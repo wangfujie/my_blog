@@ -24,10 +24,11 @@ CREATE TABLE `blog_file` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
 	`file_name` varchar(200) DEFAULT NULL COMMENT '文件名',
   `file_path` varchar(200) DEFAULT NULL COMMENT '文件路径',
-  `file_type` varchar(20) COMMENT '文件类型(扩展名)',
+  `file_type` varchar(50) COMMENT '文件类型(扩展名)',
 	`file_size` varchar(50) DEFAULT NULL COMMENT '文件大小',
 	`description` varchar(100) DEFAULT NULL COMMENT '文件描述',
 	`short_path` varchar(200) DEFAULT NULL COMMENT '短路径',
+	`file_uuid` varchar(100) DEFAULT NULL COMMENT '文件uuid',
   `create_time` datetime DEFAULT NULL COMMENT '上传时间',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='文件信息表';

@@ -35,20 +35,15 @@
             <label class="layui-form-label">所属类型</label>
             <div class="layui-input-inline">
                 <select name="categoryId" placeholder="请选择分类" lay-filter="onSelectedCategory">
-                    <option v-for="category in categoryList" :value="category.id">{{ category.categoryName }}</option>
+                    <option v-for="category in categoryList" :value="category.id" :selected="category.selected">{{ category.categoryName }}</option>
                 </select>
             </div>
-            <!--<div class="layui-input-inline">-->
-            <!--<select name="categoryId" placeholder="请选择小类" lay-filter="categorySelected">-->
-            <!--<option v-for="category in categoryList" :value="category.id">{{ category.categoryName }}</option>-->
-            <!--</select>-->
-            <!--</div>-->
         </div>
 
         <div class="layui-form-item">
             <label class="layui-form-label">标签选择</label>
             <div class="layui-input-block">
-                <input v-for="tag in tagsList" type="checkbox" name="tags" :value="tag.tagName" :title="tag.tagName">
+                <input v-for="tag in tagsList" type="checkbox" name="tags" :value="tag.tagName" :title="tag.tagName" :checked="tag.checked">
             </div>
         </div>
 
@@ -57,8 +52,8 @@
                 <label class="layui-form-label">文章来源</label>
                 <div class="layui-input-inline">
                     <select name="source" placeholder="请选择来源">
-                        <option value="1">原创</option>
-                        <option value="2">转载</option>
+                        <option value="1" :selected="treatiseInfo.source == 1">原创</option>
+                        <option value="2" :selected="treatiseInfo.source == 2">转载</option>
                     </select>
                 </div>
             </div>
@@ -79,7 +74,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">是否推荐</label>
             <div class="layui-input-block">
-                <input type="checkbox" name="recommend" lay-skin="switch" lay-text="是|否" checked>
+                <input type="checkbox" name="recommend" lay-skin="switch" lay-text="是|否" :checked="treatiseInfo.recommend == 1">
             </div>
         </div>
 
@@ -119,33 +114,49 @@
                 }).then(function (value) {
                     if (value.code == 200) {
                         self.treatiseInfo = value.data.object;
+                        //回填下来列表和多选标签数据
+                        self.loadCategory(value.data.object.categoryId);
+                        self.loadTagList(value.data.object.tags);
                     }
                 }).fail(function () {
                     console.log("获取失败");
                 });
             },
-            loadCategory:function () {
+            loadCategory:function (categoryId) {
                 var self = this;
                 $.ajax({
                     url: "/blogCategory/getCategoryList",
                     type: "GET"
                 }).then(function (value) {
                     if (value.code == 200) {
+                        if (categoryId){
+                            value.data.list.forEach(function(key){
+                                if (key.id == categoryId){
+                                    key.selected = true;
+                                }
+                            })
+                        }
                         self.categoryList = value.data.list;
                     }
                 }).fail(function () {
                     console.log("获取失败");
                 });
             },
-            loadTagList: function (categoryId) {
+            loadTagList: function (tags) {
                 var self = this;
                 $.ajax({
                     url: "/blogTags/getList",
-                    type: "GET",
-                    data: {"categoryId":categoryId}
+                    type: "GET"
                 }).then(function (value) {
                     if (value.code == 200) {
-                        self.$set(self, "tagsList" , value.data.list);
+                        if (tags){
+                            value.data.list.forEach(function(key){
+                                if (tags.search(key.tagName) != -1) {
+                                    key.checked = true;
+                                }
+                            });
+                        }
+                        self.tagsList = value.data.list;
                     }
                 }).fail(function () {
                     console.log("获取失败");
@@ -153,20 +164,17 @@
             }
         },
         created: function () {
-            //初始化数据,加载分类
-            this.loadCategory();
-            //加载标签多选数据
-            this.loadTagList();
-
             //获取参数
             var params = getRequestParams(window.location.search);
             var treatiseUuid = params.treatiseUuid;
             //如果传有主键uuid，则是编辑，加载编辑数据
             if (treatiseUuid){
                 this.editInfo(treatiseUuid);
-                console.log(this.categoryList)
-                console.log(this.tagsList)
-                console.log(this.treatiseInfo)
+            }else {
+                //初始化数据,加载分类
+                this.loadCategory();
+                //加载标签多选数据
+                this.loadTagList();
             }
         },
         mounted(){
@@ -179,29 +187,6 @@
                 //实例化编辑器
                 //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
                 var ue = UE.getEditor('editor');
-
-                /**
-                 * 监听所属分类列表
-                 */
-                // form.on('select(onSelectedCategory)', function(data){
-                //     var categoryId = data.value;
-                //     if (categoryId){
-                //         vueThis.loadCategory(categoryId);
-                //         vueThis.loadTagList(categoryId);
-                //         form.render('select');
-                //     }
-                // });
-
-                /**
-                 * 监听所属分类小类列表
-                 */
-                // form.on('select(categorySelected)', function(data){
-                //     var categoryId = data.value;
-                //     if (categoryId){
-                //         vueThis.loadTagList(categoryId);
-                //         form.render('select');
-                //     }
-                // });
 
                 //自定义验证规则
                 form.verify({

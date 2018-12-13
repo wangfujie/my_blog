@@ -1,4 +1,4 @@
-package com.blog.index.config;
+package com.blog.manage.config;
 
 import com.blog.common.result.R;
 import com.blog.common.utils.CustomException;

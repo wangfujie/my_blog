@@ -51,7 +51,7 @@ public class LoginController {
         }
         String thisIp = WebUtil.getRealIpAddress(servletRequest);
 //        if (!thisIp.equalsIgnoreCase(admin.getLoginIp())){
-//            throw new RRException("登录ip异常，请验证手机号的登录！", 505);
+//            throw new CustomException("登录ip异常，请验证手机号的登录！", 505);
 //        }
         admin.setLoginIp(thisIp);
         admin.setLoginTime(new Date());

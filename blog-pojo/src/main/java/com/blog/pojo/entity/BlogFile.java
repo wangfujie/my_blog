@@ -52,6 +52,11 @@ public class BlogFile extends Model<BlogFile> {
      */
 	@TableField("short_path")
 	private String shortPath;
+	/**
+     * 文件uuid
+     */
+	@TableField("file_uuid")
+	private String fileUuid;
     /**
      * 上传时间
      */
@@ -128,4 +133,11 @@ public class BlogFile extends Model<BlogFile> {
 		return this.id;
 	}
 
+	public String getFileUuid() {
+		return fileUuid;
+	}
+
+	public void setFileUuid(String fileUuid) {
+		this.fileUuid = fileUuid;
+	}
 }
