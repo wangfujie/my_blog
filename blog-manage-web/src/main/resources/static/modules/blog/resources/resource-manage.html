@@ -58,7 +58,7 @@
                 , {field: 'resourceLevel', title: '等级', width: 60, align: 'center'}
                 , {field: 'lastUpdateTime', title: '最后更新时间', width: 160, align: 'center'}
                 , {field: 'statusName', title: '状态', width: 120, align: 'center'}
-                , {fixed: 'right', title: '操作', width: 220, align: 'center', toolbar: '#barOption'} //这里的toolbar值是模板元素的选择器
+                , {fixed: 'right', title: '操作', width: 260, align: 'center', toolbar: '#barOption'} //这里的toolbar值是模板元素的选择器
             ]]
             , id: 'tableInsData'
             , url: '/blogResourceInfo/list'
@@ -120,6 +120,10 @@
                     });
                 });
             }
+            //下载资源文件
+            if (obj.event === 'download') {
+                window.location.href = "/blogFile/downloadFile?resourceId=" + obj.data.id;
+            }
         });
 
         // 刷新
@@ -166,7 +170,8 @@
 <script type="text/html" id="barOption">
     <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
     <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="status">改变分享状态</a>
+    <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="status">状态</a>
+    <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="download">下载</a>
 </script>
 </body>
 </html>

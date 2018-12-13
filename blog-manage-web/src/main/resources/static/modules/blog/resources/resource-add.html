@@ -183,8 +183,7 @@
                     ,url: '/blogFile/uploadFile'
                     ,done: function(res){
                         $('input[name="fileId"]').val(res.data.object);
-                        console.log(res)
-                        console.log(res.data.object)
+                        layer.msg("文件上传成功！");
                     }
                 });
 
