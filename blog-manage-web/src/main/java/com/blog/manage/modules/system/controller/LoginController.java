@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
@@ -48,7 +49,11 @@ public class LoginController {
             //账号没登录权限
             return R.error(e.getMessage());
         }
-        admin.setLoginIp(WebUtil.getRealIpAddress(servletRequest));
+        String thisIp = WebUtil.getRealIpAddress(servletRequest);
+//        if (!thisIp.equalsIgnoreCase(admin.getLoginIp())){
+//            throw new RRException("登录ip异常，请验证手机号的登录！", 505);
+//        }
+        admin.setLoginIp(thisIp);
         admin.setLoginTime(new Date());
         adminService.updateById(admin);
         return R.ok("登录成功！");
