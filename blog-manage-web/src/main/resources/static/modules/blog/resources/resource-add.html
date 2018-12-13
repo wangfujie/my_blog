@@ -41,7 +41,7 @@
             <label class="layui-form-label">资源类型</label>
             <div class="layui-input-inline">
                 <select name="categoryId" placeholder="请选择" lay-filter="onSelectedCategory">
-                    <option v-for="category in categoryList" :value="category.id">{{ category.categoryName }}</option>
+                    <option v-for="category in categoryList" :value="category.id" :selected="category.selected">{{ category.categoryName }}</option>
                 </select>
             </div>
         </div>
@@ -49,7 +49,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">资源标签</label>
             <div class="layui-input-block">
-                <input v-for="tag in tagsList" type="checkbox" name="tags" :value="tag.tagName" :title="tag.tagName">
+                <input v-for="tag in tagsList" type="checkbox" name="tags" :value="tag.tagName" :title="tag.tagName" :checked="tag.checked" >
             </div>
         </div>
 
@@ -104,32 +104,49 @@
                 }).then(function (value) {
                     if (value.code == 200) {
                         self.resourceInfo = value.data.object;
+                        var categoryId = value.data.object.categoryId;
+                        self.loadCategory(categoryId);
+                        var tags = value.data.object.tags;
+                        self.loadTagList(tags);
                     }
                 }).fail(function () {
                     console.log("获取失败");
                 });
             },
-            loadCategory:function () {
+            loadCategory:function (categoryId) {
                 var self = this;
                 $.ajax({
                     url: "/blogCategory/getCategoryList",
                     type: "GET"
                 }).then(function (value) {
                     if (value.code == 200) {
+                        if (categoryId){
+                            value.data.list.forEach(function(key){
+                                if (key.id == categoryId){
+                                    key.selected = true;
+                                }
+                            })
+                        }
                         self.categoryList = value.data.list;
                     }
                 }).fail(function () {
                     console.log("获取失败");
                 });
             },
-            loadTagList: function (categoryId) {
+            loadTagList: function (tags) {
                 var self = this;
                 $.ajax({
                     url: "/blogTags/getList",
-                    type: "GET",
-                    data: {"categoryId":categoryId}
+                    type: "GET"
                 }).then(function (value) {
                     if (value.code == 200) {
+                        if (tags){
+                            value.data.list.forEach(function(key){
+                                if (tags.search(key.tagName) != -1) {
+                                    key.checked = true;
+                                }
+                            });
+                        }
                         self.$set(self, "tagsList" , value.data.list);
                     }
                 }).fail(function () {
@@ -138,20 +155,17 @@
             }
         },
         created: function () {
-            //初始化数据,加载分类
-            this.loadCategory();
-            //加载标签多选数据
-            this.loadTagList();
-
             //获取参数
             var params = getRequestParams(window.location.search);
             var resourceId = params.resourceId;
             //如果传有主键resourceId，则是编辑，加载编辑数据
             if (resourceId){
                 this.editInfo(resourceId);
-                console.log(this.categoryList)
-                console.log(this.tagsList)
-                console.log(this.resourceInfo)
+            }else {
+                //初始化数据,加载分类
+                this.loadCategory();
+                //加载标签多选数据
+                this.loadTagList();
             }
         },
         mounted(){
@@ -165,9 +179,12 @@
                 //文件上传
                 upload.render({
                     elem: '#uploadFile'
-                    ,url: '/upload/'
+                    ,accept:'file'
+                    ,url: '/blogFile/uploadFile'
                     ,done: function(res){
+                        $('input[name="fileId"]').val(res.data.object);
                         console.log(res)
+                        console.log(res.data.object)
                     }
                 });
 
@@ -193,7 +210,6 @@
                         tagsArr.push($(this).val());
                     });
                     data.field.tags = tagsArr.join(",");
-                    console.log(data.field)
                     $.ajax({
                         url: "/blogResourceInfo/insertOrUpdate",
                         type: "POST",
