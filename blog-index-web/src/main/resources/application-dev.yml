@@ -1,6 +1,10 @@
 # ueditor上传图片后显示本地图片配置，增加映射到F盘
 web:
-  upload-path: F:/upload-path/
+  upload-path: E:/upload-path/
+
+# 资源文件上传路径
+resource:
+    upload-path: E:/resource-file/
 
 server:
   port: 8088                #配置端口号
