@@ -1,12 +1,20 @@
 package com.blog.manage.modules.kafka;
 
+import com.alibaba.fastjson.JSON;
 import com.blog.common.result.R;
+import com.blog.manage.modules.treatise.service.IBlogTreatiseService;
+import com.blog.pojo.entity.BlogTreatise;
+import org.apache.kafka.clients.producer.ProducerRecord;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author wangfujie
@@ -17,18 +25,33 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/kafka")
 public class ProducerController {
 
-/*    @Autowired
+    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    @Autowired
     private KafkaTemplate kafkaTemplate;
 
-    @RequestMapping(value = "/send", method = RequestMethod.GET)
-    public R sendKafka(@RequestParam("message") String message) {
+    @Autowired
+    private IBlogTreatiseService treatiseService;
+
+    @Value("${kafka.topic}")
+    private String kafkaTopic;
+    /**
+     * 发生文章消息
+     * @return
+     */
+    @RequestMapping(value = "/sendTreatiseList")
+    public R syncTreatiseSendMsg() {
+        List<BlogTreatise> treatiseList = treatiseService.selectList(null);
         try {
-            kafkaTemplate.send("topic_1", "key", message);
-            System.out.println("发送kafka成功:" + message);
-            return R.ok("发送kafka成功：" + message);
+            Map<String,Object> map = new HashMap<>(1);
+            map.put("treatiseList", treatiseList);
+            ProducerRecord message = new ProducerRecord (kafkaTopic, "treatiseList", JSON.toJSONString(treatiseList));
+            kafkaTemplate.send(message);
+            logger.info("发送kafka消息={}", JSON.toJSONString(treatiseList) );
+            return R.ok();
         } catch (Exception e) {
-            e.printStackTrace();
-            return R.error("发送kafka失败：" + message);
+            logger.error("发送kafka失败：" + e);
+            return R.error("失败" + e);
         }
-    }*/
+    }
 }
