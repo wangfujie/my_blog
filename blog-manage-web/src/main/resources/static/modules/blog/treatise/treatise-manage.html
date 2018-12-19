@@ -17,6 +17,7 @@
     <span class="fl">
         <a class="layui-btn layui-btn-danger radius btn-delect" id="btn-delete-all">批量删除</a>
         <a class="layui-btn btn-add btn-default" onclick="addTreatise()" id="btn-add">添加</a>
+        <a class="layui-btn layui-btn-primary" id="btn-send">发送消息<i class="layui-icon"></i></a>
         <a class="layui-btn btn-add btn-default" id="btn-refresh"><i class="layui-icon">&#x1002;</i></a>
     </span>
     <span class="fr">
@@ -121,6 +122,22 @@
             tableIns.reload();
         });
 
+        // 发送消息，到消息中间件
+        $('#btn-send').on('click', function () {
+            $.ajax({
+                url: "/kafka/sendTreatiseList",
+                type: "GET"
+            }).then(function (value) {
+                if (value.code == 200) {
+                    layer.msg("发送消息成功！");
+                }else {
+                    layer.msg(value.msg);
+                }
+            }).fail(function () {
+                layer.msg("调用出错！");
+            });
+        });
+
     });
 
     /**
@@ -129,14 +146,6 @@
     function showTreatise(uuid) {
         var url = 'treatise-detail.html?uuid=' + uuid;
         window.open(url);
-        // var index = layer.open({
-        //     title:'查看详情',
-        //     type: 2,
-        //     area: ['800px', '500px'],
-        //     maxmin: true,
-        //     content: url
-        // });
-        // layer.full(index);
     }
 
     /**
@@ -150,14 +159,6 @@
             title = "编辑文章";
         }
         window.open(url);
-        // var index = layer.open({
-        //     title:title,
-        //     type: 2,
-        //     area: ['800px', '425px'],
-        //     maxmin: true,
-        //     content: url
-        // });
-        // layer.full(index);
     }
 </script>
 <!-- 表格操作按钮集 -->
