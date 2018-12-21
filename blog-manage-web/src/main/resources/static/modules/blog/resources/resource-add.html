@@ -27,6 +27,7 @@
             <div class="layui-upload-drag" id="uploadFile">
                 <i class="layui-icon"></i>
                 <p>点击上传，或将文件拖拽到此处</p>
+                <strong>请上传小于200MB的文件</strong>
             </div>
         </div>
 
@@ -184,6 +185,7 @@
                     ,done: function(res){
                         $('input[name="fileId"]').val(res.data.object.id);
                         $('#uploadFile p').text(res.data.object.fileName);
+                        $('#uploadFile strong').text(res.data.object.fileSize);
                         layer.msg("文件上传成功！");
                     }
                 });
