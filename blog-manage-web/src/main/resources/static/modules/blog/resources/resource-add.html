@@ -182,7 +182,8 @@
                     ,accept:'file'
                     ,url: '/blogFile/uploadFile'
                     ,done: function(res){
-                        $('input[name="fileId"]').val(res.data.object);
+                        $('input[name="fileId"]').val(res.data.object.id);
+                        $('#uploadFile p').text(res.data.object.fileName);
                         layer.msg("文件上传成功！");
                     }
                 });
