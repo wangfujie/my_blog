@@ -213,4 +213,52 @@ CREATE TABLE `blog_admin`  (
 INSERT INTO `blog_admin` VALUES (1, '管理员', 'wangAdminBlog', '5c02e66d8f94e824g0a07441971665f0', 1, '2018-09-10 16:16:22', '127.0.0.1');
 INSERT INTO `blog_admin` VALUES (2, '写代码测试用户', 'admin', 'dadga249g1c024921edd510g7f359a0c', 0, '2018-10-15 15:52:59', '127.0.0.1');
 
+-- ----------------------------
+-- 增加日志记录
+-- ----------------------------
+DROP TABLE IF EXISTS `blog_log_record`;
+CREATE TABLE `blog_log_record` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `record_type` varchar(255) DEFAULT NULL COMMENT '记录类别（1、点赞文章，2、阅读文章，3、主页浏览）',
+  `treatise_uuid` varchar(50) DEFAULT NULL COMMENT '对应的文章',
+  `ip_address` varchar(50) DEFAULT NULL COMMENT '记录ip地址',
+  `create_time` datetime DEFAULT NULL COMMENT '记录创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='日志记录';
+
+-- ----------------------------
+-- 增加资源分享信息表
+-- ----------------------------
+DROP TABLE IF EXISTS `blog_resource_info`;
+CREATE TABLE `blog_resource_info` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `resource_name` varchar(50) DEFAULT NULL COMMENT '资源名称',
+  `resource_desc` varchar(200) DEFAULT NULL COMMENT '资源描述',
+	`resource_level` varchar(200) COMMENT '资源等级',
+	`category_id` int(11) COMMENT '对应分类id',
+  `tags` varchar(200) COMMENT '资源标签',
+	`file_id` int(11) COMMENT '对应的文件id',
+	`last_update_time` datetime DEFAULT NULL COMMENT '最近修改时间',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `status` int(1) DEFAULT '1' COMMENT '是否开启分享（0不开启，1开启）',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='资源分享信息表';
+
+-- ----------------------------
+-- 增加文件信息表
+-- ----------------------------
+DROP TABLE IF EXISTS `blog_file`;
+CREATE TABLE `blog_file` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+	`file_name` varchar(200) DEFAULT NULL COMMENT '文件名',
+  `file_path` varchar(200) DEFAULT NULL COMMENT '文件路径',
+  `file_type` varchar(50) COMMENT '文件类型(扩展名)',
+	`file_size` varchar(50) DEFAULT NULL COMMENT '文件大小',
+	`description` varchar(100) DEFAULT NULL COMMENT '文件描述',
+	`short_path` varchar(200) DEFAULT NULL COMMENT '短路径',
+	`file_uuid` varchar(100) DEFAULT NULL COMMENT '文件uuid',
+  `create_time` datetime DEFAULT NULL COMMENT '上传时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='文件信息表';
+
 SET FOREIGN_KEY_CHECKS = 1;
