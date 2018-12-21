@@ -63,7 +63,7 @@ public class BlogFileServiceImpl extends ServiceImpl<BlogFileMapper, BlogFile> i
         blogFile.setFileUuid(fileUuid);
         blogFile.setCreateTime(new Date());
         insert(blogFile);
-        return R.fillSingleData(blogFile.getId());
+        return R.fillSingleData(blogFile);
     }
 
     /**
