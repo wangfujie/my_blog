@@ -1,6 +1,10 @@
 package com.blog.manage.config;
 
+import kafka.admin.AdminUtils;
+import kafka.admin.RackAwareMode;
+import kafka.utils.ZkUtils;
 import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.common.security.JaasUtils;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +15,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 /**
  * @author wangfujie
@@ -30,8 +35,15 @@ public class KafkaProducerConfig {
     private int linger;
     @Value("${kafka.producer.buffer.memory}")
     private int bufferMemory;
-    @Value("${kafka.topic}")
-    private String kafkaTopic;
+
+    @Value("${kafka.zookeeper.servers}")
+    private String zkServer;
+    @Value("${kafka.topic.collectTopic}")
+    private String collectTopic;
+    @Value("${kafka.topic.exchangeTopic}")
+    private String exchangeTopic;
+    @Value("${kafka.topic.serverTopic}")
+    private String serverTopic;
 
     public Map<String, Object> producerConfigs() {
         Map<String, Object> props = new HashMap<>();
@@ -52,7 +64,18 @@ public class KafkaProducerConfig {
     @Bean
     public KafkaTemplate<String, String> kafkaTemplate() {
         KafkaTemplate<String, String>  kafkaTemplate = new KafkaTemplate(producerFactory());
-        kafkaTemplate.setDefaultTopic(kafkaTopic);
+//        kafkaTemplate.setDefaultTopic(kafkaTopic);
         return kafkaTemplate;
+    }
+
+    /**
+     * 创建主题
+     */
+    private void createTopic(){
+        ZkUtils zkUtils = ZkUtils.apply(zkServer, 30000, 30000, JaasUtils.isZkSecurityEnabled());
+        AdminUtils.createTopic(zkUtils, collectTopic,10,1, new Properties(), new RackAwareMode.Enforced$());
+        AdminUtils.createTopic(zkUtils, exchangeTopic,10,1, new Properties(), new RackAwareMode.Enforced$());
+        AdminUtils.createTopic(zkUtils, serverTopic,10,1, new Properties(), new RackAwareMode.Enforced$());
+        zkUtils.close();
     }
 }

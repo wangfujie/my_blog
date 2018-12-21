@@ -33,8 +33,12 @@ public class ProducerController {
     @Autowired
     private IBlogTreatiseService treatiseService;
 
-    @Value("${kafka.topic}")
-    private String kafkaTopic;
+    @Value("${kafka.topic.collectTopic}")
+    private String collectTopic;
+    @Value("${kafka.topic.exchangeTopic}")
+    private String exchangeTopic;
+    @Value("${kafka.topic.serverTopic}")
+    private String serverTopic;
     /**
      * 发生文章消息
      * @return
@@ -45,9 +49,16 @@ public class ProducerController {
         try {
             Map<String,Object> map = new HashMap<>(1);
             map.put("treatiseList", treatiseList);
-            ProducerRecord message = new ProducerRecord (kafkaTopic, "treatiseList", JSON.toJSONString(treatiseList));
-            kafkaTemplate.send(message);
-            logger.info("发送kafka消息={}", JSON.toJSONString(treatiseList) );
+            for (int i = 0 ; i < 1 ; i++){
+
+                ProducerRecord collectTopicMsg = new ProducerRecord (collectTopic, null, JSON.toJSONString(treatiseList));
+                ProducerRecord exchangeTopicMsg = new ProducerRecord (exchangeTopic, null, JSON.toJSONString(treatiseList));
+                ProducerRecord serverTopicMsg = new ProducerRecord (serverTopic, null, JSON.toJSONString(treatiseList));
+                kafkaTemplate.send(collectTopicMsg);
+                kafkaTemplate.send(exchangeTopicMsg);
+                kafkaTemplate.send(serverTopicMsg);
+                logger.info("发送kafka消息={}", JSON.toJSONString(treatiseList) );
+            }
             return R.ok();
         } catch (Exception e) {
             logger.error("发送kafka失败：" + e);
