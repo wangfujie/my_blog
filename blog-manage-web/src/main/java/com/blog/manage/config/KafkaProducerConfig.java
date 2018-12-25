@@ -38,12 +38,8 @@ public class KafkaProducerConfig {
 
     @Value("${kafka.zookeeper.servers}")
     private String zkServer;
-    @Value("${kafka.topic.collectTopic}")
-    private String collectTopic;
-    @Value("${kafka.topic.exchangeTopic}")
-    private String exchangeTopic;
-    @Value("${kafka.topic.serverTopic}")
-    private String serverTopic;
+    @Value("${kafka.topic.topicName}")
+    private String topicName;
 
     public Map<String, Object> producerConfigs() {
         Map<String, Object> props = new HashMap<>();
@@ -64,7 +60,8 @@ public class KafkaProducerConfig {
     @Bean
     public KafkaTemplate<String, String> kafkaTemplate() {
         KafkaTemplate<String, String>  kafkaTemplate = new KafkaTemplate(producerFactory());
-//        kafkaTemplate.setDefaultTopic(kafkaTopic);
+        //设置默认主题
+        kafkaTemplate.setDefaultTopic(topicName);
         return kafkaTemplate;
     }
 
@@ -73,9 +70,7 @@ public class KafkaProducerConfig {
      */
     private void createTopic(){
         ZkUtils zkUtils = ZkUtils.apply(zkServer, 30000, 30000, JaasUtils.isZkSecurityEnabled());
-        AdminUtils.createTopic(zkUtils, collectTopic,10,1, new Properties(), new RackAwareMode.Enforced$());
-        AdminUtils.createTopic(zkUtils, exchangeTopic,10,1, new Properties(), new RackAwareMode.Enforced$());
-        AdminUtils.createTopic(zkUtils, serverTopic,10,1, new Properties(), new RackAwareMode.Enforced$());
+        AdminUtils.createTopic(zkUtils, topicName,10,1, new Properties(), new RackAwareMode.Enforced$());
         zkUtils.close();
     }
 }
