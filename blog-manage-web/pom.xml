@@ -102,11 +102,11 @@
 		</dependency>
 
 		<!-- hutool工具类 -->
-		<!--<dependency>-->
-			<!--<groupId>cn.hutool</groupId>-->
-			<!--<artifactId>hutool-all</artifactId>-->
-			<!--<version>4.3.0</version>-->
-		<!--</dependency>-->
+		<dependency>
+			<groupId>cn.hutool</groupId>
+			<artifactId>hutool-core</artifactId>
+			<version>4.3.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
