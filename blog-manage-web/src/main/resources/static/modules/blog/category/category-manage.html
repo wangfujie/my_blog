@@ -52,8 +52,8 @@
             , cols: [[                  //表头
                 {type: 'checkbox'}
                 , {type:'numbers', title: '序列', width: 60, align: 'center'}
-                , {field: 'categoryName', title: '类型名称', width: 90, edit: true}
-                , {field: 'linkUrl', title: '跳转URL', width: 300, edit: true}
+                , {field: 'categoryName', title: '类型名称', width: 100, edit: true}
+                , {field: 'linkUrl', title: '跳转URL', width: 320, edit: true}
                 , {field: 'dictLevel', title: '级别', width: 60, align: 'center'}
                 , {field: 'createTime', title: '创建时间', width: 160, align: 'center'}
                 , {field: 'statusName', title: '启用状态', width: 90, align: 'center'}
@@ -65,7 +65,7 @@
             , method: 'get'
             , page: true
             , limits: [5, 10, 20, 50, 100]
-            , limit: 10 //默认采用10
+            , limit: 20 //默认采用10
             , loading: false
             , done: function (res, curr, count) {
                 //如果是异步请求数据方式，res即为你接口返回的信息。
@@ -91,6 +91,55 @@
             tableIns.reload();
         });
 
+        //缓存修改的对象
+        var updateValue = {};
+
+        //监听单元格编辑
+        table.on('edit(layTableFilter)', function(obj){
+            //缓存修改的值
+            updateValue[obj.field] = obj.value;
+        });
+
+        //监听工具条
+        table.on('tool(layTableFilter)', function (obj) {
+            //编辑
+            if (obj.event === 'save') {
+                //同步更新缓存对应的值
+                obj.update(updateValue);
+                //调后台接口修改内容
+                $.ajax({
+                    url: "/blogCategory/insertOrUpdate" ,
+                    type: "POST",
+                    data:obj.data
+                }).then(function (value) {
+                    if (value.code == 200) {
+                        layer.msg("修改成功！");
+                    }else {
+                        layer.msg(value.msg);
+                    }
+                }).fail(function () {
+                    layer.msg("调用出错！");
+                });
+            }
+            //改变状态
+            if (obj.event === 'status') {
+                layer.confirm('确认改变此行状态？', function (index) {
+                    layer.close(index);
+                    $.ajax({
+                        url: "/blogCategory/status/" + obj.data.id ,
+                        type: "POST"
+                    }).then(function (value) {
+                        if (value.code == 200) {
+                            layer.msg("改变成功！");
+                        }else {
+                            layer.msg(value.msg);
+                        }
+                    }).fail(function () {
+                        layer.msg("调用出错！");
+                    });
+                });
+            }
+        });
 
         // you code ...
 
@@ -98,8 +147,8 @@
 </script>
 <!-- 表格操作按钮集 -->
 <script type="text/html" id="barOption">
-    <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="edit">保存</a>
-    <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">停用</a>
+    <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="save">保存</a>
+    <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="status">修改状态</a>
 </script>
 </body>
 </html>
