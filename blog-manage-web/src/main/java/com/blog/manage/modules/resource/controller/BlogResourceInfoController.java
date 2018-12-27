@@ -5,6 +5,7 @@ import com.blog.common.result.R;
 import com.blog.common.utils.MessageSourceUtil;
 import com.blog.manage.common.result.LayPageQuery;
 import com.blog.manage.common.result.ResultLay;
+import com.blog.manage.modules.others.service.IBlogTagsService;
 import com.blog.manage.modules.resource.service.IBlogResourceInfoService;
 import com.blog.manage.modules.resource.vo.ResourceInfoVo;
 import com.blog.pojo.entity.BlogResourceInfo;
@@ -32,6 +33,8 @@ public class BlogResourceInfoController {
     @Autowired
     private IBlogResourceInfoService resourceInfoService;
 
+    @Autowired
+    private IBlogTagsService tagsService;
     /**
      * 列表
      */
@@ -64,6 +67,8 @@ public class BlogResourceInfoController {
     @ApiOperation(value = "资源分享信息表", notes = "新增或修改资源分享信息表" )
     public R insertOrUpdate(BlogResourceInfo blogResourceInfo){
         if (StringUtils.isEmpty(blogResourceInfo.getId())){
+            //增加标签使用数量
+            tagsService.addTagsUseNum(blogResourceInfo.getTags());
             //创建时间
             blogResourceInfo.setCreateTime(new Date());
         }

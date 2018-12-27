@@ -25,4 +25,10 @@ public interface IBlogTagsService extends IService<BlogTags> {
      * @return
      */
     BlogTagsVo getBlogTagsVoById(Integer id);
+
+    /**
+     * 增加标签使用数量
+     * @param tags
+     */
+    void addTagsUseNum(String tags);
 }

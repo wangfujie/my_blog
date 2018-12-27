@@ -67,7 +67,7 @@
                 var self = this;
                 //渲染种类下拉列表
                 $.ajax({
-                    url: "/blogCategory/getCategoryList",
+                    url: "/blogCategory/getAllCategoryList",
                     type: "GET"
                 }).then(function (value) {
                     if (value.code == 200) {
@@ -125,6 +125,10 @@
                                     //点击确认刷新
                                     location = location;
                                 }
+                            });
+                        }else {
+                            layer.alert('保存失败！', {
+                                title: result.msg
                             });
                         }
                     }).fail(function () {
