@@ -26,8 +26,10 @@
             <label class="layui-form-label">文件上传</label>
             <div class="layui-upload-drag" id="uploadFile">
                 <i class="layui-icon"></i>
-                <p>点击上传，或将文件拖拽到此处</p>
-                <strong>请上传小于200MB的文件</strong>
+                <p v-if="resourceInfo.fileName">{{ resourceInfo.fileName }}</p>
+                <p v-else>点击上传，或将文件拖拽到此处</p>
+                <strong v-if="resourceInfo.fileSize">{{ resourceInfo.fileSize }}</strong>
+                <strong v-else>请上传小于200MB的文件</strong>
             </div>
         </div>
 
@@ -59,11 +61,11 @@
                 <label class="layui-form-label">资源分数</label>
                 <div class="layui-input-inline">
                     <select name="resourceLevel">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
+                        <option :selected="resourceInfo.resourceLevel == 1" value="1">1</option>
+                        <option :selected="resourceInfo.resourceLevel == 2" value="2">2</option>
+                        <option :selected="resourceInfo.resourceLevel == 3" value="3">3</option>
+                        <option :selected="resourceInfo.resourceLevel == 4" value="4">4</option>
+                        <option :selected="resourceInfo.resourceLevel == 5" value="5">5</option>
                     </select>
                 </div>
             </div>
@@ -85,7 +87,7 @@
 
         <div class="layui-form-item">
             <div class="layui-input-block" style="margin-top: 20px; text-align: center;">
-                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                <button v-if="!resourceInfo.id" type="reset" class="layui-btn layui-btn-primary">重置</button>
                 <button class="layui-btn" lay-submit="" lay-filter="infoSubmit">立即提交</button>
             </div>
         </div>

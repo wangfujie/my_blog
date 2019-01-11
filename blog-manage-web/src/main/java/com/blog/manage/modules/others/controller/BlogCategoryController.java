@@ -54,34 +54,34 @@ public class BlogCategoryController {
         List<BlogCategory> categoryList;
         //如果参数不为空，查询子分类
         if (categoryId != null){
-            categoryList = categoryService.selectList(new EntityWrapper<BlogCategory>().eq("f_id", categoryId));
+            categoryList = categoryService.selectList(new EntityWrapper<BlogCategory>().eq("f_id", categoryId).eq("status",1));
         }else {
             //查询二级分类
-            categoryList = categoryService.selectList(new EntityWrapper<BlogCategory>().ne("f_id", 0));
+            categoryList = categoryService.selectList(new EntityWrapper<BlogCategory>().ne("f_id", 0).eq("status",1));
         }
         return R.fillListData(categoryList);
     }
 
     /**
-     * 信息
+     * 获取分类下拉列表
      */
-    @GetMapping("/info/{id}" )
-    @ApiOperation(value = "博客类型表", notes = "获取博客类型表详情信息" )
-    public R info(@PathVariable("id" ) Integer id){
-        BlogCategory blogCategory = categoryService.selectById(id);
-        if (blogCategory == null) {
-            return R.notFound();
-        }
-        return R.fillSingleData(blogCategory);
+    @GetMapping("/getAllCategoryList" )
+    @ApiOperation(value = "博客类型，获取全部启用的分类下拉列表", notes = "获取全部启用的分类下拉列表" )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "categoryId", value = "分类id", paramType = "query" )
+    })
+    public R getAllCategoryList(){
+        List<BlogCategory> categoryList = categoryService.selectList(new EntityWrapper<BlogCategory>().eq("status",1));
+        return R.fillListData(categoryList);
     }
 
     /**
-     * 保存
+     * 新增或修改
      */
-    @PostMapping("/save" )
-    @ApiOperation(value = "博客类型表", notes = "保存博客类型表信息" )
-    public R save(@RequestBody BlogCategory blogCategory){
-        boolean retFlag = categoryService.insert(blogCategory);
+    @PostMapping("/insertOrUpdate" )
+    @ApiOperation(value = "博客类型表", notes = "新增或修改博客类型表信息" )
+    public R insertOrUpdate(BlogCategory blogCategory){
+        boolean retFlag = categoryService.insertOrUpdate(blogCategory);
         if (!retFlag) {
             return R.error(MessageSourceUtil.getMessage("500"));
         }
@@ -89,25 +89,17 @@ public class BlogCategoryController {
     }
 
     /**
-     * 修改
+     * 改变状态
      */
-    @PostMapping("/update" )
-    @ApiOperation(value = "博客类型表", notes = "更新博客类型表信息" )
-    public R update(@RequestBody BlogCategory blogCategory){
-        boolean retFlag = categoryService.updateById(blogCategory);
-        if (!retFlag) {
-            return R.error(MessageSourceUtil.getMessage("500"));
-        }
-        return R.ok();
-    }
-
-    /**
-     * 删除
-     */
-    @PostMapping("/delete/{id}" )
-    @ApiOperation(value = "博客类型表", notes = "删除博客类型表信息" )
+    @PostMapping("/status/{id}" )
+    @ApiOperation(value = "博客类型表", notes = "修改博客类型状态" )
     public R delete(@PathVariable("id" ) Integer id){
-        boolean retFlag = categoryService.deleteById(id);
+        BlogCategory blogCategory = categoryService.selectById(id);
+        if (blogCategory != null){
+            Integer status = blogCategory.getStatus();
+            blogCategory.setStatus(status == 1 ? 0 : 1);
+        }
+        boolean retFlag = categoryService.updateById(blogCategory);
         if (!retFlag) {
             return R.error(MessageSourceUtil.getMessage("500"));
         }

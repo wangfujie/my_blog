@@ -9,7 +9,6 @@ import com.blog.common.utils.MessageSourceUtil;
 import com.blog.common.result.R;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.*;
 import springfox.documentation.annotations.ApiIgnore;
@@ -41,7 +40,6 @@ public class BlogCategoryController {
      * 列表
      */
     @GetMapping("/list" )
-    @RequiresPermissions("blogCategory:list" )
     @ApiOperation(value = "博客类型表", notes = "获取博客类型表分页列表" )
     @ApiImplicitParams({
             @ApiImplicitParam(name = "currentPage", value = "当前页码", paramType = "query" ),
@@ -64,7 +62,7 @@ public class BlogCategoryController {
     @ApiOperation(value = "通过categoryId获取分类", notes = "通过categoryId获取分类" )
     public R getCategoryList(Integer categoryId){
         //查询列表数据
-        List<BlogCategory> categoryList = iBlogCategoryService.selectList(new EntityWrapper<BlogCategory>().eq("f_id",categoryId));
+        List<BlogCategory> categoryList = iBlogCategoryService.selectList(new EntityWrapper<BlogCategory>().eq("f_id",categoryId).eq("status",1));
         if (CollectionUtils.isEmpty(categoryList)) {
             return R.notFound();
         }
@@ -75,7 +73,6 @@ public class BlogCategoryController {
      * 信息
      */
     @GetMapping("/info/{id}" )
-    @RequiresPermissions("blogCategory:info" )
     @ApiOperation(value = "博客类型表", notes = "获取博客类型表详情信息" )
     public R info(@PathVariable("id" ) Integer id){
         BlogCategory blogCategory = iBlogCategoryService.selectById(id);
@@ -89,7 +86,6 @@ public class BlogCategoryController {
      * 保存
      */
     @PostMapping("/save" )
-    @RequiresPermissions("blogCategory:save" )
     @ApiOperation(value = "博客类型表", notes = "保存博客类型表信息" )
     public R save(@RequestBody BlogCategory blogCategory){
         boolean retFlag = iBlogCategoryService.insert(blogCategory);
@@ -103,7 +99,6 @@ public class BlogCategoryController {
      * 修改
      */
     @PostMapping("/update" )
-    @RequiresPermissions("blogCategory:update" )
     @ApiOperation(value = "博客类型表", notes = "更新博客类型表信息" )
     public R update(@RequestBody BlogCategory blogCategory){
         boolean retFlag = iBlogCategoryService.updateById(blogCategory);
@@ -117,7 +112,6 @@ public class BlogCategoryController {
      * 删除
      */
     @PostMapping("/delete/{id}" )
-    @RequiresPermissions("blogCategory:delete" )
     @ApiOperation(value = "博客类型表", notes = "删除博客类型表信息" )
     public R delete(@PathVariable("id" ) Integer id){
         boolean retFlag = iBlogCategoryService.deleteById(id);

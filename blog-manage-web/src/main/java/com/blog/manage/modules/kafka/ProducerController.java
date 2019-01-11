@@ -33,12 +33,9 @@ public class ProducerController {
     @Autowired
     private IBlogTreatiseService treatiseService;
 
-    @Value("${kafka.topic.collectTopic}")
-    private String collectTopic;
-    @Value("${kafka.topic.exchangeTopic}")
-    private String exchangeTopic;
-    @Value("${kafka.topic.serverTopic}")
-    private String serverTopic;
+    @Value("${kafka.topic.topicName}")
+    private String topicName;
+
     /**
      * 发生文章消息
      * @return
@@ -50,13 +47,8 @@ public class ProducerController {
             Map<String,Object> map = new HashMap<>(1);
             map.put("treatiseList", treatiseList);
             for (int i = 0 ; i < 1 ; i++){
-
-                ProducerRecord collectTopicMsg = new ProducerRecord (collectTopic, null, JSON.toJSONString(treatiseList));
-                ProducerRecord exchangeTopicMsg = new ProducerRecord (exchangeTopic, null, JSON.toJSONString(treatiseList));
-                ProducerRecord serverTopicMsg = new ProducerRecord (serverTopic, null, JSON.toJSONString(treatiseList));
+                ProducerRecord collectTopicMsg = new ProducerRecord (topicName, null, JSON.toJSONString(treatiseList));
                 kafkaTemplate.send(collectTopicMsg);
-                kafkaTemplate.send(exchangeTopicMsg);
-                kafkaTemplate.send(serverTopicMsg);
                 logger.info("发送kafka消息={}", JSON.toJSONString(treatiseList) );
             }
             return R.ok();

@@ -123,6 +123,9 @@ INSERT INTO `blog_tags` VALUES (2, 'Linux', 1, '2018-08-20 16:52:29', 0, 0);
 INSERT INTO `blog_tags` VALUES (3, 'SVN', 1, '2018-08-20 16:52:29', 0, 0);
 INSERT INTO `blog_tags` VALUES (4, 'MySQL', 1, '2018-08-20 16:52:29', 0, 0);
 
+-- 增加标签名称唯一约束
+ALTER TABLE `blog_tags` ADD unique(`tag_name`);
+
 -- ----------------------------
 -- Table structure for blog_treatise
 -- ----------------------------
