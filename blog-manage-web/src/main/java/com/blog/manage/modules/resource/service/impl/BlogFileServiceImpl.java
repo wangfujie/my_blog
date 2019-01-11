@@ -1,5 +1,6 @@
 package com.blog.manage.modules.resource.service.impl;
 
+import cn.hutool.core.io.FileUtil;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.blog.common.result.R;
 import com.blog.common.utils.DateUtils;
@@ -8,12 +9,10 @@ import com.blog.manage.modules.resource.mapper.BlogFileMapper;
 import com.blog.manage.modules.resource.service.IBlogFileService;
 import com.blog.pojo.entity.BlogFile;
 import org.apache.commons.io.FileUtils;
-import org.apache.velocity.texen.util.FileUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLEncoder;
@@ -41,8 +40,10 @@ public class BlogFileServiceImpl extends ServiceImpl<BlogFileMapper, BlogFile> i
     public R uploadFile(MultipartFile file) {
         //文件名称
         String fileName = file.getOriginalFilename();
-        String fileDatePath = filePath + DateUtils.formatCustom(new Date(),"yyyyMMdd") + "/";
+        String fileDatePath = FileUtil.getAbsolutePath(filePath + File.separator + DateUtils.formatCustom(new Date(),"yyyyMMdd") + "/");
+        //创建目录
         FileUtil.mkdir(fileDatePath);
+        //随机生成uuid作为上传的文件名称
         String fileUuid = UuidBuild.getUUID();
         File localFile = new File(fileDatePath + fileUuid);
         try {
@@ -104,6 +105,13 @@ public class BlogFileServiceImpl extends ServiceImpl<BlogFileMapper, BlogFile> i
             if (out != null){
                 try {
                     out.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (is != null){
+                try {
+                    is.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

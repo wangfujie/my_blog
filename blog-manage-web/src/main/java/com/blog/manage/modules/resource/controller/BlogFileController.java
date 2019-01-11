@@ -118,7 +118,11 @@ public class BlogFileController {
     public void downloadFile(Integer resourceId, HttpServletResponse response) throws Exception {
         //查询资源信息
         BlogResourceInfo resourceInfo = resourceInfoService.selectById(resourceId);
+        //查询文件信息
+        BlogFile blogFile = fileService.selectById(resourceInfo.getFileId());
+        //设置文件名称，资源名称 + 文件名称
+        blogFile.setFileName(resourceInfo.getResourceName() + "-" + blogFile.getFileName());
         //下载文件
-        fileService.downloadFile(fileService.selectById(resourceInfo.getFileId()), response);
+        fileService.downloadFile(blogFile, response);
     }
 }

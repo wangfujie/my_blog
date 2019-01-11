@@ -17,7 +17,7 @@
     <span class="fl">
         <a class="layui-btn layui-btn-danger radius btn-delect" id="btn-delete-all">批量删除</a>
         <a class="layui-btn btn-add btn-default" onclick="addTreatise()" id="btn-add">添加</a>
-        <a class="layui-btn layui-btn-primary" id="btn-send">发送消息<i class="layui-icon"></i></a>
+        <a class="layui-btn layui-btn-primary layui-btn-disabled" id="btn-send">发送消息<i class="layui-icon"></i></a>
         <a class="layui-btn btn-add btn-default" id="btn-refresh"><i class="layui-icon">&#x1002;</i></a>
     </span>
     <span class="fr">
@@ -123,20 +123,20 @@
         });
 
         // 发送消息，到消息中间件
-        $('#btn-send').on('click', function () {
-            $.ajax({
-                url: "/kafka/sendTreatiseList",
-                type: "GET"
-            }).then(function (value) {
-                if (value.code == 200) {
-                    layer.msg("发送消息成功！");
-                }else {
-                    layer.msg(value.msg);
-                }
-            }).fail(function () {
-                layer.msg("调用出错！");
-            });
-        });
+        // $('#btn-send').on('click', function () {
+        //     $.ajax({
+        //         url: "/kafka/sendTreatiseList",
+        //         type: "GET"
+        //     }).then(function (value) {
+        //         if (value.code == 200) {
+        //             layer.msg("发送消息成功！");
+        //         }else {
+        //             layer.msg(value.msg);
+        //         }
+        //     }).fail(function () {
+        //         layer.msg("调用出错！");
+        //     });
+        // });
 
     });
 

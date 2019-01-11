@@ -1,6 +1,7 @@
 package com.blog.manage.modules.treatise.controller;
 
 import com.blog.manage.common.result.ResultLay;
+import com.blog.manage.modules.others.service.IBlogTagsService;
 import com.blog.manage.modules.treatise.query.BlogTreatiseQuery;
 import com.blog.manage.modules.treatise.service.IBlogTreatiseService;
 import com.blog.manage.modules.treatise.vo.BlogTreatiseVo;
@@ -27,6 +28,9 @@ public class BlogTreatiseController {
 
     @Autowired
     private IBlogTreatiseService treatiseService;
+
+    @Autowired
+    private IBlogTagsService tagsService;
 
     /**
      * 列表
@@ -66,6 +70,8 @@ public class BlogTreatiseController {
     @ApiOperation(value = "文章详情表", notes = "修改或新增文章详情表信息" )
     public R save(BlogTreatise blogTreatise){
         if (StringUtils.isEmpty(blogTreatise.getUuid())){
+            //增加标签使用数量
+            tagsService.addTagsUseNum(blogTreatise.getTags());
             blogTreatise.setCreateTime(new Date());
         }
         boolean retFlag = treatiseService.insertOrUpdate(blogTreatise);

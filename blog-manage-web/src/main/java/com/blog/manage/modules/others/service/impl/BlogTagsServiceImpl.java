@@ -1,5 +1,6 @@
 package com.blog.manage.modules.others.service.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.blog.manage.modules.others.vo.BlogTagsVo;
 import com.blog.pojo.entity.BlogTags;
@@ -9,6 +10,9 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author wangfj
@@ -43,5 +47,19 @@ public class BlogTagsServiceImpl extends ServiceImpl<BlogTagsMapper, BlogTags> i
     @Override
     public BlogTagsVo getBlogTagsVoById(Integer id) {
         return blogTagsMapper.getBlogTagsVoById(id);
+    }
+
+    @Override
+    public void addTagsUseNum(String tags) {
+        String[] tagArr = tags.split(",");
+        List<BlogTags> updateTags = new ArrayList<>(tagArr.length);
+        for (String tag : tagArr){
+            BlogTags blogTag = selectOne(new EntityWrapper<BlogTags>().eq("tag_name" , tag));
+            if (blogTag != null){
+                blogTag.setUseNum(blogTag.getUseNum() + 1);
+                updateTags.add(blogTag);
+            }
+        }
+        updateBatchById(updateTags);
     }
 }
