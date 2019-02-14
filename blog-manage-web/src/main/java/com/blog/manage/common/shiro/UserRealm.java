@@ -5,6 +5,7 @@ import com.blog.manage.modules.admin.service.IBlogAdminService;
 import com.blog.pojo.entity.BlogAdmin;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,12 @@ public class UserRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        return null;
+        //给资源进行授权
+        SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
+        //给当前用户添加授权字符串
+        authorizationInfo.addStringPermission("admin:add");
+
+        return authorizationInfo;
     }
 
     /**

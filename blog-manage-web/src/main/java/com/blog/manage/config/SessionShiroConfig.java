@@ -26,11 +26,20 @@ public class SessionShiroConfig {
         return new ServletContainerSessionManager();
     }
 
+    /**
+     * 创建Realm
+     * @return
+     */
     @Bean
     public UserRealm userRealm() {
         return new UserRealm();
     }
 
+    /**
+     * 创建DefaultWebSecurityManager
+     * @param sessionManager
+     * @return
+     */
     @Bean(name = "securityManager")
     public SecurityManager securityManager(SessionManager sessionManager) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
@@ -39,17 +48,30 @@ public class SessionShiroConfig {
         return securityManager;
     }
 
+    /**
+     * 创建ShiroFilterFactoryBean，实现登录过滤拦截
+     * @param securityManager
+     * @return
+     */
     @Bean("shiroFilter")
     public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilter = new ShiroFilterFactoryBean();
-        // 必须设置 SecurityManager
+        // 设置安全管理器SecurityManager，必须设置
         shiroFilter.setSecurityManager(securityManager);
         //如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
-        shiroFilter.setLoginUrl("/");
+        shiroFilter.setLoginUrl("/login.html");
         // 登录成功后要跳转的链接
         shiroFilter.setSuccessUrl("/index.html");
         // 未授权界面;
-        shiroFilter.setUnauthorizedUrl("/");
+        shiroFilter.setUnauthorizedUrl("/error/noAuth.html");
+        /**
+         * Shiro内置过滤器：
+         *  anon：无需认证（登录）可以访问
+         *  authc：必须认证才能访问
+         *  user：改资源必须得到资源权限才可以访问
+         *  role：该资源必须得到角色权限才可以访问
+         *
+         */
         // 配置不会被拦截的链接 顺序判断
         Map<String, String> filterMap = new LinkedHashMap<>();
         filterMap.put("/public/**", "anon");
@@ -67,7 +89,7 @@ public class SessionShiroConfig {
         filterMap.put("/captcha.jpg", "anon");
         filterMap.put("/getInfoOnLoginPage", "anon");
         filterMap.put("/error/**", "anon");
-        filterMap.put("/**/*.html", "anon");
+//        filterMap.put("/**/*.html", "anon");
         filterMap.put("/**/*.js", "anon");
         filterMap.put("/**/*.css", "anon");
         filterMap.put("/**/*.png", "anon");
