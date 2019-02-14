@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 APP_NAME=blog-manage-web
 
 tpid=`ps -ef|grep $APP_NAME|grep -v grep|grep -v kill|awk '{print $2}'`
