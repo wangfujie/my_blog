@@ -107,6 +107,20 @@
 			<artifactId>hutool-core</artifactId>
 			<version>4.3.0</version>
 		</dependency>
+
+		<!-- JWT核心依赖 -->
+		<dependency>
+			<groupId>com.auth0</groupId>
+			<artifactId>java-jwt</artifactId>
+			<version>3.3.0</version>
+		</dependency>
+		<!-- JAVA开发JWT的依赖jar包 -->
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.9.0</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
