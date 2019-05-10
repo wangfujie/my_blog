@@ -58,9 +58,8 @@ public class BlogLeaveMessageController {
      * 保存
      */
     @PostMapping("/save" )
-    @RequiresPermissions("blogLeaveMessage:save" )
     @ApiOperation(value = "留言表", notes = "保存留言表信息" )
-    public R save(BlogLeaveMessage blogLeaveMessage, HttpServletRequest request){
+    public R save(@RequestBody BlogLeaveMessage blogLeaveMessage, HttpServletRequest request){
         //设置随机头像数字
         blogLeaveMessage.setHeadImgNum(RandomUtils.getRandomNum(1,16));
         blogLeaveMessage.setCreateTime(new Date());

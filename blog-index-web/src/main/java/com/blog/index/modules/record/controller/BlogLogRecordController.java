@@ -7,6 +7,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @RestController
 @RequestMapping("/blogLogRecord" )
-@Api(value = "日志记录接口",description = "用作日志记录演示")
+@Api(value = "日志记录接口")
 public class BlogLogRecordController {
 
     @Autowired
@@ -29,7 +30,7 @@ public class BlogLogRecordController {
      */
     @PostMapping("/addRecord" )
     @ApiOperation(value = "增加记录", notes = "增加日志记录信息" )
-    public R addRecord(BlogLogRecord blogLogRecord, HttpServletRequest request){
+    public R addRecord(@RequestBody BlogLogRecord blogLogRecord, HttpServletRequest request){
         return logRecordService.addBlogLogRecord(blogLogRecord, request);
     }
 }
