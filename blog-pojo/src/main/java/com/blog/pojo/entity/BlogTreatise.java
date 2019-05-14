@@ -50,10 +50,15 @@ public class BlogTreatise extends Model<BlogTreatise> {
 	@TableField("reprint_url")
 	private String reprintUrl;
     /**
-     * 正文
+     * 正文（html格式）
      */
 	@TableField("treatise_body")
 	private String treatiseBody;
+	/**
+     * 正文（markdown格式内容）
+     */
+	@TableField("markdown_content")
+	private String markdownContent;
     /**
      * 创建时间
      */
@@ -200,5 +205,13 @@ public class BlogTreatise extends Model<BlogTreatise> {
 
 	public void setDelFlag(Integer delFlag) {
 		this.delFlag = delFlag;
+	}
+
+	public String getMarkdownContent() {
+		return markdownContent;
+	}
+
+	public void setMarkdownContent(String markdownContent) {
+		this.markdownContent = markdownContent;
 	}
 }
