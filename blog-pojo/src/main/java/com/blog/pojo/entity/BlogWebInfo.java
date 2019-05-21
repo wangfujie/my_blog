@@ -5,6 +5,10 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -14,6 +18,9 @@ import java.util.Date;
  * @description 网站的一些统计数据
  */
 @TableName("blog_web_info")
+@NoArgsConstructor
+@Data
+@Accessors(chain = true)
 public class BlogWebInfo extends Model<BlogWebInfo> {
 
     private static final long serialVersionUID = 1L;
@@ -45,55 +52,6 @@ public class BlogWebInfo extends Model<BlogWebInfo> {
      */
 	@TableField("update_time")
 	private Date updateTime;
-
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getWebSummary() {
-		return webSummary;
-	}
-
-	public void setWebSummary(String webSummary) {
-		this.webSummary = webSummary;
-	}
-
-	public Integer getWebBrowseNum() {
-		return webBrowseNum;
-	}
-
-	public void setWebBrowseNum(Integer webBrowseNum) {
-		this.webBrowseNum = webBrowseNum;
-	}
-
-	public Integer getWebFollowNum() {
-		return webFollowNum;
-	}
-
-	public void setWebFollowNum(Integer webFollowNum) {
-		this.webFollowNum = webFollowNum;
-	}
-
-	public Integer getWebUserNum() {
-		return webUserNum;
-	}
-
-	public void setWebUserNum(Integer webUserNum) {
-		this.webUserNum = webUserNum;
-	}
-
-	public Date getUpdateTime() {
-		return updateTime;
-	}
-
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
 
 	@Override
 	protected Serializable pkVal() {

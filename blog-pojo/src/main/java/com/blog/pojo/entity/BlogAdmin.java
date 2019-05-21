@@ -6,6 +6,10 @@ import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
+
 import java.io.Serializable;
 
 /**
@@ -14,6 +18,9 @@ import java.io.Serializable;
  * @description 
  */
 @TableName("blog_admin")
+@NoArgsConstructor
+@Data
+@Accessors(chain = true)
 public class BlogAdmin extends Model<BlogAdmin> {
 
     private static final long serialVersionUID = 1L;
@@ -47,63 +54,6 @@ public class BlogAdmin extends Model<BlogAdmin> {
      */
 	@TableField("login_ip")
 	private String loginIp;
-
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getShowName() {
-		return showName;
-	}
-
-	public void setShowName(String showName) {
-		this.showName = showName;
-	}
-
-	public String getAccount() {
-		return account;
-	}
-
-	public void setAccount(String account) {
-		this.account = account;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public Integer getStatus() {
-		return status;
-	}
-
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
-
-	public Date getLoginTime() {
-		return loginTime;
-	}
-
-	public void setLoginTime(Date loginTime) {
-		this.loginTime = loginTime;
-	}
-
-	public String getLoginIp() {
-		return loginIp;
-	}
-
-	public void setLoginIp(String loginIp) {
-		this.loginIp = loginIp;
-	}
 
 	@Override
 	protected Serializable pkVal() {

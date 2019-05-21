@@ -5,6 +5,10 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -14,6 +18,9 @@ import java.util.Date;
  * @description 资源分享信息表
  */
 @TableName("blog_resource_info")
+@NoArgsConstructor
+@Data
+@Accessors(chain = true)
 public class BlogResourceInfo extends Model<BlogResourceInfo> {
 
     private static final long serialVersionUID = 1L;
@@ -67,86 +74,6 @@ public class BlogResourceInfo extends Model<BlogResourceInfo> {
      */
 	private Integer status;
 
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getResourceName() {
-		return resourceName;
-	}
-
-	public void setResourceName(String resourceName) {
-		this.resourceName = resourceName;
-	}
-
-	public String getResourceDesc() {
-		return resourceDesc;
-	}
-
-	public void setResourceDesc(String resourceDesc) {
-		this.resourceDesc = resourceDesc;
-	}
-
-	public String getResourceLevel() {
-		return resourceLevel;
-	}
-
-	public void setResourceLevel(String resourceLevel) {
-		this.resourceLevel = resourceLevel;
-	}
-
-	public Integer getCategoryId() {
-		return categoryId;
-	}
-
-	public void setCategoryId(Integer categoryId) {
-		this.categoryId = categoryId;
-	}
-
-	public String getTags() {
-		return tags;
-	}
-
-	public void setTags(String tags) {
-		this.tags = tags;
-	}
-
-	public Integer getFileId() {
-		return fileId;
-	}
-
-	public void setFileId(Integer fileId) {
-		this.fileId = fileId;
-	}
-
-	public Date getLastUpdateTime() {
-		return lastUpdateTime;
-	}
-
-	public void setLastUpdateTime(Date lastUpdateTime) {
-		this.lastUpdateTime = lastUpdateTime;
-	}
-
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-
-	public Integer getStatus() {
-		return status;
-	}
-
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
 
 	@Override
 	protected Serializable pkVal() {

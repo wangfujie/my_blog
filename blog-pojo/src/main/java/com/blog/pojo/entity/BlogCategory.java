@@ -5,6 +5,10 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -14,6 +18,9 @@ import java.util.Date;
  * @description 博客类型表
  */
 @TableName("blog_category")
+@NoArgsConstructor
+@Data
+@Accessors(chain = true)
 public class BlogCategory extends Model<BlogCategory> {
 
     private static final long serialVersionUID = 1L;
@@ -53,64 +60,8 @@ public class BlogCategory extends Model<BlogCategory> {
      */
 	private Integer status;
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getCategoryName() {
-		return categoryName;
-	}
-
-	public void setCategoryName(String categoryName) {
-		this.categoryName = categoryName;
-	}
-
-	public Integer getfId() {
-		return fId;
-	}
-
-	public void setfId(Integer fId) {
-		this.fId = fId;
-	}
-
-	public Integer getDictLevel() {
-		return dictLevel;
-	}
-
-	public void setDictLevel(Integer dictLevel) {
-		this.dictLevel = dictLevel;
-	}
-
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-
-	public Integer getStatus() {
-		return status;
-	}
-
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
-
 	@Override
 	protected Serializable pkVal() {
 		return this.id;
-	}
-
-	public String getLinkUrl() {
-		return linkUrl;
-	}
-
-	public void setLinkUrl(String linkUrl) {
-		this.linkUrl = linkUrl;
 	}
 }

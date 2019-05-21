@@ -5,6 +5,10 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -14,6 +18,9 @@ import java.util.Date;
  * @description 文章详情表
  */
 @TableName("blog_treatise")
+@NoArgsConstructor
+@Data
+@Accessors(chain = true)
 public class BlogTreatise extends Model<BlogTreatise> {
 
     private static final long serialVersionUID = 1L;
@@ -90,128 +97,9 @@ public class BlogTreatise extends Model<BlogTreatise> {
 	private Integer delFlag;
 
 
-	public String getUuid() {
-		return uuid;
-	}
-
-	public void setUuid(String uuid) {
-		this.uuid = uuid;
-	}
-
-	public Integer getCategoryId() {
-		return categoryId;
-	}
-
-	public void setCategoryId(Integer categoryId) {
-		this.categoryId = categoryId;
-	}
-
-	public String getTreatiseTitle() {
-		return treatiseTitle;
-	}
-
-	public void setTreatiseTitle(String treatiseTitle) {
-		this.treatiseTitle = treatiseTitle;
-	}
-
-	public String getTreatisePreview() {
-		return treatisePreview;
-	}
-
-	public void setTreatisePreview(String treatisePreview) {
-		this.treatisePreview = treatisePreview;
-	}
-
-	public Integer getSource() {
-		return source;
-	}
-
-	public void setSource(Integer source) {
-		this.source = source;
-	}
-
-	public String getReprintFrom() {
-		return reprintFrom;
-	}
-
-	public void setReprintFrom(String reprintFrom) {
-		this.reprintFrom = reprintFrom;
-	}
-
-	public String getReprintUrl() {
-		return reprintUrl;
-	}
-
-	public void setReprintUrl(String reprintUrl) {
-		this.reprintUrl = reprintUrl;
-	}
-
-	public String getTreatiseBody() {
-		return treatiseBody;
-	}
-
-	public void setTreatiseBody(String treatiseBody) {
-		this.treatiseBody = treatiseBody;
-	}
-
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-
-	public Integer getReadNum() {
-		return readNum;
-	}
-
-	public void setReadNum(Integer readNum) {
-		this.readNum = readNum;
-	}
-
-	public Integer getPraiseNum() {
-		return praiseNum;
-	}
-
-	public void setPraiseNum(Integer praiseNum) {
-		this.praiseNum = praiseNum;
-	}
-
-	public String getTags() {
-		return tags;
-	}
-
-	public void setTags(String tags) {
-		this.tags = tags;
-	}
-
-	public Integer getRecommend() {
-		return recommend;
-	}
-
-	public void setRecommend(Integer recommend) {
-		this.recommend = recommend;
-	}
-
 	@Override
 	protected Serializable pkVal() {
 		return this.uuid;
 	}
 
-	public Integer getDelFlag() {
-		return delFlag;
-	}
-
-	public void setDelFlag(Integer delFlag) {
-		this.delFlag = delFlag;
-	}
-
-	public String getMarkdownContent() {
-		return markdownContent;
-	}
-
-	public void setMarkdownContent(String markdownContent) {
-		this.markdownContent = markdownContent;
-	}
 }
