@@ -14,7 +14,7 @@ new Vue({
 
             //获取公共头菜单列表
             $.ajax({
-                url:"/blogCategory/getBlogMenuNode",
+                url:"/blog/blogCategory/getBlogMenuNode",
                 type:"GET",
                 success:function(data){
                     if (data.code == 200){
@@ -25,7 +25,7 @@ new Vue({
 
             // 推荐
             $.ajax({
-                url:"/blogTreatise/getRecommend",
+                url:"/blog/blogTreatise/getRecommend",
                 type:"GET",
                 success:function(data){
                     if (data.code == 200){
@@ -36,7 +36,7 @@ new Vue({
 
             //标签云
             $.ajax({
-                url:"/blogTags/getShowTags",
+                url:"/blog/blogTags/getShowTags",
                 type:"GET",
                 success:function(data){
                     if (data.code == 200){
@@ -47,7 +47,7 @@ new Vue({
 
             //阅读排行，10条
             $.ajax({
-                url:"/blogTreatise/getReadRanking",
+                url:"/blog/blogTreatise/getReadRanking",
                 type:"GET",
                 data:{"currentPage":1,"pageSize":10},
                 success:function(data){
@@ -59,7 +59,7 @@ new Vue({
 
             // 友情链接查询
             $.ajax({
-                url:"/blogFriendlyLinks/list",
+                url:"/blog/blogFriendlyLinks/list",
                 type:"GET",
                 data:{"currentPage":1,"pageSize":5},
                 success:function(data){
@@ -72,7 +72,7 @@ new Vue({
         getTreatiseDetail:function (treatiseUuid) {
             var self = this;
             $.ajax({
-                url: "/blogTreatise/info/" + treatiseUuid,
+                url:"/blog/blogTreatise/info/" + treatiseUuid,
                 type: "GET"
             }).then(function (value) {
                 if (value.code == 200) {
@@ -90,7 +90,7 @@ new Vue({
         addPraiseNum: function () {
             var self = this;
             $.ajax({
-                url: "/blogLogRecord/addRecord",
+                url:"/blog/blogLogRecord/addRecord",
                 type: "POST",
                 data:{"recordType": 1, "treatiseUuid":self.treatiseInfo.uuid}
             }).then(function (value) {

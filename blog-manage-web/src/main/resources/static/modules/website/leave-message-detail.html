@@ -58,7 +58,7 @@
             initInfo:function (uuid) {
                 var self = this;
                 $.ajax({
-                    url: "/blogLeaveMessage/info/" + uuid,
+                    url:"/blog/blogLeaveMessage/info/" + uuid,
                     type: "GET"
                 }).then(function (value) {
                     if (value.code == 200) {

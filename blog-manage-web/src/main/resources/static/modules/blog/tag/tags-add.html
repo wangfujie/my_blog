@@ -53,7 +53,7 @@
             editInfo:function (id) {
                 var self = this;
                 $.ajax({
-                    url: "/blogTags/info/" + id,
+                    url:"/blog/blogTags/info/" + id,
                     type: "GET"
                 }).then(function (value) {
                     if (value.code == 200) {
@@ -67,7 +67,7 @@
                 var self = this;
                 //渲染种类下拉列表
                 $.ajax({
-                    url: "/blogCategory/getAllCategoryList",
+                    url:"/blog/blogCategory/getAllCategoryList",
                     type: "GET"
                 }).then(function (value) {
                     if (value.code == 200) {
@@ -114,7 +114,7 @@
                     data.field.tagName = data.field.tagsName;
 
                     $.ajax({
-                        url: "/blogTags/insertOrUpdate",
+                        url:"/blog/blogTags/insertOrUpdate",
                         type: "POST",
                         data: data.field
                     }).then(function (result) {

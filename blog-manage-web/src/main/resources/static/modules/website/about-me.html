@@ -84,7 +84,7 @@
             initInfo:function () {
                 var self = this;
                 $.ajax({
-                    url: "/blogAboutMe/info/1",
+                    url:"/blog/blogAboutMe/info/1",
                     type: "GET"
                 }).then(function (value) {
                     if (value.code == 200) {
@@ -131,7 +131,7 @@
         //监听提交
         form.on('submit(infoSubmit)', function(data){
             $.ajax({
-                url: "/blogAboutMe/insertOrUpdate",
+                url:"/blog/blogAboutMe/insertOrUpdate",
                 type: "POST",
                 data: data.field
             }).then(function (result) {

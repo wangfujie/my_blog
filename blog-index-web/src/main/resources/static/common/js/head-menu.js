@@ -4,7 +4,7 @@ $(function(){
 
     //获取公共头菜单列表
     $.ajax({
-        url:"/blogCategory/getBlogMenuNode",
+        url:"/blog/blogCategory/getBlogMenuNode",
         type:"GET",
         success:function(data){
             if (data.code == 200){

@@ -14,7 +14,7 @@ new Vue({
 
             //获取公共头菜单列表
             $.ajax({
-                url:"/blogCategory/getBlogMenuNode",
+                url:"/blog/blogCategory/getBlogMenuNode",
                 type:"GET",
                 success:function(data){
                     if (data.code == 200){
@@ -25,7 +25,7 @@ new Vue({
 
             // 推荐
             $.ajax({
-                url:"/blogTreatise/getRecommend",
+                url:"/blog/blogTreatise/getRecommend",
                 type:"GET",
                 success:function(data){
                     if (data.code == 200){
@@ -36,7 +36,7 @@ new Vue({
 
             //标签云
             $.ajax({
-                url:"/blogTags/getShowTags",
+                url:"/blog/blogTags/getShowTags",
                 type:"GET",
                 success:function(data){
                     if (data.code == 200){
@@ -47,7 +47,7 @@ new Vue({
 
             //阅读排行，10条
             $.ajax({
-                url:"/blogTreatise/getReadRanking",
+                url:"/blog/blogTreatise/getReadRanking",
                 type:"GET",
                 data:{"currentPage":1,"pageSize":10},
                 success:function(data){
@@ -59,7 +59,7 @@ new Vue({
 
             // 友情链接查询
             $.ajax({
-                url:"/blogFriendlyLinks/list",
+                url:"/blog/blogFriendlyLinks/list",
                 type:"GET",
                 data:{"currentPage":1,"pageSize":5},
                 success:function(data){
@@ -71,7 +71,7 @@ new Vue({
 
             //增加网站浏览记录
             $.ajax({
-                url: "/blogLogRecord/addRecord",
+                url:"/blog/blogLogRecord/addRecord",
                 type: "POST",
                 data:{"recordType": 3}
             }).then(function (value) {
@@ -89,7 +89,7 @@ new Vue({
                 self.treatiseList = [];
             }
             $.ajax({
-                url:"/blogTreatise/list",
+                url:"/blog/blogTreatise/list",
                 type:"GET",
                 data:{"currentPage":pageNum,"pageSize":8,"keyWord":keyWord},
                 success:function(value){
@@ -159,7 +159,7 @@ new Vue({
 //         $("#treatise-list").empty();
 //     }
 //     $.ajax({
-//         url:"/blogTreatise/list",
+//         url:"/blog/blogTreatise/list",
 //         type:"GET",
 //         data:{"currentPage":pageNum,"pageSize":5,"keyWord":keyWord},
 //         success:function(data){
@@ -188,7 +188,7 @@ new Vue({
 //  */
 // function addLogRecord() {
 //     $.ajax({
-//         url: "/blogLogRecord/addRecord",
+//         url:"/blog/blogLogRecord/addRecord",
 //         type: "POST",
 //         data:{"recordType": 3}
 //     }).then(function (value) {

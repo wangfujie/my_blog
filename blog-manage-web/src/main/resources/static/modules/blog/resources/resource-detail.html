@@ -51,7 +51,7 @@
             initInfo:function (resourceId) {
                 var self = this;
                 $.ajax({
-                    url: "/blogResourceInfo/info/" + resourceId,
+                    url:"/blog/blogResourceInfo/info/" + resourceId,
                     type: "GET"
                 }).then(function (value) {
                     if (value.code == 200) {

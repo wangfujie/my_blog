@@ -108,7 +108,7 @@
                 obj.update(updateValue);
                 //调后台接口修改内容
                 $.ajax({
-                    url: "/blogCategory/insertOrUpdate" ,
+                    url:"/blog/blogCategory/insertOrUpdate" ,
                     type: "POST",
                     data:obj.data
                 }).then(function (value) {
@@ -126,7 +126,7 @@
                 layer.confirm('确认改变此行状态？', function (index) {
                     layer.close(index);
                     $.ajax({
-                        url: "/blogCategory/status/" + obj.data.id ,
+                        url:"/blog/blogCategory/status/" + obj.data.id ,
                         type: "POST"
                     }).then(function (value) {
                         if (value.code == 200) {

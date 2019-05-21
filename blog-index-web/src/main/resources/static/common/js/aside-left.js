@@ -1,7 +1,7 @@
 $(function(){
     // 推荐
     $.ajax({
-        url:"/blogTreatise/getRecommend",
+        url:"/blog/blogTreatise/getRecommend",
         type:"GET",
         success:function(data){
             if (data.code == 200){
@@ -15,7 +15,7 @@ $(function(){
 
     //标签云
     $.ajax({
-        url:"/blogTags/getShowTags",
+        url:"/blog/blogTags/getShowTags",
         type:"GET",
         success:function(data){
             if (data.code == 200){
@@ -29,7 +29,7 @@ $(function(){
 
     //阅读排行，10条
     $.ajax({
-        url:"/blogTreatise/getReadRanking",
+        url:"/blog/blogTreatise/getReadRanking",
         type:"GET",
         data:{"currentPage":1,"pageSize":10},
         success:function(data){
@@ -44,7 +44,7 @@ $(function(){
 
     // 友情链接查询
     $.ajax({
-        url:"/blogFriendlyLinks/list",
+        url:"/blog/blogFriendlyLinks/list",
         type:"GET",
         data:{"currentPage":1,"pageSize":5},
         success:function(data){

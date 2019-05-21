@@ -96,7 +96,7 @@
                     layer.close(index);
                     //向服务端发送删除指令
                     $.ajax({
-                        url: "/blogLeaveMessage/delete/" + obj.data.uuid ,
+                        url:"/blog/blogLeaveMessage/delete/" + obj.data.uuid ,
                         type: "POST"
                     }).then(function (value) {
                         if (value.code == 200) {
@@ -124,7 +124,7 @@
                     layer.close(index);
                     //向服务端发送删除指令
                     $.ajax({
-                        url: "/blogLeaveMessage/deleteBatch/" ,
+                        url:"/blog/blogLeaveMessage/deleteBatch/" ,
                         type: "PUT",
                         data: {"uuidString":idArr.join(',')}
                     }).then(function (value) {
@@ -186,7 +186,7 @@
                 layer.close(index);
                 $.ajax({
                     type: "post",
-                    url: "/blogLeaveMessage/reply",
+                    url:"/blog/blogLeaveMessage/reply",
                     data: {
                         "uuid": data.uuid,
                         "reply":value

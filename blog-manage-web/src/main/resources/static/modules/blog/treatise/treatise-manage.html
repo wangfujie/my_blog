@@ -102,7 +102,7 @@
                     layer.close(index);
                     //向服务端发送删除指令
                     $.ajax({
-                        url: "/blogTreatise/delete/" + obj.data.uuid ,
+                        url:"/blog/blogTreatise/delete/" + obj.data.uuid ,
                         type: "POST"
                     }).then(function (value) {
                         if (value.code == 200) {
@@ -125,7 +125,7 @@
         // 发送消息，到消息中间件
         // $('#btn-send').on('click', function () {
         //     $.ajax({
-        //         url: "/kafka/sendTreatiseList",
+        //         url:"/blog/kafka/sendTreatiseList",
         //         type: "GET"
         //     }).then(function (value) {
         //         if (value.code == 200) {
