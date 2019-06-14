@@ -92,7 +92,7 @@
                 obj.update(updateValue);
                 //调后台接口修改内容
                 $.ajax({
-                    url:"/blog/blogWebTechnology/insertOrUpdate" ,
+                    url:"/blogWebTechnology/insertOrUpdate" ,
                     type: "POST",
                     data:obj.data
                 }).then(function (value) {
@@ -112,7 +112,7 @@
                     layer.close(index);
                     //向服务端发送删除指令
                     $.ajax({
-                        url:"/blog/blogWebTechnology/delete/" + obj.data.id ,
+                        url:"/blogWebTechnology/delete/" + obj.data.id ,
                         type: "POST"
                     }).then(function (value) {
                         if (value.code == 200) {

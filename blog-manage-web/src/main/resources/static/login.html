@@ -36,7 +36,7 @@
         //监听提交
         form.on('submit(login)', function(data){
             $.ajax({
-                url:"/blog/sys/login",
+                url:"/sys/login",
                 type: "post",
                 data: data.field,
                 success: function (result) {

@@ -75,7 +75,7 @@
         //监听提交
         form.on('submit(infoSubmit)', function(data){
             $.ajax({
-                url:"/blog/blogFriendlyLinks/insertOrUpdate",
+                url:"/blogFriendlyLinks/insertOrUpdate",
                 type: "POST",
                 data: data.field
             }).then(function (result) {

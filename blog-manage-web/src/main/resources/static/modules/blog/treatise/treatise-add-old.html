@@ -110,7 +110,7 @@
             editInfo:function (treatiseUuid) {
                 var self = this;
                 $.ajax({
-                    url:"/blog/blogTreatise/info/" + treatiseUuid,
+                    url:"/blogTreatise/info/" + treatiseUuid,
                     type: "GET"
                 }).then(function (value) {
                     if (value.code == 200) {
@@ -123,7 +123,7 @@
             initInfo:function () {
                 var self = this;
                 $.ajax({
-                    url:"/blog/blogCategory/getCategoryList",
+                    url:"/blogCategory/getCategoryList",
                     type: "GET"
                 }).then(function (value) {
                     if (value.code == 200) {
@@ -136,7 +136,7 @@
             loadCategory:function (categoryId) {
                 var self = this;
                 $.ajax({
-                    url:"/blog/blogCategory/getCategoryList",
+                    url:"/blogCategory/getCategoryList",
                     type: "GET",
                     data: {"categoryId":categoryId}
                 }).then(function (value) {
@@ -193,7 +193,7 @@
             console.log(data);
 
             // $.ajax({
-            //     url:"/blog/blogTreatise/insertOrUpdate",
+            //     url:"/blogTreatise/insertOrUpdate",
             //     type: "POST",
             //     data: data.field
             // }).then(function (result) {

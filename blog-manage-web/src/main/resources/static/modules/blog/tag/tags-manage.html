@@ -93,7 +93,7 @@
                     layer.close(index);
                     //向服务端发送删除指令
                     $.ajax({
-                        url:"/blog/blogTags/delete/" + obj.data.id ,
+                        url:"/blogTags/delete/" + obj.data.id ,
                         type: "POST"
                     }).then(function (value) {
                         if (value.code == 200) {

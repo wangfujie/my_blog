@@ -43,7 +43,7 @@
             initInfo:function (treatiseUuid) {
                 var self = this;
                 $.ajax({
-                    url:"/blog/blogTreatise/info/" + treatiseUuid,
+                    url:"/blogTreatise/info/" + treatiseUuid,
                     type: "GET"
                 }).then(function (value) {
                     if (value.code == 200) {
