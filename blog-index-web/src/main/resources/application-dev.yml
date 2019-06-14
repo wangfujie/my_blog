@@ -1,5 +1,5 @@
 # ueditor上传图片后显示本地图片配置，增加映射到F盘
-web:
+image:
   upload-path: E:/upload-path/
 
 # 资源文件上传路径
@@ -14,12 +14,12 @@ spring:
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/my_blog?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8&amp
     username: root
-    password: wang123
+    password: root
 
   mvc:
       static-path-pattern: /**
   resources:
-      static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,file:${web.upload-path}
+      static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,file:${image.upload-path}
 
 # REDIS (RedisProperties)
   redis:

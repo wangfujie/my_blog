@@ -101,13 +101,6 @@
 			<artifactId>spring-kafka</artifactId>
 		</dependency>
 
-		<!-- hutool工具类 -->
-		<dependency>
-			<groupId>cn.hutool</groupId>
-			<artifactId>hutool-core</artifactId>
-			<version>4.3.0</version>
-		</dependency>
-
 		<!-- JWT核心依赖 -->
 		<dependency>
 			<groupId>com.auth0</groupId>

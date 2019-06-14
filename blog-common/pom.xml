@@ -35,6 +35,13 @@
 			<version>${fastjson.version}</version>
 		</dependency>
 
+		<!-- hutool工具类 -->
+		<dependency>
+			<groupId>cn.hutool</groupId>
+			<artifactId>hutool-core</artifactId>
+			<version>4.3.0</version>
+		</dependency>
+
 		<!-- 代码生成器所需jar -->
 		<dependency>
 			<artifactId>velocity</artifactId>
