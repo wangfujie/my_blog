@@ -74,6 +74,9 @@ public class BlogTreatiseController {
             tagsService.addTagsUseNum(blogTreatise.getTags());
             blogTreatise.setCreateTime(new Date());
         }
+        if (StringUtils.isEmpty(blogTreatise.getUuid())){
+            blogTreatise.setMarkdownContent("default");
+        }
         boolean retFlag = treatiseService.insertOrUpdate(blogTreatise);
         if (!retFlag) {
             return R.error(MessageSourceUtil.getMessage("500"));
