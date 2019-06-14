@@ -3,10 +3,11 @@ package com.blog.index.config;
 import com.blog.common.utils.DateUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
-
 import java.util.Date;
 
 /**
@@ -15,6 +16,7 @@ import java.util.Date;
  * @description webMvc的配置
  */
 @Configuration
+@Profile({"pro"})
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
     @Bean
@@ -24,18 +26,17 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         return lci;
     }
 
-//    @Bean
-//    public ProtectCommitInterceptor protectCommitInterceptor() {
-//        return new ProtectCommitInterceptor();
-//    }
-//
-//    @Override
-//    public void addInterceptors(InterceptorRegistry registry) {
-////        registry.addInterceptor(authorizationInterceptor()).addPathPatterns("/api/**");
-//        //配置提交拦截器
-//        registry.addInterceptor(protectCommitInterceptor()).addPathPatterns("/**");
-//        registry.addInterceptor(localeChangeInterceptor());
-//    }
+    @Bean
+    public ProtectCommitInterceptor protectCommitInterceptor() {
+        return new ProtectCommitInterceptor();
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        //配置提交拦截器
+        registry.addInterceptor(protectCommitInterceptor()).addPathPatterns("/**");
+        registry.addInterceptor(localeChangeInterceptor());
+    }
 
     /**
      * 处理时间格式数据转换（将前端传入的时间字符串转换为date类型）
