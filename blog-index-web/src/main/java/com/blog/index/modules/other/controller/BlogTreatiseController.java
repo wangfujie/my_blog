@@ -1,24 +1,29 @@
 package com.blog.index.modules.other.controller;
 
+import cn.hutool.core.date.DateUtil;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.plugins.Page;
+import com.blog.common.query.BaseQuery;
+import com.blog.common.result.R;
+import com.blog.common.utils.MessageSourceUtil;
 import com.blog.index.modules.other.query.BlogTreatiseQuery;
+import com.blog.index.modules.other.service.IBlogTreatiseService;
 import com.blog.index.modules.other.vo.BlogTreatiseVo;
 import com.blog.index.modules.record.service.IBlogLogRecordService;
 import com.blog.pojo.entity.BlogLogRecord;
 import com.blog.pojo.entity.BlogTreatise;
-import com.blog.index.modules.other.service.IBlogTreatiseService;
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.plugins.Page;
-import com.blog.common.query.BaseQuery;
-import com.blog.common.utils.MessageSourceUtil;
-import com.blog.common.result.R;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.*;
-import io.swagger.annotations.*;
 import springfox.documentation.annotations.ApiIgnore;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author wangfj
@@ -107,7 +112,27 @@ public class BlogTreatiseController {
         //查询列表数据
         List<BlogTreatise> pageList=treatiseService.selectList(new EntityWrapper<BlogTreatise>()
                 .eq("del_flag",0).orderBy("create_time", false));
-        return R.fillListData(pageList);
+        //按月归档
+        List<Map<String,Object>> newBlogList = new ArrayList<>();
+        Map<String, List<BlogTreatise>> monthMapBlog = new LinkedHashMap<>();
+        pageList.forEach(blogTreatise -> {
+            String dateMonth = DateUtil.format(blogTreatise.getCreateTime(),"yyyy-MM");
+            if (monthMapBlog.containsKey(dateMonth)){
+                monthMapBlog.get(dateMonth).add(blogTreatise);
+            }else {
+                List<BlogTreatise> monthList = new ArrayList<>();
+                monthList.add(blogTreatise);
+                monthMapBlog.put(dateMonth, monthList);
+            }
+        });
+        monthMapBlog.keySet().forEach(key -> {
+            Map<String,Object> newMap = new HashMap<>();
+            newMap.put("dateMonth", key);
+            newMap.put("number", monthMapBlog.get(key).size());
+            newMap.put("blogList", monthMapBlog.get(key));
+            newBlogList.add(newMap);
+        });
+        return R.fillListData(newBlogList);
     }
 
     /**
