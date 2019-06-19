@@ -108,31 +108,43 @@ public class BlogTreatiseController {
      */
     @GetMapping("/getTimeAxis" )
     @ApiOperation(value = "文章详情表", notes = "获取文章详情表分页列表" )
-    public R getTimeAxis(){
-        //查询列表数据
-        List<BlogTreatise> pageList=treatiseService.selectList(new EntityWrapper<BlogTreatise>()
-                .eq("del_flag",0).orderBy("create_time", false));
+    public R getTimeAxis(@ApiIgnore BlogTreatiseQuery treatiseQuery){
+        //分页查询数据
+        Page<BlogTreatiseVo> page=new Page<>(treatiseQuery.getCurrentPage(),treatiseQuery.getPageSize());
+        page = treatiseService.getTreatisePage(page,treatiseQuery);
+        //获取本页数据
+        List<BlogTreatiseVo> blogTreatiseList = page.getRecords();
         //按月归档
         List<Map<String,Object>> newBlogList = new ArrayList<>();
         Map<String, List<BlogTreatise>> monthMapBlog = new LinkedHashMap<>();
-        pageList.forEach(blogTreatise -> {
-            String dateMonth = DateUtil.format(blogTreatise.getCreateTime(),"yyyy-MM");
+        blogTreatiseList.forEach(blogTreatiseVo -> {
+            String dateMonth = DateUtil.format(blogTreatiseVo.getCreateTime(),"yyyy年MM月");
             if (monthMapBlog.containsKey(dateMonth)){
-                monthMapBlog.get(dateMonth).add(blogTreatise);
+                monthMapBlog.get(dateMonth).add(blogTreatiseVo);
             }else {
                 List<BlogTreatise> monthList = new ArrayList<>();
-                monthList.add(blogTreatise);
+                monthList.add(blogTreatiseVo);
                 monthMapBlog.put(dateMonth, monthList);
             }
         });
         monthMapBlog.keySet().forEach(key -> {
             Map<String,Object> newMap = new HashMap<>();
+            newMap.put("type", 1);
             newMap.put("dateMonth", key);
             newMap.put("number", monthMapBlog.get(key).size());
-            newMap.put("blogList", monthMapBlog.get(key));
             newBlogList.add(newMap);
+            monthMapBlog.get(key).forEach(blogTreatiseVo -> {
+                Map<String,Object> newMap2 = new HashMap<>();
+                newMap2.put("type", 2);
+                newMap2.put("blogTreatise", blogTreatiseVo);
+                newBlogList.add(newMap2);
+            });
         });
-        return R.fillListData(newBlogList);
+        //设置新分页数据
+        Page<Map<String,Object>> newBlogPage=new Page<>(treatiseQuery.getCurrentPage(),treatiseQuery.getPageSize());
+        newBlogPage.setRecords(newBlogList);
+        newBlogPage.setTotal(page.getTotal());
+        return R.fillPageData(newBlogPage);
     }
 
     /**
