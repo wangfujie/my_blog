@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.*;
 import springfox.documentation.annotations.ApiIgnore;
 
-import java.math.BigDecimal;
-
 /**
  * @author wangfj
  * @date 2018-08-16
@@ -65,7 +63,7 @@ public class BlogAboutMeController {
         if (blogAboutMe == null) {
             return R.notFound();
         }
-        BigDecimal browseTotal = (BigDecimal) webInfoService.selectObj(new EntityWrapper<BlogWebInfo>().setSqlSelect("sum(web_browse_num)"));
+        Object browseTotal = webInfoService.selectObj(new EntityWrapper<BlogWebInfo>().setSqlSelect("sum(web_browse_num)"));
         return R.fillSingleData(blogAboutMe).put("browseTotal", browseTotal);
     }
 
