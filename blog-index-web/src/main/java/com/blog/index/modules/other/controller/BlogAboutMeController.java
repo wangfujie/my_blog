@@ -1,5 +1,6 @@
 package com.blog.index.modules.other.controller;
 
+import com.blog.index.modules.other.service.IBlogWebInfoService;
 import com.blog.pojo.entity.BlogAboutMe;
 import com.blog.index.modules.other.service.IBlogAboutMeService;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
@@ -7,12 +8,15 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.blog.common.query.BaseQuery;
 import com.blog.common.utils.MessageSourceUtil;
 import com.blog.common.result.R;
+import com.blog.pojo.entity.BlogWebInfo;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.*;
 import springfox.documentation.annotations.ApiIgnore;
+
+import java.math.BigDecimal;
 
 /**
  * @author wangfj
@@ -27,6 +31,8 @@ public class BlogAboutMeController {
     @Autowired
     private IBlogAboutMeService iBlogAboutMeService;
 
+    @Autowired
+    private IBlogWebInfoService webInfoService;
     /**
      * 列表
      */
@@ -59,7 +65,8 @@ public class BlogAboutMeController {
         if (blogAboutMe == null) {
             return R.notFound();
         }
-        return R.fillSingleData(blogAboutMe);
+        BigDecimal browseTotal = (BigDecimal) webInfoService.selectObj(new EntityWrapper<BlogWebInfo>().setSqlSelect("sum(web_browse_num)"));
+        return R.fillSingleData(blogAboutMe).put("browseTotal", browseTotal);
     }
 
     /**
