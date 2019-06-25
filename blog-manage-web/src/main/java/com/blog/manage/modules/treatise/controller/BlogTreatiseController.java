@@ -85,6 +85,19 @@ public class BlogTreatiseController {
     }
 
     /**
+     * 修改
+     */
+    @PostMapping("/update" )
+    @ApiOperation(value = "文章详情表", notes = "更新文章详情表信息" )
+    public R update(@RequestBody BlogTreatise blogTreatise){
+        boolean retFlag = treatiseService.updateById(blogTreatise);
+        if (!retFlag) {
+            return R.error(MessageSourceUtil.getMessage("500"));
+        }
+        return R.ok();
+    }
+
+    /**
      * 删除
      */
     @PostMapping("/delete/{uuid}" )

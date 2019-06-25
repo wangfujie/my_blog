@@ -155,7 +155,7 @@
         var title = "新增文章";
         var url = 'treatise-add.html';
         if (uuid){
-            url += '?treatiseUuid='+ uuid;
+            url = 'treatise-nuxt-add.html?uuid='+ uuid;
             title = "编辑文章";
         }
         window.open(url);
