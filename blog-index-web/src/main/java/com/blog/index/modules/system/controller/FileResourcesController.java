@@ -25,8 +25,8 @@ public class FileResourcesController {
     @Value("${image.upload-path}")
     private String filePath;
 
-    @Value("${server.context-path}")
-    private String contextPath;
+//    @Value("${server.context-path}")
+    private String contextPath = "";
 
     /**
      * 上传图片
