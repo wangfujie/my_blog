@@ -68,14 +68,11 @@ public class BlogTreatiseController {
      */
     @PostMapping("/insertOrUpdate" )
     @ApiOperation(value = "文章详情表", notes = "修改或新增文章详情表信息" )
-    public R save(BlogTreatise blogTreatise){
+    public R save(@RequestBody BlogTreatise blogTreatise){
         if (StringUtils.isEmpty(blogTreatise.getUuid())){
             //增加标签使用数量
             tagsService.addTagsUseNum(blogTreatise.getTags());
             blogTreatise.setCreateTime(new Date());
-        }
-        if (StringUtils.isEmpty(blogTreatise.getUuid())){
-            blogTreatise.setMarkdownContent("default");
         }
         boolean retFlag = treatiseService.insertOrUpdate(blogTreatise);
         if (!retFlag) {

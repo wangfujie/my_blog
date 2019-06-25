@@ -153,9 +153,9 @@
      */
     function addTreatise(uuid) {
         var title = "新增文章";
-        var url = 'treatise-add.html';
+        var url = 'treatise-nuxt-add.html';
         if (uuid){
-            url = 'treatise-nuxt-add.html?uuid='+ uuid;
+            url += '?uuid='+ uuid;
             title = "编辑文章";
         }
         window.open(url);
