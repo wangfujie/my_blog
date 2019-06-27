@@ -106,7 +106,11 @@ public class SessionShiroConfig {
         filterMap.put("/lic/licErrorPage", "anon");
         filterMap.put("/lic/uploadLic", "anon");
         //单点登录url
-        filterMap.put("/ssologin/**", "anon");
+        filterMap.put("/blogTreatise/**", "anon");
+        //前端测试使用的
+//        filterMap.put("/blogTags/**", "anon");
+//        filterMap.put("/blogCategory/**", "anon");
+//        filterMap.put("/uploadImage/**", "anon");
 
         // 过滤链定义，从上向下顺序执行，一般将 /**放在最为下边
         filterMap.put("/**", "authc");
