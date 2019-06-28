@@ -18,6 +18,7 @@
         <a class="layui-btn layui-btn-danger radius btn-delect" id="btn-delete-all">批量删除</a>
         <a class="layui-btn btn-add btn-default" onclick="addTreatise()" id="btn-add">添加</a>
         <a class="layui-btn layui-btn-primary layui-btn-disabled" id="btn-send">发送消息<i class="layui-icon"></i></a>
+        <a class="layui-btn layui-btn-normal radius" id="btn-commit-urls">百度连接提交</a>
         <a class="layui-btn btn-add btn-default" id="btn-refresh"><i class="layui-icon">&#x1002;</i></a>
     </span>
     <span class="fr">
@@ -82,7 +83,11 @@
 
         //监听表格复选框选择
         table.on('checkbox(treatiseTableFilter)', function(obj){
-            console.log(obj)
+            // console.log(obj);
+        });
+
+        form.on('checkbox(allChoose)', function(data){
+            console.log(data);
         });
 
         //监听工具条
@@ -138,6 +143,32 @@
         //     });
         // });
 
+        /**
+         * 提交链接到百度
+         */
+        $('#btn-commit-urls').on('click', function () {
+            //获取选中行
+            var checkStatus = table.checkStatus('tableInsData');
+            var checkedUuidArray = new Array();
+            checkStatus.data.forEach(function (treatise) {
+                checkedUuidArray.push(treatise.uuid);
+            });
+
+            if (checkedUuidArray.length > 0){
+                var uuidList = checkedUuidArray.join(",");
+                $.ajax({
+                    url:"/baidu/commit/urls" ,
+                    type: "POST",
+                    data: {"uuidList" : uuidList}
+                }).then(function (result) {
+                    layer.msg(result);
+                }).fail(function () {
+                    layer.msg("调用出错！");
+                });
+            } else {
+                layer.msg("没有选择文章！");
+            }
+        });
     });
 
     /**
