@@ -3,6 +3,9 @@ package com.blog.manage.modules.system.controller;
 import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.blog.common.result.R;
+import com.blog.manage.task.SiteCommitUrlTask;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,8 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/baidu")
 public class BaiduCommitController {
 
-    private static final String urlPrefix = "https://blog.wwolf.wang/detail/";
-    private static final String commitUrl = "http://data.zz.baidu.com/urls?site=https://blog.wwolf.wang&token=41yNdFtZz949DxDk";
+    private static final Logger log = LoggerFactory.getLogger(SiteCommitUrlTask.class);
 
     @PostMapping("/commit/urls")
     public R commitUrls(String uuidList) {
@@ -27,14 +29,14 @@ public class BaiduCommitController {
         String[] uuidArray = uuidList.split(",");
         if (uuidArray.length > 0){
             for (String uuid : uuidArray){
-                String url = urlPrefix + uuid;
+                String url = SiteCommitUrlTask.urlPrefix + uuid;
                 //调用请求
-                String result = HttpUtil.post(commitUrl, url);
+                String result = HttpUtil.post(SiteCommitUrlTask.commitUrl, url);
                 //处理返回值
                 JSONObject resultJsonObject = JSONObject.parseObject(result);
                 remain = resultJsonObject.getInteger("remain");
                 success += resultJsonObject.getInteger("success");
-                System.out.println("百度链接手动提交 ==> url:" + url + ",result:" + result);
+                log.info("百度链接手动提交 ==> url:" + url + ",result:" + result);
             }
         }
         resultJson.put("remain", remain);
