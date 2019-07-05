@@ -145,6 +145,7 @@ CREATE TABLE `blog_treatise`  (
   `praise_num` int(11) DEFAULT NULL COMMENT '点赞数',
   `tags` varchar(255) DEFAULT NULL COMMENT '标签',
   `recommend` int(1) DEFAULT NULL COMMENT '是否推荐（1是，0否）',
+  `bd_included` int(1) DEFAULT 0 COMMENT '百度是否收录（1是，0否）',
   `del_flag` int(1) DEFAULT '0' COMMENT '逻辑删除标识（1删除，0正常）',
   PRIMARY KEY (`uuid`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '文章详情表' ROW_FORMAT = Compact;
@@ -266,3 +267,7 @@ CREATE TABLE `blog_file` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='文件信息表';
 
 SET FOREIGN_KEY_CHECKS = 1;
+
+
+-- 增加百度是否收录字段
+-- ALTER TABLE `blog_treatise` ADD COLUMN `bd_included` int(1) NULL DEFAULT 0 COMMENT '百度是否收录（1是，0否）' AFTER `recommend`;
