@@ -5,6 +5,9 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -13,6 +16,9 @@ import java.util.Date;
  * @date 2018-08-16
  * @description 文章详情表
  */
+@Data
+@EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
 @TableName("blog_treatise")
 public class BlogTreatise extends Model<BlogTreatise> {
 
@@ -82,136 +88,20 @@ public class BlogTreatise extends Model<BlogTreatise> {
      * 是否推荐（1是，0否）
      */
 	private Integer recommend;
-
+	/**
+	 * 百度是否收录（1是，0否）
+	 */
+	@TableField("bd_included")
+	private Integer bdIncluded;
 	/**
 	 * 删除状态（1删除，0正常）
 	 */
 	@TableField("del_flag")
 	private Integer delFlag;
 
-
-	public String getUuid() {
-		return uuid;
-	}
-
-	public void setUuid(String uuid) {
-		this.uuid = uuid;
-	}
-
-	public Integer getCategoryId() {
-		return categoryId;
-	}
-
-	public void setCategoryId(Integer categoryId) {
-		this.categoryId = categoryId;
-	}
-
-	public String getTreatiseTitle() {
-		return treatiseTitle;
-	}
-
-	public void setTreatiseTitle(String treatiseTitle) {
-		this.treatiseTitle = treatiseTitle;
-	}
-
-	public String getTreatisePreview() {
-		return treatisePreview;
-	}
-
-	public void setTreatisePreview(String treatisePreview) {
-		this.treatisePreview = treatisePreview;
-	}
-
-	public Integer getSource() {
-		return source;
-	}
-
-	public void setSource(Integer source) {
-		this.source = source;
-	}
-
-	public String getReprintFrom() {
-		return reprintFrom;
-	}
-
-	public void setReprintFrom(String reprintFrom) {
-		this.reprintFrom = reprintFrom;
-	}
-
-	public String getReprintUrl() {
-		return reprintUrl;
-	}
-
-	public void setReprintUrl(String reprintUrl) {
-		this.reprintUrl = reprintUrl;
-	}
-
-	public String getTreatiseBody() {
-		return treatiseBody;
-	}
-
-	public void setTreatiseBody(String treatiseBody) {
-		this.treatiseBody = treatiseBody;
-	}
-
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-
-	public Integer getReadNum() {
-		return readNum;
-	}
-
-	public void setReadNum(Integer readNum) {
-		this.readNum = readNum;
-	}
-
-	public Integer getPraiseNum() {
-		return praiseNum;
-	}
-
-	public void setPraiseNum(Integer praiseNum) {
-		this.praiseNum = praiseNum;
-	}
-
-	public String getTags() {
-		return tags;
-	}
-
-	public void setTags(String tags) {
-		this.tags = tags;
-	}
-
-	public Integer getRecommend() {
-		return recommend;
-	}
-
-	public void setRecommend(Integer recommend) {
-		this.recommend = recommend;
-	}
-
 	@Override
 	protected Serializable pkVal() {
 		return this.uuid;
 	}
 
-	public Integer getDelFlag() {
-		return delFlag;
-	}
-
-	public void setDelFlag(Integer delFlag) {
-		this.delFlag = delFlag;
-	}
-
-	public String getMarkdownContent() {
-		return markdownContent;
-	}
-
-	public void setMarkdownContent(String markdownContent) {
-		this.markdownContent = markdownContent;
-	}
 }

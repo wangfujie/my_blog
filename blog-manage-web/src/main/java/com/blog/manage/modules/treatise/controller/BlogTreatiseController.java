@@ -95,6 +95,29 @@ public class BlogTreatiseController {
     }
 
     /**
+     * 标记收录文章
+     */
+    @PostMapping("/include/{uuid}" )
+    @ApiOperation(value = "标记收录文章", notes = "标记收录文章" )
+    public R includeTreatise(@PathVariable("uuid" ) String uuid){
+        BlogTreatise blogTreatise = treatiseService.selectById(uuid);
+        if (blogTreatise != null){
+            if (blogTreatise.getBdIncluded() == 1){
+                blogTreatise.setBdIncluded(0);
+            }else {
+                blogTreatise.setBdIncluded(1);
+            }
+            boolean retFlag = treatiseService.updateById(blogTreatise);
+            if (!retFlag) {
+                return R.error(MessageSourceUtil.getMessage("500"));
+            }
+        }else {
+            return R.error("错误的uuid");
+        }
+        return R.ok();
+    }
+
+    /**
      * 删除
      */
     @PostMapping("/delete/{uuid}" )

@@ -5,6 +5,10 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -13,6 +17,9 @@ import java.util.Date;
  * @date 2018-08-16
  * @description 留言表
  */
+@Data
+@EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
 @TableName("blog_leave_message")
 public class BlogLeaveMessage extends Model<BlogLeaveMessage> {
 
@@ -64,89 +71,9 @@ public class BlogLeaveMessage extends Model<BlogLeaveMessage> {
      */
 	private Integer status;
 
-
-	public String getUuid() {
-		return uuid;
-	}
-
-	public void setUuid(String uuid) {
-		this.uuid = uuid;
-	}
-
-	public String getIpAddress() {
-		return ipAddress;
-	}
-
-	public void setIpAddress(String ipAddress) {
-		this.ipAddress = ipAddress;
-	}
-
-	public String getFanName() {
-		return fanName;
-	}
-
-	public void setFanName(String fanName) {
-		this.fanName = fanName;
-	}
-
-	public Integer getFanSex() {
-		return fanSex;
-	}
-
-	public void setFanSex(Integer fanSex) {
-		this.fanSex = fanSex;
-	}
-
-	public String getContactMail() {
-		return contactMail;
-	}
-
-	public void setContactMail(String contactMail) {
-		this.contactMail = contactMail;
-	}
-
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-
-	public Integer getStatus() {
-		return status;
-	}
-
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
-
 	@Override
 	protected Serializable pkVal() {
 		return this.uuid;
 	}
 
-	public String getMessageContent() {
-		return messageContent;
-	}
-
-	public void setMessageContent(String messageContent) {
-		this.messageContent = messageContent;
-	}
-
-	public String getReply() {
-		return reply;
-	}
-
-	public void setReply(String reply) {
-		this.reply = reply;
-	}
-
-	public Integer getHeadImgNum() {
-		return headImgNum;
-	}
-
-	public void setHeadImgNum(Integer headImgNum) {
-		this.headImgNum = headImgNum;
-	}
 }

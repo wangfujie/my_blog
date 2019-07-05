@@ -32,9 +32,9 @@ public class SiteCommitUrlTask {
     @Scheduled(cron = "${baidu.commitUrls.syncTime}")
 //    @Scheduled(cron = "0 0/2 * * * ?")
     public void baiduCommitUrls(){
-        //查询所有文章博客
+        //查询百度未收录的文章博客
         List<BlogTreatise> treatiseList = treatiseService.selectList(
-                new EntityWrapper<BlogTreatise>().eq("del_flag",0));
+                new EntityWrapper<BlogTreatise>().eq("del_flag",0).eq("bd_included", 0));
         if (treatiseList != null && treatiseList.size() > 0){
             for (BlogTreatise blogTreatise : treatiseList){
                 String url = SiteCommitUrlTask.urlPrefix + blogTreatise.getUuid();

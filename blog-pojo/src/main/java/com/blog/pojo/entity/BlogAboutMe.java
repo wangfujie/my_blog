@@ -6,6 +6,10 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -14,6 +18,9 @@ import java.util.Date;
  * @date 2018-08-16
  * @description 关于我
  */
+@Data
+@EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
 @TableName("blog_about_me")
 public class BlogAboutMe extends Model<BlogAboutMe> {
 
@@ -67,87 +74,6 @@ public class BlogAboutMe extends Model<BlogAboutMe> {
      */
 	@TableField("update_time")
 	private Date updateTime;
-
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getMyName() {
-		return myName;
-	}
-
-	public void setMyName(String myName) {
-		this.myName = myName;
-	}
-
-	public String getAboutMe() {
-		return aboutMe;
-	}
-
-	public void setAboutMe(String aboutMe) {
-		this.aboutMe = aboutMe;
-	}
-
-	public String getBlogDomainName() {
-		return blogDomainName;
-	}
-
-	public void setBlogDomainName(String blogDomainName) {
-		this.blogDomainName = blogDomainName;
-	}
-
-	public String getServerName() {
-		return serverName;
-	}
-
-	public void setServerName(String serverName) {
-		this.serverName = serverName;
-	}
-
-	public Date getDomainTime() {
-		return domainTime;
-	}
-
-	public void setDomainTime(Date domainTime) {
-		this.domainTime = domainTime;
-	}
-
-	public String getServerLink() {
-		return serverLink;
-	}
-
-	public void setServerLink(String serverLink) {
-		this.serverLink = serverLink;
-	}
-
-	public String getRecordNumber() {
-		return recordNumber;
-	}
-
-	public void setRecordNumber(String recordNumber) {
-		this.recordNumber = recordNumber;
-	}
-
-	public String getProgramType() {
-		return programType;
-	}
-
-	public void setProgramType(String programType) {
-		this.programType = programType;
-	}
-
-	public Date getUpdateTime() {
-		return updateTime;
-	}
-
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
 
 	@Override
 	protected Serializable pkVal() {

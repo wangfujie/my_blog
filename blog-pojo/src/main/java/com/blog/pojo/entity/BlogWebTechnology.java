@@ -5,6 +5,10 @@ import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
+
 import java.io.Serializable;
 
 /**
@@ -12,6 +16,9 @@ import java.io.Serializable;
  * @date 2018-08-16
  * @description 关于网站使用的技术
  */
+@Data
+@EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
 @TableName("blog_web_technology")
 public class BlogWebTechnology extends Model<BlogWebTechnology> {
 
@@ -34,39 +41,6 @@ public class BlogWebTechnology extends Model<BlogWebTechnology> {
      */
 	@TableField("show_sort")
 	private Integer showSort;
-
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getTechnologyTitle() {
-		return technologyTitle;
-	}
-
-	public void setTechnologyTitle(String technologyTitle) {
-		this.technologyTitle = technologyTitle;
-	}
-
-	public String getTechnologyContent() {
-		return technologyContent;
-	}
-
-	public void setTechnologyContent(String technologyContent) {
-		this.technologyContent = technologyContent;
-	}
-
-	public Integer getShowSort() {
-		return showSort;
-	}
-
-	public void setShowSort(Integer showSort) {
-		this.showSort = showSort;
-	}
 
 	@Override
 	protected Serializable pkVal() {

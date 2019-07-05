@@ -5,6 +5,10 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -13,6 +17,9 @@ import java.util.Date;
  * @date 2018-08-20
  * @description 标签表
  */
+@Data
+@EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
 @TableName("blog_tags")
 public class BlogTags extends Model<BlogTags> {
 
@@ -45,55 +52,6 @@ public class BlogTags extends Model<BlogTags> {
      */
 	@TableField("use_num")
 	private Integer useNum;
-
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getTagName() {
-		return tagName;
-	}
-
-	public void setTagName(String tagName) {
-		this.tagName = tagName;
-	}
-
-	public Integer getCategoryId() {
-		return categoryId;
-	}
-
-	public void setCategoryId(Integer categoryId) {
-		this.categoryId = categoryId;
-	}
-
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-
-	public Integer getClickNum() {
-		return clickNum;
-	}
-
-	public void setClickNum(Integer clickNum) {
-		this.clickNum = clickNum;
-	}
-
-	public Integer getUseNum() {
-		return useNum;
-	}
-
-	public void setUseNum(Integer useNum) {
-		this.useNum = useNum;
-	}
 
 	@Override
 	protected Serializable pkVal() {

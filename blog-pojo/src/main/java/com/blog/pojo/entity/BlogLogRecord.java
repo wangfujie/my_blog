@@ -5,6 +5,10 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -13,6 +17,9 @@ import java.util.Date;
  * @date 2018-10-25
  * @description 日志记录
  */
+@Data
+@EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
 @TableName("blog_log_record")
 public class BlogLogRecord extends Model<BlogLogRecord> {
 
@@ -40,47 +47,6 @@ public class BlogLogRecord extends Model<BlogLogRecord> {
      */
 	@TableField("create_time")
 	private Date createTime;
-
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public Integer getRecordType() {
-		return recordType;
-	}
-
-	public void setRecordType(Integer recordType) {
-		this.recordType = recordType;
-	}
-
-	public String getTreatiseUuid() {
-		return treatiseUuid;
-	}
-
-	public void setTreatiseUuid(String treatiseUuid) {
-		this.treatiseUuid = treatiseUuid;
-	}
-
-	public String getIpAddress() {
-		return ipAddress;
-	}
-
-	public void setIpAddress(String ipAddress) {
-		this.ipAddress = ipAddress;
-	}
-
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
 
 	@Override
 	protected Serializable pkVal() {

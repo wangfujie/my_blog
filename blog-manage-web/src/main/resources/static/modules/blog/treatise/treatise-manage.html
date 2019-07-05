@@ -57,10 +57,11 @@
                 , {field: 'categoryName', title: '种类', width: 90}
                 , {field: 'treatiseTitle', title: '标题', width: 120}
                 , {field: 'treatisePreview', title: '预览', width: 220}
-                , {field: 'sourceName', title: '由来', width: 60, align: 'center'}
+                // , {field: 'sourceName', title: '由来', width: 60, align: 'center'}
                 , {field: 'createTime', title: '创建时间', width: 160, align: 'center'}
                 , {field: 'recommendName', title: '是否推荐', width: 90, align: 'center'}
-                , {fixed: 'right', title: '操作', width: 160, align: 'center', toolbar: '#barOption'} //这里的toolbar值是模板元素的选择器
+                , {field: 'bdIncluded', title: '是否收录', width: 90, align: 'center'}
+                , {fixed: 'right', title: '操作', width: 245, align: 'center', toolbar: '#barOption'} //这里的toolbar值是模板元素的选择器
             ]]
             , id: 'tableInsData'
             , url: '/blogTreatise/list'
@@ -73,6 +74,10 @@
             , done: function (res, curr, count) {
                 //如果是异步请求数据方式，res即为你接口返回的信息。
                 //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+                // res.data.forEach(function f(val) {
+                //     val.bdIncluded = val.bdIncluded == 1 ? "是" : "否";
+                // });
+                table.reload();
                 console.log(res);
                 //得到当前页码
                 console.log(curr);
@@ -112,6 +117,26 @@
                     }).then(function (value) {
                         if (value.code == 200) {
                             layer.msg("删除成功！");
+                        }else {
+                            layer.msg(value.msg);
+                        }
+                    }).fail(function () {
+                        layer.msg("调用出错！");
+                    });
+                });
+            }
+            //标记收录
+            if (obj.event === 'include') {
+                var updateValue = {};
+                updateValue["bdIncluded"] = obj.data.bdIncluded == 1 ? "否":"是";
+                layer.confirm('确认此文章标记收录？', function (index) {
+                    $.ajax({
+                        url:"/blogTreatise/include/" + obj.data.uuid ,
+                        type: "POST"
+                    }).then(function (value) {
+                        if (value.code == 200) {
+                            layer.msg("标记成功！");
+                            obj.update(updateValue);
                         }else {
                             layer.msg(value.msg);
                         }
@@ -197,6 +222,7 @@
     <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
     <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="include">标记收录</a>
 </script>
 </body>
 </html>
