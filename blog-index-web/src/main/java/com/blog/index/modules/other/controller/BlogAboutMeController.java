@@ -1,5 +1,6 @@
 package com.blog.index.modules.other.controller;
 
+import cn.hutool.core.date.DateUtil;
 import com.blog.index.modules.other.service.IBlogWebInfoService;
 import com.blog.pojo.entity.BlogAboutMe;
 import com.blog.index.modules.other.service.IBlogAboutMeService;
@@ -63,8 +64,13 @@ public class BlogAboutMeController {
         if (blogAboutMe == null) {
             return R.notFound();
         }
+        //博客浏览总数
         Object browseTotal = webInfoService.selectObj(new EntityWrapper<BlogWebInfo>().setSqlSelect("sum(web_browse_num)"));
-        return R.fillSingleData(blogAboutMe).put("browseTotal", browseTotal);
+        //今日浏览数
+        Object todayBrowse = webInfoService.selectObj(new EntityWrapper<BlogWebInfo>()
+                .setSqlSelect("web_browse_num")
+                .eq("update_time", DateUtil.today()));
+        return R.fillSingleData(blogAboutMe).put("browseTotal", browseTotal).put("todayBrowse", todayBrowse);
     }
 
     /**
