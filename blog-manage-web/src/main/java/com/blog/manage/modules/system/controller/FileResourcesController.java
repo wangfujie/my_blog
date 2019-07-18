@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
@@ -23,11 +22,11 @@ import java.util.Date;
 @RestController
 public class FileResourcesController {
 
-    @Value("${web.upload-path}")
-    private String filePath;
+    @Value("${file.uploadPath}")
+    private String uploadPath;
 
-    @Value("${web.context-path}")
-    private String contextPath;
+    @Value("${file.staticAccessPath}")
+    private String staticAccessPath;
 
     /**
      * 上传图片
@@ -44,14 +43,14 @@ public class FileResourcesController {
         //获取扩展名
         String extName = FileUtil.extName(imageName);
         String saveData = DateUtils.formatCustom(new Date(),"yyyyMMdd");
-        String imageDatePath = FileUtil.getAbsolutePath(filePath + File.separator + saveData + "/");
+        String imageDatePath = FileUtil.getAbsolutePath(uploadPath + File.separator + saveData + "/");
         //创建目录
         FileUtil.mkdir(imageDatePath);
         //随机生成uuid作为上传的文件名称
         String fileUuid = UuidBuild.getUUID();
 
         //图片访问url
-        String imageUrl = contextPath + "/" + saveData + "/" + fileUuid + "." + extName;
+        String imageUrl = staticAccessPath + saveData + "/" + fileUuid + "." + extName;
         File localFile = new File(imageDatePath + fileUuid + "." + extName);
         try {
             //文件写入指定位置

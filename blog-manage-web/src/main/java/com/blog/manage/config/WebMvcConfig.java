@@ -2,10 +2,12 @@ package com.blog.manage.config;
 
 import com.blog.common.utils.DateUtils;
 import com.blog.manage.common.filter.RewriteFilter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import java.util.Date;
 
@@ -56,4 +58,17 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         };
     }
 
+    @Value("${file.staticAccessPath}")
+    private String staticAccessPath;
+    @Value("${file.uploadPath}")
+    private String uploadPath;
+
+    /**
+     * 增加自定义静态文件本地映射
+     * @param registry
+     */
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler(staticAccessPath + "**").addResourceLocations("file:" +uploadPath );
+    }
 }
