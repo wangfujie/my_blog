@@ -20,15 +20,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class BlogTreatiseServiceImpl extends ServiceImpl<BlogTreatiseMapper, BlogTreatise> implements IBlogTreatiseService {
 
-    @Autowired
-    private BlogTreatiseMapper treatiseMapper;
-
     /**
      * 查询文章分页列表
      */
     @Override
     public Page<BlogTreatiseVo> getTreatisePage(Page<BlogTreatiseVo> page, BlogTreatiseQuery treatiseQuery) {
-        page.setRecords(treatiseMapper.getTreatiseList(page, treatiseQuery));
+        page.setRecords(baseMapper.getTreatiseList(page, treatiseQuery));
         return page;
     }
 
@@ -40,6 +37,6 @@ public class BlogTreatiseServiceImpl extends ServiceImpl<BlogTreatiseMapper, Blo
      */
     @Override
     public BlogTreatiseVo getTreatiseVoById(String uuid) {
-        return treatiseMapper.getTreatiseVoById(uuid);
+        return baseMapper.getTreatiseVoById(uuid);
     }
 }

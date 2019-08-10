@@ -22,7 +22,8 @@
 	<select id="getTreatiseList" resultType="com.blog.manage.modules.treatise.vo.BlogTreatiseVo">
 		SELECT bt.*,bc.category_name,
 				case bt.source when 1 then '原创' when 2 then '转载' end as sourceName,
-				case bt.recommend when 1 then '推荐' else '不推荐' end as recommendName
+				case bt.recommend when 1 then '推荐' else '不推荐' end as recommendName,
+				case bt.bdIncluded when 1 then '已收录' else '未收录' end as bdIncludedName
 		FROM `blog_treatise` bt
 		LEFT JOIN `blog_category` bc ON bc.id = bt.category_id
 		<where>
