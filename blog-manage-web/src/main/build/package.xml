@@ -9,11 +9,11 @@
     <fileSets>
         <fileSet>
             <directory>src/main/build/bin</directory>
-            <outputDirectory>/</outputDirectory>
+            <outputDirectory>./</outputDirectory>
         </fileSet>
         <fileSet>
             <directory>src/main/resources</directory>
-            <outputDirectory>/</outputDirectory>
+            <outputDirectory>./</outputDirectory>
             <includes>
                 <include>**/*.properties</include>
                 <include>**/*.yml</include>
@@ -22,7 +22,7 @@
         </fileSet>
         <fileSet>
             <directory>${project.build.directory}</directory>
-            <outputDirectory>/</outputDirectory>
+            <outputDirectory>./</outputDirectory>
             <includes>
                 <include>*.jar</include>
             </includes>
