@@ -9,7 +9,6 @@ import com.blog.common.utils.MessageSourceUtil;
 import com.blog.common.result.R;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.*;
 import springfox.documentation.annotations.ApiIgnore;
@@ -31,7 +30,6 @@ public class BlogUserController {
      * 列表
      */
     @GetMapping("/list" )
-    @RequiresPermissions("blogUser:list" )
     @ApiOperation(value = "用户表", notes = "获取用户表分页列表" )
     @ApiImplicitParams({
             @ApiImplicitParam(name = "currentPage", value = "当前页码", paramType = "query" ),
@@ -52,7 +50,6 @@ public class BlogUserController {
      * 信息
      */
     @GetMapping("/info/{uuid}" )
-    @RequiresPermissions("blogUser:info" )
     @ApiOperation(value = "用户表", notes = "获取用户表详情信息" )
     public R info(@PathVariable("uuid" ) String uuid){
         BlogUser blogUser = iBlogUserService.selectById(uuid);
@@ -66,7 +63,6 @@ public class BlogUserController {
      * 保存
      */
     @PostMapping("/save" )
-    @RequiresPermissions("blogUser:save" )
     @ApiOperation(value = "用户表", notes = "保存用户表信息" )
     public R save(@RequestBody BlogUser blogUser){
         boolean retFlag = iBlogUserService.insert(blogUser);
@@ -80,7 +76,6 @@ public class BlogUserController {
      * 修改
      */
     @PostMapping("/update" )
-    @RequiresPermissions("blogUser:update" )
     @ApiOperation(value = "用户表", notes = "更新用户表信息" )
     public R update(@RequestBody BlogUser blogUser){
         boolean retFlag = iBlogUserService.updateById(blogUser);
@@ -94,7 +89,6 @@ public class BlogUserController {
      * 删除
      */
     @PostMapping("/delete/{uuid}" )
-    @RequiresPermissions("blogUser:delete" )
     @ApiOperation(value = "用户表", notes = "删除用户表信息" )
     public R delete(@PathVariable("uuid" ) String uuid){
         boolean retFlag = iBlogUserService.deleteById(uuid);

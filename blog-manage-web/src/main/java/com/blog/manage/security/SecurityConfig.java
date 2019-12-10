@@ -41,8 +41,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/data/login").permitAll()
-                .antMatchers(HttpMethod.GET, // 允许对于网站静态资源的无授权访问
+                .antMatchers("/sys/login").permitAll()
+                // 允许对于网站静态资源的无授权访问
+                .antMatchers(HttpMethod.GET,
                         "/", "/*.html", "/favicon.ico",
                         "/**/*.html", "/**/*.css", "/**/*.js", "/fonts/**",
                         "/swagger-resources/**", "/v2/api-docs/**"
@@ -51,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginProcessingUrl("/data/login")
+                .loginProcessingUrl("/sys/login")
                 .successHandler(loginSuccessHandler).failureHandler(loginFailureHandler)
                 .and().exceptionHandling().authenticationEntryPoint(authenticationEntryPoint)
                 .and()

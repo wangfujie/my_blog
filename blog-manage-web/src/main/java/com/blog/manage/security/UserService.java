@@ -41,7 +41,7 @@ public class UserService implements UserDetailsService {
 //        if (blogAdmin.getStatus() == 0){
 //            authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
 //        }else {
-//            authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+//            authorities.add(new SimpleGrantedAuthority("ROLE_USER"));e
 //        }
         Admin admin = new Admin();
         admin.setId(blogAdmin.getId());

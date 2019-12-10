@@ -15,7 +15,7 @@
     <header class="layui-elip">后台登录</header>
     <form class="layui-form">
         <div class="layui-input-inline">
-            <input type="text" name="account" required lay-verify="required" placeholder="账号" autocomplete="off"
+            <input type="text" name="username" required lay-verify="required" placeholder="账号" autocomplete="off"
                    class="layui-input">
         </div>
         <div class="layui-input-inline">
@@ -40,21 +40,12 @@
                 type: "post",
                 data: data.field,
                 success: function (result) {
-                    if (result.code == 200){
+                    if (result.authenticated){
                         location.href = 'index.html';
-                    }else if(result.code == 505){
-                        //增加验证手机号
-                        // layer.alert(result.msg, {
-                        //     title: '登录验证',
-                        //     yes:function (index,layero) {
-                        //         //点击确认增加验证界面
-                        //     }
-                        // });
-                        layer.msg(result.msg, {icon: 5});
-                    }else {
-                        layer.msg(result.msg, {icon: 5});
                     }
                 }
+            }).fail(function () {
+                layer.msg("登录失败", {icon: 5});
             });
             return false;
         });
