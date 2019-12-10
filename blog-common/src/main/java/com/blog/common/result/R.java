@@ -41,6 +41,10 @@ public class R extends HashMap<String, Object> {
         put("needRefresh", true);
     }
 
+    public static R notAuth() {
+        return error(401,"未授权！");
+    }
+
     public static R error(){
         R r = new R();
         r.put("code", 500);
