@@ -22,7 +22,7 @@ import java.io.IOException;
  */
 @RestController
 @RequestMapping("/sys/code")
-@Api(value = "验证码", description = "验证码接口")
+@Api(value = "验证码", tags = "验证码接口")
 public class SysCodeController {
 
     @Autowired

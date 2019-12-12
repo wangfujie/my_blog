@@ -20,7 +20,7 @@ import springfox.documentation.annotations.ApiIgnore;
  */
 @RestController
 @RequestMapping("/blogUser" )
-@Api(value = "用户表接口",description = "用作用户表演示")
+@Api(value = "用户表接口",tags = "用作用户表演示")
 public class BlogUserController {
 
     @Autowired

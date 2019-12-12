@@ -25,7 +25,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/blogTags" )
-@Api(value = "标签表接口",description = "用作标签表演示")
+@Api(value = "标签表接口",tags = "用作标签表演示")
 public class BlogTagsController {
 
     @Autowired

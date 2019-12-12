@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @RestController
 @RequestMapping("/blogFile" )
-@Api(value = "文件信息表接口",description = "用作文件信息表演示")
+@Api(value = "文件信息表接口",tags = "用作文件信息表演示")
 public class BlogFileController {
 
     @Autowired

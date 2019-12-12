@@ -28,10 +28,10 @@ import springfox.documentation.annotations.ApiIgnore;
 @RestController
 @RequestMapping("#if(${package.ModuleName})/${package.ModuleName}#end/${table.entityPath}" )
 #if(${superControllerClass})
-@Api(value = "${table.comment}接口",description = "用作${table.comment}演示")
+@Api(value = "${table.comment}接口",tags = "用作${table.comment}演示")
 public class ${table.controllerName} extends ${superControllerClass} {
 #else
-@Api(value = "${table.comment}接口",description = "用作${table.comment}演示")
+@Api(value = "${table.comment}接口",tags = "用作${table.comment}演示")
 public class ${table.controllerName} {
 #end
 

@@ -27,9 +27,9 @@ import java.util.Date;
  */
 @RestController
 @RequestMapping("/blogResourceInfo" )
-@Api(value = "资源分享信息表接口",description = "用作资源分享信息表演示")
+@Api(value = "资源分享信息表接口",tags = "用作资源分享信息表演示")
 public class BlogResourceInfoController {
-                                                                                                                                    
+
     @Autowired
     private IBlogResourceInfoService resourceInfoService;
 

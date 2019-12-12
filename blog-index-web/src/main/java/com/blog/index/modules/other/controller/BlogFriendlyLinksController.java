@@ -9,7 +9,6 @@ import com.blog.common.utils.MessageSourceUtil;
 import com.blog.common.result.R;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.*;
 import springfox.documentation.annotations.ApiIgnore;
@@ -21,9 +20,9 @@ import springfox.documentation.annotations.ApiIgnore;
  */
 @RestController
 @RequestMapping("/blogFriendlyLinks" )
-@Api(value = "友情链接接口",description = "用作友情链接演示")
+@Api(value = "友情链接接口",tags = "用作友情链接演示")
 public class BlogFriendlyLinksController {
-                                                                                                
+
     @Autowired
     private IBlogFriendlyLinksService iBlogFriendlyLinksService;
 
@@ -31,7 +30,6 @@ public class BlogFriendlyLinksController {
      * 列表
      */
     @GetMapping("/list" )
-    @RequiresPermissions("blogFriendlyLinks:list" )
     @ApiOperation(value = "", notes = "获取分页列表" )
     @ApiImplicitParams({
             @ApiImplicitParam(name = "currentPage", value = "当前页码", paramType = "query" ),
@@ -51,7 +49,6 @@ public class BlogFriendlyLinksController {
      * 信息
      */
     @GetMapping("/info/{id}" )
-    @RequiresPermissions("blogFriendlyLinks:info" )
     @ApiOperation(value = "", notes = "获取详情信息" )
     public R info(@PathVariable("id" ) Integer id){
         BlogFriendlyLinks blogFriendlyLinks = iBlogFriendlyLinksService.selectById(id);
@@ -65,7 +62,6 @@ public class BlogFriendlyLinksController {
      * 保存
      */
     @PostMapping("/save" )
-    @RequiresPermissions("blogFriendlyLinks:save" )
     @ApiOperation(value = "", notes = "保存信息" )
     public R save(@RequestBody BlogFriendlyLinks blogFriendlyLinks){
         boolean retFlag = iBlogFriendlyLinksService.insert(blogFriendlyLinks);
@@ -79,7 +75,6 @@ public class BlogFriendlyLinksController {
      * 修改
      */
     @PostMapping("/update" )
-    @RequiresPermissions("blogFriendlyLinks:update" )
     @ApiOperation(value = "", notes = "更新信息" )
     public R update(@RequestBody BlogFriendlyLinks blogFriendlyLinks){
         boolean retFlag = iBlogFriendlyLinksService.updateById(blogFriendlyLinks);
@@ -93,7 +88,6 @@ public class BlogFriendlyLinksController {
      * 删除
      */
     @PostMapping("/delete/{id}" )
-    @RequiresPermissions("blogFriendlyLinks:delete" )
     @ApiOperation(value = "", notes = "删除信息" )
     public R delete(@PathVariable("id" ) Integer id){
         boolean retFlag = iBlogFriendlyLinksService.deleteById(id);

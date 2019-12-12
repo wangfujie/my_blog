@@ -34,7 +34,7 @@ public class UserService implements UserDetailsService {
         }
 
         if (blogAdmin.getStatus() == 0){
-            throw new RuntimeException("用户没有权限！");
+            throw new RuntimeException("未授权用户！");
         }
 
         Set<GrantedAuthority> authorities = new HashSet<>();

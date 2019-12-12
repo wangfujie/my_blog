@@ -65,8 +65,7 @@
                             <i class="layui-icon layui-icon-user"></i>个人中心</a>
                     </dd>
                     <dd>
-                        <a href="/sys/logout">
-                            <i class="layui-icon layui-icon-close"></i>退出</a>
+                        <a href="javascript:;" id="a-logout"> <i class="layui-icon layui-icon-close"></i>退出</a>
                     </dd>
                 </dl>
             </li>
@@ -155,7 +154,7 @@
     </div>
     <!-- footer -->
     <div class="layui-footer my-footer">
-        
+
     </div>
 </div>
 
@@ -191,8 +190,27 @@ layui.use(['layer','vip_nav'], function () {
 
     // you code ...
 
+    /**
+     * 退出登录
+     */
+    $('#a-logout').on('click', function () {
+        $.ajax({
+            url:"/logout",
+            type: "get",
+            success: function (result) {
+                if (result.code == 200){
+                    location.href = 'login.html';
+                }
+            }
+        }).fail(function () {
+            layer.msg("退出失败", {icon: 5});
+        });
+    });
 
 });
+
+
+
 </script>
 </body>
 </html>

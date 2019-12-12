@@ -23,7 +23,7 @@ import java.util.Date;
  */
 @RestController
 @RequestMapping("/blogTreatise" )
-@Api(value = "文章详情表接口",description = "用作文章详情表演示")
+@Api(value = "文章详情表接口",tags = "用作文章详情表演示")
 public class BlogTreatiseController {
 
     @Autowired

@@ -21,7 +21,7 @@ import java.util.Date;
  */
 @RestController
 @RequestMapping("/blogFriendlyLinks" )
-@Api(value = "友情链接接口",description = "用作友情链接演示")
+@Api(value = "友情链接接口",tags = "用作友情链接演示")
 public class BlogFriendlyLinksController {
 
     @Autowired

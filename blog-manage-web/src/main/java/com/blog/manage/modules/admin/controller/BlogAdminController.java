@@ -20,9 +20,9 @@ import springfox.documentation.annotations.ApiIgnore;
  */
 @RestController
 @RequestMapping("/blogAdmin" )
-@Api(value = "接口",description = "用作演示")
+@Api(value = "接口",tags = "用作演示")
 public class BlogAdminController {
-                                                                                                
+
     @Autowired
     private IBlogAdminService iBlogAdminService;
 

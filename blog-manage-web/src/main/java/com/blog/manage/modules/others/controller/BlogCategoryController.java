@@ -21,7 +21,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/blogCategory" )
-@Api(value = "博客类型表接口",description = "用作博客类型表演示")
+@Api(value = "博客类型表接口",tags = "用作博客类型表演示")
 public class BlogCategoryController {
 
     @Autowired

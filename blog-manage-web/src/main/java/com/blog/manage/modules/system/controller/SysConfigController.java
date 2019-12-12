@@ -19,7 +19,7 @@ import java.util.Date;
  */
 @RestController
 @RequestMapping("/sys/config")
-@Api(value = "系统的配置信息", description = "系统的配置信息")
+@Api(value = "系统的配置信息", tags = "系统的配置信息")
 public class SysConfigController {
 
     @Autowired

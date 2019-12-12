@@ -19,7 +19,7 @@ import springfox.documentation.annotations.ApiIgnore;
  */
 @RestController
 @RequestMapping("/blogLogRecord" )
-@Api(value = "日志记录接口",description = "用作日志记录演示")
+@Api(value = "日志记录接口",tags = "用作日志记录演示")
 public class BlogLogRecordController {
 
     @Autowired

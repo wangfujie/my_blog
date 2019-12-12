@@ -22,9 +22,9 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/blogLeaveMessage" )
-@Api(value = "留言表接口",description = "用作留言表演示")
+@Api(value = "留言表接口",tags = "用作留言表演示")
 public class BlogLeaveMessageController {
-                                                                                                                                    
+
     @Autowired
     private IBlogLeaveMessageService iBlogLeaveMessageService;
 

@@ -20,7 +20,7 @@ import springfox.documentation.annotations.ApiIgnore;
  */
 @RestController
 @RequestMapping("/blogWebInfo" )
-@Api(value = "网站的一些统计数据接口",description = "用作网站的一些统计数据演示")
+@Api(value = "网站的一些统计数据接口",tags = "用作网站的一些统计数据演示")
 public class BlogWebInfoController {
 
     @Autowired

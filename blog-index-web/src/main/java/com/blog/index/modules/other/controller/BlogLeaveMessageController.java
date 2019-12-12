@@ -11,7 +11,6 @@ import com.blog.common.utils.MessageSourceUtil;
 import com.blog.common.result.R;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.*;
 import springfox.documentation.annotations.ApiIgnore;
@@ -25,7 +24,7 @@ import java.util.Date;
  */
 @RestController
 @RequestMapping("/blogLeaveMessage" )
-@Api(value = "留言表接口",description = "用作留言表演示")
+@Api(value = "留言表接口",tags = "用作留言表演示")
 public class BlogLeaveMessageController {
 
     @Autowired
@@ -35,7 +34,6 @@ public class BlogLeaveMessageController {
      * 列表
      */
     @GetMapping("/list" )
-    @RequiresPermissions("blogLeaveMessage:list" )
     @ApiOperation(value = "留言表", notes = "获取留言表分页列表" )
     @ApiImplicitParams({
             @ApiImplicitParam(name = "currentPage", value = "当前页码", paramType = "query" ),

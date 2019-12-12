@@ -15,7 +15,7 @@ import io.swagger.annotations.*;
  */
 @RestController
 @RequestMapping("/blogAboutMe" )
-@Api(value = "关于我接口",description = "用作关于我演示")
+@Api(value = "关于我接口",tags = "用作关于我演示")
 public class BlogAboutMeController {
 
     @Autowired

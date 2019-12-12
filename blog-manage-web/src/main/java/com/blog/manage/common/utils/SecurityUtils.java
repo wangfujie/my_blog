@@ -8,8 +8,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
  * 登录用户获取工具类
  *
  * @author wangfujie
- * @version v1.0.0
- * @create 2019年10月17日
  */
 public class SecurityUtils {
 

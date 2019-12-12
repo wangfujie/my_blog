@@ -7,7 +7,6 @@ import com.blog.index.modules.user.service.IBlogUserService;
 import com.blog.index.utils.ShiroUtils;
 import com.blog.pojo.entity.BlogUser;
 import com.google.code.kaptcha.Constants;
-import org.apache.shiro.subject.support.DefaultSubjectContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,7 +44,7 @@ public class LoginController {
      */
     @RequestMapping(value = "/logout")
     public String logout(HttpSession httpSession) {
-        httpSession.removeAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY);
+        //httpSession.removeAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY);
         return "redirect:/login.html";
     }
 }

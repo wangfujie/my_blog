@@ -9,7 +9,6 @@ import com.blog.common.utils.MessageSourceUtil;
 import com.blog.common.result.R;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.*;
 import springfox.documentation.annotations.ApiIgnore;
@@ -21,7 +20,7 @@ import springfox.documentation.annotations.ApiIgnore;
  */
 @RestController
 @RequestMapping("/blogWebTechnology" )
-@Api(value = "关于网站使用的技术接口",description = "用作关于网站使用的技术演示")
+@Api(value = "关于网站使用的技术接口",tags = "用作关于网站使用的技术演示")
 public class BlogWebTechnologyController {
 
     @Autowired
@@ -31,7 +30,6 @@ public class BlogWebTechnologyController {
      * 列表
      */
     @GetMapping("/list" )
-    @RequiresPermissions("blogWebTechnology:list" )
     @ApiOperation(value = "关于网站使用的技术", notes = "获取关于网站使用的技术分页列表" )
     @ApiImplicitParams({
             @ApiImplicitParam(name = "currentPage", value = "当前页码", paramType = "query" ),
@@ -51,7 +49,6 @@ public class BlogWebTechnologyController {
      * 信息
      */
     @GetMapping("/info/{id}" )
-    @RequiresPermissions("blogWebTechnology:info" )
     @ApiOperation(value = "关于网站使用的技术", notes = "获取关于网站使用的技术详情信息" )
     public R info(@PathVariable("id" ) Integer id){
         BlogWebTechnology blogWebTechnology = iBlogWebTechnologyService.selectById(id);
@@ -65,7 +62,6 @@ public class BlogWebTechnologyController {
      * 保存
      */
     @PostMapping("/save" )
-    @RequiresPermissions("blogWebTechnology:save" )
     @ApiOperation(value = "关于网站使用的技术", notes = "保存关于网站使用的技术信息" )
     public R save(@RequestBody BlogWebTechnology blogWebTechnology){
         boolean retFlag = iBlogWebTechnologyService.insert(blogWebTechnology);
@@ -79,7 +75,6 @@ public class BlogWebTechnologyController {
      * 修改
      */
     @PostMapping("/update" )
-    @RequiresPermissions("blogWebTechnology:update" )
     @ApiOperation(value = "关于网站使用的技术", notes = "更新关于网站使用的技术信息" )
     public R update(@RequestBody BlogWebTechnology blogWebTechnology){
         boolean retFlag = iBlogWebTechnologyService.updateById(blogWebTechnology);
@@ -93,7 +88,6 @@ public class BlogWebTechnologyController {
      * 删除
      */
     @PostMapping("/delete/{id}" )
-    @RequiresPermissions("blogWebTechnology:delete" )
     @ApiOperation(value = "关于网站使用的技术", notes = "删除关于网站使用的技术信息" )
     public R delete(@PathVariable("id" ) Integer id){
         boolean retFlag = iBlogWebTechnologyService.deleteById(id);

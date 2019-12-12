@@ -42,7 +42,7 @@ public class R extends HashMap<String, Object> {
     }
 
     public static R notAuth() {
-        return error(401,"未授权！");
+        return error(401,"未登录！");
     }
 
     public static R error(){

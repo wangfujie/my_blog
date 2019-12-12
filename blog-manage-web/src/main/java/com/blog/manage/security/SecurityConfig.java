@@ -41,10 +41,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/sys/login").permitAll()
+                .antMatchers("/oauth/login").permitAll()
                 // 允许对于网站静态资源的无授权访问
                 .antMatchers(HttpMethod.GET,
-                        "/", "/*.html", "/favicon.ico",
+                        "/", "/*.html", "/favicon.ico", "/modules/**",
                         "/**/*.html", "/**/*.css", "/**/*.js", "/fonts/**",
                         "/swagger-resources/**", "/v2/api-docs/**"
                 )
@@ -52,11 +52,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginProcessingUrl("/sys/login")
+                .loginProcessingUrl("/oauth/login")
                 .successHandler(loginSuccessHandler).failureHandler(loginFailureHandler)
                 .and().exceptionHandling().authenticationEntryPoint(authenticationEntryPoint)
-                .and()
-                .logout()
+                //解决x-frame-options deny无法打开Frame页面的问题
+                .and().headers().frameOptions().disable()
+                .and().logout()
                 .logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler);
     }
 

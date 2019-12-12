@@ -9,7 +9,6 @@ import com.blog.common.utils.MessageSourceUtil;
 import com.blog.common.result.R;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.*;
 import springfox.documentation.annotations.ApiIgnore;
@@ -21,7 +20,7 @@ import springfox.documentation.annotations.ApiIgnore;
  */
 @RestController
 @RequestMapping("/blogWebInfo" )
-@Api(value = "网站的一些统计数据接口",description = "用作网站的一些统计数据演示")
+@Api(value = "网站的一些统计数据接口",tags = "用作网站的一些统计数据演示")
 public class BlogWebInfoController {
 
     @Autowired
@@ -31,7 +30,6 @@ public class BlogWebInfoController {
      * 列表
      */
     @GetMapping("/list" )
-    @RequiresPermissions("blogWebInfo:list" )
     @ApiOperation(value = "网站的一些统计数据", notes = "获取网站的一些统计数据分页列表" )
     @ApiImplicitParams({
             @ApiImplicitParam(name = "currentPage", value = "当前页码", paramType = "query" ),
@@ -52,7 +50,6 @@ public class BlogWebInfoController {
      * 信息
      */
     @GetMapping("/info/{id}" )
-    @RequiresPermissions("blogWebInfo:info" )
     @ApiOperation(value = "网站的一些统计数据", notes = "获取网站的一些统计数据详情信息" )
     public R info(@PathVariable("id" ) Integer id){
         BlogWebInfo blogWebInfo = iBlogWebInfoService.selectById(id);
@@ -66,7 +63,6 @@ public class BlogWebInfoController {
      * 保存
      */
     @PostMapping("/save" )
-    @RequiresPermissions("blogWebInfo:save" )
     @ApiOperation(value = "网站的一些统计数据", notes = "保存网站的一些统计数据信息" )
     public R save(@RequestBody BlogWebInfo blogWebInfo){
         boolean retFlag = iBlogWebInfoService.insert(blogWebInfo);
@@ -80,7 +76,6 @@ public class BlogWebInfoController {
      * 修改
      */
     @PostMapping("/update" )
-    @RequiresPermissions("blogWebInfo:update" )
     @ApiOperation(value = "网站的一些统计数据", notes = "更新网站的一些统计数据信息" )
     public R update(@RequestBody BlogWebInfo blogWebInfo){
         boolean retFlag = iBlogWebInfoService.updateById(blogWebInfo);
@@ -94,7 +89,6 @@ public class BlogWebInfoController {
      * 删除
      */
     @PostMapping("/delete/{id}" )
-    @RequiresPermissions("blogWebInfo:delete" )
     @ApiOperation(value = "网站的一些统计数据", notes = "删除网站的一些统计数据信息" )
     public R delete(@PathVariable("id" ) Integer id){
         boolean retFlag = iBlogWebInfoService.deleteById(id);

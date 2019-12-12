@@ -17,10 +17,8 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
@@ -32,7 +30,7 @@ import java.util.*;
  */
 @RestController
 @RequestMapping("/blogTreatise" )
-@Api(value = "文章详情表接口",description = "用作文章详情表演示")
+@Api(value = "文章详情表接口",tags = "用作文章详情表演示")
 public class BlogTreatiseController {
 
     @Resource
@@ -44,7 +42,6 @@ public class BlogTreatiseController {
      * 列表
      */
     @GetMapping("/list" )
-    @RequiresPermissions("blogTreatise:list" )
     @ApiOperation(value = "文章详情表", notes = "获取文章详情表分页列表" )
     @ApiImplicitParams({
             @ApiImplicitParam(name = "currentPage", value = "当前页码", paramType = "query" ),
@@ -151,7 +148,6 @@ public class BlogTreatiseController {
      * 信息
      */
     @GetMapping("/info/{uuid}" )
-    @RequiresPermissions("blogTreatise:info" )
     @ApiOperation(value = "文章详情表", notes = "获取文章详情表详情信息" )
     public R info(@PathVariable("uuid" ) String uuid, HttpServletRequest request){
         BlogTreatiseVo blogTreatise = treatiseService.getBlogTreatiseVoById(uuid);
@@ -174,7 +170,6 @@ public class BlogTreatiseController {
      * 修改
      */
     @PostMapping("/update" )
-    @RequiresPermissions("blogTreatise:update" )
     @ApiOperation(value = "文章详情表", notes = "更新文章详情表信息" )
     public R update(@RequestBody BlogTreatise blogTreatise){
         boolean retFlag = treatiseService.updateById(blogTreatise);
@@ -188,7 +183,6 @@ public class BlogTreatiseController {
      * 删除
      */
     @PostMapping("/delete/{uuid}" )
-    @RequiresPermissions("blogTreatise:delete" )
     @ApiOperation(value = "文章详情表", notes = "删除文章详情表信息" )
     public R delete(@PathVariable("uuid" ) String uuid){
         boolean retFlag = treatiseService.deleteById(uuid);

@@ -12,7 +12,6 @@ import com.blog.common.result.R;
 import com.blog.pojo.entity.BlogWebInfo;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.*;
 import springfox.documentation.annotations.ApiIgnore;
@@ -24,9 +23,9 @@ import springfox.documentation.annotations.ApiIgnore;
  */
 @RestController
 @RequestMapping("/blogAboutMe" )
-@Api(value = "关于我接口",description = "用作关于我演示")
+@Api(value = "关于我接口",tags = "用作关于我演示")
 public class BlogAboutMeController {
-                                                                                                                                    
+
     @Autowired
     private IBlogAboutMeService iBlogAboutMeService;
 
@@ -36,7 +35,6 @@ public class BlogAboutMeController {
      * 列表
      */
     @GetMapping("/list" )
-    @RequiresPermissions("blogAboutMe:list" )
     @ApiOperation(value = "关于我", notes = "获取关于我分页列表" )
     @ApiImplicitParams({
             @ApiImplicitParam(name = "currentPage", value = "当前页码", paramType = "query" ),
@@ -57,7 +55,6 @@ public class BlogAboutMeController {
      * 信息
      */
     @GetMapping("/info/{id}" )
-    @RequiresPermissions("blogAboutMe:info" )
     @ApiOperation(value = "关于我", notes = "获取关于我详情信息" )
     public R info(@PathVariable("id" ) Integer id){
         BlogAboutMe blogAboutMe = iBlogAboutMeService.selectById(id);
@@ -77,7 +74,6 @@ public class BlogAboutMeController {
      * 保存
      */
     @PostMapping("/save" )
-    @RequiresPermissions("blogAboutMe:save" )
     @ApiOperation(value = "关于我", notes = "保存关于我信息" )
     public R save(@RequestBody BlogAboutMe blogAboutMe){
         boolean retFlag = iBlogAboutMeService.insert(blogAboutMe);
@@ -91,7 +87,6 @@ public class BlogAboutMeController {
      * 修改
      */
     @PostMapping("/update" )
-    @RequiresPermissions("blogAboutMe:update" )
     @ApiOperation(value = "关于我", notes = "更新关于我信息" )
     public R update(@RequestBody BlogAboutMe blogAboutMe){
         boolean retFlag = iBlogAboutMeService.updateById(blogAboutMe);
@@ -105,7 +100,6 @@ public class BlogAboutMeController {
      * 删除
      */
     @PostMapping("/delete/{id}" )
-    @RequiresPermissions("blogAboutMe:delete" )
     @ApiOperation(value = "关于我", notes = "删除关于我信息" )
     public R delete(@PathVariable("id" ) Integer id){
         boolean retFlag = iBlogAboutMeService.deleteById(id);
