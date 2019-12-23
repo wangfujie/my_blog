@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.blog.common.result.R;
 import com.blog.common.utils.MessageSourceUtil;
 import com.blog.index.modules.user.service.IBlogUserService;
-import com.blog.index.utils.ShiroUtils;
+//import com.blog.index.utils.ShiroUtils;
 import com.blog.pojo.entity.BlogUser;
 import com.google.code.kaptcha.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +27,10 @@ public class LoginController {
     @RequestMapping(value = "/login")
     public R login(String username, String password, String captcha, HttpSession httpSession, HttpServletRequest servletRequest){
         //获取验证码
-        String code = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY, httpSession);
-        if (!captcha.equalsIgnoreCase(code)) {
-            return R.error(MessageSourceUtil.getMessage("20002"));
-        }
+        //String code = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY, httpSession);
+        //if (!captcha.equalsIgnoreCase(code)) {
+        //    return R.error(MessageSourceUtil.getMessage("20002"));
+        //}
         BlogUser blogUser = blogUserService.selectOne(new EntityWrapper<BlogUser>().eq("account",username));
         //不存在用户或者密码不正确
         if (blogUser == null || !password.equals(blogUser.getPassword())) {
