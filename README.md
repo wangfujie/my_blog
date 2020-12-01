@@ -20,3 +20,40 @@
     2018-12-11
         增加资源分享模块，部分代码
         资源分享目标（实现后台的上传功能，前端实现下载，后期做成前端下载需要登录（QQ登录）才能下载）
+
+
+nginx配置
+```$xml
+server {
+	listen       80;  #监听端口
+	server_name  blog.wwolf.wang;  #监听域名或ip
+	charset utf-8;
+
+	location / {
+		proxy_pass         http://127.0.0.1:3000;
+		proxy_set_header   Host    $host; 
+        proxy_set_header   X-Real-IP   $remote_addr; 
+        proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+	}
+	
+	location /blog {
+		proxy_pass         http://127.0.0.1:8088;
+		proxy_set_header   Host    $host; 
+        proxy_set_header   X-Real-IP   $remote_addr; 
+        proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+	}
+}
+
+server {
+	listen       80;  #监听端口
+	server_name  manage.wwolf.wang;  #监听域名或ip
+	charset utf-8;
+
+	location / {
+		proxy_pass http://127.0.0.1:8098;
+		proxy_set_header   Host    $host; 
+        proxy_set_header   X-Real-IP   $remote_addr; 
+        proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+	}
+}
+```

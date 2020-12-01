@@ -1,6 +1,7 @@
 package com.blog.index.modules.other.controller;
 
 import cn.hutool.core.date.DateUtil;
+import com.alibaba.fastjson.JSON;
 import com.blog.index.modules.other.service.IBlogWebInfoService;
 import com.blog.pojo.entity.BlogAboutMe;
 import com.blog.index.modules.other.service.IBlogAboutMeService;
@@ -11,10 +12,19 @@ import com.blog.common.utils.MessageSourceUtil;
 import com.blog.common.result.R;
 import com.blog.pojo.entity.BlogWebInfo;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.*;
 import springfox.documentation.annotations.ApiIgnore;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.util.zip.GZIPOutputStream;
 
 /**
  * @author wangfj
@@ -36,18 +46,20 @@ public class BlogAboutMeController {
      */
     @GetMapping("/list" )
     @ApiOperation(value = "关于我", notes = "获取关于我分页列表" )
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "currentPage", value = "当前页码", paramType = "query" ),
-            @ApiImplicitParam(name = "pageSize", value = "每页条数", paramType = "query" )
-    })
-    public R list(@ApiIgnore BaseQuery baseQuery){
-            //查询列表数据
-            Page page=new Page(baseQuery.getCurrentPage(),baseQuery.getPageSize());
-            Page pageList=iBlogAboutMeService.selectPage(page,new EntityWrapper<BlogAboutMe>());
-            if (CollectionUtils.isEmpty(pageList.getRecords())) {
-                return R.notFound();
-            }
-            return R.fillPageData(pageList);
+    public void list(HttpServletResponse response)  {
+        BlogAboutMe blogAboutMe = iBlogAboutMeService.selectById(1);
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("application/json;charset=utf-8");
+        response.addHeader("Content-Encoding", "gzip");
+        try {
+            //length 30 -> 28
+            PrintWriter out = new PrintWriter(new GZIPOutputStream(response.getOutputStream()));
+            //PrintWriter out = new PrintWriter(response.getOutputStream());
+            out.write(JSON.toJSONString(blogAboutMe));
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -81,6 +93,13 @@ public class BlogAboutMeController {
             return R.error(MessageSourceUtil.getMessage("500"));
         }
         return R.ok();
+    }
+
+    @PostMapping("/testPost" )
+    public R save1(@Param("id") Integer id, @Param("name") String name, @Param("age") String age){
+        String request = String.format("%s:%s:%s",id , name , age);
+        System.out.println(request);
+        return R.ok(request);
     }
 
     /**

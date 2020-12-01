@@ -12,6 +12,10 @@
             <outputDirectory>./</outputDirectory>
         </fileSet>
         <fileSet>
+            <directory>src/main/build/docker</directory>
+            <outputDirectory>./</outputDirectory>
+        </fileSet>
+        <fileSet>
             <directory>src/main/resources</directory>
             <outputDirectory>./</outputDirectory>
             <includes>
