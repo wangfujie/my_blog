@@ -75,7 +75,7 @@
 		<dependency>
 			<groupId>org.apache.kafka</groupId>
 			<artifactId>kafka_2.12</artifactId>
-			<version>1.0.0</version>
+			<version>3.4.1</version>
             <!--排除这个slf4j-log4j12-->
             <exclusions>
                 <exclusion>
