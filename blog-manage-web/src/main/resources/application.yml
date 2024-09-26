@@ -1,0 +1,39 @@
+server:
+  error:
+    path: /error/404.html
+  tomcat:
+    max-threads: 1000
+    min-spare-threads: 30
+    uri-encoding: UTF-8
+spring:
+  datasource:
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      initial-size: 50
+      max-active: 500
+      max-wait: 20000
+      min-idle: 50
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /sys/druid/*
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  mvc:
+    static-path-pattern: /**
+  profiles:
+    active: dev
+  resources:
+    static-locations: classpath:/static
+
+mybatis-plus:
+  configuration:
+    cache-enabled: false
+    map-underscore-to-camel-case: true
+  global-config:
+    db-column-underline: true
+    field-strategy: 2
+    id-type: 3
+    refresh-mapper: true
+  mapper-locations: classpath:/mappers/**/*.xml
+  type-aliases-package: com.blob.pojo.entity

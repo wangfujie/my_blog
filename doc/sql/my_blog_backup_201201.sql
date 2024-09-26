@@ -163,7 +163,7 @@ CREATE TABLE `blog_leave_message`  (
 -- Records of blog_leave_message
 -- ----------------------------
 INSERT INTO `blog_leave_message` VALUES ('5492a58877db464aa86c8692385fa6dc', '222.212.185.215', '雯雯雯', 1, 2, '哇，，这博客真漂亮，我什么时候才能像你一样优秀', '嘿嘿', 'dengwenwen95@163.com', '2018-11-19 09:47:21', 1);
-INSERT INTO `blog_leave_message` VALUES ('b530b5a521704a2b94674d56d4c0157e', '171.221.254.8', '王帅比', 1, 10, '哇，这博客真好看！', '蟹蟹', '784727590@qq.com', '2018-10-23 17:54:14', 1);
+INSERT INTO `blog_leave_message` VALUES ('b530b5a521704a2b94674d56d4c0157e', '171.221.254.8', '王帅比', 1, 10, '哇，这博客真好看！', '蟹蟹', 'coder_wangfj@163.com', '2018-10-23 17:54:14', 1);
 
 -- ----------------------------
 -- Table structure for blog_log_record

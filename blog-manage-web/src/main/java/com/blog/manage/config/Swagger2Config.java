@@ -36,7 +36,7 @@ public class Swagger2Config {
                 .title("使用Swagger2构建RESTful API")
                 .description("swagger的详细描述")
                 .termsOfServiceUrl("NO terms of service")
-                .contact(new Contact("wangfj","http://127.0.0.1:8098","784727590@qq.com"))
+                .contact(new Contact("wangfj","http://127.0.0.1:8098","coder_wangfj@163.com"))
                 .version("1.0")
                 .build();
     }

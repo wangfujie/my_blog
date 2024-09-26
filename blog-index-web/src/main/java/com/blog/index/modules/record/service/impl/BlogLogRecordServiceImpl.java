@@ -10,7 +10,6 @@ import com.blog.index.modules.other.service.IBlogTreatiseService;
 import com.blog.index.modules.other.service.IBlogWebInfoService;
 import com.blog.index.modules.record.mapper.BlogLogRecordMapper;
 import com.blog.index.modules.record.service.IBlogLogRecordService;
-import com.blog.index.utils.RedisUtils;
 import com.blog.pojo.entity.BlogLogRecord;
 import com.blog.pojo.entity.BlogTreatise;
 import com.blog.pojo.entity.BlogWebInfo;
@@ -34,8 +33,6 @@ public class BlogLogRecordServiceImpl extends ServiceImpl<BlogLogRecordMapper, B
     private IBlogWebInfoService webInfoService;
     @Autowired
     private IBlogTreatiseService treatiseService;
-    @Autowired
-    private RedisUtils redisUtils;
 
     /**
      * 增加日志记录信息
@@ -50,19 +47,14 @@ public class BlogLogRecordServiceImpl extends ServiceImpl<BlogLogRecordMapper, B
         Date now = new Date();
         //获取访问ip地址
         String ipAddress = WebUtil.getRealIpAddress(request);
+        String treatiseUuid = blogLogRecord.getTreatiseUuid();
         switch (blogLogRecord.getRecordType()){
             case 1:
                 //文章点赞记录
                 //查询该ip是今日否点过赞
                 //拼接redis的key
-                String redisKey = blogLogRecord.getTreatiseUuid() + ipAddress;
-
-                //获取redis，存的临时ip和uuid
-                String record = redisUtils.get(redisKey);
-                if (StringUtils.isEmpty(record)){
-                    //存入记录ip和uuid，默认24小时过期
-                    redisUtils.set(redisKey,"点击时间：" + DateUtils.formatYmdHms(new Date()));
-                }else {
+                final boolean b = checkIpRecord(ipAddress, 1, treatiseUuid, DateUtils.formatYmd(now));
+                if (b){
                     return R.error("谢谢支持，今天已经赞过这篇了");
                 }
                 //修改文章点赞总数量
@@ -112,7 +104,7 @@ public class BlogLogRecordServiceImpl extends ServiceImpl<BlogLogRecordMapper, B
      * 检查ip是否今日已经记录了
      */
     private boolean checkIpRecord(String ipAddress, Integer recordType, String treatiseUuid, String nowDate){
-        Wrapper wrapper = new EntityWrapper<BlogLogRecord>();
+        Wrapper<BlogLogRecord> wrapper = new EntityWrapper<BlogLogRecord>();
         wrapper.eq("ip_address",ipAddress);
         wrapper.eq("record_type",recordType);
         if (!StringUtils.isEmpty(treatiseUuid)){
@@ -120,7 +112,7 @@ public class BlogLogRecordServiceImpl extends ServiceImpl<BlogLogRecordMapper, B
         }
         wrapper.like("create_time", nowDate);
         //查询该ip是今日否点过赞
-        Integer recordNum = selectCount(wrapper);
-        return (recordNum != null && recordNum > 0);
+        int recordNum = selectCount(wrapper);
+        return recordNum > 0;
     }
 }

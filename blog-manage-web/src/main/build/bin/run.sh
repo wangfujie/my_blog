@@ -5,7 +5,7 @@
 workdir=$(pwd)
 
 #jvm参数配置
-jvm="-server -Xmx1024m -Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom"
+jvm="-server -Xmx128m -Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom"
 
 #项目jar包文件
 app_name=blog-manage-web.jar
@@ -39,8 +39,8 @@ is_exist(){
 	fi
 }
 
-#启动方法
-start(){
+#后台启动方法
+nohup_start(){
 	is_exist
 	if [ $? -eq "0" ]; then
 		echo "${app_name} is already running,pid is ${pid}"
@@ -48,10 +48,26 @@ start(){
 		rm -f ${log_file}
 		rm -f ${pid_file}
 		#后台运行jar包并记录日志
-		nohup java ${jvm} -jar ${config_file} ${app_name} > ${log_file} 2>&1 &
+		nohup java ${jvm} -jar ${app_name} ${config_file} > ${log_file} 2>&1 &
 		#记录pid
 		echo $! > ${pid_file}
 		echo "${app_name} is start success,pid is $!"
+	fi
+}
+
+#启动方法
+start(){
+	is_exist
+	if [ $? -eq "0" ]; then
+		echo "${app_name} is already running,pid is ${pid}"
+	else
+	  if [ $SPRING_PROFILES_ACTIVE ];then
+	    echo "执行命令：java -jar ${workdir}/${app_name} --spring.profiles.active=$SPRING_PROFILES_ACTIVE"
+    	java -jar ${workdir}/${app_name} --spring.profiles.active=$SPRING_PROFILES_ACTIVE
+    else
+      echo "执行命令：java -jar ${workdir}/${app_name}"
+    	java -jar ${workdir}/${app_name}
+    fi
 	fi
 }
 
@@ -85,6 +101,7 @@ restart(){
 #根据输入参数,选择执行对应方法,不输入则执行使用说明
 case "$1" in
 	"start") start;;
+	"nohup_start") nohup_start;;
 	"stop") stop;;
 	"status") status;;
 	"restart") restart;;
