@@ -5,15 +5,15 @@ baidu:
     syncTime: 0 0 0/1 * * ?
 file:
   staticAccessPath: /blog/
-  uploadPath: /upload-path/
+  uploadPath: /app/resource/upload-path/
 resource:
-  upload-path: /resource-file/
+  upload-path: /app/resource/resource-file/
 
 spring:
   datasource:
-    url: jdbc:mysql://47.108.169.4:3306/my_blog?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8&amp&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://127.0.0.1:3306/my_blog?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8&amp&allowPublicKeyRetrieval=true
     username: ${MYSQL_USERNAME:root}
-    password: ${MYSQL_PASSWORD:wangfj}
+    password: ${MYSQL_PASSWORD:root}
   http:
     multipart:
       max-file-size: 200mb

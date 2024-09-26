@@ -1,4 +1,5 @@
 version: '3.6'
+# docker stack deploy -c docker-compose-blog.yaml myblog
 services:
   mysql:
     image: mysql:8.0.22
@@ -9,19 +10,24 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=wangfj
     deploy:
-      replicas: 0
+      replicas: 1
       resources:
         limits:
-          cpus: '6'
-          memory: 12G
+          cpus: '0.5'
+          memory: 500M
         reservations:
-          cpus: ".500"
-          memory: 4G
+          cpus: ".250"
+          memory: 200M
 
   blog-index-web:
     image: blog-index-web:latest
     environment:
       - SPRING_PROFILES_ACTIVE=pro
+    depends_on:
+      # 确保 mysql 健康后再启动
+      - mysql
+    volumes:
+      - "index-volume:/app/resource"
     healthcheck:
       test: [ "CMD-SHELL", "curl -sS http://127.0.0.1:8088/health | grep '\"status\":\"UP\"'" ]
       interval: 10s
@@ -44,6 +50,11 @@ services:
 
   blog-manage-web:
     image: blog-manage-web:latest
+    depends_on:
+      # 确保 mysql 健康后再启动
+      - mysql
+    volumes:
+      - "manage-volume:/app/resource"
     environment:
       - SPRING_PROFILES_ACTIVE=pro
     healthcheck:
@@ -66,7 +77,4 @@ services:
           cpus: ".250"
           memory: 200M
 
-networks:
-  host:
-    external: true
 volumes: {mysql-volume: null, index-volume: null, manage-volume: null}

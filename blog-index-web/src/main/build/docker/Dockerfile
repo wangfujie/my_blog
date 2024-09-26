@@ -4,8 +4,12 @@ ENV APP_VERSION 1.0.0
 ENV SPRING_PROFILES_ACTIVE $SPRING_PROFILES_ACTIVE
 # 拷贝包到容器，会自动解压
 ADD blog-index-web.tar.gz /app
+# 设置工作目录
+WORKDIR /app/blog-index-web
 # 启动脚本
 ENTRYPOINT ["sh", "/app/blog-index-web/run.sh", "start"]
-EXPOSE 8086
+EXPOSE 8088
 
-# 构建命令: docker build -t blog-index-web .
+# 构建命令: docker build -f Dockerfile -t blog-index-web .
+# 启动容器: docker run --name=blog-index-dev -d --env "SPRING_PROFILES_ACTIVE=dev" -p 8088:8088 -p 18086:18086 blog-index-web
+# 启动容器: docker run --name=blog-index-test -d --env "SPRING_PROFILES_ACTIVE=test" -p 8088:8088 blog-index-web

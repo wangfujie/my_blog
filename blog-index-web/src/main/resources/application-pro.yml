@@ -1,10 +1,10 @@
 # 富文本上传图片后显示本地图片配置，增加映射
 image:
-  upload-path: /opt/upload-path/
+  upload-path: /app/resource/upload-path/
 
 # 资源文件上传路径
 resource:
-    upload-path: /opt/resource-file/
+    upload-path: /app/resource/resource-file/
 
 server:
   port: 8088                #配置端口号
