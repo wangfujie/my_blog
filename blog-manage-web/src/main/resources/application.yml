@@ -6,6 +6,8 @@ server:
     min-spare-threads: 30
     uri-encoding: UTF-8
 spring:
+  application:
+    name: blog-manage-web
   datasource:
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver

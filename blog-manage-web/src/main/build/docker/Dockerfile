@@ -7,3 +7,5 @@ ADD blog-manage-web.tar.gz /app
 # 启动脚本
 ENTRYPOINT ["sh", "/app/blog-manage-web/run.sh", "start"]
 EXPOSE 8098
+
+# 构建命令: docker build -t blog-manage-web .

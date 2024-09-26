@@ -18,8 +18,8 @@ services:
           cpus: ".500"
           memory: 4G
 
-  blog-index:
-    image: myblog-index:latest
+  blog-index-web:
+    image: blog-index-web:latest
     environment:
       - SPRING_PROFILES_ACTIVE=pro
     healthcheck:
@@ -42,8 +42,8 @@ services:
           cpus: ".250"
           memory: 300M
 
-  blog-manage:
-    image: myblog-manage:latest
+  blog-manage-web:
+    image: blog-manage-web:latest
     environment:
       - SPRING_PROFILES_ACTIVE=pro
     healthcheck:

@@ -12,6 +12,8 @@ server:
 
 # 环境 dev|test|pro
 spring:
+  application:
+    name: blog-index-web
   profiles:
     active: dev
   datasource:
