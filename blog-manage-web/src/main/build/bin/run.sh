@@ -11,7 +11,7 @@ jvm="-server -Xmx128m -Djava.awt.headless=true -Djava.security.egd=file:/dev/./u
 app_name=blog-manage-web.jar
 
 #项目配置文件类型(properties|yml)
-config_type=properties
+config_type=yml
 
 #项目配置文件
 config_file="-Dspring.config.location=${workdir}/application.${config_type}"
