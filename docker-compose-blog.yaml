@@ -21,6 +21,10 @@ services:
 
   blog-index-web:
     image: blog-index-web:latest
+    ports:
+      - "8088:8088"
+    env_file:
+      - file.env
     environment:
       - SPRING_PROFILES_ACTIVE=pro
     depends_on:
@@ -50,11 +54,15 @@ services:
 
   blog-manage-web:
     image: blog-manage-web:latest
+    ports:
+      - "8098:8098"
     depends_on:
       # 确保 mysql 健康后再启动
       - mysql
     volumes:
       - "manage-volume:/app/resource"
+    env_file:
+      - file.env
     environment:
       - SPRING_PROFILES_ACTIVE=pro
     healthcheck:
