@@ -13,7 +13,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: '0.5'
+          cpus: '1'
           memory: 500M
         reservations:
           cpus: ".250"
@@ -26,6 +26,7 @@ services:
     env_file:
       - file.env
     environment:
+      - JVM_XMX=256M
       - SPRING_PROFILES_ACTIVE=pro
     depends_on:
       # 确保 mysql 健康后再启动
@@ -34,23 +35,23 @@ services:
       - "index-volume:/app/resource"
     healthcheck:
       test: [ "CMD-SHELL", "curl -sS http://127.0.0.1:8088/health | grep '\"status\":\"UP\"'" ]
-      interval: 10s
-      timeout: 3s
+      interval: 30s
+      timeout: 30s
       retries: 3
       start_period: 300s
     deploy:
-      restart_policy: {condition: on-failure, delay: 10s}
+      restart_policy: {condition: on-failure, delay: 30s}
       mode: replicated
       replicas: 1
       resources:
         # 服务最大限制资源
         limits:
-          cpus: '0.5'
-          memory: 500M
+          cpus: '1'
+          memory: 300M
         # 服务最低满足资源
         reservations:
           cpus: ".250"
-          memory: 300M
+          memory: 200M
 
   blog-manage-web:
     image: blog-manage-web:latest
@@ -64,22 +65,23 @@ services:
     env_file:
       - file.env
     environment:
+      - JVM_XMX=256M
       - SPRING_PROFILES_ACTIVE=pro
-    healthcheck:
-      test: [ "CMD-SHELL", "curl -sS http://127.0.0.1:8098/health | grep '\"status\":\"UP\"'" ]
-      interval: 10s
-      timeout: 3s
-      retries: 3
-      start_period: 300s
+#    healthcheck:
+#      test: [ "CMD-SHELL", "curl -sS http://127.0.0.1:8098/health | grep '\"status\":\"UP\"'" ]
+#      interval: 10s
+#      timeout: 3s
+#      retries: 3
+#      start_period: 300s
     deploy:
-      restart_policy: {condition: on-failure, delay: 10s}
+      restart_policy: {condition: on-failure, delay: 30s}
       mode: replicated
       replicas: 1
       resources:
         # 服务最大限制资源
         limits:
           cpus: '0.5'
-          memory: 500M
+          memory: 300M
         # 服务最低满足资源
         reservations:
           cpus: ".250"

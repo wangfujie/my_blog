@@ -4,8 +4,17 @@
 #获取项目运行目录
 workdir=$(pwd)
 
+# 检查环境变量 JVM_XMX 是否存在
+if [ -z "$JVM_XMX" ]; then
+    # 如果不存在，则设置默认值
+    xmx="256M"
+else
+    # 如果存在，则使用环境变量的值
+    xmx="$JVM_XMX"
+fi
+
 #jvm参数配置
-jvm="-server -Xmx256m -Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom"
+jvm="-server -Xmx${xmx} -Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom"
 
 #项目jar包文件
 app_name=blog-index-web.jar
@@ -63,10 +72,10 @@ start(){
 	else
 	  if [ $SPRING_PROFILES_ACTIVE ];then
 	    echo "执行命令：java -jar ${workdir}/${app_name} --spring.profiles.active=$SPRING_PROFILES_ACTIVE"
-    	java -jar ${workdir}/${app_name} --spring.profiles.active=$SPRING_PROFILES_ACTIVE
+    	java -jar ${jvm} ${workdir}/${app_name} ${config_file} --spring.profiles.active=$SPRING_PROFILES_ACTIVE
     else
       echo "执行命令：java -jar ${workdir}/${app_name}"
-    	java -jar ${workdir}/${app_name}
+    	java -jar ${jvm} ${workdir}/${app_name} ${config_file}
     fi
 	fi
 }
